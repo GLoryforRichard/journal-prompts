@@ -19,7 +19,7 @@
     "list-users": "tsx scripts/list-users.ts",
     "fix-payments": "tsx scripts/fix-payments.ts",
     "fix-payments-scene": "tsx scripts/fix-payments-scene.ts",
-    "distribute-credits": "node -r dotenv/config -r tsconfig-paths/register node_modules/tsx/dist/cli.mjs scripts/distribute-credits.ts",
+    "distribute-credits": "tsx scripts/distribute-credits.ts",
     "content": "fumadocs-mdx",
     "email": "email dev --dir src/mail/templates --port 3333",
     "knip": "knip"
