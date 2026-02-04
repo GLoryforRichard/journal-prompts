@@ -7,8 +7,6 @@ import { distributeCreditsToAllUsers } from '../src/credits/distribute';
 
 async function main() {
   console.log('CREDIT_WORKFLOW_ENABLED:', process.env.CREDIT_WORKFLOW_ENABLED);
-  console.log('DATABASE_URL:', process.env.DATABASE_URL);
-
   // Workflow can force-run via CREDIT_WORKFLOW_ENABLED; otherwise use app config
   const workflowEnabled = process.env.CREDIT_WORKFLOW_ENABLED === 'true';
   if (!workflowEnabled) {
