@@ -6,17 +6,11 @@
 import { distributeCreditsToAllUsers } from '../src/credits/distribute';
 
 async function main() {
-  console.log('CREDIT_WORKFLOW_ENABLED:', process.env.CREDIT_WORKFLOW_ENABLED);
-  // Workflow can force-run via CREDIT_WORKFLOW_ENABLED; otherwise use app config
-  const workflowEnabled = process.env.CREDIT_WORKFLOW_ENABLED === 'true';
-  if (!workflowEnabled) {
-    console.log('Credit workflow is not enabled, skip distribution.');
-    process.exit(0);
-  }
+  console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
   if (!process.env.DATABASE_URL) {
-    console.error('DATABASE_URL is required for credit distribution.');
-    process.exit(1);
+    console.log('DATABASE_URL is not configured, skip distribution.');
+    process.exit(0);
   }
 
   console.log('>>> Credit distribution script start');
