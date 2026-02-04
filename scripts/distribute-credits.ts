@@ -7,12 +7,10 @@ import { websiteConfig } from '../src/config/website';
 import { distributeCreditsToAllUsers } from '../src/credits/distribute';
 
 async function main() {
-  // Allow workflow to run via CREDIT_WORKFLOW_ENABLED env var
+  // Workflow can force-run via CREDIT_WORKFLOW_ENABLED; otherwise use app config
   const workflowEnabled = process.env.CREDIT_WORKFLOW_ENABLED === 'true';
-  const creditsEnabled = websiteConfig.credits?.enableCredits === true;
-
-  if (!workflowEnabled || !creditsEnabled) {
-    console.log('Credits module is not enabled, skip distribution.');
+  if (!workflowEnabled) {
+    console.log('Credit workflow is not enabled, skip distribution.');
     process.exit(0);
   }
 
