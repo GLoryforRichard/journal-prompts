@@ -30,4 +30,4 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           CREDIT_WORKFLOW_ENABLED: ${{ secrets.CREDIT_WORKFLOW_ENABLED }}
-        run: pnpm run distribute-credits
+        run: npx tsx scripts/distribute-credits.ts
