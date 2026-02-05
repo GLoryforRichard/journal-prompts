@@ -675,6 +675,34 @@
           "success": "Account deleted successfully",
           "fail": "Failed to delete account"
         }
+      },
+      "apiKeys": {
+        "title": "API Keys",
+        "description": "Manage your API keys for authentication",
+        "createButton": "Create API Key",
+        "createDialogTitle": "Create New API Key",
+        "createDialogDescription": "Give your API key a name to identify it later",
+        "keyNameLabel": "Key Name",
+        "keyNamePlaceholder": "My API Key",
+        "cancel": "Cancel",
+        "create": "Create",
+        "creating": "Creating...",
+        "noResults": "No API keys found",
+        "nameRequired": "Please enter a key name",
+        "fetchError": "Failed to fetch API keys",
+        "createSuccess": "API key created successfully",
+        "createError": "Failed to create API key",
+        "deleteSuccess": "API key deleted successfully",
+        "deleteError": "Failed to delete API key",
+        "keyCreated": "Your new key: {key}\n\nPlease save this key now. You won't be able to see it again!",
+        "never": "Never",
+        "columns": {
+          "name": "Name",
+          "prefix": "Prefix",
+          "createdAt": "Created At",
+          "expiresAt": "Expires At",
+          "actions": "Actions"
+        }
       }
     },
     "upgrade": {

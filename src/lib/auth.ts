@@ -11,7 +11,7 @@ import { subscribe } from '@/newsletter';
 import { type User, betterAuth } from 'better-auth';
 import { emailHarmony } from 'better-auth-harmony';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { admin } from 'better-auth/plugins';
+import { admin, apiKey } from 'better-auth/plugins';
 import { parse as parseCookies } from 'cookie';
 import type { Locale } from 'next-intl';
 import { getAllPricePlans } from './price-plan';
@@ -136,6 +136,9 @@ export const auth = betterAuth({
       bannedUserMessage:
         'You have been banned from this application. Please contact support if you believe this is an error.',
     }),
+    // https://www.better-auth.com/docs/plugins/api-key
+    // support API key management for user authentication
+    apiKey(),
     // https://github.com/gekorm/better-auth-harmony
     // Email normalization and validation to prevent duplicate registrations
     emailHarmony({
