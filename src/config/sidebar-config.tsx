@@ -80,6 +80,16 @@ export function useSidebarLinks(): NestedMenuItem[] {
               },
             ]
           : []),
+        ...(websiteConfig.apikeys.enable
+          ? [
+              {
+                title: t('settings.apiKeys.title'),
+                icon: <KeyIcon className="size-4 shrink-0" />,
+                href: Routes.SettingsApiKeys,
+                external: false,
+              },
+            ]
+          : []),
         {
           title: t('settings.security.title'),
           icon: <LockKeyholeIcon className="size-4 shrink-0" />,
@@ -90,12 +100,6 @@ export function useSidebarLinks(): NestedMenuItem[] {
           title: t('settings.notification.title'),
           icon: <BellIcon className="size-4 shrink-0" />,
           href: Routes.SettingsNotifications,
-          external: false,
-        },
-        {
-          title: t('settings.apiKeys.title'),
-          icon: <KeyIcon className="size-4 shrink-0" />,
-          href: Routes.SettingsApiKeys,
           external: false,
         },
       ],

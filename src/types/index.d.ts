@@ -11,6 +11,7 @@ export type WebsiteConfig = {
   features: FeaturesConfig;
   routes: RoutesConfig;
   analytics: AnalyticsConfig;
+  apikeys: ApiKeysConfig;
   auth: AuthConfig;
   i18n: I18nConfig;
   blog: BlogConfig;
@@ -94,6 +95,16 @@ export interface AnalyticsConfig {
   enableSpeedInsights?: boolean;      // Whether to enable speed insights
 }
 
+/**
+ * API keys configuration
+ */
+export interface ApiKeysConfig {
+  enable: boolean;                   // Whether to enable the api keys
+}
+
+/**
+ * Auth configuration
+ */
 export interface AuthConfig {
   enableGoogleLogin?: boolean;       // Whether to enable google login
   enableGithubLogin?: boolean;       // Whether to enable github login

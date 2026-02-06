@@ -46,6 +46,9 @@ export const websiteConfig: WebsiteConfig = {
     enableVercelAnalytics: false,
     enableSpeedInsights: false,
   },
+  apikeys: {
+    enable: process.env.NEXT_PUBLIC_DEMO_WEBSITE === 'true',
+  },
   auth: {
     enableGoogleLogin: true,
     enableGithubLogin: true,
