@@ -675,6 +675,35 @@
           "success": "账号删除成功",
           "fail": "删除账号失败"
         }
+      },
+      "apiKeys": {
+        "title": "API 密钥",
+        "description": "管理您的 API 密钥以进行身份验证",
+        "createButton": "创建 API 密钥",
+        "createDialogTitle": "创建新的 API 密钥",
+        "createDialogDescription": "为您的 API 密钥命名以便后续识别",
+        "keyNameLabel": "密钥名称",
+        "keyNamePlaceholder": "请输入 API 密钥的名称",
+        "cancel": "取消",
+        "create": "创建",
+        "creating": "创建中...",
+        "noResults": "未找到 API 密钥",
+        "createSuccess": "API 密钥创建成功",
+        "createError": "创建 API 密钥失败",
+        "deleteSuccess": "API 密钥已删除",
+        "deleteError": "删除 API 密钥失败",
+        "never": "永不过期",
+        "delete": "删除",
+        "done": "完成",
+        "newKeyDialogTitle": "您的新 API 密钥",
+        "newKeyDialogDescription": "请立即复制并保存此密钥，您将无法再次查看它！",
+        "columns": {
+          "name": "名称",
+          "key": "密钥",
+          "createdAt": "创建时间",
+          "expiresAt": "过期时间",
+          "actions": "操作"
+        }
       }
     },
     "upgrade": {
