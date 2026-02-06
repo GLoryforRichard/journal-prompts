@@ -683,7 +683,7 @@
         "createDialogTitle": "Create New API Key",
         "createDialogDescription": "Give your API key a name to identify it later",
         "keyNameLabel": "Key Name",
-        "keyNamePlaceholder": "My API Key",
+        "keyNamePlaceholder": "Please enter a name for your API key",
         "cancel": "Cancel",
         "create": "Create",
         "creating": "Creating...",
@@ -694,6 +694,9 @@
         "deleteError": "Failed to delete API key",
         "never": "Never",
         "delete": "Delete",
+        "done": "Done",
+        "newKeyDialogTitle": "Your New API Key",
+        "newKeyDialogDescription": "Please copy and save this key now. You won't be able to see it again!",
         "columns": {
           "name": "Name",
           "key": "Key",

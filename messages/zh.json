@@ -683,7 +683,7 @@
         "createDialogTitle": "创建新的 API 密钥",
         "createDialogDescription": "为您的 API 密钥命名以便后续识别",
         "keyNameLabel": "密钥名称",
-        "keyNamePlaceholder": "我的 API 密钥",
+        "keyNamePlaceholder": "请输入 API 密钥的名称",
         "cancel": "取消",
         "create": "创建",
         "creating": "创建中...",
@@ -694,6 +694,9 @@
         "deleteError": "删除 API 密钥失败",
         "never": "永不过期",
         "delete": "删除",
+        "done": "完成",
+        "newKeyDialogTitle": "您的新 API 密钥",
+        "newKeyDialogDescription": "请立即复制并保存此密钥，您将无法再次查看它！",
         "columns": {
           "name": "名称",
           "key": "密钥",

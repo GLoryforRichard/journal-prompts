@@ -1,6 +1,5 @@
 'use client';
 
-import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import { DataTablePagination } from '@/components/data-table/data-table-pagination';
 import { Button } from '@/components/ui/button';
 import {
@@ -33,14 +32,19 @@ import type { ApiKey } from '@/db/types';
 import { formatDate } from '@/lib/formatter';
 import {
   type ColumnDef,
-  type SortingState,
   type VisibilityState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { MoreHorizontalIcon, PlusIcon, TrashIcon } from 'lucide-react';
+import {
+  CheckIcon,
+  CopyIcon,
+  MoreHorizontalIcon,
+  PlusIcon,
+  TrashIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
@@ -56,6 +60,12 @@ function TableRowSkeleton({ columns }: { columns: number }) {
   );
 }
 
+// Mask API key for display: show start + asterisks
+function maskApiKey(start: string | null | undefined): string {
+  if (!start) return '••••••••••••••••';
+  return `${start}••••••••••••`;
+}
+
 interface ApiKeysTableProps {
   data: ApiKey[];
   total: number;
@@ -66,7 +76,7 @@ interface ApiKeysTableProps {
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
   onDelete: (keyId: string) => void;
-  onCreate: (name: string) => void;
+  onCreate: (name: string) => Promise<{ key: string } | undefined>;
 }
 
 export function ApiKeysTable({
@@ -83,9 +93,11 @@ export function ApiKeysTable({
 }: ApiKeysTableProps) {
   const t = useTranslations('Dashboard.settings.apiKeys');
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [sorting, setSorting] = useState<SortingState>([]);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [newKeyName, setNewKeyName] = useState('');
+  const [newKeyDialogOpen, setNewKeyDialogOpen] = useState(false);
+  const [newKeyValue, setNewKeyValue] = useState('');
+  const [copied, setCopied] = useState(false);
 
   // Table columns definition
   const columns: ColumnDef<ApiKey>[] = useMemo(
@@ -93,9 +105,7 @@ export function ApiKeysTable({
       {
         id: 'name',
         accessorKey: 'name',
-        header: ({ column }) => (
-          <DataTableColumnHeader column={column} label={t('columns.name')} />
-        ),
+        header: t('columns.name'),
         cell: ({ row }) => {
           return (
             <div className="flex items-center gap-2">
@@ -108,36 +118,32 @@ export function ApiKeysTable({
         },
         minSize: 120,
         size: 140,
+        enableSorting: false,
       },
       {
         id: 'key',
-        accessorKey: 'key',
-        header: ({ column }) => (
-          <DataTableColumnHeader column={column} label={t('columns.key')} />
-        ),
+        accessorKey: 'start',
+        header: t('columns.key'),
         cell: ({ row }) => {
-          const key = row.original.key;
           return (
             <div className="flex items-center gap-2">
-              <span className="font-mono">{key || '-'}</span>
+              <span className="font-mono text-muted-foreground">
+                {maskApiKey(row.original.start)}
+              </span>
             </div>
           );
         },
         meta: {
           label: t('columns.key'),
         },
-        minSize: 200,
-        size: 280,
+        minSize: 180,
+        size: 220,
+        enableSorting: false,
       },
       {
         id: 'createdAt',
         accessorKey: 'createdAt',
-        header: ({ column }) => (
-          <DataTableColumnHeader
-            column={column}
-            label={t('columns.createdAt')}
-          />
-        ),
+        header: t('columns.createdAt'),
         cell: ({ row }) => {
           return (
             <div className="flex items-center gap-2">
@@ -150,16 +156,12 @@ export function ApiKeysTable({
         },
         minSize: 140,
         size: 160,
+        enableSorting: false,
       },
       {
         id: 'expiresAt',
         accessorKey: 'expiresAt',
-        header: ({ column }) => (
-          <DataTableColumnHeader
-            column={column}
-            label={t('columns.expiresAt')}
-          />
-        ),
+        header: t('columns.expiresAt'),
         cell: ({ row }) => {
           return (
             <div className="flex items-center gap-2">
@@ -174,6 +176,7 @@ export function ApiKeysTable({
         },
         minSize: 140,
         size: 160,
+        enableSorting: false,
       },
       {
         id: 'actions',
@@ -202,6 +205,7 @@ export function ApiKeysTable({
         },
         minSize: 80,
         size: 100,
+        enableSorting: false,
       },
     ],
     [t, onDelete]
@@ -212,12 +216,10 @@ export function ApiKeysTable({
     columns,
     pageCount: Math.ceil(total / pageSize),
     state: {
-      sorting,
       columnFilters: [],
       columnVisibility,
       pagination: { pageIndex, pageSize },
     },
-    onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: (updater) => {
       const next =
@@ -234,16 +236,33 @@ export function ApiKeysTable({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
-    manualSorting: true,
     manualFiltering: true,
     enableMultiSort: false,
   });
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!newKeyName.trim()) return;
-    onCreate(newKeyName.trim());
+    const result = await onCreate(newKeyName.trim());
     setNewKeyName('');
     setCreateDialogOpen(false);
+
+    // Show the new key dialog if creation was successful
+    if (result?.key) {
+      setNewKeyValue(result.key);
+      setNewKeyDialogOpen(true);
+    }
+  };
+
+  const handleCopyKey = async () => {
+    await navigator.clipboard.writeText(newKeyValue);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCloseNewKeyDialog = () => {
+    setNewKeyDialogOpen(false);
+    setNewKeyValue('');
+    setCopied(false);
   };
 
   return (
@@ -295,6 +314,40 @@ export function ApiKeysTable({
           </DialogContent>
         </Dialog>
       </div>
+
+      {/* New API Key Dialog - shows after successful creation */}
+      <Dialog open={newKeyDialogOpen} onOpenChange={handleCloseNewKeyDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('newKeyDialogTitle')}</DialogTitle>
+            <DialogDescription>{t('newKeyDialogDescription')}</DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="flex items-center gap-2">
+              <Input
+                readOnly
+                value={newKeyValue}
+                className="font-mono text-sm"
+              />
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleCopyKey}
+                className="shrink-0"
+              >
+                {copied ? (
+                  <CheckIcon className="size-4 text-green-500" />
+                ) : (
+                  <CopyIcon className="size-4" />
+                )}
+              </Button>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={handleCloseNewKeyDialog}>{t('done')}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <div className="relative flex flex-col gap-4 overflow-auto">
         <div className="overflow-hidden rounded-lg border">

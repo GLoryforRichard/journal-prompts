@@ -23,18 +23,23 @@ export function ApiKeysPageClient() {
   const createMutation = useCreateApiKey();
   const deleteMutation = useDeleteApiKey();
 
-  const handleCreate = (name: string) => {
-    createMutation.mutate(
-      { name },
-      {
-        onSuccess: () => {
-          toast.success(t('createSuccess'));
-        },
-        onError: () => {
-          toast.error(t('createError'));
-        },
-      }
-    );
+  const handleCreate = async (name: string) => {
+    return new Promise<{ key: string } | undefined>((resolve) => {
+      createMutation.mutate(
+        { name },
+        {
+          onSuccess: (data) => {
+            toast.success(t('createSuccess'));
+            // Return the key to show in the dialog
+            resolve(data?.key ? { key: data.key } : undefined);
+          },
+          onError: () => {
+            toast.error(t('createError'));
+            resolve(undefined);
+          },
+        }
+      );
+    });
   };
 
   const handleDelete = (keyId: string) => {
