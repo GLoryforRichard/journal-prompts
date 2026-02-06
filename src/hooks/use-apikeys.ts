@@ -50,11 +50,13 @@ export function useCreateApiKey() {
 
   return useMutation({
     mutationFn: async ({ name }: { name: string }) => {
-      const result = await authClient.apiKey.create({ name });
-      if ('data' in result && result.data) {
-        return result.data;
+      const { data, error } = await authClient.apiKey.create({ name });
+
+      if (error) {
+        throw new Error(error.message || 'Failed to create API key');
       }
-      throw new Error('Failed to create API key');
+
+      return data;
     },
     onSuccess: () => {
       // Invalidate all API keys queries to refresh the data
@@ -71,7 +73,11 @@ export function useDeleteApiKey() {
 
   return useMutation({
     mutationFn: async ({ keyId }: { keyId: string }) => {
-      await authClient.apiKey.delete({ keyId });
+      const { error } = await authClient.apiKey.delete({ keyId });
+
+      if (error) {
+        throw new Error(error.message || 'Failed to delete API key');
+      }
     },
     onSuccess: () => {
       // Invalidate all API keys queries to refresh the data

@@ -138,7 +138,10 @@ export const auth = betterAuth({
     }),
     // https://www.better-auth.com/docs/plugins/api-key
     // support API key management for user authentication
-    apiKey(),
+    apiKey({
+      // Disable key hashing to allow displaying the full key in the UI
+      disableKeyHashing: true,
+    }),
     // https://github.com/gekorm/better-auth-harmony
     // Email normalization and validation to prevent duplicate registrations
     emailHarmony({

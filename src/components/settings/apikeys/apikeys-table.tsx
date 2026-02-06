@@ -2,7 +2,6 @@
 
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import { DataTablePagination } from '@/components/data-table/data-table-pagination';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -13,6 +12,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -35,7 +40,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { PlusIcon, TrashIcon } from 'lucide-react';
+import { MoreHorizontalIcon, PlusIcon, TrashIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
@@ -105,30 +110,24 @@ export function ApiKeysTable({
         size: 140,
       },
       {
-        id: 'start',
-        accessorKey: 'start',
+        id: 'key',
+        accessorKey: 'key',
         header: ({ column }) => (
-          <DataTableColumnHeader column={column} label={t('columns.prefix')} />
+          <DataTableColumnHeader column={column} label={t('columns.key')} />
         ),
         cell: ({ row }) => {
-          const start = row.original.start;
+          const key = row.original.key;
           return (
             <div className="flex items-center gap-2">
-              {start ? (
-                <Badge variant="outline" className="font-mono text-xs">
-                  {start}...
-                </Badge>
-              ) : (
-                '-'
-              )}
+              <span className="font-mono">{key || '-'}</span>
             </div>
           );
         },
         meta: {
-          label: t('columns.prefix'),
+          label: t('columns.key'),
         },
-        minSize: 100,
-        size: 120,
+        minSize: 200,
+        size: 280,
       },
       {
         id: 'createdAt',
@@ -182,16 +181,20 @@ export function ApiKeysTable({
         cell: ({ row }) => {
           const keyId = row.original.id;
           return (
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                onClick={() => onDelete(keyId)}
-              >
-                <TrashIcon className="size-4" />
-              </Button>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <MoreHorizontalIcon className="size-4" />
+                  <span className="sr-only">{t('columns.actions')}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => onDelete(keyId)}>
+                  <TrashIcon className="mr-2 size-4" />
+                  {t('delete')}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           );
         },
         meta: {
@@ -268,6 +271,11 @@ export function ApiKeysTable({
                   placeholder={t('keyNamePlaceholder')}
                   value={newKeyName}
                   onChange={(e) => setNewKeyName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !creating) {
+                      handleCreate();
+                    }
+                  }}
                   disabled={creating}
                 />
               </div>
