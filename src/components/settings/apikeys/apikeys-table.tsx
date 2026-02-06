@@ -127,7 +127,7 @@ export function ApiKeysTable({
         cell: ({ row }) => {
           return (
             <div className="flex items-center gap-2">
-              <span className="font-mono text-muted-foreground">
+              <span className="font-mono">
                 {maskApiKey(row.original.start)}
               </span>
             </div>
@@ -267,11 +267,11 @@ export function ApiKeysTable({
 
   return (
     <div className="w-full space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-end">
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button>
-              <PlusIcon className="mr-2 size-4" />
+              <PlusIcon className="size-4" />
               {t('createButton')}
             </Button>
           </DialogTrigger>
@@ -283,8 +283,10 @@ export function ApiKeysTable({
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <Label htmlFor="key-name">{t('keyNameLabel')}</Label>
+              <div className="flex items-center gap-4">
+                <Label htmlFor="key-name" className="shrink-0">
+                  {t('keyNameLabel')}
+                </Label>
                 <Input
                   id="key-name"
                   placeholder={t('keyNamePlaceholder')}
@@ -320,7 +322,9 @@ export function ApiKeysTable({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{t('newKeyDialogTitle')}</DialogTitle>
-            <DialogDescription>{t('newKeyDialogDescription')}</DialogDescription>
+            <DialogDescription>
+              {t('newKeyDialogDescription')}
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="flex items-center gap-2">
