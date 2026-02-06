@@ -1,4 +1,4 @@
-import { ApiKeysPageClient } from '@/components/settings/api-keys/api-keys-page-client';
+import { ApiKeysPageClient } from '@/components/settings/apikeys/apikeys-page-client';
 
 /**
  * API Keys settings page

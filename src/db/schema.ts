@@ -1,5 +1,6 @@
 import { boolean, integer, pgTable, text, timestamp, index } from "drizzle-orm/pg-core";
 
+// https://www.better-auth.com/docs/concepts/database#core-schema
 export const user = pgTable("user", {
 	id: text("id").primaryKey(),
 	name: text('name').notNull(),
@@ -64,6 +65,7 @@ export const verification = pgTable("verification", {
 	updatedAt: timestamp('updated_at')
 });
 
+// https://www.better-auth.com/docs/plugins/api-key#schema
 export const apikey = pgTable("apikey", {
   id: text("id").primaryKey(),
   name: text("name"),
