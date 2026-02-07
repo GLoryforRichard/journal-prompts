@@ -9,7 +9,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { key } = body;
+    const { key } = body as { key?: string };
 
     if (!key || typeof key !== 'string') {
       return NextResponse.json(

@@ -42,7 +42,7 @@ export function VerifyApiKeyCard() {
         body: JSON.stringify({ key: apiKey.trim() }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as VerifyResult;
       setResult(data);
     } catch (error) {
       setResult({
