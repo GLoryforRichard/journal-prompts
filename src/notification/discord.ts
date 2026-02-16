@@ -78,3 +78,40 @@ export async function sendPaymentMessage(
     console.error('<< Failed to send Discord notification:', error);
   }
 }
+
+/**
+ * Send a credit distribution notification message to Discord when credits are distributed to all users
+ * @param usersCount The number of users that received credits
+ * @param processedCount The number of users that were processed
+ * @param errorCount The number of users that had errors
+ */
+export async function sendCreditDistributionMessage(
+  usersCount: number,
+  processedCount: number,
+  errorCount: number
+): Promise<void> {
+    try {
+      const message = {
+        username: `${defaultMessages.Metadata.name} Bot`,
+        avatar_url: `${getBaseUrl()}${websiteConfig.metadata?.images?.logoLight}`,
+        embeds: [
+          {
+            title: '🎉 Credit Distribution',
+            color: 0x4caf50, // Green color
+            fields: [
+              { name: 'Users', value: usersCount.toString(), inline: true },
+              { name: 'Processed', value: processedCount.toString(), inline: true },
+              { name: 'Errors', value: errorCount.toString(), inline: true },
+            ],
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      };
+      await sendMessage(message);
+      console.log(
+        `<< Successfully sent Discord notification for credit distribution`
+      );
+    } catch (error) {
+      console.error('<< Failed to send Discord notification:', error);
+    }
+}

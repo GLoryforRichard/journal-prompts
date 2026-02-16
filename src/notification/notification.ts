@@ -1,5 +1,7 @@
 import { sendPaymentMessage as sendPaymentMessageToDiscord } from './discord';
 import { sendPaymentMessage as sendPaymentMessageToFeishu } from './feishu';
+import { sendCreditDistributionMessage as sendCreditDistributionMessageToDiscord } from './discord';
+import { sendCreditDistributionMessage as sendCreditDistributionMessageToFeishu } from './feishu';
 
 /**
  * Send a payment notification message when a user makes a purchase
@@ -21,4 +23,24 @@ export async function sendPaymentNotification(
 
   // Send message to Feishu group
   await sendPaymentMessageToFeishu(sessionId, customerId, userName, amount);
+}
+
+/**
+ * Send a credit distribution notification message when credits are distributed to all users
+ * @param usersCount The number of users that received credits
+ * @param processedCount The number of users that were processed
+ * @param errorCount The number of users that had errors
+ */
+export async function sendCreditDistributionNotification(
+  usersCount: number,
+  processedCount: number,
+  errorCount: number
+): Promise<void> {
+  console.log('sendCreditDistributionNotification', usersCount, processedCount, errorCount);
+
+  // Send message to Discord channel
+  await sendCreditDistributionMessageToDiscord(usersCount, processedCount, errorCount);
+
+  // Send message to Feishu group
+  await sendCreditDistributionMessageToFeishu(usersCount, processedCount, errorCount);
 }

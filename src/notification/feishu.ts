@@ -55,3 +55,31 @@ export async function sendPaymentMessage(
     console.error('<< Failed to send Feishu notification:', error);
   }
 }
+
+/**
+ * Send a credit distribution notification message to Feishu when credits are distributed to all users
+ * @param usersCount The number of users that received credits
+ * @param processedCount The number of users that were processed
+ * @param errorCount The number of users that had errors
+ */
+export async function sendCreditDistributionMessage(
+  usersCount: number,
+  processedCount: number,
+  errorCount: number
+): Promise<void> {
+  try {
+    const message = {
+      msg_type: 'text',
+      content: {
+        text: `🎉 Credit Distribution\nUsers: ${usersCount}\nProcessed: ${processedCount}\nErrors: ${errorCount}`,
+      },
+    };
+    await sendMessage(message);
+
+    console.log(
+      `<< Successfully sent Feishu notification for credit distribution`
+    );
+  } catch (error) {
+    console.error('<< Failed to send Feishu notification:', error);
+  }
+}
