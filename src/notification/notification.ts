@@ -1,24 +1,24 @@
-import { sendMessageToDiscord } from './discord';
-import { sendMessageToFeishu } from './feishu';
+import { sendPaymentMessage as sendPaymentMessageToDiscord } from './discord';
+import { sendPaymentMessage as sendPaymentMessageToFeishu } from './feishu';
 
 /**
- * Send a notification when a user makes a purchase
+ * Send a payment notification message when a user makes a purchase
  * @param sessionId The Stripe checkout session ID
  * @param customerId The Stripe customer ID
  * @param userName The username of the customer
  * @param amount The purchase amount in the currency's main unit (e.g., dollars, not cents)
  */
-export async function sendNotification(
+export async function sendPaymentNotification(
   sessionId: string,
   customerId: string,
   userName: string,
   amount: number
 ): Promise<void> {
-  console.log('sendNotification', sessionId, customerId, userName, amount);
+  console.log('sendPaymentNotification', sessionId, customerId, userName, amount);
 
   // Send message to Discord channel
-  await sendMessageToDiscord(sessionId, customerId, userName, amount);
+  await sendPaymentMessageToDiscord(sessionId, customerId, userName, amount);
 
   // Send message to Feishu group
-  await sendMessageToFeishu(sessionId, customerId, userName, amount);
+  await sendPaymentMessageToFeishu(sessionId, customerId, userName, amount);
 }
