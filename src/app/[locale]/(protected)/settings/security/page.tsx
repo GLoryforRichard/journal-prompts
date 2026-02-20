@@ -4,6 +4,7 @@ import { websiteConfig } from '@/config/website';
 
 export default function SecurityPage() {
   const credentialLoginEnabled = websiteConfig.auth.enableCredentialLogin;
+  const deleteUserEnabled = websiteConfig.auth.enableDeleteUser;
 
   return (
     <div className="flex flex-col gap-8">
@@ -12,9 +13,11 @@ export default function SecurityPage() {
           <PasswordCardWrapper />
         </div>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <DeleteAccountCard />
-      </div>
+      {deleteUserEnabled && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <DeleteAccountCard />
+        </div>
+      )}
     </div>
   );
 }

@@ -113,7 +113,7 @@ export const auth = betterAuth({
     },
     // https://www.better-auth.com/docs/concepts/users-accounts#delete-user
     deleteUser: {
-      enabled: true,
+      enabled: websiteConfig.auth.enableDeleteUser ?? false,
     },
   },
   databaseHooks: {

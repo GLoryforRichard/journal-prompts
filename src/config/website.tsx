@@ -53,6 +53,7 @@ export const websiteConfig: WebsiteConfig = {
     enableGoogleLogin: true,
     enableGithubLogin: true,
     enableCredentialLogin: true,
+    enableDeleteUser: true,
   },
   i18n: {
     defaultLocale: 'en',
