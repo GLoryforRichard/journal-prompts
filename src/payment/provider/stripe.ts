@@ -15,7 +15,7 @@ import {
   PAYMENT_RECORD_RETRY_DELAY,
 } from '@/lib/constants';
 import { findPlanByPlanId, findPriceInPlan } from '@/lib/price-plan';
-import { sendNotification } from '@/notification/notification';
+import { sendPaymentNotification } from '@/notification/notification';
 import { desc, eq } from 'drizzle-orm';
 import { Stripe } from 'stripe';
 import {
@@ -853,7 +853,7 @@ export class StripeProvider implements PaymentProvider {
 
     // Send notification
     const amount = invoice.amount_paid ? invoice.amount_paid / 100 : 0;
-    await sendNotification(
+    await sendPaymentNotification(
       invoice.id,
       paymentRecord.customerId,
       paymentRecord.userId,

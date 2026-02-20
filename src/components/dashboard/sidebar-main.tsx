@@ -7,6 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
 import type { NestedMenuItem } from '@/types';
@@ -16,6 +17,11 @@ import type { NestedMenuItem } from '@/types';
  */
 export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
   const pathname = useLocalePathname();
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const closeMobileSidebar = () => {
+    if (isMobile) setOpenMobile(false);
+  };
 
   // Function to check if a path is active
   const isActive = (href: string | undefined): boolean => {
@@ -38,7 +44,7 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
                       asChild
                       isActive={isActive(subItem.href)}
                     >
-                      <LocaleLink href={subItem.href || ''}>
+                      <LocaleLink href={subItem.href || ''} onClick={closeMobileSidebar}>
                         {subItem.icon ? subItem.icon : null}
                         <span className="truncate font-medium text-sm">
                           {subItem.title}
@@ -57,7 +63,7 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild isActive={isActive(item.href)}>
-                    <LocaleLink href={item.href || ''}>
+                    <LocaleLink href={item.href || ''} onClick={closeMobileSidebar}>
                       {item.icon ? item.icon : null}
                       <span className="truncate font-medium text-sm">
                         {item.title}
