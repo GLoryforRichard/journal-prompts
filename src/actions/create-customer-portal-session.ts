@@ -2,7 +2,7 @@
 
 import { getDb } from '@/db';
 import { user } from '@/db/schema';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { userActionClient } from '@/lib/safe-action';
 import { getUrlWithLocale } from '@/lib/urls';
 import { createCustomerPortal } from '@/payment';
