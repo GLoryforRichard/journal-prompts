@@ -10,7 +10,7 @@ import LogoCloud from '@/components/blocks/logo-cloud/logo-cloud';
 import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
-import CrispChat from '@/components/layout/crisp-chat';
+import CrispChat from '@/components/chatbox/crisp-chat';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
