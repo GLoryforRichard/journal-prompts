@@ -2,9 +2,9 @@
 
 import { websiteConfig } from '@/config/website';
 import { getCreditPackageById } from '@/credits/server';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { userActionClient } from '@/lib/safe-action';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { createCreditCheckout } from '@/payment';
 import type { CreateCreditCheckoutParams } from '@/payment/types';
 import { Routes } from '@/routes';
@@ -25,7 +25,7 @@ const creditCheckoutSchema = z.object({
  * Create a checkout session for a credit package
  */
 export const createCreditCheckoutSession = userActionClient
-  .schema(creditCheckoutSchema)
+  .inputSchema(creditCheckoutSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { packageId, priceId, metadata } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

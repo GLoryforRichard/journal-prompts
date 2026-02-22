@@ -37,7 +37,7 @@ export class ResendNewsletterProvider implements NewsletterProvider {
    * @returns Provider name
    */
   public getProviderName(): string {
-    return 'Resend';
+    return 'resend';
   }
 
   /**

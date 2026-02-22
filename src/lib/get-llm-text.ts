@@ -1,5 +1,5 @@
 import type { source } from '@/lib/source';
-import { getBaseUrl } from '@/lib/urls/urls';
+import { getBaseUrl } from '@/lib/urls';
 import type { InferPageType } from 'fumadocs-core/source';
 
 /**

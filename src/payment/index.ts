@@ -6,13 +6,27 @@ import type {
   CreateCreditCheckoutParams,
   CreatePortalParams,
   PaymentProvider,
+  PaymentProviderName,
   PortalResult,
 } from './types';
 
-/**
- * Global payment provider instance
- */
+type PaymentProviderFactory = () => PaymentProvider;
+
+const providerRegistry: Partial<
+  Record<PaymentProviderName, PaymentProviderFactory>
+> = {
+  stripe: () => new StripeProvider(),
+};
+
 let paymentProvider: PaymentProvider | null = null;
+
+function createPaymentProvider(): PaymentProvider {
+  const name = websiteConfig.payment.provider;
+  if (!name) throw new Error('payment.provider is required in websiteConfig.');
+  const factory = providerRegistry[name];
+  if (!factory) throw new Error(`Unsupported payment provider: ${name}.`);
+  return factory();
+}
 
 /**
  * Get the payment provider
@@ -20,26 +34,7 @@ let paymentProvider: PaymentProvider | null = null;
  * @throws Error if provider is not initialized
  */
 export const getPaymentProvider = (): PaymentProvider => {
-  if (!paymentProvider) {
-    return initializePaymentProvider();
-  }
-  return paymentProvider;
-};
-
-/**
- * Initialize the payment provider
- * @returns initialized payment provider
- */
-export const initializePaymentProvider = (): PaymentProvider => {
-  if (!paymentProvider) {
-    if (websiteConfig.payment.provider === 'stripe') {
-      paymentProvider = new StripeProvider();
-    } else {
-      throw new Error(
-        `Unsupported payment provider: ${websiteConfig.payment.provider}`
-      );
-    }
-  }
+  if (!paymentProvider) paymentProvider = createPaymentProvider();
   return paymentProvider;
 };
 

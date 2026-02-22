@@ -2,7 +2,7 @@
 
 import { getDb } from '@/db';
 import { payment } from '@/db/schema';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { findPlanByPriceId, getAllPricePlans } from '@/lib/price-plan';
 import { userActionClient } from '@/lib/safe-action';
 import {
@@ -24,7 +24,7 @@ const schema = z.object({
  * Get user's current plan with subscription and lifetime status
  */
 export const getCurrentPlanAction = userActionClient
-  .schema(schema)
+  .inputSchema(schema)
   .action(async ({ ctx }) => {
     const currentUser = (ctx as { user: User }).user;
     const userId = currentUser.id;

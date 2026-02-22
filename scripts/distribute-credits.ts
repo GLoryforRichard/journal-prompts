@@ -3,7 +3,7 @@
  * Checks if credits module is enabled, then runs distributeCreditsToAllUsers directly
  * (no API call) to avoid timeout with large user counts.
  */
-import { sendCreditDistributionNotification } from '@/notification/notification';
+import { sendCreditDistributionNotification } from '@/notification';
 import { distributeCreditsToAllUsers } from '../src/credits/distribute';
 
 async function main() {
@@ -21,7 +21,11 @@ async function main() {
       `<<< Credit distribution done. users: ${result.usersCount}, processed: ${result.processedCount}, errors: ${result.errorCount}`
     );
     // send notification message
-    await sendCreditDistributionNotification(result.usersCount, result.processedCount, result.errorCount);
+    await sendCreditDistributionNotification({
+      usersCount: result.usersCount,
+      processedCount: result.processedCount,
+      errorCount: result.errorCount,
+    });
     process.exit(0);
   } catch (error) {
     console.error('Credit distribution failed:', error);

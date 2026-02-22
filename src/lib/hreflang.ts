@@ -2,7 +2,7 @@ import { websiteConfig } from '@/config/website';
 import { getLocalePathname } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 import type { Locale } from 'next-intl';
-import { getBaseUrl } from './urls/urls';
+import { getBaseUrl } from './urls';
 
 type Href = Parameters<typeof getLocalePathname>[0]['href'];
 

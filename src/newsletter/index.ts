@@ -1,44 +1,34 @@
 import { websiteConfig } from '@/config/website';
 import { BeehiivNewsletterProvider } from './provider/beehiiv';
 import { ResendNewsletterProvider } from './provider/resend';
-import type { NewsletterProvider } from './types';
+import type { NewsletterProvider, NewsletterProviderName } from './types';
 
-/**
- * Global newsletter provider instance
- */
+type NewsletterProviderFactory = () => NewsletterProvider;
+
+const providerRegistry: Partial<
+  Record<NewsletterProviderName, NewsletterProviderFactory>
+> = {
+  resend: () => new ResendNewsletterProvider(),
+  beehiiv: () => new BeehiivNewsletterProvider(),
+};
+
 let newsletterProvider: NewsletterProvider | null = null;
+
+function createNewsletterProvider(): NewsletterProvider {
+  const name = websiteConfig.newsletter.provider;
+  if (!name)
+    throw new Error('newsletter.provider is required in websiteConfig.');
+  const factory = providerRegistry[name];
+  if (!factory) throw new Error(`Unsupported newsletter provider: ${name}.`);
+  return factory();
+}
 
 /**
  * Get the newsletter provider
  * @returns current newsletter provider instance
  */
 export const getNewsletterProvider = (): NewsletterProvider => {
-  if (!newsletterProvider) {
-    return initializeNewsletterProvider();
-  }
-  return newsletterProvider;
-};
-
-/**
- * Initialize the newsletter provider
- * @returns initialized newsletter provider
- */
-export const initializeNewsletterProvider = (): NewsletterProvider => {
-  if (!newsletterProvider) {
-    switch (websiteConfig.newsletter.provider) {
-      case 'resend':
-        newsletterProvider = new ResendNewsletterProvider();
-        break;
-      case 'beehiiv':
-        newsletterProvider = new BeehiivNewsletterProvider();
-        break;
-      default:
-        throw new Error(
-          `Unsupported newsletter provider: ${websiteConfig.newsletter.provider}`
-        );
-    }
-  }
-
+  if (!newsletterProvider) newsletterProvider = createNewsletterProvider();
   return newsletterProvider;
 };
 

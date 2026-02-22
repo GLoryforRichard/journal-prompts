@@ -14,9 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { formatDate } from '@/lib/formatter';
-import { getStripeDashboardCustomerUrl } from '@/lib/urls/urls';
+import { getStripeDashboardCustomerUrl } from '@/lib/urls';
 import {
   type ColumnDef,
   type ColumnFiltersState,

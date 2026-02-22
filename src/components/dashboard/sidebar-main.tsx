@@ -44,7 +44,10 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
                       asChild
                       isActive={isActive(subItem.href)}
                     >
-                      <LocaleLink href={subItem.href || ''} onClick={closeMobileSidebar}>
+                      <LocaleLink
+                        href={subItem.href || ''}
+                        onClick={closeMobileSidebar}
+                      >
                         {subItem.icon ? subItem.icon : null}
                         <span className="truncate font-medium text-sm">
                           {subItem.title}
@@ -63,7 +66,10 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild isActive={isActive(item.href)}>
-                    <LocaleLink href={item.href || ''} onClick={closeMobileSidebar}>
+                    <LocaleLink
+                      href={item.href || ''}
+                      onClick={closeMobileSidebar}
+                    >
                       {item.icon ? item.icon : null}
                       <span className="truncate font-medium text-sm">
                         {item.title}

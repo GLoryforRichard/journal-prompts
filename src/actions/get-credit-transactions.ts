@@ -2,7 +2,7 @@
 
 import { getDb } from '@/db';
 import { creditTransaction } from '@/db/schema';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { userActionClient } from '@/lib/safe-action';
 import { and, asc, count as countFn, desc, eq, ilike, or } from 'drizzle-orm';
 import { z } from 'zod';
@@ -47,7 +47,7 @@ const sortFieldMap = {
 
 // Create a safe action for getting credit transactions
 export const getCreditTransactionsAction = userActionClient
-  .schema(getCreditTransactionsSchema)
+  .inputSchema(getCreditTransactionsSchema)
   .action(async ({ parsedInput, ctx }) => {
     try {
       const { pageIndex, pageSize, search, sorting, filters } = parsedInput;

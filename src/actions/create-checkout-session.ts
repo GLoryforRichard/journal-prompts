@@ -1,10 +1,10 @@
 'use server';
 
 import { websiteConfig } from '@/config/website';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { findPlanByPlanId } from '@/lib/price-plan';
 import { userActionClient } from '@/lib/safe-action';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { createCheckout } from '@/payment';
 import type { CreateCheckoutParams } from '@/payment/types';
 import { Routes } from '@/routes';
@@ -25,7 +25,7 @@ const checkoutSchema = z.object({
  * Create a checkout session for a price plan
  */
 export const createCheckoutAction = userActionClient
-  .schema(checkoutSchema)
+  .inputSchema(checkoutSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { planId, priceId, metadata } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

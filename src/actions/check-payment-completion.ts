@@ -14,7 +14,7 @@ const checkPaymentCompletionSchema = z.object({
  * Check if a payment is completed for the given session ID
  */
 export const checkPaymentCompletionAction = userActionClient
-  .schema(checkPaymentCompletionSchema)
+  .inputSchema(checkPaymentCompletionSchema)
   .action(async ({ parsedInput: { sessionId } }) => {
     try {
       const db = await getDb();

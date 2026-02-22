@@ -1,7 +1,7 @@
 'use server';
 
 import { consumeCredits } from '@/credits/credits';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { userActionClient } from '@/lib/safe-action';
 import { z } from 'zod';
 
@@ -15,7 +15,7 @@ const consumeSchema = z.object({
  * Consume credits
  */
 export const consumeCreditsAction = userActionClient
-  .schema(consumeSchema)
+  .inputSchema(consumeSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { amount, description } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

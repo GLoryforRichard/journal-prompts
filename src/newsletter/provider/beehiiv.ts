@@ -42,7 +42,7 @@ export class BeehiivNewsletterProvider implements NewsletterProvider {
    * @returns Provider name
    */
   public getProviderName(): string {
-    return 'Beehiiv';
+    return 'beehiiv';
   }
 
   /**

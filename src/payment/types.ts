@@ -1,4 +1,8 @@
+import type { PaymentConfig } from '@/types';
 import type { Locale } from 'next-intl';
+
+/** Payment provider name from website config */
+export type PaymentProviderName = NonNullable<PaymentConfig['provider']>;
 
 /**
  * Interval types for subscription plans
@@ -216,4 +220,9 @@ export interface PaymentProvider {
    * Handle webhook events
    */
   handleWebhookEvent(payload: string, signature: string): Promise<void>;
+
+  /**
+   * Get the payment provider name
+   */
+  getProviderName(): string;
 }

@@ -2,9 +2,9 @@
 
 import { getDb } from '@/db';
 import { user } from '@/db/schema';
-import type { User } from '@/lib/auth-types';
+import type { User } from '@/db/types';
 import { userActionClient } from '@/lib/safe-action';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { createCustomerPortal } from '@/payment';
 import type { CreatePortalParams } from '@/payment/types';
 import { eq } from 'drizzle-orm';
@@ -14,17 +14,14 @@ import { z } from 'zod';
 // Portal schema for validation
 const portalSchema = z.object({
   userId: z.string().min(1, { error: 'User ID is required' }),
-  returnUrl: z
-    .string()
-    .url({ error: 'Return URL must be a valid URL' })
-    .optional(),
+  returnUrl: z.url({ error: 'Return URL must be a valid URL' }).optional(),
 });
 
 /**
  * Create a customer portal session
  */
 export const createPortalAction = userActionClient
-  .schema(portalSchema)
+  .inputSchema(portalSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { returnUrl } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

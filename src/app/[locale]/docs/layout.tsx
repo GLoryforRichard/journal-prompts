@@ -5,7 +5,7 @@ import { ModeSwitcher } from '@/components/layout/mode-switcher';
 import { websiteConfig } from '@/config/website';
 import { docsI18nConfig } from '@/lib/docs/i18n';
 import { source } from '@/lib/source';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import { HomeIcon } from 'lucide-react';

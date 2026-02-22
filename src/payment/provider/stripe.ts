@@ -15,7 +15,7 @@ import {
   PAYMENT_RECORD_RETRY_DELAY,
 } from '@/lib/constants';
 import { findPlanByPlanId, findPriceInPlan } from '@/lib/price-plan';
-import { sendPaymentNotification } from '@/notification/notification';
+import { sendPaymentNotification } from '@/notification';
 import { desc, eq } from 'drizzle-orm';
 import { Stripe } from 'stripe';
 import {
@@ -59,6 +59,14 @@ export class StripeProvider implements PaymentProvider {
     // Initialize Stripe without specifying apiVersion to use default/latest version
     this.stripe = new Stripe(apiKey);
     this.webhookSecret = webhookSecret;
+  }
+
+  /**
+   * Get the payment provider name
+   * @returns Payment provider name
+   */
+  public getProviderName(): string {
+    return 'stripe';
   }
 
   /**
@@ -853,12 +861,12 @@ export class StripeProvider implements PaymentProvider {
 
     // Send notification
     const amount = invoice.amount_paid ? invoice.amount_paid / 100 : 0;
-    await sendPaymentNotification(
-      invoice.id,
-      paymentRecord.customerId,
-      paymentRecord.userId,
-      amount
-    );
+    await sendPaymentNotification({
+      sessionId: invoice.id,
+      customerId: paymentRecord.customerId,
+      userName: paymentRecord.userId,
+      amount,
+    });
 
     console.log('<< Process lifetime plan purchase success');
   }
