@@ -1,5 +1,5 @@
 import { createSafeActionClient } from 'next-safe-action';
-import type { User } from './auth-types';
+import type { SessionUser } from './auth-types';
 import { isDemoWebsite } from './demo';
 import { getSession } from './server';
 
@@ -41,7 +41,7 @@ export const userActionClient = actionClient.use(async ({ next }) => {
 // 3. Admin-only client (extends auth client)
 // -----------------------------------------------------------------------------
 export const adminActionClient = userActionClient.use(async ({ next, ctx }) => {
-  const user = (ctx as { user: User }).user;
+  const user = (ctx as { user: SessionUser }).user;
   const isDemo = isDemoWebsite();
   const isAdmin = user.role === 'admin';
 
