@@ -11,6 +11,7 @@
     "postinstall": "fumadocs-mdx",
     "lint": "biome check --write .",
     "format": "biome format --write .",
+    "auth:schema:generate": "pnpm dlx @better-auth/cli@latest generate --yes --output src/db/auth.schema.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
