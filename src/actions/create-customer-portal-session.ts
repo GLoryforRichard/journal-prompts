@@ -2,7 +2,7 @@
 
 import { getDb } from '@/db';
 import { user } from '@/db/schema';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { userActionClient } from '@/lib/safe-action';
 import { getUrlWithLocale } from '@/lib/urls';
 import { createCustomerPortal } from '@/payment';
@@ -24,7 +24,7 @@ export const createPortalAction = userActionClient
   .inputSchema(portalSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { returnUrl } = parsedInput;
-    const currentUser = (ctx as { user: User }).user;
+    const currentUser = (ctx as { user: SessionUser }).user;
 
     try {
       // Get the user's customer ID from the database

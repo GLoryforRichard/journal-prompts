@@ -1,7 +1,7 @@
 'use server';
 
 import { getUserCredits } from '@/credits/credits';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { userActionClient } from '@/lib/safe-action';
 
 /**
@@ -10,7 +10,7 @@ import { userActionClient } from '@/lib/safe-action';
 export const getCreditBalanceAction = userActionClient.action(
   async ({ ctx }) => {
     try {
-      const currentUser = (ctx as { user: User }).user;
+      const currentUser = (ctx as { user: SessionUser }).user;
       const credits = await getUserCredits(currentUser.id);
       return { success: true, credits };
     } catch (error) {

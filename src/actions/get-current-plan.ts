@@ -2,7 +2,7 @@
 
 import { getDb } from '@/db';
 import { payment } from '@/db/schema';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { findPlanByPriceId, getAllPricePlans } from '@/lib/price-plan';
 import { userActionClient } from '@/lib/safe-action';
 import {
@@ -26,7 +26,7 @@ const schema = z.object({
 export const getCurrentPlanAction = userActionClient
   .inputSchema(schema)
   .action(async ({ ctx }) => {
-    const currentUser = (ctx as { user: User }).user;
+    const currentUser = (ctx as { user: SessionUser }).user;
     const userId = currentUser.id;
 
     try {

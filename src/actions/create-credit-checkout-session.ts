@@ -2,7 +2,7 @@
 
 import { websiteConfig } from '@/config/website';
 import { getCreditPackageById } from '@/credits/server';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { userActionClient } from '@/lib/safe-action';
 import { getUrlWithLocale } from '@/lib/urls';
 import { createCreditCheckout } from '@/payment';
@@ -28,7 +28,7 @@ export const createCreditCheckoutSession = userActionClient
   .inputSchema(creditCheckoutSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { packageId, priceId, metadata } = parsedInput;
-    const currentUser = (ctx as { user: User }).user;
+    const currentUser = (ctx as { user: SessionUser }).user;
 
     try {
       // Get the current locale from the request

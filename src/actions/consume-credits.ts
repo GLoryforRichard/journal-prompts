@@ -1,7 +1,7 @@
 'use server';
 
 import { consumeCredits } from '@/credits/credits';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { userActionClient } from '@/lib/safe-action';
 import { z } from 'zod';
 
@@ -18,7 +18,7 @@ export const consumeCreditsAction = userActionClient
   .inputSchema(consumeSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { amount, description } = parsedInput;
-    const currentUser = (ctx as { user: User }).user;
+    const currentUser = (ctx as { user: SessionUser }).user;
 
     try {
       await consumeCredits({

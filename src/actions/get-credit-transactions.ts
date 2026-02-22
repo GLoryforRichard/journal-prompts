@@ -2,7 +2,7 @@
 
 import { getDb } from '@/db';
 import { creditTransaction } from '@/db/schema';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { userActionClient } from '@/lib/safe-action';
 import { and, asc, count as countFn, desc, eq, ilike, or } from 'drizzle-orm';
 import { z } from 'zod';
@@ -51,7 +51,7 @@ export const getCreditTransactionsAction = userActionClient
   .action(async ({ parsedInput, ctx }) => {
     try {
       const { pageIndex, pageSize, search, sorting, filters } = parsedInput;
-      const currentUser = (ctx as { user: User }).user;
+      const currentUser = (ctx as { user: SessionUser }).user;
 
       // Build where conditions
       const whereConditions = [eq(creditTransaction.userId, currentUser.id)];

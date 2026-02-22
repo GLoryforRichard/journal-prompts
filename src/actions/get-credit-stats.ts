@@ -2,7 +2,7 @@
 
 import { getDb } from '@/db';
 import { creditTransaction } from '@/db/schema';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { CREDITS_EXPIRATION_DAYS } from '@/lib/constants';
 import { userActionClient } from '@/lib/safe-action';
 import { addDays } from 'date-fns';
@@ -13,7 +13,7 @@ import { and, eq, gt, gte, isNotNull, lte, sum } from 'drizzle-orm';
  */
 export const getCreditStatsAction = userActionClient.action(async ({ ctx }) => {
   try {
-    const currentUser = (ctx as { user: User }).user;
+    const currentUser = (ctx as { user: SessionUser }).user;
     const userId = currentUser.id;
 
     const db = await getDb();

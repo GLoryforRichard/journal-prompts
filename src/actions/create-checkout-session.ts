@@ -1,7 +1,7 @@
 'use server';
 
 import { websiteConfig } from '@/config/website';
-import type { User } from '@/db/types';
+import type { SessionUser } from '@/lib/auth-types';
 import { findPlanByPlanId } from '@/lib/price-plan';
 import { userActionClient } from '@/lib/safe-action';
 import { getUrlWithLocale } from '@/lib/urls';
@@ -28,7 +28,7 @@ export const createCheckoutAction = userActionClient
   .inputSchema(checkoutSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { planId, priceId, metadata } = parsedInput;
-    const currentUser = (ctx as { user: User }).user;
+    const currentUser = (ctx as { user: SessionUser }).user;
 
     try {
       // Get the current locale from the request
