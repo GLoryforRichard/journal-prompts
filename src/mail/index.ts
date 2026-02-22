@@ -76,9 +76,7 @@ let mailProvider: MailProvider | null = null;
  * @throws Error if provider is not initialized
  */
 export const getMailProvider = (): MailProvider => {
-  if (!mailProvider) {
-    return initializeMailProvider();
-  }
+  if (!mailProvider) mailProvider = createMailProvider();
   return mailProvider;
 };
 
@@ -89,15 +87,6 @@ function createMailProvider(): MailProvider {
   if (!factory) throw new Error(`Unsupported mail provider: ${name}.`);
   return factory();
 }
-
-/**
- * Initialize the mail provider
- * @returns initialized mail provider
- */
-export const initializeMailProvider = (): MailProvider => {
-  if (!mailProvider) mailProvider = createMailProvider();
-  return mailProvider;
-};
 
 /**
  * Send email using the configured mail provider
