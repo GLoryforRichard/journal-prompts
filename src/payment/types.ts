@@ -1,4 +1,8 @@
+import type { PaymentConfig } from '@/types';
 import type { Locale } from 'next-intl';
+
+/** Payment provider name from website config */
+export type PaymentProviderName = NonNullable<PaymentConfig['provider']>;
 
 /**
  * Interval types for subscription plans

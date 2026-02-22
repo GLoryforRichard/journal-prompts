@@ -1,3 +1,8 @@
+import type { StorageConfig as WebsiteStorageConfig } from '@/types';
+
+/** Storage provider name from website config */
+export type StorageProviderName = NonNullable<WebsiteStorageConfig['provider']>;
+
 /**
  * Storage configuration
  */

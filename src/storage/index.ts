@@ -1,17 +1,35 @@
 import { websiteConfig } from '@/config/website';
 import { storageConfig } from './config/storage-config';
 import { S3Provider } from './provider/s3';
-import type { StorageConfig, StorageProvider, UploadFileResult } from './types';
+import type {
+  StorageConfig,
+  StorageProvider,
+  StorageProviderName,
+  UploadFileResult,
+} from './types';
 
 /**
  * Default storage configuration
  */
 export const defaultStorageConfig: StorageConfig = storageConfig;
 
-/**
- * Global storage provider instance
- */
+type StorageProviderFactory = () => StorageProvider;
+
+const providerRegistry: Partial<
+  Record<StorageProviderName, StorageProviderFactory>
+> = {
+  s3: () => new S3Provider(),
+};
+
 let storageProvider: StorageProvider | null = null;
+
+function createStorageProvider(): StorageProvider {
+  const name = websiteConfig.storage.provider;
+  if (!name) throw new Error('storage.provider is required in websiteConfig.');
+  const factory = providerRegistry[name];
+  if (!factory) throw new Error(`Unsupported storage provider: ${name}.`);
+  return factory();
+}
 
 /**
  * Get the storage provider
@@ -19,26 +37,7 @@ let storageProvider: StorageProvider | null = null;
  * @throws Error if provider is not initialized
  */
 export const getStorageProvider = (): StorageProvider => {
-  if (!storageProvider) {
-    return initializeStorageProvider();
-  }
-  return storageProvider;
-};
-
-/**
- * Initialize the storage provider
- * @returns initialized storage provider
- */
-export const initializeStorageProvider = (): StorageProvider => {
-  if (!storageProvider) {
-    if (websiteConfig.storage.provider === 's3') {
-      storageProvider = new S3Provider();
-    } else {
-      throw new Error(
-        `Unsupported storage provider: ${websiteConfig.storage.provider}`
-      );
-    }
-  }
+  if (!storageProvider) storageProvider = createStorageProvider();
   return storageProvider;
 };
 

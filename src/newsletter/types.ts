@@ -1,3 +1,8 @@
+import type { NewsletterConfig } from '@/types';
+
+/** Newsletter provider name from website config */
+export type NewsletterProviderName = NonNullable<NewsletterConfig['provider']>;
+
 export interface SubscribeNewsletterParams {
   email: string;
 }
@@ -26,7 +31,6 @@ export type CheckSubscribeStatusHandler = (
  * Newsletter provider, currently only Resend is supported
  */
 export interface NewsletterProvider {
-
   /**
    * Subscribe to the newsletter
    */

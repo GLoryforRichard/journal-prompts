@@ -10,7 +10,9 @@ import type {
 
 type ProviderFactory = () => NotificationProvider;
 
-const providerRegistry: Record<NotificationProviderName, ProviderFactory> = {
+const providerRegistry: Partial<
+  Record<NotificationProviderName, ProviderFactory>
+> = {
   discord: () => new DiscordProvider(),
   feishu: () => new FeishuProvider(),
 };

@@ -32,9 +32,7 @@ export interface NotificationProvider {
   /**
    * Send a payment notification
    */
-  sendPaymentNotification(
-    params: SendPaymentNotificationParams
-  ): Promise<void>;
+  sendPaymentNotification(params: SendPaymentNotificationParams): Promise<void>;
 
   /**
    * Send a credit distribution notification

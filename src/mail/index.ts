@@ -8,9 +8,17 @@ import {
   type EmailTemplate,
   EmailTemplates,
   type MailProvider,
+  type MailProviderName,
   type SendRawEmailParams,
   type SendTemplateParams,
 } from './types';
+
+type MailProviderFactory = () => MailProvider;
+
+const providerRegistry: Partial<Record<MailProviderName, MailProviderFactory>> =
+  {
+    resend: () => new ResendProvider(),
+  };
 
 const renderEmailHtml = async (email: ReactElement): Promise<string> => {
   // Avoid @react-email/render to prevent prettier imports in workerd.
@@ -74,20 +82,20 @@ export const getMailProvider = (): MailProvider => {
   return mailProvider;
 };
 
+function createMailProvider(): MailProvider {
+  const name = websiteConfig.mail.provider;
+  if (!name) throw new Error('mail.provider is required in websiteConfig.');
+  const factory = providerRegistry[name];
+  if (!factory) throw new Error(`Unsupported mail provider: ${name}.`);
+  return factory();
+}
+
 /**
  * Initialize the mail provider
  * @returns initialized mail provider
  */
 export const initializeMailProvider = (): MailProvider => {
-  if (!mailProvider) {
-    if (websiteConfig.mail.provider === 'resend') {
-      mailProvider = new ResendProvider();
-    } else {
-      throw new Error(
-        `Unsupported mail provider: ${websiteConfig.mail.provider}`
-      );
-    }
-  }
+  if (!mailProvider) mailProvider = createMailProvider();
   return mailProvider;
 };
 
