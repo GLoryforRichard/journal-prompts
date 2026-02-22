@@ -88,6 +88,10 @@ export const websiteConfig: WebsiteConfig = {
     provider: 'resend',
     autoSubscribeAfterSignUp: true,
   },
+  notification: {
+    enable: true,
+    provider: 'discord',
+  },
   storage: {
     enable: true,
     provider: 's3',
