@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/lib/auth-client';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon, Loader2Icon } from 'lucide-react';

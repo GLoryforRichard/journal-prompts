@@ -4,7 +4,7 @@ import { websiteConfig } from '@/config/website';
 import type { User } from '@/lib/auth-types';
 import { findPlanByPlanId } from '@/lib/price-plan';
 import { userActionClient } from '@/lib/safe-action';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { createCheckout } from '@/payment';
 import type { CreateCheckoutParams } from '@/payment/types';
 import { Routes } from '@/routes';

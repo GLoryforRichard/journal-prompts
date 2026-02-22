@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/table';
 import type { User } from '@/lib/auth-types';
 import { formatDate } from '@/lib/formatter';
-import { getStripeDashboardCustomerUrl } from '@/lib/urls/urls';
+import { getStripeDashboardCustomerUrl } from '@/lib/urls';
 import {
   type ColumnDef,
   type ColumnFiltersState,

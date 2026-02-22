@@ -1,5 +1,5 @@
 import { websiteConfig } from '@/config/website';
-import { getBaseUrl } from '@/lib/urls/urls';
+import { getBaseUrl } from '@/lib/urls';
 import type {
   NotificationProvider,
   SendCreditDistributionNotificationParams,

@@ -6,7 +6,7 @@ import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/lib/auth-client';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { Loader2Icon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';

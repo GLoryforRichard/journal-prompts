@@ -5,7 +5,7 @@ import { generateHreflangUrls } from '@/lib/hreflang';
 import { blogSource, categorySource, source } from '@/lib/source';
 import type { MetadataRoute } from 'next';
 import type { Locale } from 'next-intl';
-import { getBaseUrl } from '../lib/urls/urls';
+import { getBaseUrl } from '@/lib/urls';
 
 type Href = Parameters<typeof getLocalePathname>[0]['href'];
 

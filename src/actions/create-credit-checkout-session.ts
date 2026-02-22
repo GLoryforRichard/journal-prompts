@@ -4,7 +4,7 @@ import { websiteConfig } from '@/config/website';
 import { getCreditPackageById } from '@/credits/server';
 import type { User } from '@/lib/auth-types';
 import { userActionClient } from '@/lib/safe-action';
-import { getUrlWithLocale } from '@/lib/urls/urls';
+import { getUrlWithLocale } from '@/lib/urls';
 import { createCreditCheckout } from '@/payment';
 import type { CreateCreditCheckoutParams } from '@/payment/types';
 import { Routes } from '@/routes';

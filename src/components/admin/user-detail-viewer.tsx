@@ -24,7 +24,7 @@ import { useBanUser, useUnbanUser } from '@/hooks/use-users';
 import type { User } from '@/lib/auth-types';
 import { isDemoWebsite } from '@/lib/demo';
 import { formatDate } from '@/lib/formatter';
-import { getStripeDashboardCustomerUrl } from '@/lib/urls/urls';
+import { getStripeDashboardCustomerUrl } from '@/lib/urls';
 import { cn } from '@/lib/utils';
 import {
   CalendarIcon,
