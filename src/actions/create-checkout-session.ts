@@ -25,7 +25,7 @@ const checkoutSchema = z.object({
  * Create a checkout session for a price plan
  */
 export const createCheckoutAction = userActionClient
-  .schema(checkoutSchema)
+  .inputSchema(checkoutSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { planId, priceId, metadata } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

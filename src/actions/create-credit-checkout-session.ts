@@ -25,7 +25,7 @@ const creditCheckoutSchema = z.object({
  * Create a checkout session for a credit package
  */
 export const createCreditCheckoutSession = userActionClient
-  .schema(creditCheckoutSchema)
+  .inputSchema(creditCheckoutSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { packageId, priceId, metadata } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

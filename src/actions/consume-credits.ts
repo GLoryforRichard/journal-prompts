@@ -15,7 +15,7 @@ const consumeSchema = z.object({
  * Consume credits
  */
 export const consumeCreditsAction = userActionClient
-  .schema(consumeSchema)
+  .inputSchema(consumeSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { amount, description } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

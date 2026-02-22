@@ -11,7 +11,7 @@ const newsletterSchema = z.object({
 
 // Create a safe action for newsletter unsubscription
 export const unsubscribeNewsletterAction = userActionClient
-  .schema(newsletterSchema)
+  .inputSchema(newsletterSchema)
   .action(async ({ parsedInput: { email } }) => {
     try {
       const unsubscribed = await unsubscribe(email);

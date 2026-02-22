@@ -13,7 +13,7 @@ const newsletterSchema = z.object({
 
 // Create a safe action for newsletter subscription
 export const subscribeNewsletterAction = actionClient
-  .schema(newsletterSchema)
+  .inputSchema(newsletterSchema)
   .action(async ({ parsedInput: { email } }) => {
     // Do not check if the user is authenticated here
     try {

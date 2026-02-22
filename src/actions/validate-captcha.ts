@@ -11,7 +11,7 @@ const captchaSchema = z.object({
 
 // Create a safe action for captcha validation
 export const validateCaptchaAction = actionClient
-  .schema(captchaSchema)
+  .inputSchema(captchaSchema)
   .action(async ({ parsedInput }) => {
     const { captchaToken } = parsedInput;
 

@@ -24,7 +24,7 @@ const schema = z.object({
  * Get user's current plan with subscription and lifetime status
  */
 export const getCurrentPlanAction = userActionClient
-  .schema(schema)
+  .inputSchema(schema)
   .action(async ({ ctx }) => {
     const currentUser = (ctx as { user: User }).user;
     const userId = currentUser.id;

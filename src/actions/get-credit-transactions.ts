@@ -47,7 +47,7 @@ const sortFieldMap = {
 
 // Create a safe action for getting credit transactions
 export const getCreditTransactionsAction = userActionClient
-  .schema(getCreditTransactionsSchema)
+  .inputSchema(getCreditTransactionsSchema)
   .action(async ({ parsedInput, ctx }) => {
     try {
       const { pageIndex, pageSize, search, sorting, filters } = parsedInput;

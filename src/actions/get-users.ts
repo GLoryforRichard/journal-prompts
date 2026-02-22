@@ -56,7 +56,7 @@ const sortFieldMap = {
 
 // Create a safe action for getting users
 export const getUsersAction = adminActionClient
-  .schema(getUsersSchema)
+  .inputSchema(getUsersSchema)
   .action(async ({ parsedInput }) => {
     try {
       const { pageIndex, pageSize, search, sorting, filters } = parsedInput;

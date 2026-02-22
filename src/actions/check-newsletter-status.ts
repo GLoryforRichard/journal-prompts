@@ -11,7 +11,7 @@ const newsletterSchema = z.object({
 
 // Create a safe action to check if a user is subscribed to the newsletter
 export const checkNewsletterStatusAction = userActionClient
-  .schema(newsletterSchema)
+  .inputSchema(newsletterSchema)
   .action(async ({ parsedInput: { email } }) => {
     try {
       const subscribed = await isSubscribed(email);

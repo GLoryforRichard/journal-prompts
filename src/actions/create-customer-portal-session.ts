@@ -15,7 +15,6 @@ import { z } from 'zod';
 const portalSchema = z.object({
   userId: z.string().min(1, { error: 'User ID is required' }),
   returnUrl: z
-    .string()
     .url({ error: 'Return URL must be a valid URL' })
     .optional(),
 });
@@ -24,7 +23,7 @@ const portalSchema = z.object({
  * Create a customer portal session
  */
 export const createPortalAction = userActionClient
-  .schema(portalSchema)
+  .inputSchema(portalSchema)
   .action(async ({ parsedInput, ctx }) => {
     const { returnUrl } = parsedInput;
     const currentUser = (ctx as { user: User }).user;

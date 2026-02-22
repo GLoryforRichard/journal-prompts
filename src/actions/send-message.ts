@@ -25,7 +25,7 @@ const contactFormSchema = z.object({
 
 // Create a safe action for contact form submission
 export const sendMessageAction = actionClient
-  .schema(contactFormSchema)
+  .inputSchema(contactFormSchema)
   .action(async ({ parsedInput }) => {
     // Do not check if the user is authenticated here
     try {
