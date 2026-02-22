@@ -26,8 +26,24 @@ export type CheckSubscribeStatusHandler = (
  * Newsletter provider, currently only Resend is supported
  */
 export interface NewsletterProvider {
+
+  /**
+   * Subscribe to the newsletter
+   */
   subscribe: SubscribeNewsletterHandler;
+
+  /**
+   * Unsubscribe from the newsletter
+   */
   unsubscribe: UnsubscribeNewsletterHandler;
+
+  /**
+   * Check if the user is subscribed to the newsletter
+   */
   checkSubscribeStatus: CheckSubscribeStatusHandler;
+
+  /**
+   * Get the newsletter provider name
+   */
   getProviderName(): string;
 }

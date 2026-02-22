@@ -216,4 +216,9 @@ export interface PaymentProvider {
    * Handle webhook events
    */
   handleWebhookEvent(payload: string, signature: string): Promise<void>;
+
+  /**
+   * Get the payment provider name
+   */
+  getProviderName(): string;
 }

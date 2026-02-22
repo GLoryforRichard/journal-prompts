@@ -62,6 +62,14 @@ export class StripeProvider implements PaymentProvider {
   }
 
   /**
+   * Get the payment provider name
+   * @returns Payment provider name
+   */
+  public getProviderName(): string {
+    return 'stripe';
+  }
+
+  /**
    * Create a customer in Stripe if not exists
    * @param email Customer email
    * @param name Optional customer name
