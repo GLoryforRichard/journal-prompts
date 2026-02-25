@@ -149,9 +149,12 @@ export const RegisterForm = ({
           // console.log("register, success:", ctx.data);
           setSuccess(t('checkEmail'));
 
-          // add affonso affiliate
+          // add affonso affiliate when provider is affonso
           // https://affonso.io/app/affiliate-program/connect
-          if (websiteConfig.features.enableAffonsoAffiliate) {
+          if (
+            websiteConfig.affiliates?.enable &&
+            websiteConfig.affiliates.provider === 'affonso'
+          ) {
             console.log('register, affonso affiliate:', values.email);
             window.Affonso.signup(values.email);
           }

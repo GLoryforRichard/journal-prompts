@@ -9,6 +9,7 @@ export type WebsiteConfig = {
   ui: UiConfig;
   metadata: MetadataConfig;
   features: FeaturesConfig;
+  affiliates?: AffiliatesConfig;
   analytics: AnalyticsConfig;
   apikeys: ApiKeysConfig;
   auth: AuthConfig;
@@ -74,10 +75,14 @@ export interface FeaturesConfig {
   enableCrispChat?: boolean;          // Whether to enable the crisp chat
   enableUpgradeCard?: boolean;        // Whether to enable the upgrade card in the sidebar
   enableUpdateAvatar?: boolean;       // Whether to enable the update avatar in settings
-  enableAffonsoAffiliate?: boolean;   // Whether to enable affonso affiliate
-  enablePromotekitAffiliate?: boolean;   // Whether to enable promotekit affiliate
   enableDatafastRevenueTrack?: boolean;   // Whether to enable datafast revenue tracking
   enableTurnstileCaptcha?: boolean;   // Whether to enable turnstile captcha
+}
+
+/** Affiliates configuration */
+export interface AffiliatesConfig {
+  enable: boolean;                     // Whether to enable the affiliates
+  provider?: 'affonso' | 'promotekit'; // The affiliate provider
 }
 
 /**

@@ -13,7 +13,10 @@ export default function AffonsoScript() {
     return null;
   }
 
-  if (!websiteConfig.features.enableAffonsoAffiliate) {
+  if (
+    !websiteConfig.affiliates?.enable ||
+    websiteConfig.affiliates.provider !== 'affonso'
+  ) {
     return null;
   }
 

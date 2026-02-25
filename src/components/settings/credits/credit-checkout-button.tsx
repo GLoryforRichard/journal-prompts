@@ -56,7 +56,10 @@ export function CreditCheckoutButton({
       const mergedMetadata = metadata ? { ...metadata } : {};
 
       // add promotekit_referral to metadata if enabled promotekit affiliate
-      if (websiteConfig.features.enablePromotekitAffiliate) {
+      if (
+        websiteConfig.affiliates?.enable &&
+        websiteConfig.affiliates.provider === 'promotekit'
+      ) {
         const promotekitReferral =
           typeof window !== 'undefined'
             ? (window as any).promotekit_referral
@@ -71,7 +74,10 @@ export function CreditCheckoutButton({
       }
 
       // add affonso_referral to metadata if enabled affonso affiliate
-      if (websiteConfig.features.enableAffonsoAffiliate) {
+      if (
+        websiteConfig.affiliates?.enable &&
+        websiteConfig.affiliates.provider === 'affonso'
+      ) {
         const affonsoReferral =
           typeof document !== 'undefined'
             ? (() => {

@@ -13,7 +13,10 @@ export default function PromotekitScript() {
     return null;
   }
 
-  if (!websiteConfig.features.enablePromotekitAffiliate) {
+  if (
+    !websiteConfig.affiliates?.enable ||
+    websiteConfig.affiliates.provider !== 'promotekit'
+  ) {
     return null;
   }
 
