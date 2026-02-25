@@ -146,6 +146,7 @@ export interface DocsConfig {
  * Mail configuration
  */
 export interface MailConfig {
+  enable: boolean;                   // Whether to enable the mail
   provider: 'resend';                // The email provider, only resend is supported for now
   fromEmail?: string;                // The email address to send from
   supportEmail?: string;             // The email address to send support emails to

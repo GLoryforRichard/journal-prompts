@@ -97,6 +97,7 @@ function createMailProvider(): MailProvider {
 export async function sendEmail(
   params: SendTemplateParams | SendRawEmailParams
 ) {
+  if (!websiteConfig.mail?.enable) return false;
   const provider = getMailProvider();
 
   if ('template' in params) {

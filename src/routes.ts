@@ -7,7 +7,7 @@ export enum Routes {
   // marketing pages
   FAQ = '/#faqs',
   Features = '/#features',
-  Pricing = '/pricing', // change to /#pricing if you want to use the pricing section in homepage
+  Pricing = '/pricing',
   Blog = '/blog',
   Docs = '/docs',
   About = '/about',
@@ -28,7 +28,11 @@ export enum Routes {
 
   // dashboard routes
   Dashboard = '/dashboard',
+
+  // admin routes
   AdminUsers = '/admin/users',
+
+  // settings routes
   SettingsProfile = '/settings/profile',
   SettingsBilling = '/settings/billing',
   SettingsCredits = '/settings/credits',
