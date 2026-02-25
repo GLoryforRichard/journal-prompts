@@ -39,9 +39,6 @@ export const websiteConfig: WebsiteConfig = {
     enableCrispChat: process.env.NEXT_PUBLIC_DEMO_WEBSITE === 'true',
     enableTurnstileCaptcha: process.env.NEXT_PUBLIC_DEMO_WEBSITE === 'true',
   },
-  routes: {
-    defaultLoginRedirect: '/dashboard',
-  },
   analytics: {
     enableVercelAnalytics: false,
     enableSpeedInsights: false,

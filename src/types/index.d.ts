@@ -9,7 +9,6 @@ export type WebsiteConfig = {
   ui: UiConfig;
   metadata: MetadataConfig;
   features: FeaturesConfig;
-  routes: RoutesConfig;
   analytics: AnalyticsConfig;
   apikeys: ApiKeysConfig;
   auth: AuthConfig;
@@ -79,13 +78,6 @@ export interface FeaturesConfig {
   enablePromotekitAffiliate?: boolean;   // Whether to enable promotekit affiliate
   enableDatafastRevenueTrack?: boolean;   // Whether to enable datafast revenue tracking
   enableTurnstileCaptcha?: boolean;   // Whether to enable turnstile captcha
-}
-
-/**
- * Routes configuration
- */
-export interface RoutesConfig {
-  defaultLoginRedirect?: string;      // The default login redirect route
 }
 
 /**
