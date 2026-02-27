@@ -20,6 +20,18 @@ export function shouldAppendLocale(locale?: Locale | null): boolean {
 }
 
 /**
+ * Get the path with the locale prepended (relative path, no base URL)
+ * e.g. getPathWithLocale('/dashboard', 'zh') => '/zh/dashboard'
+ * e.g. getPathWithLocale('/dashboard', 'en') => '/dashboard'
+ */
+export function getPathWithLocale(
+  path: string,
+  locale?: Locale | null
+): string {
+  return shouldAppendLocale(locale) ? `/${locale}${path}` : path;
+}
+
+/**
  * Get the URL of the application with the locale appended
  */
 export function getUrlWithLocale(url: string, locale?: Locale | null): string {

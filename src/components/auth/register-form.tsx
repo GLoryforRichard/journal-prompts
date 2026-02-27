@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/lib/auth-client';
-import { getUrlWithLocale } from '@/lib/urls';
+import { getPathWithLocale } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon, Loader2Icon } from 'lucide-react';
@@ -40,7 +40,7 @@ export const RegisterForm = ({
   const paramCallbackUrl = searchParams.get('callbackUrl');
   // Use prop callback URL or param callback URL if provided, otherwise use the default login redirect
   const locale = useLocale();
-  const defaultCallbackUrl = getUrlWithLocale(DEFAULT_LOGIN_REDIRECT, locale);
+  const defaultCallbackUrl = getPathWithLocale(DEFAULT_LOGIN_REDIRECT, locale);
   // console.log('register form, propCallbackUrl', propCallbackUrl);
   // console.log('register form, paramCallbackUrl', paramCallbackUrl);
   // console.log('register form, defaultCallbackUrl', defaultCallbackUrl);
