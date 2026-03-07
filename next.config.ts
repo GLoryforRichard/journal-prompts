@@ -21,7 +21,9 @@ const nextConfig: NextConfig = {
   // https://nextjs.org/docs/app/api-reference/config/next-config-js/htmlLimitedBots
   // This config allows you to specify a list of user agents that should receive
   // blocking metadata instead of streaming metadata
-  htmlLimitedBots: /.*/,
+  // Only target actual bots/crawlers, not all user agents (which would disable streaming SSR for everyone)
+  htmlLimitedBots:
+    /Googlebot|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|TelegramBot|Applebot/,
 
   images: {
     // https://vercel.com/docs/image-optimization/managing-image-optimization-costs#minimizing-image-optimization-costs
