@@ -169,7 +169,7 @@ interface CircularUIProps {
 const CircularUI = ({ label, circles, className }: CircularUIProps) => (
     <div className={className}>
         <div className="bg-linear-to-b from-border size-fit rounded-2xl to-transparent p-px">
-            <div className="bg-linear-to-b from-background to-muted/25 relative flex aspect-square w-fit items-center -space-x-4 rounded-[15px] p-4">
+            <div className="bg-linear-to-b from-background to-muted/25 relative flex aspect-square w-fit items-center -space-x-4 rounded-2xl p-4">
                 {circles.map((circle, i) => (
                     <div
                         key={i}

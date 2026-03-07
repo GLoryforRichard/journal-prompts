@@ -34,14 +34,14 @@ export default function ContentSection() {
                         <div className="border-border/50 relative rounded-2xl border border-dotted p-2">
                             <Image
                                 src="/charts.png"
-                                className="hidden rounded-[12px] dark:block"
+                                className="hidden rounded-xl dark:block"
                                 alt="payments illustration dark"
                                 width={1207}
                                 height={929}
                             />
                             <Image
                                 src="/charts-light.png"
-                                className="rounded-[12px] shadow dark:hidden"
+                                className="rounded-xl shadow dark:hidden"
                                 alt="payments illustration light"
                                 width={1207}
                                 height={929}

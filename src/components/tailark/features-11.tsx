@@ -63,11 +63,11 @@ export default function Features() {
                         <p className="mx-auto mb-12 max-w-md text-balance text-center text-lg font-semibold sm:text-2xl">Advanced UX, Instantly locate all your assets.</p>
 
                         <div className="flex justify-center gap-6">
-                            <div className="inset-shadow-sm dark:inset-shadow-white/5 bg-muted/35 relative flex aspect-square size-16 items-center rounded-[7px] border p-3 shadow-lg ring dark:shadow-white/5 dark:ring-black">
+                            <div className="inset-shadow-sm dark:inset-shadow-white/5 bg-muted/35 relative flex aspect-square size-16 items-center rounded-lg border p-3 shadow-lg ring dark:shadow-white/5 dark:ring-black">
                                 <span className="absolute right-2 top-1 block text-sm">fn</span>
                                 <Globe className="mt-auto size-4" />
                             </div>
-                            <div className="inset-shadow-sm dark:inset-shadow-white/5 bg-muted/35 flex aspect-square size-16 items-center justify-center rounded-[7px] border p-3 shadow-lg ring dark:shadow-white/5 dark:ring-black">
+                            <div className="inset-shadow-sm dark:inset-shadow-white/5 bg-muted/35 flex aspect-square size-16 items-center justify-center rounded-lg border p-3 shadow-lg ring dark:shadow-white/5 dark:ring-black">
                                 <span>K</span>
                             </div>
                         </div>

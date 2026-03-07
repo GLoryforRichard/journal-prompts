@@ -57,14 +57,14 @@ export default function Features2Section() {
             <div className="bg-linear-to-b aspect-76/59 relative rounded-2xl from-zinc-300 to-transparent p-px dark:from-zinc-700">
               <Image
                 src="https://cdn.mksaas.com/blocks/dark-card.webp"
-                className="hidden rounded-[15px] dark:block"
+                className="hidden rounded-2xl dark:block"
                 alt="card illustration dark"
                 width={1207}
                 height={929}
               />
               <Image
                 src="https://cdn.mksaas.com/blocks/card.png"
-                className="rounded-[15px] shadow dark:hidden"
+                className="rounded-2xl shadow dark:hidden"
                 alt="card illustration light"
                 width={1207}
                 height={929}

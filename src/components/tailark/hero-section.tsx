@@ -41,7 +41,7 @@ export default function HeroSection() {
                                 </div>
                             </div>
                         </div>
-                        <div className="aspect-2/3 absolute inset-1 -z-10 overflow-hidden rounded-3xl border border-black/10 lg:aspect-video lg:rounded-[3rem] dark:border-white/5">
+                        <div className="aspect-2/3 absolute inset-1 -z-10 overflow-hidden rounded-3xl border border-black/10 lg:aspect-video lg:rounded-3xl dark:border-white/5">
                             <video
                                 autoPlay
                                 loop
