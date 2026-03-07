@@ -21,10 +21,10 @@ interface HeaderSectionProps {
 export function HeaderSection({
   id,
   title,
-  titleAs = 'h2',
+  titleAs = 'p',
   titleClassName,
   subtitle,
-  subtitleAs = 'p',
+  subtitleAs = 'h2',
   subtitleClassName,
   description,
   descriptionAs = 'p',
@@ -43,7 +43,7 @@ export function HeaderSection({
       {title ? (
         <TitleComponent
           className={cn(
-            'uppercase tracking-wider text-primary font-semibold font-mono',
+            'uppercase tracking-wider text-primary font-semibold',
             titleClassName
           )}
         >
@@ -70,7 +70,6 @@ export function HeaderSection({
           {description}
         </DescriptionComponent>
       ) : null}
-
       {children}
     </div>
   );

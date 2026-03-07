@@ -59,9 +59,7 @@ export default function FaqSection() {
       <div className="mx-auto max-w-4xl">
         <HeaderSection
           title={t('title')}
-          titleAs="h2"
           subtitle={t('subtitle')}
-          subtitleAs="p"
         />
 
         <div className="mx-auto max-w-4xl mt-12">

@@ -10,9 +10,7 @@ export default function StatsSection() {
         <HeaderSection
           title={t('title')}
           subtitle={t('subtitle')}
-          subtitleAs="h2"
           description={t('description')}
-          descriptionAs="p"
         />
 
         <div className="grid gap-2 *:text-center md:grid-cols-3 md:divide-x md:divide-border">

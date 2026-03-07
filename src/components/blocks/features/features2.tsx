@@ -21,9 +21,7 @@ export default function Features2Section() {
         <HeaderSection
           title={t('title')}
           subtitle={t('subtitle')}
-          subtitleAs="h2"
           description={t('description')}
-          descriptionAs="p"
         />
 
         <div className="grid items-center gap-12 lg:grid-cols-5 lg:gap-24">

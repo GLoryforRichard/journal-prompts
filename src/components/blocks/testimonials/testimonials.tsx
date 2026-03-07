@@ -109,9 +109,7 @@ export default function TestimonialsSection() {
       <div className="mx-auto max-w-6xl">
         <HeaderSection
           title={t('title')}
-          titleAs="h2"
           subtitle={t('subtitle')}
-          subtitleAs="p"
         />
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">

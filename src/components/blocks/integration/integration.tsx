@@ -24,8 +24,6 @@ export default function IntegrationSection() {
           title={t('title')}
           subtitle={t('subtitle')}
           description={t('description')}
-          subtitleAs="h2"
-          descriptionAs="p"
         />
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
