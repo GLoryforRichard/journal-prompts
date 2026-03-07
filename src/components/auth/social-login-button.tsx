@@ -25,6 +25,11 @@ export const SocialLoginButton = ({
   callbackUrl: propCallbackUrl,
   showDivider = true,
 }: SocialLoginButtonProps) => {
+  const t = useTranslations('AuthPage.login');
+  const searchParams = useSearchParams();
+  const locale = useLocale();
+  const [isLoading, setIsLoading] = useState<'google' | 'github' | null>(null);
+
   if (
     !websiteConfig.auth.enableGoogleLogin &&
     !websiteConfig.auth.enableGithubLogin
@@ -32,15 +37,10 @@ export const SocialLoginButton = ({
     return null;
   }
 
-  const t = useTranslations('AuthPage.login');
-  const searchParams = useSearchParams();
   const paramCallbackUrl = searchParams.get('callbackUrl');
   // Use prop callback URL or param callback URL if provided, otherwise use the default login redirect
-  const locale = useLocale();
   const defaultCallbackUrl = getPathWithLocale(DEFAULT_LOGIN_REDIRECT, locale);
   const callbackUrl = propCallbackUrl || paramCallbackUrl || defaultCallbackUrl;
-  const [isLoading, setIsLoading] = useState<'google' | 'github' | null>(null);
-  console.log('social login button, callbackUrl', callbackUrl);
 
   const onClick = async (provider: 'google' | 'github') => {
     await authClient.signIn.social(
@@ -83,7 +83,7 @@ export const SocialLoginButton = ({
           setIsLoading(null);
         },
         onError: (ctx) => {
-          console.log('social login error', ctx.error.message);
+          console.error('social login error', ctx.error.message);
           setIsLoading(null);
         },
       }

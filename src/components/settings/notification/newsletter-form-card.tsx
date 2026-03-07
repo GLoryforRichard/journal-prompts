@@ -43,11 +43,6 @@ interface NewsletterFormCardProps {
  * Allows users to toggle their newsletter subscription status
  */
 export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
-  // show nothing if newsletter is disabled
-  if (!websiteConfig.newsletter.enable) {
-    return null;
-  }
-
   const t = useTranslations('Dashboard.settings.notification');
   const { data: session } = authClient.useSession();
   const currentUser = session?.user;
@@ -81,6 +76,11 @@ export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
       form.setValue('subscribed', newsletterStatus.subscribed);
     }
   }, [newsletterStatus, form]);
+
+  // show nothing if newsletter is disabled
+  if (!websiteConfig.newsletter.enable) {
+    return null;
+  }
 
   // Check if user exists after all hooks are initialized
   if (!currentUser) {

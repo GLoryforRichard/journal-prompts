@@ -24,11 +24,6 @@ import { useCallback } from 'react';
  * Credits card, show credits balance and statistics
  */
 export default function CreditsCard() {
-  // Don't render if credits are disabled - move this check before any hooks
-  if (!websiteConfig.credits.enableCredits) {
-    return null;
-  }
-
   const t = useTranslations('Dashboard.settings.credits.balance');
   const mounted = useMounted();
 
@@ -58,6 +53,11 @@ export default function CreditsCard() {
     refetchBalance();
     refetchStats();
   }, [refetchBalance, refetchStats]);
+
+  // Don't render if credits are disabled
+  if (!websiteConfig.credits.enableCredits) {
+    return null;
+  }
 
   // Render loading skeleton
   if (!mounted || isLoadingBalance || isLoadingStats) {

@@ -18,10 +18,6 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export function UpgradeCard() {
-  if (!websiteConfig.features.enableUpgradeCard) {
-    return null;
-  }
-
   const t = useTranslations('Dashboard.upgrade');
   const [mounted, setMounted] = useState(false);
   const { data: session } = authClient.useSession();
@@ -30,6 +26,10 @@ export function UpgradeCard() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  if (!websiteConfig.features.enableUpgradeCard) {
+    return null;
+  }
 
   // Don't show the upgrade card if the user has a lifetime membership or a subscription
   const isMember =

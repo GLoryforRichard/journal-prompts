@@ -23,6 +23,9 @@ type Props = Omit<ComponentProps<typeof Turnstile>, 'siteKey'> & {
  */
 export const Captcha = forwardRef<any, Props>(
   ({ validationError, ...props }, ref) => {
+    const theme = useTheme();
+    const locale = useLocale();
+
     const turnstileEnabled = websiteConfig.features.enableTurnstileCaptcha;
     const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -36,9 +39,6 @@ export const Captcha = forwardRef<any, Props>(
       console.error('Captcha: NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set');
       return null;
     }
-
-    const theme = useTheme();
-    const locale = useLocale();
 
     return (
       <>

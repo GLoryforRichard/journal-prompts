@@ -29,14 +29,6 @@ interface UpdateAvatarCardProps {
  * Update the user's avatar
  */
 export function UpdateAvatarCard({ className }: UpdateAvatarCardProps) {
-  // show nothing if storage is disabled or update avatar is disabled
-  if (
-    !websiteConfig.storage.enable ||
-    !websiteConfig.features.enableUpdateAvatar
-  ) {
-    return null;
-  }
-
   const t = useTranslations('Dashboard.settings.profile');
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | undefined>('');
@@ -49,6 +41,14 @@ export function UpdateAvatarCard({ className }: UpdateAvatarCardProps) {
       setAvatarUrl(session.user.image);
     }
   }, [session]);
+
+  // show nothing if storage is disabled or update avatar is disabled
+  if (
+    !websiteConfig.storage.enable ||
+    !websiteConfig.features.enableUpdateAvatar
+  ) {
+    return null;
+  }
 
   const user = session?.user;
   if (!user) {
@@ -89,7 +89,6 @@ export function UpdateAvatarCard({ className }: UpdateAvatarCardProps) {
       const result = await uploadFileFromBrowser(file, 'avatars');
       // console.log('uploadFileFromBrowser, result', result);
       const { url } = result;
-      console.log('uploadFileFromBrowser, url', url);
 
       // Update the user's avatar using authClient
       await authClient.updateUser(

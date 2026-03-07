@@ -22,11 +22,6 @@ import { CreditCheckoutButton } from './credit-checkout-button';
  * Credit packages component
  */
 export function CreditPackages() {
-  // Check if credits are enabled - move this check before any hooks
-  if (!websiteConfig.credits.enableCredits) {
-    return null;
-  }
-
   const t = useTranslations('Dashboard.settings.credits.packages');
 
   // Get current user and payment info
@@ -41,6 +36,11 @@ export function CreditPackages() {
   const creditPackages = Object.values(useCreditPackages()).filter(
     (pkg) => !pkg.disabled && pkg.price.priceId
   );
+
+  // Check if credits are enabled
+  if (!websiteConfig.credits.enableCredits) {
+    return null;
+  }
 
   // Don't render anything while loading to prevent flash
   if (isLoadingPayment) {
