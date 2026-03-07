@@ -102,7 +102,9 @@ const IntegrationCard = ({
         role="presentation"
         className={cn('absolute inset-0 rounded-xl border', borderClassName)}
       />
-      <div className="relative z-20 m-auto size-fit *:size-8 flex items-center justify-center">{children}</div>
+      <div className="relative z-20 m-auto size-fit *:size-8 flex items-center justify-center">
+        {children}
+      </div>
     </div>
   );
 };

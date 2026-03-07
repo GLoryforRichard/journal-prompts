@@ -98,10 +98,7 @@ export function DeleteAccountCard() {
         )}
       </CardContent>
       <CardFooter className="mt-2 px-6 py-4 flex justify-end items-center bg-muted rounded-none">
-        <Button
-          variant="destructive"
-          onClick={() => setShowConfirmation(true)}
-        >
+        <Button variant="destructive" onClick={() => setShowConfirmation(true)}>
           {t('button')}
         </Button>
       </CardFooter>

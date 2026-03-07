@@ -66,10 +66,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
         <Container className="px-4">
           {/* desktop navbar */}
           <nav className="hidden lg:flex lg:items-center lg:justify-between lg:gap-4">
-            <LocaleLink
-              href="/"
-              className="flex items-center gap-2 shrink-0"
-            >
+            <LocaleLink href="/" className="flex items-center gap-2 shrink-0">
               <Logo />
               <span className="text-xl font-semibold">
                 {t('Metadata.name')}
@@ -101,16 +98,13 @@ export function Navbar({ scroll = true }: NavBarProps) {
                         <ul className="grid w-100 gap-3 p-3 md:w-125 md:grid-cols-2 lg:w-150">
                           {item.items.map((sub) => {
                             const isSubActive =
-                              sub.href &&
-                              localePathname.startsWith(sub.href);
+                              sub.href && localePathname.startsWith(sub.href);
                             return (
                               <li key={sub.title}>
                                 <NavigationMenuLink asChild>
                                   <LocaleLink
                                     href={sub.href ?? '#'}
-                                    target={
-                                      sub.external ? '_blank' : undefined
-                                    }
+                                    target={sub.external ? '_blank' : undefined}
                                     rel={
                                       sub.external
                                         ? 'noopener noreferrer'

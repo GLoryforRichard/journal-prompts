@@ -223,9 +223,7 @@ export function CreditDetailViewer({ transaction }: CreditDetailViewerProps) {
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline">
-              {t('detailViewer.close')}
-            </Button>
+            <Button variant="outline">{t('detailViewer.close')}</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

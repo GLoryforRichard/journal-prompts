@@ -107,10 +107,7 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
-        <HeaderSection
-          title={t('title')}
-          subtitle={t('subtitle')}
-        />
+        <HeaderSection title={t('title')} subtitle={t('subtitle')} />
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
           {testimonialChunks.map((chunk, chunkIndex) => (
@@ -140,9 +137,7 @@ export default function TestimonialsSection() {
                       </span>
 
                       <blockquote className="mt-3">
-                        <p className="text-muted-foreground">
-                          {quote}
-                        </p>
+                        <p className="text-muted-foreground">{quote}</p>
                       </blockquote>
                     </div>
                   </CardContent>

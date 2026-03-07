@@ -115,10 +115,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
   return (
     <Drawer direction={isMobile ? 'bottom' : 'right'}>
       <DrawerTrigger asChild>
-        <Button
-          variant="link"
-          className="text-foreground w-fit px-0 text-left"
-        >
+        <Button variant="link" className="text-foreground w-fit px-0 text-left">
           <div className="flex items-center gap-2">
             <UserAvatar
               name={user.name}

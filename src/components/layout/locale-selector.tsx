@@ -90,11 +90,7 @@ export default function LocaleSelector() {
       </SelectTrigger>
       <SelectContent>
         {Object.entries(websiteConfig.i18n.locales).map(([cur, data]) => (
-          <SelectItem
-            key={cur}
-            value={cur}
-            className="flex items-center gap-2"
-          >
+          <SelectItem key={cur} value={cur} className="flex items-center gap-2">
             <div className="flex items-center gap-2">
               {data.flag && <span className="text-md">{data.flag}</span>}
               <span>{data.name}</span>

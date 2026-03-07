@@ -119,8 +119,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                     ? localePathname === '/'
                     : localePathname.startsWith(item.href)
                   : item.items?.some(
-                      (sub) =>
-                        sub.href && localePathname.startsWith(sub.href)
+                      (sub) => sub.href && localePathname.startsWith(sub.href)
                     );
 
                 return (
@@ -147,9 +146,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                               <li key={sub.title}>
                                 <LocaleLink
                                   href={sub.href ?? '#'}
-                                  target={
-                                    sub.external ? '_blank' : undefined
-                                  }
+                                  target={sub.external ? '_blank' : undefined}
                                   rel={
                                     sub.external
                                       ? 'noopener noreferrer'
@@ -182,9 +179,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                       <LocaleLink
                         href={item.href ?? '#'}
                         target={item.external ? '_blank' : undefined}
-                        rel={
-                          item.external ? 'noopener noreferrer' : undefined
-                        }
+                        rel={item.external ? 'noopener noreferrer' : undefined}
                         onClick={() => setOpen(false)}
                         className={cn(
                           mobileLinkClass,

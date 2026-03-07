@@ -113,10 +113,7 @@ export default function HeroSection() {
                   }}
                   className="mt-12 flex flex-row items-center justify-center gap-4"
                 >
-                  <div
-                    key={1}
-                    className="bg-foreground/10 rounded-xl"
-                  >
+                  <div key={1} className="bg-foreground/10 rounded-xl">
                     <Button
                       asChild
                       size="lg"

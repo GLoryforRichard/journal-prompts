@@ -142,10 +142,7 @@ export function UpdateNameCard({ className }: UpdateNameCardProps) {
           <CardFooter className="mt-6 px-6 py-4 flex justify-between items-center bg-muted rounded-none">
             <p className="text-sm text-muted-foreground">{t('name.hint')}</p>
 
-            <Button
-              type="submit"
-              disabled={isSaving}
-            >
+            <Button type="submit" disabled={isSaving}>
               {isSaving ? t('name.saving') : t('name.save')}
             </Button>
           </CardFooter>
