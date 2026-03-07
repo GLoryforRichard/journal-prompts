@@ -54,7 +54,6 @@ export default async function LocaleLayout({
         <PromotekitScript />
       </head>
       <body
-        suppressHydrationWarning
         className={cn(
           'size-full antialiased',
           fontNotoSans.className,
@@ -65,7 +64,7 @@ export default async function LocaleLayout({
       >
         <NuqsAdapter>
           <NextIntlClientProvider>
-            <Providers locale={locale}>
+            <Providers>
               {children}
 
               <Toaster richColors position="top-right" offset={64} />

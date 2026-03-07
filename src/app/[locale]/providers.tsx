@@ -9,7 +9,6 @@ import type { ReactNode } from 'react';
 
 interface ProvidersProps {
   children: ReactNode;
-  locale: string;
 }
 
 /**
