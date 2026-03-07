@@ -16,8 +16,8 @@ export default function Features2Section() {
   const t = useTranslations('HomePage.features2');
 
   return (
-    <section id="features2" className="px-4 py-16">
-      <div className="mx-auto max-w-6xl space-y-8 lg:space-y-20">
+    <section id="features2" className="px-4 py-16 md:py-24">
+      <div className="mx-auto max-w-6xl px-6 space-y-8 lg:space-y-20">
         <HeaderSection
           title={t('title')}
           subtitle={t('subtitle')}
@@ -33,19 +33,19 @@ export default function Features2Section() {
 
             <ul className="mt-8 divide-y border-y *:flex *:items-center *:gap-3 *:py-3">
               <li>
-                <MailIcon className="size-5" />
+                <MailIcon className="size-5 shrink-0" />
                 {t('feature-1')}
               </li>
               <li>
-                <ZapIcon className="size-5" />
+                <ZapIcon className="size-5 shrink-0" />
                 {t('feature-2')}
               </li>
               <li>
-                <ActivityIcon className="size-5" />
+                <ActivityIcon className="size-5 shrink-0" />
                 {t('feature-3')}
               </li>
               <li>
-                <DraftingCompassIcon className="size-5" />
+                <DraftingCompassIcon className="size-5 shrink-0" />
                 {t('feature-4')}
               </li>
             </ul>
@@ -55,14 +55,14 @@ export default function Features2Section() {
             <div className="bg-linear-to-b aspect-76/59 relative rounded-2xl from-zinc-300 to-transparent p-px dark:from-zinc-700">
               <Image
                 src="https://cdn.mksaas.com/blocks/dark-card.webp"
-                className="hidden rounded-2xl dark:block"
+                className="hidden size-full rounded-[15px] object-cover dark:block"
                 alt="card illustration dark"
                 width={1207}
                 height={929}
               />
               <Image
                 src="https://cdn.mksaas.com/blocks/card.png"
-                className="rounded-2xl shadow dark:hidden"
+                className="size-full rounded-[15px] object-cover shadow dark:hidden"
                 alt="card illustration light"
                 width={1207}
                 height={929}
