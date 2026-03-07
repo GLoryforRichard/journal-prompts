@@ -56,19 +56,19 @@ export default function HeroSection() {
                 <AnimatedGroup variants={transitionVariants}>
                   <LocaleLink
                     href={linkIntroduction}
-                    className="hover:bg-primary/5 group mx-auto flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.03] p-1 pl-4"
+                    className="hover:bg-muted group mx-auto flex w-fit items-center gap-2 rounded-full border border-border p-1 pl-4 transition-colors"
                   >
                     <span className="text-sm text-foreground font-medium">
                       {t('introduction')}
                     </span>
 
-                    <div className="size-6 overflow-hidden rounded-full bg-primary/10 duration-500">
+                    <div className="size-6 overflow-hidden rounded-full bg-muted duration-500">
                       <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
                         <span className="flex size-6">
-                          <ArrowRight className="m-auto size-3 text-primary" />
+                          <ArrowRight className="m-auto size-3 text-foreground" />
                         </span>
                         <span className="flex size-6">
-                          <ArrowRight className="m-auto size-3 text-primary" />
+                          <ArrowRight className="m-auto size-3 text-foreground" />
                         </span>
                       </div>
                     </div>

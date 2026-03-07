@@ -6,7 +6,7 @@ import { ModeSwitcherHorizontal } from '@/components/layout/mode-switcher-horizo
 import BuiltWithButton from '@/components/shared/built-with-button';
 import { useFooterLinks } from '@/config/footer-config';
 import { useSocialLinks } from '@/config/social-config';
-import { LocaleLink } from '@/i18n/navigation';
+import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import type React from 'react';
@@ -15,6 +15,7 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
   const t = useTranslations();
   const footerLinks = useFooterLinks();
   const socialLinks = useSocialLinks();
+  const localePathname = useLocalePathname();
 
   return (
     <footer className={cn('border-t', className)}>
@@ -46,7 +47,7 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
                       rel="noreferrer"
                       aria-label={link.title}
                       className="border border-border inline-flex h-8 w-8 items-center
-                          justify-center rounded-full hover:bg-accent hover:text-accent-foreground"
+                          justify-center rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-200"
                     >
                       <span className="sr-only">{link.title}</span>
                       {link.icon ? link.icon : null}
@@ -77,7 +78,15 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
                         <LocaleLink
                           href={item.href || '#'}
                           target={item.external ? '_blank' : undefined}
-                          className="text-sm text-muted-foreground hover:text-primary"
+                          className={cn(
+                            'text-sm text-muted-foreground transition-colors duration-150 hover:text-primary',
+                            !item.external &&
+                              !item.href.includes('#') &&
+                              (item.href === '/'
+                                ? localePathname === '/'
+                                : localePathname.startsWith(item.href)) &&
+                              'font-semibold text-primary'
+                          )}
                         >
                           {item.title}
                         </LocaleLink>
