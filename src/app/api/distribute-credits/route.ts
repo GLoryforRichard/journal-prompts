@@ -45,12 +45,8 @@ export async function GET(request: Request) {
     });
   }
 
-  console.log('route: distribute credits start');
   const { usersCount, processedCount, errorCount } =
     await distributeCreditsToAllUsers();
-  console.log(
-    `route: distribute credits end, users: ${usersCount}, processed: ${processedCount}, errors: ${errorCount}`
-  );
   return NextResponse.json({
     message: `distribute credits success, users: ${usersCount}, processed: ${processedCount}, errors: ${errorCount}`,
     usersCount,

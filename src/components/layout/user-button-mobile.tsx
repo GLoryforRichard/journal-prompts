@@ -36,7 +36,6 @@ export function UserButtonMobile({ user }: UserButtonProps) {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          console.log('sign out success');
           // TanStack Query automatically handles cache invalidation on sign out
           localeRouter.replace('/');
         },

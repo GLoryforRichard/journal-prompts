@@ -32,7 +32,6 @@ export async function POST(request: NextRequest) {
     // Validate file type (optional, based on your requirements)
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
-      console.log('uploadFile, file type not supported', file.type);
       return NextResponse.json(
         { error: 'File type not supported' },
         { status: 400 }
@@ -50,7 +49,6 @@ export async function POST(request: NextRequest) {
       folder || undefined
     );
 
-    console.log('uploadFile, result', result);
     return NextResponse.json(result);
   } catch (error) {
     console.error('Error uploading file:', error);

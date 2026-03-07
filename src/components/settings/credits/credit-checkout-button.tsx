@@ -65,10 +65,6 @@ export function CreditCheckoutButton({
             ? (window as any).promotekit_referral
             : undefined;
         if (promotekitReferral) {
-          console.log(
-            'create credit checkout button, promotekitReferral:',
-            promotekitReferral
-          );
           mergedMetadata.promotekit_referral = promotekitReferral;
         }
       }
@@ -88,10 +84,6 @@ export function CreditCheckoutButton({
               })()
             : null;
         if (affonsoReferral) {
-          console.log(
-            'create credit checkout button, affonsoReferral:',
-            affonsoReferral
-          );
           mergedMetadata.affonso_referral = affonsoReferral;
         }
       }

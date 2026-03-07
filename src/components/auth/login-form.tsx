@@ -50,13 +50,12 @@ export const LoginForm = ({
   // console.log('login form, paramCallbackUrl', paramCallbackUrl);
   // console.log('login form, defaultCallbackUrl', defaultCallbackUrl);
   const callbackUrl = propCallbackUrl || paramCallbackUrl || defaultCallbackUrl;
-  console.log('login form, callbackUrl', callbackUrl);
 
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, setIsPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const captchaRef = useRef<any>(null);
+  const captchaRef = useRef<{ reset: () => void } | null>(null);
 
   // Check if credential login is enabled
   const credentialLoginEnabled = websiteConfig.auth.enableCredentialLogin;

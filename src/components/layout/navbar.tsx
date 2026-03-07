@@ -68,7 +68,7 @@ export function Navbar({ scroll }: NavBarProps) {
     >
       <Container className="px-4">
         {/* desktop navbar */}
-        <nav className="hidden lg:flex">
+        <nav aria-label="Main navigation" className="hidden lg:flex">
           {/* logo and name */}
           <div className="flex items-center">
             <LocaleLink href="/" className="flex items-center space-x-2">
