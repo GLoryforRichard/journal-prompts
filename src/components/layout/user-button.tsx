@@ -53,12 +53,12 @@ export function UserButton({ user }: UserButtonProps) {
           className="size-8 border cursor-pointer"
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="w-64">
         {/* show user name and email */}
-        <div className="flex items-center justify-start gap-2 p-2">
+        <div className="flex items-center gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             <p className="font-medium">{user.name}</p>
-            <p className="w-[200px] truncate text-sm text-muted-foreground">
+            <p className="truncate text-sm text-muted-foreground">
               {user.email}
             </p>
           </div>
@@ -85,10 +85,8 @@ export function UserButton({ user }: UserButtonProps) {
               }
             }}
           >
-            <div className="flex items-center space-x-2.5">
-              {item.icon ? item.icon : null}
-              <p className="text-sm">{item.title}</p>
-            </div>
+            {item.icon ? item.icon : null}
+            {item.title}
           </DropdownMenuItem>
         ))}
 
@@ -101,10 +99,8 @@ export function UserButton({ user }: UserButtonProps) {
             handleSignOut();
           }}
         >
-          <div className="flex items-center space-x-2.5">
-            <LogOutIcon className="size-4" />
-            <p className="text-sm">{t('Common.logout')}</p>
-          </div>
+          <LogOutIcon className="size-4" />
+          {t('Common.logout')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
