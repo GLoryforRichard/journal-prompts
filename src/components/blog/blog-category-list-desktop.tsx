@@ -30,7 +30,7 @@ export function BlogCategoryListDesktop({
           key="All"
           value="All"
           className={cn(
-            'rounded-sm px-2 cursor-pointer',
+            'rounded-sm px-2',
             'data-[state=on]:bg-primary data-[state=on]:text-primary-foreground',
             'hover:bg-accent hover:text-accent-foreground'
           )}
@@ -46,7 +46,7 @@ export function BlogCategoryListDesktop({
             key={category.slug}
             value={category.slug}
             className={cn(
-              'rounded-sm px-2 cursor-pointer',
+              'rounded-sm px-2',
               'data-[state=on]:bg-primary data-[state=on]:text-primary-foreground',
               'hover:bg-accent hover:text-accent-foreground'
             )}

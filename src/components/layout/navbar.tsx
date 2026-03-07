@@ -204,8 +204,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
                         buttonVariants({
                           variant: 'outline',
                           size: 'sm',
-                        }),
-                        'cursor-pointer'
+                        })
                       )}
                     >
                       {t('Common.login')}

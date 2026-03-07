@@ -59,7 +59,7 @@ export default function CustomPagination({
             className={
               currentPage <= 1
                 ? 'pointer-events-none text-gray-300 dark:text-gray-600'
-                : 'cursor-pointer'
+                : ''
             }
           />
         </PaginationItem>
@@ -71,7 +71,6 @@ export default function CustomPagination({
               <PaginationLink
                 onClick={() => handlePageChange(page)}
                 isActive={currentPage === page}
-                className={currentPage === page ? '' : 'cursor-pointer'}
               >
                 {page}
               </PaginationLink>
@@ -90,7 +89,7 @@ export default function CustomPagination({
             className={
               currentPage >= totalPages
                 ? 'pointer-events-none text-gray-300 dark:text-gray-600'
-                : 'cursor-pointer'
+                : ''
             }
           />
         </PaginationItem>

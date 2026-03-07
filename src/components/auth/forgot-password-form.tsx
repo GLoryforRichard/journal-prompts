@@ -116,7 +116,7 @@ export const ForgotPasswordForm = ({ className }: { className?: string }) => {
             disabled={isPending}
             size="lg"
             type="submit"
-            className="w-full cursor-pointer"
+            className="w-full"
           >
             {isPending && <Loader2Icon className="mr-2 size-4 animate-spin" />}
             <span>{t('send')}</span>

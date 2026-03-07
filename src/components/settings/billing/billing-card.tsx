@@ -121,7 +121,6 @@ export default function BillingCard() {
         <CardFooter className="mt-2 px-6 py-4 flex justify-end items-center bg-muted rounded-none">
           <Button
             variant="outline"
-            className="cursor-pointer"
             onClick={handleRetry}
           >
             <RefreshCwIcon className="size-4 mr-1" />
@@ -148,7 +147,7 @@ export default function BillingCard() {
           </div>
         </CardContent>
         <CardFooter className="mt-2 px-6 py-4 flex justify-end items-center bg-muted rounded-none">
-          <Button variant="default" className="cursor-pointer" asChild>
+          <Button variant="default" asChild>
             <LocaleLink href={Routes.Pricing}>{t('upgradePlan')}</LocaleLink>
           </Button>
         </CardFooter>
@@ -229,7 +228,7 @@ export default function BillingCard() {
       <CardFooter className="mt-2 px-6 py-4 flex justify-end items-center bg-muted rounded-none">
         {/* user is on free plan, show upgrade plan button */}
         {isFreePlan && (
-          <Button variant="default" className="cursor-pointer" asChild>
+          <Button variant="default" asChild>
             <LocaleLink href={Routes.Pricing}>{t('upgradePlan')}</LocaleLink>
           </Button>
         )}

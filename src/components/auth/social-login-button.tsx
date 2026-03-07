@@ -96,7 +96,7 @@ export const SocialLoginButton = ({
       {websiteConfig.auth.enableGoogleLogin && (
         <Button
           size="lg"
-          className="w-full cursor-pointer"
+          className="w-full"
           variant="outline"
           onClick={() => onClick('google')}
           disabled={isLoading === 'google'}
@@ -112,7 +112,7 @@ export const SocialLoginButton = ({
       {websiteConfig.auth.enableGithubLogin && (
         <Button
           size="lg"
-          className="w-full cursor-pointer"
+          className="w-full"
           variant="outline"
           onClick={() => onClick('github')}
           disabled={isLoading === 'github'}

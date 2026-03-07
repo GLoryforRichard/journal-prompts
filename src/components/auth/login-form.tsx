@@ -261,7 +261,7 @@ export const LoginForm = ({
               disabled={isPending || (captchaConfigured && !captchaToken)}
               size="lg"
               type="submit"
-              className="w-full flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2"
             >
               {isPending && (
                 <Loader2Icon className="mr-2 size-4 animate-spin" />

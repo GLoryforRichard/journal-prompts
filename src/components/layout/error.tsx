@@ -31,7 +31,6 @@ export default function Error({ reset }: { reset: () => void }) {
         <Button
           type="submit"
           variant="default"
-          className="cursor-pointer"
           disabled={isPending}
           onClick={() => {
             startTransition(() => {
@@ -47,7 +46,6 @@ export default function Error({ reset }: { reset: () => void }) {
         <Button
           type="submit"
           variant="outline"
-          className="cursor-pointer"
           onClick={() => router.push('/')}
         >
           {t('backToHome')}

@@ -55,7 +55,7 @@ export function UpgradeCard() {
         <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Button className="cursor-pointer w-full shadow-none" size="sm">
+        <Button className="w-full shadow-none" size="sm">
           <LocaleLink href={Routes.SettingsBilling}>{t('button')}</LocaleLink>
         </Button>
       </CardContent>

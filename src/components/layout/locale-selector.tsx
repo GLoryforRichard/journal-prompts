@@ -63,7 +63,7 @@ export default function LocaleSelector() {
       value={currentLocale}
       onValueChange={onSelectChange}
     >
-      <SelectTrigger className="w-fit cursor-pointer">
+      <SelectTrigger className="w-fit">
         <SelectValue
           placeholder={
             <div className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function LocaleSelector() {
           <SelectItem
             key={cur}
             value={cur}
-            className="cursor-pointer flex items-center gap-2"
+            className="flex items-center gap-2"
           >
             <div className="flex items-center gap-2">
               {data.flag && <span className="text-md">{data.flag}</span>}

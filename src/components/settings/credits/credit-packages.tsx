@@ -118,7 +118,7 @@ export function CreditPackages() {
                   userId={currentUser?.id ?? ''}
                   packageId={creditPackage.id}
                   priceId={creditPackage.price.priceId}
-                  className="w-full cursor-pointer mt-2"
+                  className="w-full mt-2"
                   variant={creditPackage.popular ? 'default' : 'outline'}
                   disabled={!creditPackage.price.priceId}
                 >

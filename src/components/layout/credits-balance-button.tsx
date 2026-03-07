@@ -31,7 +31,7 @@ export function CreditsBalanceButton() {
     <Button
       variant="outline"
       size="sm"
-      className="h-8 gap-2 px-2 text-sm font-medium cursor-pointer"
+      className="h-8 gap-2 px-2 text-sm font-medium"
       onClick={handleClick}
     >
       <CoinsIcon className="h-4 w-4" />

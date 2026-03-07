@@ -145,7 +145,6 @@ export function UpdateNameCard({ className }: UpdateNameCardProps) {
             <Button
               type="submit"
               disabled={isSaving}
-              className="cursor-pointer"
             >
               {isSaving ? t('name.saving') : t('name.save')}
             </Button>

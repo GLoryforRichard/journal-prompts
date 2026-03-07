@@ -103,7 +103,7 @@ export function NewsletterForm() {
           />
           <Button
             type="submit"
-            className="rounded-l-none size-12 cursor-pointer"
+            className="rounded-l-none size-12"
             disabled={isPending}
           >
             {isPending ? (

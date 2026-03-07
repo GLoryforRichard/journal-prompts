@@ -75,7 +75,7 @@ export default async function AboutPage() {
                       rel="noopener noreferrer"
                       className={cn(
                         buttonVariants({ variant: 'outline' }),
-                        'rounded-lg cursor-pointer'
+                        'rounded-lg'
                       )}
                     >
                       <TwitterIcon className="mr-1 size-4" />
@@ -84,7 +84,7 @@ export default async function AboutPage() {
                   )}
                   {websiteConfig.mail.supportEmail && (
                     <div className="flex items-center gap-4">
-                      <Button className="rounded-lg cursor-pointer">
+                      <Button className="rounded-lg">
                         <MailIcon className="mr-1 size-4" />
                         <a href={`mailto:${websiteConfig.mail.supportEmail}`}>
                           {t('talkWithMe')}

@@ -117,7 +117,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
       <DrawerTrigger asChild>
         <Button
           variant="link"
-          className="cursor-pointer text-foreground w-fit px-0 text-left"
+          className="text-foreground w-fit px-0 text-left"
         >
           <div className="flex items-center gap-2">
             <UserAvatar
@@ -244,7 +244,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                 variant="destructive"
                 onClick={handleUnban}
                 disabled={unbanUserMutation.isPending || isDemo}
-                className="mt-4 cursor-pointer"
+                className="mt-4"
               >
                 {unbanUserMutation.isPending && (
                   <Loader2Icon className="mr-2 size-4 animate-spin" />
@@ -277,7 +277,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                     <Button
                       variant="outline"
                       className={cn(
-                        'justify-start text-left font-normal cursor-pointer',
+                        'justify-start text-left font-normal',
                         !banExpiresAt && 'text-muted-foreground'
                       )}
                     >
@@ -303,7 +303,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                 type="submit"
                 variant="destructive"
                 disabled={banUserMutation.isPending || !banReason || isDemo}
-                className="mt-4 cursor-pointer"
+                className="mt-4"
               >
                 {banUserMutation.isPending && (
                   <Loader2Icon className="mr-2 size-4 animate-spin" />

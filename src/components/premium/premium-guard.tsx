@@ -93,7 +93,7 @@ export function PremiumGuard({
                 </div>
 
                 <LoginWrapper mode="modal" asChild callbackUrl={pathname}>
-                  <Button size="lg" className="min-w-[160px] cursor-pointer">
+                  <Button size="lg" className="min-w-[160px]">
                     <LockIcon className="mr-2 size-4" />
                     {t('signIn')}
                   </Button>
@@ -130,7 +130,7 @@ export function PremiumGuard({
               </div>
 
               <LoginWrapper mode="modal" asChild callbackUrl={pathname}>
-                <Button size="lg" className="min-w-[160px] cursor-pointer">
+                <Button size="lg" className="min-w-[160px]">
                   <LockIcon className="mr-2 size-4" />
                   {t('signIn')}
                 </Button>

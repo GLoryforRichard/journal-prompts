@@ -102,7 +102,7 @@ export function PricingTable({
                 <ToggleGroupItem
                   value="month"
                   className={cn(
-                    'px-3 py-0 cursor-pointer text-sm rounded-md',
+                    'px-3 py-0 text-sm rounded-md',
                     'data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
                   )}
                 >
@@ -113,7 +113,7 @@ export function PricingTable({
                 <ToggleGroupItem
                   value="year"
                   className={cn(
-                    'px-3 py-0 cursor-pointer text-sm rounded-md',
+                    'px-3 py-0 text-sm rounded-md',
                     'data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
                   )}
                 >

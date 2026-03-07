@@ -101,7 +101,6 @@ export function DeleteAccountCard() {
         <Button
           variant="destructive"
           onClick={() => setShowConfirmation(true)}
-          className="cursor-pointer"
         >
           {t('button')}
         </Button>
@@ -122,7 +121,6 @@ export function DeleteAccountCard() {
             <Button
               variant="outline"
               onClick={() => setShowConfirmation(false)}
-              className="cursor-pointer"
             >
               {t('cancel')}
             </Button>
@@ -130,7 +128,6 @@ export function DeleteAccountCard() {
               variant="destructive"
               onClick={handleDeleteAccount}
               disabled={isDeleting}
-              className="cursor-pointer"
             >
               {isDeleting ? t('deleting') : t('confirm')}
             </Button>

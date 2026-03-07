@@ -62,7 +62,7 @@ export default function LocaleSwitcher() {
         <Button
           variant="ghost"
           size="sm"
-          className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
+          className="size-8 p-0.5 border border-border rounded-full"
         >
           <Languages className="size-3" />
           <span className="sr-only">{t('language')}</span>
@@ -74,7 +74,6 @@ export default function LocaleSwitcher() {
             <DropdownMenuItem
               key={localeOption}
               onClick={() => setLocale(localeOption)}
-              className="cursor-pointer"
             >
               {data.flag && <span className="mr-2 text-md">{data.flag}</span>}
               <span className="text-sm">{data.name}</span>

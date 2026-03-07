@@ -158,7 +158,6 @@ export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
                           subscribeMutation.isPending ||
                           unsubscribeMutation.isPending
                         }
-                        className="cursor-pointer"
                       />
                     </div>
                   </FormControl>

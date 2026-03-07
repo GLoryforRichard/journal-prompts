@@ -170,7 +170,6 @@ export function UpdateAvatarCard({ className }: UpdateAvatarCardProps) {
             size="sm"
             onClick={handleUploadClick}
             disabled={isUploading}
-            className="cursor-pointer"
           >
             {isUploading ? t('avatar.uploading') : t('avatar.uploadAvatar')}
           </Button>

@@ -416,7 +416,7 @@ export function UsersTable({
                 <button
                   type="button"
                   aria-label={t('clearSearch')}
-                  className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                   onClick={() => {
                     onSearch('');
                     onPageChange(0);

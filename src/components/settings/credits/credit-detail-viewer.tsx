@@ -97,7 +97,7 @@ export function CreditDetailViewer({ transaction }: CreditDetailViewerProps) {
       <DrawerTrigger asChild>
         <Button
           variant="link"
-          className="cursor-pointer text-foreground w-fit px-3 text-left h-auto"
+          className="text-foreground w-fit px-3 text-left h-auto"
         >
           <div className="flex items-center gap-2">
             <span
@@ -223,7 +223,7 @@ export function CreditDetailViewer({ transaction }: CreditDetailViewerProps) {
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline" className="cursor-pointer">
+            <Button variant="outline">
               {t('detailViewer.close')}
             </Button>
           </DrawerClose>

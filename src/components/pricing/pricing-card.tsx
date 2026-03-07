@@ -165,7 +165,7 @@ export function PricingCard({
             </Button>
           ) : (
             <LoginWrapper mode="modal" asChild callbackUrl={currentPath}>
-              <Button variant="outline" className="mt-4 w-full cursor-pointer">
+              <Button variant="outline" className="mt-4 w-full">
                 {t('getStartedForFree')}
               </Button>
             </LoginWrapper>
@@ -185,13 +185,13 @@ export function PricingCard({
               planId={plan.id}
               priceId={price.priceId}
               metadata={metadata}
-              className="mt-4 w-full cursor-pointer"
+              className="mt-4 w-full"
             >
               {plan.isLifetime ? t('getLifetimeAccess') : t('getStarted')}
             </CheckoutButton>
           ) : (
             <LoginWrapper mode="modal" asChild callbackUrl={currentPath}>
-              <Button variant="default" className="mt-4 w-full cursor-pointer">
+              <Button variant="default" className="mt-4 w-full">
                 {t('getStarted')}
               </Button>
             </LoginWrapper>
