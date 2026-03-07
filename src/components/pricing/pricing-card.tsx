@@ -109,7 +109,7 @@ export function PricingCard({
   return (
     <Card
       className={cn(
-        'flex flex-col h-full',
+        'flex flex-col h-full overflow-visible',
         plan.popular && 'relative',
         isCurrentPlan &&
           'border-blue-500 shadow-lg shadow-blue-100 dark:shadow-blue-900/20',
@@ -118,7 +118,7 @@ export function PricingCard({
     >
       {/* show popular badge if plan is recommended */}
       {plan.popular && (
-        <div className="absolute -top-3.5 left-1/2 transform -translate-x-1/2">
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
           <Badge
             variant="default"
             className="bg-primary text-primary-foreground"

@@ -55,7 +55,7 @@ export default function FaqSection() {
   ];
 
   return (
-    <section id="faqs" className="px-4 py-16">
+    <section id="faqs" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-4xl">
         <HeaderSection
           title={t('title')}
@@ -68,7 +68,7 @@ export default function FaqSection() {
           <Accordion
             type="single"
             collapsible
-            className="ring-muted w-full rounded-2xl border px-8 py-3 shadow-sm ring-4 dark:ring-0"
+            className="ring-primary/10 w-full rounded-2xl border border-primary/15 px-4 py-3 shadow-sm ring-4 dark:ring-primary/5 dark:border-primary/10 sm:px-8"
           >
             {faqItems.map((item) => (
               <AccordionItem

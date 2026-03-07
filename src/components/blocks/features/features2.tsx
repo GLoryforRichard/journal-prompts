@@ -30,7 +30,7 @@ export default function Features2Section() {
           <div className="lg:col-span-2">
             <div className="lg:pr-0">
               <h2 className="text-4xl font-semibold">{t('title')}</h2>
-              <p className="mt-6">{t('description')}</p>
+              <p className="mt-6 text-muted-foreground">{t('description')}</p>
             </div>
 
             <ul className="mt-8 divide-y border-y *:flex *:items-center *:gap-3 *:py-3">

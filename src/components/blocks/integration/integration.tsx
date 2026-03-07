@@ -18,7 +18,7 @@ export default function IntegrationSection() {
   const t = useTranslations('HomePage.integration');
 
   return (
-    <section id="integration" className="px-4 py-16">
+    <section id="integration" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-5xl">
         <HeaderSection
           title={t('title')}
@@ -90,7 +90,7 @@ const IntegrationCard = ({
   const t = useTranslations('HomePage.integration');
 
   return (
-    <Card className="p-6 bg-transparent hover:bg-accent dark:hover:bg-card">
+    <Card className="bg-transparent p-6 transition-all duration-200 hover:bg-accent hover:-translate-y-0.5 dark:hover:bg-card">
       <div className="relative">
         <div className="*:size-10">{children}</div>
 

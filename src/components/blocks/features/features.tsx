@@ -52,7 +52,7 @@ export default function FeaturesSection() {
   };
 
   return (
-    <section id="features" className="px-4 py-16">
+    <section id="features" className="px-4 py-16 md:py-24">
       {/* <div className="bg-linear-to-b absolute inset-0 -z-10 sm:inset-6 sm:rounded-b-3xl dark:block dark:to-[color-mix(in_oklab,var(--color-zinc-900)_75%,var(--color-background))]" /> */}
       <div className="mx-auto max-w-6xl space-y-8 lg:space-y-20 dark:[--color-border:color-mix(in_oklab,var(--color-white)_10%,transparent)]">
         <HeaderSection
@@ -63,9 +63,9 @@ export default function FeaturesSection() {
           descriptionAs="p"
         />
 
-        <div className="grid gap-12 sm:px-12 lg:grid-cols-12 lg:gap-24 lg:px-0">
-          <div className="lg:col-span-5 flex flex-col gap-8">
-            <div className="lg:pr-0 text-left">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-24">
+          <div className="flex flex-col gap-8 lg:col-span-5">
+            <div className="text-left lg:pr-0">
               <h3 className="text-3xl font-semibold lg:text-4xl text-foreground leading-normal py-1">
                 {t('title')}
               </h3>
@@ -124,8 +124,8 @@ export default function FeaturesSection() {
             </Accordion>
           </div>
 
-          <div className="bg-background w-full relative flex overflow-hidden rounded-2xl border p-2 lg:h-auto lg:col-span-7">
-            <div className="aspect-76/59 bg-background relative w-full rounded-2xl">
+          <div className="relative flex w-full overflow-hidden rounded-2xl border bg-background p-2 lg:col-span-7 lg:h-auto">
+            <div className="relative w-full rounded-2xl aspect-76/59 bg-background">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeItem}-id`}
@@ -155,7 +155,7 @@ export default function FeaturesSection() {
             <BorderBeam
               duration={6}
               size={200}
-              className="from-transparent via-violet-700 to-transparent dark:via-white/50"
+              className="from-transparent via-primary/60 to-transparent dark:via-primary/30"
             />
           </div>
         </div>

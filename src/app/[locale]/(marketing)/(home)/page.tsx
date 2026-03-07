@@ -2,7 +2,6 @@ import CallToActionSection from '@/components/blocks/calltoaction/calltoaction';
 import FaqSection from '@/components/blocks/faqs/faqs';
 import FeaturesSection from '@/components/blocks/features/features';
 import Features2Section from '@/components/blocks/features/features2';
-import Features3Section from '@/components/blocks/features/features3';
 import HeroSection from '@/components/blocks/hero/hero';
 import IntegrationSection from '@/components/blocks/integration/integration';
 import Integration2Section from '@/components/blocks/integration/integration2';
@@ -52,23 +51,21 @@ export default async function HomePage(props: HomePageProps) {
 
         <LogoCloud />
 
-        <StatsSection />
-
-        <IntegrationSection />
-
         <FeaturesSection />
 
         <Features2Section />
 
-        <Features3Section />
+        <CallToActionSection />
+
+        <StatsSection />
+
+        <IntegrationSection />
 
         <Integration2Section />
 
         <PricingSection />
 
         <FaqSection />
-
-        <CallToActionSection />
 
         <TestimonialsSection />
 

@@ -105,7 +105,7 @@ export default function TestimonialsSection() {
   );
 
   return (
-    <section id="testimonials" className="px-4 py-16">
+    <section id="testimonials" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
         <HeaderSection
           title={t('title')}
@@ -120,10 +120,10 @@ export default function TestimonialsSection() {
               {chunk.map(({ name, role, quote, image }, index) => (
                 <Card
                   key={index}
-                  className="shadow-none bg-transparent hover:bg-accent dark:hover:bg-card"
+                  className="bg-transparent shadow-none transition-all duration-200 hover:bg-accent hover:-translate-y-0.5 dark:hover:bg-card"
                 >
                   <CardContent className="grid grid-cols-[auto_1fr] gap-3 pt-4">
-                    <Avatar className="size-9 border-2 border-gray-200">
+                    <Avatar className="size-9 border-2 border-primary/25">
                       <AvatarImage
                         alt={name}
                         src={image}
@@ -142,7 +142,7 @@ export default function TestimonialsSection() {
                       </span>
 
                       <blockquote className="mt-3">
-                        <p className="text-gray-700 dark:text-gray-300">
+                        <p className="text-muted-foreground">
                           {quote}
                         </p>
                       </blockquote>

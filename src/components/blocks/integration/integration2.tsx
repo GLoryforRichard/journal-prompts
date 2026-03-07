@@ -17,9 +17,10 @@ export default function Integration2Section() {
 
   return (
     <section>
-      <div className="bg-muted/50 py-24">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="grid items-center sm:grid-cols-2">
+      <div className="relative overflow-hidden py-16 md:py-24">
+        <div className="absolute inset-0 bg-linear-to-tl from-primary/5 via-muted/70 to-chart-1/6 dark:from-primary/6 dark:via-muted/40 dark:to-chart-1/4" />
+        <div className="relative mx-auto max-w-5xl px-6">
+          <div className="grid items-center gap-8 sm:grid-cols-2 sm:gap-0">
             <div className="relative mx-auto w-fit">
               {/* <div className="bg-radial to-muted/50 dark:to-muted/50 absolute inset-0 z-10 from-transparent to-75%" /> */}
               <div className="mx-auto mb-2 flex w-fit justify-center gap-2">
@@ -94,13 +95,13 @@ const IntegrationCard = ({
   return (
     <div
       className={cn(
-        'relative flex size-20 rounded-xl bg-muted dark:bg-muted/50',
+        'relative flex size-20 rounded-xl bg-muted dark:bg-muted/50 transition-transform duration-200 hover:scale-105 hover:shadow-lg',
         className
       )}
     >
       <div
         role="presentation"
-        className={cn('absolute inset-0 rounded-xl', borderClassName)}
+        className={cn('absolute inset-0 rounded-xl border', borderClassName)}
       />
       <div className="relative z-20 m-auto size-fit *:size-8">{children}</div>
     </div>
