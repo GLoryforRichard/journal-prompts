@@ -9,11 +9,6 @@ import { CoinsIcon, Loader2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export function CreditsBalanceMenu() {
-  // If credits are not enabled, return null
-  if (!websiteConfig.credits.enableCredits) {
-    return null;
-  }
-
   const t = useTranslations('Marketing.avatar');
   const router = useLocaleRouter();
 
@@ -24,28 +19,31 @@ export function CreditsBalanceMenu() {
   // Use TanStack Query hook for credit balance
   const { data: balance = 0, isLoading } = useCreditBalance(currentUser?.id);
 
+  // If credits are not enabled, return null
+  if (!websiteConfig.credits.enableCredits) {
+    return null;
+  }
+
   const handleClick = () => {
     router.push(Routes.SettingsCredits);
   };
 
   return (
     <div
-      className="flex items-center justify-between cursor-pointer w-full"
+      className="flex w-full items-center justify-between"
       onClick={handleClick}
     >
-      <div className="flex items-center space-x-2.5">
-        <CoinsIcon className="h-4 w-4" />
-        <p className="text-sm">{t('credits')}</p>
+      <div className="flex items-center gap-2">
+        <CoinsIcon className="size-4" />
+        <span className="text-sm">{t('credits')}</span>
       </div>
-      <div className="flex items-center">
-        <p className="text-sm font-medium">
-          {isLoading ? (
-            <Loader2Icon className="h-4 w-4 animate-spin" />
-          ) : (
-            balance.toLocaleString()
-          )}
-        </p>
-      </div>
+      <span className="text-sm font-medium">
+        {isLoading ? (
+          <Loader2Icon className="size-4 animate-spin" />
+        ) : (
+          balance.toLocaleString()
+        )}
+      </span>
     </div>
   );
 }

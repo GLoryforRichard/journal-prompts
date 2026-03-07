@@ -24,12 +24,6 @@ import { useEffect, useTransition } from 'react';
  * https://next-intl.dev/docs/routing/navigation#userouter
  */
 export default function LocaleSwitcher() {
-  // Return null if there's only one locale available
-  const showLocaleSwitch = Object.keys(websiteConfig.i18n.locales).length > 1;
-  if (!showLocaleSwitch) {
-    return null;
-  }
-
   const router = useLocaleRouter();
   const pathname = useLocalePathname();
   const params = useParams();
@@ -37,6 +31,12 @@ export default function LocaleSwitcher() {
   const { currentLocale, setCurrentLocale } = useLocaleStore();
   const [, startTransition] = useTransition();
   const t = useTranslations('Common');
+
+  // Return null if there's only one locale available
+  const showLocaleSwitch = Object.keys(websiteConfig.i18n.locales).length > 1;
+  if (!showLocaleSwitch) {
+    return null;
+  }
 
   useEffect(() => {
     setCurrentLocale(locale);

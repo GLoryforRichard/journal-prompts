@@ -39,11 +39,7 @@ interface HomePageProps {
   params: Promise<{ locale: Locale }>;
 }
 
-export default async function HomePage(props: HomePageProps) {
-  const params = await props.params;
-  const { locale } = params;
-  const t = await getTranslations('HomePage');
-
+export default async function HomePage(_props: HomePageProps) {
   return (
     <>
       <div className="flex flex-col">

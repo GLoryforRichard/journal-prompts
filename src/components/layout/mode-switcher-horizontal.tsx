@@ -12,10 +12,6 @@ import { useEffect, useState } from 'react';
  * Mode switcher component, used in the footer
  */
 export function ModeSwitcherHorizontal() {
-  if (!websiteConfig.ui.mode?.enableSwitch) {
-    return null;
-  }
-
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const t = useTranslations('Common.mode');
@@ -24,6 +20,10 @@ export function ModeSwitcherHorizontal() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  if (!websiteConfig.ui.mode?.enableSwitch) {
+    return null;
+  }
 
   if (!mounted) {
     return (
@@ -41,7 +41,7 @@ export function ModeSwitcherHorizontal() {
         variant="ghost"
         size="icon"
         className={cn(
-          'size-6 px-0 rounded-full cursor-pointer',
+          'size-6 px-0 rounded-full',
           theme === 'light' && 'bg-muted text-foreground'
         )}
         onClick={() => setTheme('light')}
@@ -54,7 +54,7 @@ export function ModeSwitcherHorizontal() {
         variant="ghost"
         size="icon"
         className={cn(
-          'size-6 px-0 rounded-full cursor-pointer',
+          'size-6 px-0 rounded-full',
           theme === 'dark' && 'bg-muted text-foreground'
         )}
         onClick={() => setTheme('dark')}
@@ -67,7 +67,7 @@ export function ModeSwitcherHorizontal() {
         variant="ghost"
         size="icon"
         className={cn(
-          'size-6 px-0 rounded-full cursor-pointer',
+          'size-6 px-0 rounded-full',
           theme === 'system' && 'bg-muted text-foreground'
         )}
         onClick={() => setTheme('system')}

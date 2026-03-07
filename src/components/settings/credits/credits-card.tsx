@@ -95,7 +95,6 @@ export default function CreditsCard() {
         <CardFooter className="mt-2 px-6 py-4 flex justify-end items-center bg-muted rounded-none">
           <Button
             variant="outline"
-            className="cursor-pointer"
             onClick={handleRetry}
           >
             <RefreshCwIcon className="size-4 mr-1" />
@@ -116,12 +115,10 @@ export default function CreditsCard() {
         {/* Credits balance */}
         <div className="flex items-center justify-start space-x-4">
           <div className="flex items-center space-x-2">
-            {/* <CoinsIcon className="h-6 w-6 text-muted-foreground" /> */}
             <div className="text-3xl font-medium">
               {balance.toLocaleString()}
             </div>
           </div>
-          {/* <Badge variant="outline">available</Badge> */}
         </div>
       </CardContent>
       <CardFooter className="px-6 py-4 flex justify-between items-center bg-muted rounded-none">

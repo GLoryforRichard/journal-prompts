@@ -7,48 +7,40 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import type { IconName } from 'lucide-react/dynamic';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 type FAQItem = {
   id: string;
-  icon: IconName;
   question: string;
   answer: string;
 };
 
 export default function FaqSection() {
-  const locale = useLocale();
   const t = useTranslations('HomePage.faqs');
 
   const faqItems: FAQItem[] = [
     {
       id: 'item-1',
-      icon: 'calendar-clock',
       question: t('items.item-1.question'),
       answer: t('items.item-1.answer'),
     },
     {
       id: 'item-2',
-      icon: 'wallet',
       question: t('items.item-2.question'),
       answer: t('items.item-2.answer'),
     },
     {
       id: 'item-3',
-      icon: 'refresh-cw',
       question: t('items.item-3.question'),
       answer: t('items.item-3.answer'),
     },
     {
       id: 'item-4',
-      icon: 'hand-coins',
       question: t('items.item-4.question'),
       answer: t('items.item-4.answer'),
     },
     {
       id: 'item-5',
-      icon: 'mail',
       question: t('items.item-5.question'),
       answer: t('items.item-5.answer'),
     },
@@ -74,7 +66,7 @@ export default function FaqSection() {
                 value={item.id}
                 className="border-dashed"
               >
-                <AccordionTrigger className="cursor-pointer text-base hover:no-underline">
+                <AccordionTrigger className="text-base hover:no-underline">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent>

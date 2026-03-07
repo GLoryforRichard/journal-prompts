@@ -53,7 +53,7 @@ export function UserButtonMobile({ user }: UserButtonProps) {
         <UserAvatar
           name={user.name}
           image={user.image}
-          className="size-8 border cursor-pointer"
+          className="size-8 border"
         />
       </DrawerTrigger>
       <DrawerPortal>
@@ -69,11 +69,11 @@ export function UserButtonMobile({ user }: UserButtonProps) {
             <UserAvatar
               name={user.name}
               image={user.image}
-              className="size-8 border cursor-pointer"
+              className="size-8 border"
             />
             <div className="flex flex-col">
               <p className="font-medium">{user.name}</p>
-              <p className="w-[200px] truncate text-muted-foreground">
+              <p className="w-52 truncate text-muted-foreground">
                 {user.email}
               </p>
             </div>

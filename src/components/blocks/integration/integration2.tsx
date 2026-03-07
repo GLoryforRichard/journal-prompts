@@ -22,7 +22,6 @@ export default function Integration2Section() {
         <div className="relative mx-auto max-w-5xl px-6">
           <div className="grid items-center gap-8 sm:grid-cols-2 sm:gap-0">
             <div className="relative mx-auto w-fit">
-              {/* <div className="bg-radial to-muted/50 dark:to-muted/50 absolute inset-0 z-10 from-transparent to-75%" /> */}
               <div className="mx-auto mb-2 flex w-fit justify-center gap-2">
                 <IntegrationCard>
                   <Gemini />

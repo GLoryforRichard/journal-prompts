@@ -50,7 +50,7 @@ export function UserButton({ user }: UserButtonProps) {
         <UserAvatar
           name={user.name}
           image={user.image}
-          className="size-8 border cursor-pointer"
+          className="size-8 border"
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
@@ -68,7 +68,7 @@ export function UserButton({ user }: UserButtonProps) {
         {/* show credits balance button if credits are enabled */}
         {websiteConfig.credits.enableCredits && (
           <>
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem>
               <CreditsBalanceMenu />
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -78,7 +78,6 @@ export function UserButton({ user }: UserButtonProps) {
         {avatarLinks.map((item) => (
           <DropdownMenuItem
             key={item.title}
-            className="cursor-pointer"
             onClick={() => {
               if (item.href) {
                 localeRouter.push(item.href);
@@ -92,7 +91,6 @@ export function UserButton({ user }: UserButtonProps) {
 
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer"
           onSelect={async (event) => {
             event.preventDefault();
             setOpen(false);

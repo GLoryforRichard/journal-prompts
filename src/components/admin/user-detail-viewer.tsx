@@ -155,17 +155,6 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
               >
                 {user.role === 'admin' ? t('admin') : t('user')}
               </Badge>
-              {/* email verified */}
-              {/* <Badge variant="outline" className="px-1.5 hover:bg-accent">
-                {user.emailVerified ? (
-                  <MailCheckIcon className="stroke-green-500 dark:stroke-green-400" />
-                ) : (
-                  <MailQuestionIcon className="stroke-red-500 dark:stroke-red-400" />
-                )}
-                {user.emailVerified
-                  ? t('email.verified')
-                  : t('email.unverified')}
-              </Badge> */}
 
               {/* user banned */}
               <div className="flex items-center gap-2">

@@ -16,12 +16,12 @@ import { useTheme } from 'next-themes';
  * Mode switcher component, used in the navbar
  */
 export function ModeSwitcher() {
+  const { setTheme } = useTheme();
+  const t = useTranslations('Common.mode');
+
   if (!websiteConfig.ui.mode?.enableSwitch) {
     return null;
   }
-
-  const { setTheme } = useTheme();
-  const t = useTranslations('Common.mode');
 
   return (
     <DropdownMenu>
@@ -29,7 +29,7 @@ export function ModeSwitcher() {
         <Button
           variant="ghost"
           size="sm"
-          className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
+          className="size-8 p-0.5 border border-border rounded-full"
         >
           <SunIcon className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <MoonIcon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -37,24 +37,15 @@ export function ModeSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => setTheme('light')}
-          className="cursor-pointer"
-        >
+        <DropdownMenuItem onClick={() => setTheme('light')}>
           <SunIcon className="mr-2 size-4" />
           <span>{t('light')}</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('dark')}
-          className="cursor-pointer"
-        >
+        <DropdownMenuItem onClick={() => setTheme('dark')}>
           <MoonIcon className="mr-2 size-4" />
           <span>{t('dark')}</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('system')}
-          className="cursor-pointer"
-        >
+        <DropdownMenuItem onClick={() => setTheme('system')}>
           <LaptopIcon className="mr-2 size-4" />
           <span>{t('system')}</span>
         </DropdownMenuItem>

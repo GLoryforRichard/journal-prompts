@@ -53,7 +53,6 @@ export default function FeaturesSection() {
 
   return (
     <section id="features" className="px-4 py-16 md:py-24">
-      {/* <div className="bg-linear-to-b absolute inset-0 -z-10 sm:inset-6 sm:rounded-b-3xl dark:block dark:to-[color-mix(in_oklab,var(--color-zinc-900)_75%,var(--color-background))]" /> */}
       <div className="mx-auto max-w-6xl px-6 space-y-8 lg:space-y-20 dark:[--color-border:color-mix(in_oklab,var(--color-white)_10%,transparent)]">
         <HeaderSection
           title={t('title')}
@@ -135,14 +134,14 @@ export default function FeaturesSection() {
                 >
                   <Image
                     src={images[activeItem].image}
-                    className="size-full object-cover object-left-top dark:hidden"
+                    className="size-full object-cover object-top-left dark:hidden"
                     alt={images[activeItem].alt}
                     width={1207}
                     height={929}
                   />
                   <Image
                     src={images[activeItem].darkImage}
-                    className="size-full object-cover object-left-top dark:block hidden"
+                    className="size-full object-cover object-top-left dark:block hidden"
                     alt={images[activeItem].alt}
                     width={1207}
                     height={929}
