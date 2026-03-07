@@ -56,7 +56,10 @@ export default function Integration2Section() {
                 </IntegrationCard>
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={200} className="mx-auto mt-6 max-w-lg space-y-6 text-center sm:mt-0 sm:text-left">
+            <ScrollReveal
+              delay={200}
+              className="mx-auto mt-6 max-w-lg space-y-6 text-center sm:mt-0 sm:text-left"
+            >
               <h2 className="text-balance text-3xl font-semibold md:text-4xl">
                 {t('title')}
               </h2>

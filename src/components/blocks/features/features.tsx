@@ -63,7 +63,10 @@ export default function FeaturesSection() {
           />
         </ScrollReveal>
 
-        <ScrollReveal delay={150} className="grid gap-12 lg:grid-cols-12 lg:gap-24">
+        <ScrollReveal
+          delay={150}
+          className="grid gap-12 lg:grid-cols-12 lg:gap-24"
+        >
           <div className="flex flex-col gap-8 lg:col-span-5">
             <div className="text-left lg:pr-0">
               <h3 className="text-3xl font-semibold lg:text-4xl text-foreground leading-normal py-1">

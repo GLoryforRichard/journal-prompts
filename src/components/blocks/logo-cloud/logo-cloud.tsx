@@ -15,7 +15,10 @@ export default function LogoCloudSection() {
           <h2 className="text-center text-xl font-medium">{t('title')}</h2>
         </ScrollReveal>
 
-        <ScrollReveal delay={150} className="mx-auto mt-12 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12">
+        <ScrollReveal
+          delay={150}
+          className="mx-auto mt-12 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12"
+        >
           <img
             className="h-5 w-fit dark:invert"
             src="https://cdn.mksaas.com/svg/nvidia.svg"

@@ -27,7 +27,10 @@ export default function Features2Section() {
           />
         </ScrollReveal>
 
-        <ScrollReveal delay={150} className="grid items-center gap-12 lg:grid-cols-5 lg:gap-24">
+        <ScrollReveal
+          delay={150}
+          className="grid items-center gap-12 lg:grid-cols-5 lg:gap-24"
+        >
           <div className="lg:col-span-2">
             <div className="lg:pr-0">
               <h2 className="text-4xl font-semibold">{t('title')}</h2>

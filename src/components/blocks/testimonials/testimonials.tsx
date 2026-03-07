@@ -114,7 +114,11 @@ export default function TestimonialsSection() {
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
           {testimonialChunks.map((chunk, chunkIndex) => (
-            <ScrollReveal key={chunkIndex} delay={chunkIndex * 120} className="space-y-3">
+            <ScrollReveal
+              key={chunkIndex}
+              delay={chunkIndex * 120}
+              className="space-y-3"
+            >
               {chunk.map(({ name, role, quote, image }) => (
                 <Card
                   key={`${name}-${role}`}
