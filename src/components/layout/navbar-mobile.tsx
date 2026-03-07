@@ -9,105 +9,73 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useNavbarLinks } from '@/config/navbar-config';
 import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import { Routes } from '@/routes';
-import { Portal } from '@radix-ui/react-portal';
+import { LoginWrapper } from '@/components/auth/login-wrapper';
 import {
   ArrowUpRightIcon,
-  ChevronDownIcon,
   ChevronRightIcon,
   MenuIcon,
   XIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
-import { Skeleton } from '../ui/skeleton';
 import { UserButtonMobile } from './user-button-mobile';
 
-export function NavbarMobile({
-  className,
-  ...other
-}: React.HTMLAttributes<HTMLDivElement>) {
+const mobileLinkClass =
+  'flex w-full items-center rounded-md p-2 text-base text-muted-foreground hover:text-foreground';
+const mobileLinkActiveClass = 'font-semibold text-foreground';
+const mobileSubLinkClass =
+  'flex w-full items-center gap-4 rounded-md p-2 text-sm text-muted-foreground hover:text-foreground';
+
+interface NavbarMobileProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
   const t = useTranslations();
-  const [open, setOpen] = React.useState<boolean>(false);
   const localePathname = useLocalePathname();
+  const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { data: session, isPending } = authClient.useSession();
   const currentUser = session?.user;
+  const menuLinks = useNavbarLinks();
 
+  // Sync mount (avoid hydration mismatch) and close drawer on route change
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const handleRouteChangeStart = () => {
-      if (document.activeElement instanceof HTMLInputElement) {
-        document.activeElement.blur();
-      }
-
-      setOpen(false);
-    };
-
-    handleRouteChangeStart();
+    setOpen(false);
   }, [localePathname]);
 
-  const handleChange = () => {
-    const mediaQueryList = window.matchMedia('(min-width: 1024px)');
-    setOpen((open) => (open ? !mediaQueryList.matches : false));
-  };
-
-  useEffect(() => {
-    handleChange();
-    const mediaQueryList = window.matchMedia('(min-width: 1024px)');
-    mediaQueryList.addEventListener('change', handleChange);
-    return () => mediaQueryList.removeEventListener('change', handleChange);
-  }, []);
-
-  const handleToggleMobileMenu = (): void => {
-    setOpen((open) => !open);
-  };
-
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <>
       <div
         className={cn('flex items-center justify-between', className)}
-        {...other}
+        {...props}
       >
-        {/* navbar left shows logo */}
-        <LocaleLink href={Routes.Root} className="flex items-center gap-2">
+        <LocaleLink href="/" className="flex items-center gap-2">
           <Logo />
           <span className="text-xl font-semibold">{t('Metadata.name')}</span>
         </LocaleLink>
 
-        {/* navbar right shows menu icon and user button */}
-        <div className="flex items-center justify-end gap-4">
-          {/* show user button if user is logged in */}
+        <div className="flex items-center gap-4">
           {isPending ? (
-            <Skeleton className="size-8 border rounded-full" />
+            <Skeleton className="size-8 rounded-full" />
           ) : currentUser ? (
-            <>
-              {/* <CreditsBalanceButton /> */}
-              <UserButtonMobile user={currentUser} />
-            </>
+            <UserButtonMobile user={currentUser} />
           ) : null}
-
           <Button
+            type="button"
             variant="ghost"
             size="icon"
             aria-expanded={open}
-            aria-label="Toggle Mobile Menu"
-            onClick={handleToggleMobileMenu}
-            className="size-8 flex aspect-square h-fit select-none items-center
-              justify-center rounded-md border cursor-pointer"
+            aria-label="Toggle menu"
+            onClick={() => setOpen((o) => !o)}
+            className="size-8 rounded-md border"
           >
             {open ? (
               <XIcon className="size-4" />
@@ -118,239 +86,126 @@ export function NavbarMobile({
         </div>
       </div>
 
-      {/* mobile menu */}
       {open && (
-        <Portal asChild>
-          {/* if we don't add RemoveScroll component, the underlying
-            page will scroll when we scroll the mobile menu */}
-          <RemoveScroll allowPinchZoom enabled>
-            {/* Only render MainMobileMenu when not in loading state */}
-            {!isPending && (
-              <MainMobileMenu
-                userLoggedIn={!!currentUser}
-                onLinkClicked={handleToggleMobileMenu}
-              />
-            )}
-          </RemoveScroll>
-        </Portal>
-      )}
-    </>
-  );
-}
-
-interface MainMobileMenuProps {
-  userLoggedIn: boolean;
-  onLinkClicked: () => void;
-}
-
-function MainMobileMenu({ userLoggedIn, onLinkClicked }: MainMobileMenuProps) {
-  const [expanded, setExpanded] = React.useState<Record<string, boolean>>({});
-  const t = useTranslations();
-  const menuLinks = useNavbarLinks();
-  const localePathname = useLocalePathname();
-
-  return (
-    <div
-      className="fixed w-full inset-0 z-50 mt-16 overflow-y-auto
-      bg-background backdrop-blur-md animate-in fade-in-0"
-    >
-      <div className="size-full flex flex-col items-start space-y-4">
-        {/* action buttons */}
-        {userLoggedIn ? null : (
-          <div className="w-full flex flex-col gap-4 px-4">
-            <LocaleLink
-              href={Routes.Login}
-              onClick={onLinkClicked}
-              className={cn(
-                buttonVariants({
-                  variant: 'outline',
-                  size: 'lg',
-                }),
-                'w-full'
-              )}
-            >
-              {t('Common.login')}
-            </LocaleLink>
-            <LocaleLink
-              href={Routes.Register}
-              className={cn(
-                buttonVariants({
-                  variant: 'default',
-                  size: 'lg',
-                }),
-                'w-full'
-              )}
-              onClick={onLinkClicked}
-            >
-              {t('Common.signUp')}
-            </LocaleLink>
-          </div>
-        )}
-
-        {/* main menu */}
-        <ul className="w-full px-4">
-          {menuLinks?.map((item) => {
-            const isActive = item.href
-              ? item.href === '/'
-                ? localePathname === '/'
-                : localePathname.startsWith(item.href)
-              : item.items?.some(
-                  (subItem) =>
-                    subItem.href &&
-                    (subItem.href === '/'
-                      ? localePathname === '/'
-                      : localePathname.startsWith(subItem.href))
-                );
-
-            return (
-              <li key={item.title} className="py-1">
-                {item.items ? (
-                  <Collapsible
-                    open={expanded[item.title.toLowerCase()]}
-                    onOpenChange={(isOpen) =>
-                      setExpanded((prev) => ({
-                        ...prev,
-                        [item.title.toLowerCase()]: isOpen,
-                      }))
-                    }
+        <div className="fixed inset-0 top-14.25 z-50 flex flex-col overflow-y-auto bg-background">
+          <div className="flex flex-1 flex-col items-start gap-4 p-4">
+            {!currentUser && (
+              <div className="flex w-full flex-col gap-4">
+                <LoginWrapper mode="modal" asChild>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="lg"
+                    className="w-full"
+                    onClick={() => setOpen(false)}
                   >
-                    <CollapsibleTrigger asChild>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        className={cn(
-                          'flex w-full !pl-2 items-center justify-between text-left',
-                          'bg-transparent text-muted-foreground cursor-pointer',
-                          'hover:bg-transparent hover:text-foreground',
-                          'focus:bg-transparent focus:text-foreground',
-                          isActive &&
-                            'font-semibold bg-transparent text-foreground'
-                        )}
-                      >
-                        <span className="text-base">{item.title}</span>
-                        {expanded[item.title.toLowerCase()] ? (
-                          <ChevronDownIcon className="size-4" />
-                        ) : (
-                          <ChevronRightIcon className="size-4" />
-                        )}
-                      </Button>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="pl-2">
-                      <ul className="mt-2 space-y-2 pl-0">
-                        {item.items.map((subItem) => {
-                          const isSubItemActive =
-                            subItem.href &&
-                            localePathname.startsWith(subItem.href);
+                    {t('Common.login')}
+                  </Button>
+                </LoginWrapper>
+                <LocaleLink
+                  href={Routes.Register}
+                  onClick={() => setOpen(false)}
+                  className={cn(buttonVariants({ size: 'lg' }), 'w-full')}
+                >
+                  {t('Common.signUp')}
+                </LocaleLink>
+              </div>
+            )}
 
-                          return (
-                            <li key={subItem.title}>
-                              <LocaleLink
-                                href={subItem.href || '#'}
-                                target={subItem.external ? '_blank' : undefined}
-                                rel={
-                                  subItem.external
-                                    ? 'noopener noreferrer'
-                                    : undefined
-                                }
-                                className={cn(
-                                  buttonVariants({ variant: 'ghost' }),
-                                  'group h-auto w-full justify-start gap-4 p-1 !pl-0 !pr-3',
-                                  'bg-transparent text-muted-foreground cursor-pointer',
-                                  'hover:bg-transparent hover:text-foreground',
-                                  'focus:bg-transparent focus:text-foreground',
-                                  isSubItemActive &&
-                                    'font-semibold bg-transparent text-foreground'
-                                )}
-                                onClick={onLinkClicked}
-                              >
-                                <div
+            <ul className="w-full space-y-1">
+              {menuLinks?.map((item) => {
+                const active = item.href
+                  ? item.href === '/'
+                    ? localePathname === '/'
+                    : localePathname.startsWith(item.href)
+                  : item.items?.some(
+                      (sub) =>
+                        sub.href && localePathname.startsWith(sub.href)
+                    );
+
+                return (
+                  <li key={item.title} className="py-1">
+                    {item.items ? (
+                      <Collapsible>
+                        <CollapsibleTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            className={cn(
+                              'w-full justify-between text-left text-base',
+                              'bg-transparent text-muted-foreground hover:text-foreground',
+                              active && 'font-semibold text-foreground'
+                            )}
+                          >
+                            {item.title}
+                            <ChevronRightIcon className="size-4" />
+                          </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pl-2">
+                          <ul className="mt-2 space-y-2">
+                            {item.items.map((sub) => (
+                              <li key={sub.title}>
+                                <LocaleLink
+                                  href={sub.href ?? '#'}
+                                  target={
+                                    sub.external ? '_blank' : undefined
+                                  }
+                                  rel={
+                                    sub.external
+                                      ? 'noopener noreferrer'
+                                      : undefined
+                                  }
+                                  onClick={() => setOpen(false)}
                                   className={cn(
-                                    'flex size-8 shrink-0 items-center justify-center transition-colors ml-0',
-                                    'bg-transparent text-muted-foreground',
-                                    'group-hover:bg-transparent group-hover:text-foreground',
-                                    'group-focus:bg-transparent group-focus:text-foreground',
-                                    isSubItemActive &&
-                                      'bg-transparent text-foreground'
+                                    mobileSubLinkClass,
+                                    sub.href &&
+                                      localePathname.startsWith(sub.href) &&
+                                      mobileLinkActiveClass
                                   )}
                                 >
-                                  {subItem.icon ? subItem.icon : null}
-                                </div>
-                                <div className="flex-1">
-                                  <span
-                                    className={cn(
-                                      'text-sm text-muted-foreground',
-                                      'group-hover:bg-transparent group-hover:text-foreground',
-                                      'group-focus:bg-transparent group-focus:text-foreground',
-                                      isSubItemActive &&
-                                        'font-semibold bg-transparent text-foreground'
-                                    )}
-                                  >
-                                    {subItem.title}
-                                  </span>
-                                  {/* hide description for now */}
-                                  {/* {subItem.description && (
-                                      <p
-                                        className={cn(
-                                          'text-xs text-muted-foreground',
-                                          'group-hover:bg-transparent group-hover:text-foreground/80',
-                                          'group-focus:bg-transparent group-focus:text-foreground/80',
-                                          isSubItemActive &&
-                                          'bg-transparent text-foreground/80'
-                                        )}
-                                      >
-                                        {subItem.description}
-                                      </p>
-                                    )} */}
-                                </div>
-                                {subItem.external && (
-                                  <ArrowUpRightIcon
-                                    className={cn(
-                                      'size-4 shrink-0 text-muted-foreground items-center',
-                                      'group-hover:bg-transparent group-hover:text-foreground',
-                                      'group-focus:bg-transparent group-focus:text-foreground',
-                                      isSubItemActive &&
-                                        'bg-transparent text-foreground'
-                                    )}
-                                  />
-                                )}
-                              </LocaleLink>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </CollapsibleContent>
-                  </Collapsible>
-                ) : (
-                  <LocaleLink
-                    href={item.href || '#'}
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noopener noreferrer' : undefined}
-                    className={cn(
-                      buttonVariants({ variant: 'ghost' }),
-                      'w-full !pl-2 justify-start cursor-pointer group',
-                      'bg-transparent text-muted-foreground',
-                      'hover:bg-transparent hover:text-foreground',
-                      'focus:bg-transparent focus:text-foreground',
-                      isActive && 'font-semibold bg-transparent text-foreground'
+                                  {sub.icon ? (
+                                    <div className="size-4 shrink-0">
+                                      {sub.icon}
+                                    </div>
+                                  ) : null}
+                                  {sub.title}
+                                  {sub.external ? (
+                                    <ArrowUpRightIcon className="size-4 shrink-0" />
+                                  ) : null}
+                                </LocaleLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    ) : (
+                      <LocaleLink
+                        href={item.href ?? '#'}
+                        target={item.external ? '_blank' : undefined}
+                        rel={
+                          item.external ? 'noopener noreferrer' : undefined
+                        }
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          mobileLinkClass,
+                          active && mobileLinkActiveClass
+                        )}
+                      >
+                        {item.title}
+                      </LocaleLink>
                     )}
-                    onClick={onLinkClicked}
-                  >
-                    <div className="flex items-center w-full pl-0">
-                      <span className="text-base">{item.title}</span>
-                    </div>
-                  </LocaleLink>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+                  </li>
+                );
+              })}
+            </ul>
 
-        {/* bottom buttons */}
-        <div className="flex w-full items-center justify-between gap-4 border-t border-border/50 p-4">
-          <LocaleSelector />
-          <ModeSwitcherHorizontal />
+            <div className="mt-auto w-full border-t border-border/50 p-4 flex items-center justify-between">
+              <LocaleSelector />
+              <ModeSwitcherHorizontal />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

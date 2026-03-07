@@ -6,7 +6,7 @@ import { Logo } from '@/components/layout/logo';
 import { ModeSwitcher } from '@/components/layout/mode-switcher';
 import { NavbarMobile } from '@/components/layout/navbar-mobile';
 import { UserButton } from '@/components/layout/user-button';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,6 +16,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useNavbarLinks } from '@/config/navbar-config';
 import { useScroll } from '@/hooks/use-scroll';
 import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
@@ -25,97 +26,93 @@ import { Routes } from '@/routes';
 import { ArrowUpRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { Skeleton } from '../ui/skeleton';
 import LocaleSwitcher from './locale-switcher';
 
 interface NavBarProps {
   scroll?: boolean;
 }
 
-const customNavigationMenuTriggerStyle = cn(
-  navigationMenuTriggerStyle(),
-  'relative bg-transparent text-muted-foreground cursor-pointer',
-  'hover:bg-accent hover:text-accent-foreground',
-  'focus:bg-accent focus:text-accent-foreground',
-  'data-active:font-semibold data-active:bg-transparent data-active:text-accent-foreground',
-  'data-[state=open]:bg-transparent data-[state=open]:text-accent-foreground'
-);
-
-export function Navbar({ scroll }: NavBarProps) {
+export function Navbar({ scroll = true }: NavBarProps) {
   const t = useTranslations();
   const scrolled = useScroll(50);
   const menuLinks = useNavbarLinks();
   const localePathname = useLocalePathname();
   const [mounted, setMounted] = useState(false);
+  const [menuValue, setMenuValue] = useState<string | undefined>(undefined);
   const { data: session, isPending } = authClient.useSession();
   const currentUser = session?.user;
-  // console.log(`Navbar, user:`, user);
+  const showBarBg = scroll && scrolled;
 
+  // Sync mount (avoid auth hydration mismatch) and close menu on route change
   useEffect(() => {
     setMounted(true);
-  }, []);
+    setMenuValue(undefined);
+  }, [localePathname]);
 
   return (
     <section
       className={cn(
         'sticky inset-x-0 top-0 z-40 py-4 transition-all duration-300',
-        scroll
-          ? scrolled
-            ? 'bg-muted/50 backdrop-blur-md border-b supports-backdrop-filter:bg-muted/50'
-            : 'bg-transparent'
-          : 'border-b bg-muted/50'
+        showBarBg && 'border-b'
       )}
     >
-      <Container className="px-4">
-        {/* desktop navbar */}
-        <nav aria-label="Main navigation" className="hidden lg:flex">
-          {/* logo and name */}
-          <div className="flex items-center">
-            <LocaleLink href="/" className="flex items-center space-x-2">
+      {showBarBg && (
+        <div
+          className="absolute inset-0 z-0 bg-background/80 backdrop-blur-md"
+          aria-hidden
+        />
+      )}
+      <div className="relative z-10">
+        <Container className="px-4">
+          {/* desktop navbar */}
+          <nav className="hidden lg:flex lg:items-center lg:justify-between lg:gap-4">
+            <LocaleLink
+              href="/"
+              className="flex items-center gap-2 shrink-0"
+            >
               <Logo />
               <span className="text-xl font-semibold">
                 {t('Metadata.name')}
               </span>
             </LocaleLink>
-          </div>
 
-          {/* menu links */}
-          <div className="flex-1 flex items-center justify-center space-x-2">
-            <NavigationMenu className="relative">
-              <NavigationMenuList className="flex items-center">
-                {menuLinks?.map((item, index) =>
+            <NavigationMenu
+              value={menuValue}
+              onValueChange={setMenuValue}
+              className="flex-1 justify-center"
+            >
+              <NavigationMenuList>
+                {menuLinks?.map((item) =>
                   item.items ? (
-                    <NavigationMenuItem key={index} className="relative">
+                    <NavigationMenuItem key={item.title} value={item.title}>
                       <NavigationMenuTrigger
-                        data-active={
-                          item.items.some((subItem) =>
-                            subItem.href
-                              ? localePathname.startsWith(subItem.href)
+                        className={cn(
+                          'bg-transparent',
+                          item.items.some((sub) =>
+                            sub.href
+                              ? localePathname.startsWith(sub.href)
                               : false
-                          )
-                            ? 'true'
-                            : undefined
-                        }
-                        className={customNavigationMenuTriggerStyle}
+                          ) && 'font-semibold text-foreground'
+                        )}
                       >
                         {item.title}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-4 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                          {item.items?.map((subItem, subIndex) => {
-                            const isSubItemActive =
-                              subItem.href &&
-                              localePathname.startsWith(subItem.href);
+                        <ul className="grid w-100 gap-3 p-3 md:w-125 md:grid-cols-2 lg:w-150">
+                          {item.items.map((sub) => {
+                            const isSubActive =
+                              sub.href &&
+                              localePathname.startsWith(sub.href);
                             return (
-                              <li key={subIndex}>
+                              <li key={sub.title}>
                                 <NavigationMenuLink asChild>
                                   <LocaleLink
-                                    href={subItem.href || '#'}
+                                    href={sub.href ?? '#'}
                                     target={
-                                      subItem.external ? '_blank' : undefined
+                                      sub.external ? '_blank' : undefined
                                     }
                                     rel={
-                                      subItem.external
+                                      sub.external
                                         ? 'noopener noreferrer'
                                         : undefined
                                     }
@@ -124,59 +121,28 @@ export function Navbar({ scroll }: NavBarProps) {
                                       'p-2 leading-none no-underline outline-hidden transition-colors',
                                       'hover:bg-accent hover:text-accent-foreground',
                                       'focus:bg-accent focus:text-accent-foreground',
-                                      isSubItemActive &&
+                                      isSubActive &&
                                         'bg-accent text-accent-foreground'
                                     )}
                                   >
-                                    <div
-                                      className={cn(
-                                        'flex size-8 shrink-0 items-center justify-center transition-colors',
-                                        'bg-transparent text-muted-foreground',
-                                        'group-hover:bg-transparent group-hover:text-accent-foreground',
-                                        'group-focus:bg-transparent group-focus:text-accent-foreground',
-                                        isSubItemActive &&
-                                          'bg-transparent text-accent-foreground'
-                                      )}
-                                    >
-                                      {subItem.icon ? subItem.icon : null}
-                                    </div>
-                                    <div className="flex-1">
-                                      <div
-                                        className={cn(
-                                          'text-sm font-medium text-muted-foreground',
-                                          'group-hover:bg-transparent group-hover:text-accent-foreground',
-                                          'group-focus:bg-transparent group-focus:text-accent-foreground',
-                                          isSubItemActive &&
-                                            'bg-transparent text-accent-foreground'
-                                        )}
-                                      >
-                                        {subItem.title}
+                                    {sub.icon ? (
+                                      <div className="size-4 shrink-0">
+                                        {sub.icon}
                                       </div>
-                                      {subItem.description && (
-                                        <div
-                                          className={cn(
-                                            'text-sm text-muted-foreground',
-                                            'group-hover:bg-transparent group-hover:text-accent-foreground/80',
-                                            'group-focus:bg-transparent group-focus:text-accent-foreground/80',
-                                            isSubItemActive &&
-                                              'bg-transparent text-accent-foreground/80'
-                                          )}
-                                        >
-                                          {subItem.description}
-                                        </div>
-                                      )}
+                                    ) : null}
+                                    <div className="flex-1 min-w-0">
+                                      <div className="text-sm font-medium">
+                                        {sub.title}
+                                      </div>
+                                      {sub.description ? (
+                                        <p className="text-xs text-muted-foreground">
+                                          {sub.description}
+                                        </p>
+                                      ) : null}
                                     </div>
-                                    {subItem.external && (
-                                      <ArrowUpRightIcon
-                                        className={cn(
-                                          'size-4 shrink-0 text-muted-foreground',
-                                          'group-hover:bg-transparent group-hover:text-accent-foreground',
-                                          'group-focus:bg-transparent group-focus:text-accent-foreground',
-                                          isSubItemActive &&
-                                            'bg-transparent text-accent-foreground'
-                                        )}
-                                      />
-                                    )}
+                                    {sub.external ? (
+                                      <ArrowUpRightIcon className="size-4 shrink-0" />
+                                    ) : null}
                                   </LocaleLink>
                                 </NavigationMenuLink>
                               </li>
@@ -186,7 +152,7 @@ export function Navbar({ scroll }: NavBarProps) {
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                   ) : (
-                    <NavigationMenuItem key={index}>
+                    <NavigationMenuItem key={item.title}>
                       <NavigationMenuLink
                         asChild
                         active={
@@ -196,7 +162,15 @@ export function Navbar({ scroll }: NavBarProps) {
                               : localePathname.startsWith(item.href)
                             : false
                         }
-                        className={customNavigationMenuTriggerStyle}
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          'bg-transparent',
+                          item.href &&
+                            (item.href === '/'
+                              ? localePathname === '/'
+                              : localePathname.startsWith(item.href)) &&
+                            'font-semibold text-primary'
+                        )}
                       >
                         <LocaleLink
                           href={item.href || '#'}
@@ -213,51 +187,45 @@ export function Navbar({ scroll }: NavBarProps) {
                 )}
               </NavigationMenuList>
             </NavigationMenu>
-          </div>
 
-          {/* navbar right show sign in or user */}
-          <div className="flex items-center gap-x-4">
-            {!mounted || isPending ? (
-              <Skeleton className="size-8 border rounded-full" />
-            ) : currentUser ? (
-              <>
-                {/* <CreditsBalanceButton /> */}
+            <div className="flex items-center gap-4 shrink-0">
+              <ModeSwitcher />
+              <LocaleSwitcher />
+              {!mounted || isPending ? (
+                <Skeleton className="size-8 rounded-full" />
+              ) : currentUser ? (
                 <UserButton user={currentUser} />
-              </>
-            ) : (
-              <div className="flex items-center gap-x-4">
-                <LoginWrapper mode="modal" asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="cursor-pointer"
+              ) : (
+                <>
+                  <LoginWrapper mode="modal" asChild>
+                    <button
+                      type="button"
+                      className={cn(
+                        buttonVariants({
+                          variant: 'outline',
+                          size: 'sm',
+                        }),
+                        'cursor-pointer'
+                      )}
+                    >
+                      {t('Common.login')}
+                    </button>
+                  </LoginWrapper>
+                  <LocaleLink
+                    href={Routes.Register}
+                    className={buttonVariants({ size: 'sm' })}
                   >
-                    {t('Common.login')}
-                  </Button>
-                </LoginWrapper>
+                    {t('Common.signUp')}
+                  </LocaleLink>
+                </>
+              )}
+            </div>
+          </nav>
 
-                <LocaleLink
-                  href={Routes.Register}
-                  className={cn(
-                    buttonVariants({
-                      variant: 'default',
-                      size: 'sm',
-                    })
-                  )}
-                >
-                  {t('Common.signUp')}
-                </LocaleLink>
-              </div>
-            )}
-
-            <ModeSwitcher />
-            <LocaleSwitcher />
-          </div>
-        </nav>
-
-        {/* mobile navbar */}
-        <NavbarMobile className="lg:hidden" />
-      </Container>
+          {/* mobile navbar */}
+          <NavbarMobile className="lg:hidden" />
+        </Container>
+      </div>
     </section>
   );
 }
