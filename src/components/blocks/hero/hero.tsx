@@ -168,6 +168,8 @@ export default function HeroSection() {
                     alt="MkSaaS dashboard screenshot showing the application interface in dark mode"
                     width={2796}
                     height={2008}
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1152px"
                   />
                   <Image
                     className="z-2 border-border/25 relative rounded-2xl border dark:hidden"
@@ -175,6 +177,8 @@ export default function HeroSection() {
                     alt="MkSaaS dashboard screenshot showing the application interface in light mode"
                     width={2796}
                     height={2008}
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1152px"
                   />
                 </div>
               </div>
