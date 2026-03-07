@@ -1,6 +1,7 @@
 'use client';
 
 import { HeaderSection } from '@/components/layout/header-section';
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import {
   Accordion,
   AccordionContent,
@@ -49,9 +50,11 @@ export default function FaqSection() {
   return (
     <section id="faqs" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-4xl">
-        <HeaderSection title={t('title')} subtitle={t('subtitle')} />
+        <ScrollReveal>
+          <HeaderSection title={t('title')} subtitle={t('subtitle')} />
+        </ScrollReveal>
 
-        <div className="mx-auto max-w-4xl mt-12">
+        <ScrollReveal delay={150} className="mx-auto max-w-4xl mt-12">
           <Accordion
             type="single"
             collapsible
@@ -74,7 +77,7 @@ export default function FaqSection() {
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

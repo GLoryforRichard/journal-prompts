@@ -1,3 +1,4 @@
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import { Button } from '@/components/ui/button';
 import { LocaleLink } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
@@ -12,7 +13,7 @@ export default function CallToActionSection() {
     >
       <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-muted/80 to-chart-1/8 dark:from-primary/8 dark:via-muted/50 dark:to-chart-1/5" />
       <div className="relative mx-auto max-w-5xl px-6">
-        <div className="text-center">
+        <ScrollReveal className="text-center">
           <h2 className="text-balance text-4xl font-semibold lg:text-5xl">
             {t('title')}
           </h2>
@@ -33,7 +34,7 @@ export default function CallToActionSection() {
               </LocaleLink>
             </Button>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import { HeaderSection } from '@/components/layout/header-section';
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import {
   Gemini,
   GooglePaLM,
@@ -20,54 +21,68 @@ export default function IntegrationSection() {
   return (
     <section id="integration" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-5xl">
-        <HeaderSection
-          title={t('title')}
-          subtitle={t('subtitle')}
-          description={t('description')}
-        />
+        <ScrollReveal>
+          <HeaderSection
+            title={t('title')}
+            subtitle={t('subtitle')}
+            description={t('description')}
+          />
+        </ScrollReveal>
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <IntegrationCard
-            title={t('items.item-1.title')}
-            description={t('items.item-1.description')}
-          >
-            <Gemini />
-          </IntegrationCard>
+          <ScrollReveal delay={0}>
+            <IntegrationCard
+              title={t('items.item-1.title')}
+              description={t('items.item-1.description')}
+            >
+              <Gemini />
+            </IntegrationCard>
+          </ScrollReveal>
 
-          <IntegrationCard
-            title={t('items.item-2.title')}
-            description={t('items.item-2.description')}
-          >
-            <Replit />
-          </IntegrationCard>
+          <ScrollReveal delay={80}>
+            <IntegrationCard
+              title={t('items.item-2.title')}
+              description={t('items.item-2.description')}
+            >
+              <Replit />
+            </IntegrationCard>
+          </ScrollReveal>
 
-          <IntegrationCard
-            title={t('items.item-3.title')}
-            description={t('items.item-3.description')}
-          >
-            <MagicUI />
-          </IntegrationCard>
+          <ScrollReveal delay={160}>
+            <IntegrationCard
+              title={t('items.item-3.title')}
+              description={t('items.item-3.description')}
+            >
+              <MagicUI />
+            </IntegrationCard>
+          </ScrollReveal>
 
-          <IntegrationCard
-            title={t('items.item-4.title')}
-            description={t('items.item-4.description')}
-          >
-            <VSCodium />
-          </IntegrationCard>
+          <ScrollReveal delay={240}>
+            <IntegrationCard
+              title={t('items.item-4.title')}
+              description={t('items.item-4.description')}
+            >
+              <VSCodium />
+            </IntegrationCard>
+          </ScrollReveal>
 
-          <IntegrationCard
-            title={t('items.item-5.title')}
-            description={t('items.item-5.description')}
-          >
-            <MediaWiki />
-          </IntegrationCard>
+          <ScrollReveal delay={320}>
+            <IntegrationCard
+              title={t('items.item-5.title')}
+              description={t('items.item-5.description')}
+            >
+              <MediaWiki />
+            </IntegrationCard>
+          </ScrollReveal>
 
-          <IntegrationCard
-            title={t('items.item-6.title')}
-            description={t('items.item-6.description')}
-          >
-            <GooglePaLM />
-          </IntegrationCard>
+          <ScrollReveal delay={400}>
+            <IntegrationCard
+              title={t('items.item-6.title')}
+              description={t('items.item-6.description')}
+            >
+              <GooglePaLM />
+            </IntegrationCard>
+          </ScrollReveal>
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import { useTranslations } from 'next-intl';
 
 export default function LogoCloudSection() {
@@ -10,9 +11,11 @@ export default function LogoCloudSection() {
     >
       <div className="absolute inset-0 bg-linear-to-b from-muted/60 to-transparent" />
       <div className="relative mx-auto max-w-5xl px-6">
-        <h2 className="text-center text-xl font-medium">{t('title')}</h2>
+        <ScrollReveal>
+          <h2 className="text-center text-xl font-medium">{t('title')}</h2>
+        </ScrollReveal>
 
-        <div className="mx-auto mt-12 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12">
+        <ScrollReveal delay={150} className="mx-auto mt-12 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12">
           <img
             className="h-5 w-fit dark:invert"
             src="https://cdn.mksaas.com/svg/nvidia.svg"
@@ -90,7 +93,7 @@ export default function LogoCloudSection() {
             height="20"
             width="auto"
           />
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

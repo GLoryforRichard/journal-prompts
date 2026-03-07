@@ -2,6 +2,7 @@
 
 import { HeaderSection } from '@/components/layout/header-section';
 import { BorderBeam } from '@/components/magicui/border-beam';
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import {
   Accordion,
   AccordionContent,
@@ -54,13 +55,15 @@ export default function FeaturesSection() {
   return (
     <section id="features" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-6 space-y-8 lg:space-y-20 dark:[--color-border:color-mix(in_oklab,var(--color-white)_10%,transparent)]">
-        <HeaderSection
-          title={t('title')}
-          subtitle={t('subtitle')}
-          description={t('description')}
-        />
+        <ScrollReveal>
+          <HeaderSection
+            title={t('title')}
+            subtitle={t('subtitle')}
+            description={t('description')}
+          />
+        </ScrollReveal>
 
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-24">
+        <ScrollReveal delay={150} className="grid gap-12 lg:grid-cols-12 lg:gap-24">
           <div className="flex flex-col gap-8 lg:col-span-5">
             <div className="text-left lg:pr-0">
               <h3 className="text-3xl font-semibold lg:text-4xl text-foreground leading-normal py-1">
@@ -155,7 +158,7 @@ export default function FeaturesSection() {
               className="from-transparent via-primary/60 to-transparent dark:via-primary/30"
             />
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

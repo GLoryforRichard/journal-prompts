@@ -1,4 +1,5 @@
 import { HeaderSection } from '@/components/layout/header-section';
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import {
   ActivityIcon,
   DraftingCompassIcon,
@@ -18,13 +19,15 @@ export default function Features2Section() {
   return (
     <section id="features2" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-6 space-y-8 lg:space-y-20">
-        <HeaderSection
-          title={t('title')}
-          subtitle={t('subtitle')}
-          description={t('description')}
-        />
+        <ScrollReveal>
+          <HeaderSection
+            title={t('title')}
+            subtitle={t('subtitle')}
+            description={t('description')}
+          />
+        </ScrollReveal>
 
-        <div className="grid items-center gap-12 lg:grid-cols-5 lg:gap-24">
+        <ScrollReveal delay={150} className="grid items-center gap-12 lg:grid-cols-5 lg:gap-24">
           <div className="lg:col-span-2">
             <div className="lg:pr-0">
               <h2 className="text-4xl font-semibold">{t('title')}</h2>
@@ -69,7 +72,7 @@ export default function Features2Section() {
               />
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

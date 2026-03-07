@@ -1,4 +1,5 @@
 import { HeaderSection } from '@/components/layout/header-section';
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTranslations } from 'next-intl';
@@ -107,11 +108,13 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
-        <HeaderSection title={t('title')} subtitle={t('subtitle')} />
+        <ScrollReveal>
+          <HeaderSection title={t('title')} subtitle={t('subtitle')} />
+        </ScrollReveal>
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
           {testimonialChunks.map((chunk, chunkIndex) => (
-            <div key={chunkIndex} className="space-y-3">
+            <ScrollReveal key={chunkIndex} delay={chunkIndex * 120} className="space-y-3">
               {chunk.map(({ name, role, quote, image }) => (
                 <Card
                   key={`${name}-${role}`}
@@ -143,7 +146,7 @@ export default function TestimonialsSection() {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

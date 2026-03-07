@@ -1,4 +1,5 @@
 import { Logo } from '@/components/layout/logo';
+import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import {
   Gemini,
   GooglePaLM,
@@ -21,7 +22,7 @@ export default function Integration2Section() {
         <div className="absolute inset-0 bg-linear-to-tl from-primary/5 via-muted/70 to-chart-1/6 dark:from-primary/6 dark:via-muted/40 dark:to-chart-1/4" />
         <div className="relative mx-auto max-w-5xl px-6">
           <div className="grid items-center gap-8 sm:grid-cols-2 sm:gap-0">
-            <div className="relative mx-auto w-fit">
+            <ScrollReveal className="relative mx-auto w-fit">
               <div className="mx-auto mb-2 flex w-fit justify-center gap-2">
                 <IntegrationCard>
                   <Gemini />
@@ -54,8 +55,8 @@ export default function Integration2Section() {
                   <GooglePaLM />
                 </IntegrationCard>
               </div>
-            </div>
-            <div className="mx-auto mt-6 max-w-lg space-y-6 text-center sm:mt-0 sm:text-left">
+            </ScrollReveal>
+            <ScrollReveal delay={200} className="mx-auto mt-6 max-w-lg space-y-6 text-center sm:mt-0 sm:text-left">
               <h2 className="text-balance text-3xl font-semibold md:text-4xl">
                 {t('title')}
               </h2>
@@ -74,7 +75,7 @@ export default function Integration2Section() {
                   </LocaleLink>
                 </Button>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>
