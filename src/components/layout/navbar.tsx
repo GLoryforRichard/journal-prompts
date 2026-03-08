@@ -50,7 +50,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
   }, [localePathname]);
 
   return (
-    <section
+    <header
       className={cn(
         'sticky inset-x-0 top-0 z-40 py-4 transition-all duration-300',
         showBarBg && 'border-b'
@@ -58,15 +58,22 @@ export function Navbar({ scroll = true }: NavBarProps) {
     >
       {showBarBg && (
         <div
-          className="absolute inset-0 z-0 bg-background/80 backdrop-blur-md"
-          aria-hidden
+          className="absolute inset-0 z-0 bg-muted/50 backdrop-blur-md"
+          aria-hidden="true"
         />
       )}
       <div className="relative z-10">
         <Container className="px-4">
           {/* desktop navbar */}
-          <nav className="hidden lg:flex lg:items-center lg:justify-between lg:gap-4">
-            <LocaleLink href="/" className="flex items-center gap-2 shrink-0">
+          <nav
+            aria-label="Main navigation"
+            className="hidden lg:flex lg:items-center lg:justify-between lg:gap-4"
+          >
+            <LocaleLink
+              href="/"
+              aria-label="Home"
+              className="flex items-center gap-2 shrink-0"
+            >
               <Logo />
               <span className="text-xl font-semibold">
                 {t('Metadata.name')}
@@ -110,12 +117,14 @@ export function Navbar({ scroll = true }: NavBarProps) {
                                         ? 'noopener noreferrer'
                                         : undefined
                                     }
+                                    onClick={() => setMenuValue(undefined)}
                                     className={cn(
                                       'group flex select-none flex-row items-center gap-4 rounded-md',
                                       'p-2 leading-none no-underline outline-hidden transition-colors',
                                       'hover:bg-accent hover:text-accent-foreground',
                                       'focus:bg-accent focus:text-accent-foreground',
-                                      isSubActive && 'text-primary font-semibold'
+                                      isSubActive &&
+                                        'bg-accent text-accent-foreground'
                                     )}
                                   >
                                     {sub.icon ? (
@@ -190,7 +199,8 @@ export function Navbar({ scroll = true }: NavBarProps) {
                         buttonVariants({
                           variant: 'outline',
                           size: 'sm',
-                        })
+                        }),
+                        'cursor-pointer'
                       )}
                     >
                       {t('Common.login')}
@@ -211,6 +221,6 @@ export function Navbar({ scroll = true }: NavBarProps) {
           <NavbarMobile className="lg:hidden" />
         </Container>
       </div>
-    </section>
+    </header>
   );
 }

@@ -122,7 +122,7 @@ export default function TestimonialsSection() {
               {chunk.map(({ name, role, quote, image }) => (
                 <Card
                   key={`${name}-${role}`}
-                  className="bg-transparent shadow-none transition-all duration-200 hover:bg-accent hover:-translate-y-0.5 dark:hover:bg-card"
+                  className="bg-transparent shadow-none transition-colors duration-200 hover:bg-accent dark:hover:bg-card"
                 >
                   <CardContent className="grid grid-cols-[auto_1fr] gap-3 pt-4">
                     <Avatar className="size-9 border-2 border-primary/25">

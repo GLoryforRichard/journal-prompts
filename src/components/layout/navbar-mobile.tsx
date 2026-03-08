@@ -27,10 +27,10 @@ import { useEffect, useState } from 'react';
 import { UserButtonMobile } from './user-button-mobile';
 
 const mobileLinkClass =
-  'flex w-full items-center rounded-md p-2 text-base text-muted-foreground hover:text-foreground';
-const mobileLinkActiveClass = 'font-semibold text-foreground';
+  'flex w-full items-center rounded-md p-2 text-base text-muted-foreground transition-colors duration-150 hover:text-foreground';
+const mobileLinkActiveClass = 'font-semibold text-primary';
 const mobileSubLinkClass =
-  'flex w-full items-center gap-4 rounded-md p-2 text-sm text-muted-foreground hover:text-foreground';
+  'flex w-full items-center gap-4 rounded-md p-2 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground';
 
 interface NavbarMobileProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -87,7 +87,12 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-14.25 z-50 flex flex-col overflow-y-auto bg-background">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          className="fixed inset-0 top-14.25 z-50 flex flex-col overflow-y-auto bg-background animate-in fade-in-0 duration-200"
+        >
           <div className="flex flex-1 flex-col items-start gap-4 p-4">
             {!currentUser && (
               <div className="flex w-full flex-col gap-4">
@@ -133,7 +138,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                             className={cn(
                               'w-full justify-between text-left text-base',
                               'bg-transparent text-muted-foreground hover:text-foreground',
-                              active && 'font-semibold text-foreground'
+                              active && 'font-semibold text-primary'
                             )}
                           >
                             {item.title}

@@ -103,7 +103,7 @@ const IntegrationCard = ({
   const t = useTranslations('HomePage.integration');
 
   return (
-    <Card className="bg-transparent p-6 transition-all duration-200 hover:bg-accent hover:-translate-y-0.5 dark:hover:bg-card">
+    <Card className="bg-transparent p-6 transition-colors duration-200 hover:bg-accent dark:hover:bg-card">
       <div className="relative">
         <div className="*:size-10">{children}</div>
 
@@ -123,7 +123,7 @@ const IntegrationCard = ({
           >
             <LocaleLink href={link}>
               {t('learnMore')}
-              <ChevronRight className="ml-0 !size-3.5 opacity-50" />
+              <ChevronRight className="ml-0 size-3.5! opacity-50" />
             </LocaleLink>
           </Button>
         </div>

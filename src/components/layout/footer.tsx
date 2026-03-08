@@ -37,7 +37,7 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
               </p>
 
               {/* social links */}
-              <div className="flex items-center gap-4 py-2">
+              <nav aria-label="Social links" className="flex items-center gap-4 py-2">
                 <div className="flex items-center gap-2">
                   {socialLinks?.map((link) => (
                     <a
@@ -46,15 +46,14 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={link.title}
-                      className="border border-border inline-flex h-8 w-8 items-center
+                      className="border border-border inline-flex size-8 items-center
                           justify-center rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-200"
                     >
-                      <span className="sr-only">{link.title}</span>
                       {link.icon ? link.icon : null}
                     </a>
                   ))}
                 </div>
-              </div>
+              </nav>
 
               {/* built with button */}
               <BuiltWithButton />
@@ -102,7 +101,7 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
       <div className="border-t py-8">
         <Container className="px-4 flex items-center justify-between gap-x-4">
           <span className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} {t('Metadata.name')} All Rights
+            &copy; {new Date().getFullYear()} {t('Metadata.name')}. All Rights
             Reserved.
           </span>
 

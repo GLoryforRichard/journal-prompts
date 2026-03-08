@@ -20,8 +20,8 @@ const transitionVariants = {
       scale: 1,
       transition: {
         type: 'spring' as const,
-        bounce: 0.3,
-        duration: 1.5,
+        bounce: 0,
+        duration: 0.8,
       },
     },
   },
@@ -34,7 +34,6 @@ export default function HeroSection() {
   const linkSecondary = 'https://demo.mksaas.com';
 
   return (
-    <>
       <section id="hero" className="overflow-hidden">
         {/* background, light shadows on top of the hero section */}
         <div
@@ -46,8 +45,7 @@ export default function HeroSection() {
           <div className="h-320 -translate-y-87.5 absolute left-0 top-0 w-60 -rotate-45 bg-[radial-gradient(50%_50%_at_50%_50%,oklch(0.9_0.03_65/.08)_0,oklch(0.65_0.015_50/.03)_80%,transparent_100%)]" />
         </div>
 
-        <section>
-          <div className="relative pt-12">
+        <div className="relative pt-12">
             <div className="mx-auto max-w-7xl px-6">
               <Ripple />
 
@@ -181,8 +179,6 @@ export default function HeroSection() {
               </div>
             </AnimatedGroup>
           </div>
-        </section>
       </section>
-    </>
   );
 }
