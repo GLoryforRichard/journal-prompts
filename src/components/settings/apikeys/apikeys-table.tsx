@@ -267,7 +267,7 @@ export function ApiKeysTable({
 
   return (
     <div className="w-full space-y-4">
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-start">
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button>

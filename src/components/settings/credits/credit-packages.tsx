@@ -74,8 +74,8 @@ export function CreditPackages() {
             <Card
               key={creditPackage.id}
               className={cn(
-                `relative ${creditPackage.popular ? 'border-primary' : ''}`,
-                'shadow-none border-1 border-border'
+                `relative overflow-visible ${creditPackage.popular ? 'border-primary' : ''}`,
+                'shadow-none border border-border'
               )}
             >
               {creditPackage.popular && (

@@ -37,7 +37,7 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent className="flex flex-col gap-2">
-              <SidebarMenu>
+              <SidebarMenu className="gap-2">
                 {item.items.map((subItem) => (
                   <SidebarMenuItem key={subItem.title}>
                     <SidebarMenuButton
