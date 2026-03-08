@@ -115,8 +115,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
                                       'p-2 leading-none no-underline outline-hidden transition-colors',
                                       'hover:bg-accent hover:text-accent-foreground',
                                       'focus:bg-accent focus:text-accent-foreground',
-                                      isSubActive &&
-                                        'bg-accent text-accent-foreground'
+                                      isSubActive && 'text-primary font-semibold'
                                     )}
                                   >
                                     {sub.icon ? (
@@ -149,13 +148,6 @@ export function Navbar({ scroll = true }: NavBarProps) {
                     <NavigationMenuItem key={item.title}>
                       <NavigationMenuLink
                         asChild
-                        active={
-                          item.href
-                            ? item.href === '/'
-                              ? localePathname === '/'
-                              : localePathname.startsWith(item.href)
-                            : false
-                        }
                         className={cn(
                           navigationMenuTriggerStyle(),
                           'bg-transparent',
