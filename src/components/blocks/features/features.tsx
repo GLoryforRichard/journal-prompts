@@ -54,7 +54,7 @@ export default function FeaturesSection() {
 
   return (
     <section id="features" className="px-4 py-16 md:py-24">
-      <div className="mx-auto max-w-6xl px-6 space-y-8 lg:space-y-20 dark:[--color-border:color-mix(in_oklab,var(--color-white)_10%,transparent)]">
+      <div className="mx-auto max-w-6xl px-2 lg:px-0 space-y-8 lg:space-y-20 dark:[--color-border:color-mix(in_oklab,var(--color-white)_10%,transparent)]">
         <ScrollReveal>
           <HeaderSection
             title={t('title')}
