@@ -10,33 +10,40 @@ import { getBaseUrl } from '@/lib/urls';
 type Href = Parameters<typeof getLocalePathname>[0]['href'];
 
 /**
- * static routes for sitemap, you may change the routes for your own
+ * Scene slugs for journal prompt topic pages
+ */
+const sceneRoutes = [
+  '/gratitude-journal-prompts',
+  '/journal-prompts-for-mental-health',
+  '/shadow-work-journal-prompts',
+  '/journal-prompts-for-kids',
+  '/daily-journal-prompts',
+  '/journal-prompts-for-teens',
+  '/self-discovery-journal-prompts',
+  '/self-love-journal-prompts',
+  '/mindfulness-journal-prompts',
+  '/morning-journal-prompts',
+  '/fun-journal-prompts',
+  '/deep-journal-prompts',
+  '/journal-prompts-for-middle-school',
+  '/journal-prompts-for-high-school',
+];
+
+/**
+ * static routes for sitemap
  */
 const staticRoutes = [
   '/',
-  '/pricing',
-  '/about',
-  '/contact',
-  '/waitlist',
-  '/changelog',
   '/privacy',
   '/terms',
-  '/cookie',
-  '/auth/login',
-  '/auth/register',
+  '/about',
+  ...sceneRoutes,
   ...(websiteConfig.blog.enable ? ['/blog'] : []),
   ...(websiteConfig.docs.enable ? ['/docs'] : []),
 ];
 
-/**
- * Generate a sitemap for the website with hreflang support
- *
- * https://nextjs.org/docs/app/api-reference/functions/generate-sitemaps
- * https://github.com/javayhu/cnblocks/blob/main/app/sitemap.ts
- * https://ahrefs.com/blog/hreflang-tags/
- */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const sitemapList: MetadataRoute.Sitemap = []; // final result
+  const sitemapList: MetadataRoute.Sitemap = [];
 
   // add static routes
   sitemapList.push(
@@ -52,7 +59,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // add blog related routes if enabled
   if (websiteConfig.blog.enable) {
-    // add paginated blog list pages
     routing.locales.forEach((locale) => {
       const posts = blogSource
         .getPages(locale)
@@ -61,7 +67,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         1,
         Math.ceil(posts.length / websiteConfig.blog.paginationSize)
       );
-      // /blog/page/[page] (from 2)
       for (let page = 2; page <= totalPages; page++) {
         sitemapList.push({
           url: getUrl(`/blog/page/${page}`, locale),
@@ -72,11 +77,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     });
 
-    // add paginated category pages
     routing.locales.forEach((locale) => {
       const localeCategories = categorySource.getPages(locale);
       localeCategories.forEach((category) => {
-        // posts in this category and locale
         const postsInCategory = blogSource
           .getPages(locale)
           .filter((post) => post.data.published)
@@ -87,7 +90,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           1,
           Math.ceil(postsInCategory.length / websiteConfig.blog.paginationSize)
         );
-        // /blog/category/[slug] (first page)
         sitemapList.push({
           url: getUrl(`/blog/category/${category.slugs[0]}`, locale),
           alternates: {
@@ -96,7 +98,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             ),
           },
         });
-        // /blog/category/[slug]/page/[page] (from 2)
         for (let page = 2; page <= totalPages; page++) {
           sitemapList.push({
             url: getUrl(
@@ -113,7 +114,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     });
 
-    // add posts (single post pages)
     routing.locales.forEach((locale) => {
       const posts = blogSource
         .getPages(locale)

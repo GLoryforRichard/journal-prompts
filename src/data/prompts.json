@@ -1,0 +1,1892 @@
+[
+  {
+    "id": "grat-001",
+    "text": "What are three small things that brought you joy today?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "gratitude",
+    "depth": "medium",
+    "source": "Based on positive psychology research by Dr. Martin Seligman"
+  },
+  {
+    "id": "grat-002",
+    "text": "Write about a person who positively impacted your life this week. What specifically did they do, and how did it make you feel?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "relationships"],
+    "scene": "gratitude",
+    "depth": "medium",
+    "source": "Inspired by Dr. Robert Emmons' gratitude research at UC Davis"
+  },
+  {
+    "id": "grat-003",
+    "text": "Think of a difficulty you faced recently. Can you find one unexpected gift or lesson hidden within it?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["gratitude", "healing"],
+    "scene": "gratitude",
+    "depth": "deep",
+    "source": "Based on post-traumatic growth theory by Tedeschi & Calhoun"
+  },
+  {
+    "id": "grat-004",
+    "text": "List five things in your immediate surroundings that you usually overlook but are grateful for.",
+    "mood": ["grateful", "curious"],
+    "direction": ["gratitude"],
+    "scene": "gratitude",
+    "depth": "light",
+    "source": "Inspired by mindfulness-based gratitude practices"
+  },
+  {
+    "id": "grat-005",
+    "text": "Write a thank-you letter to your body. What has it carried you through recently?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "gratitude",
+    "depth": "deep",
+    "source": "Based on somatic psychology and body gratitude exercises"
+  },
+  {
+    "id": "grat-006",
+    "text": "What is one skill or ability you have that you often take for granted?",
+    "mood": ["grateful", "curious"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "gratitude",
+    "depth": "light",
+    "source": "Inspired by strengths-based psychology by Dr. Martin Seligman"
+  },
+  {
+    "id": "grat-007",
+    "text": "Describe a meal you truly enjoyed recently. What made it special — the food, the company, or the moment?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude"],
+    "scene": "gratitude",
+    "depth": "light",
+    "source": "Based on savoring research by Fred Bryant & Joseph Veroff"
+  },
+  {
+    "id": "grat-008",
+    "text": "Think of a challenge from your past that you've overcome. How has that experience shaped who you are today?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "gratitude",
+    "depth": "deep",
+    "source": "Inspired by resilience research by Dr. Ann Masten"
+  },
+  {
+    "id": "grat-009",
+    "text": "What is something in nature that filled you with wonder recently?",
+    "mood": ["grateful", "curious"],
+    "direction": ["gratitude"],
+    "scene": "gratitude",
+    "depth": "light",
+    "source": "Based on awe research by Dacher Keltner at UC Berkeley"
+  },
+  {
+    "id": "grat-010",
+    "text": "Write about a tradition or routine that brings comfort to your life. Why does it matter to you?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "relationships"],
+    "scene": "gratitude",
+    "depth": "medium",
+    "source": "Inspired by ritual and well-being research in positive psychology"
+  },
+  {
+    "id": "grat-011",
+    "text": "Who is someone you've never properly thanked? What would you say to them?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "relationships"],
+    "scene": "gratitude",
+    "depth": "deep",
+    "source": "Based on the gratitude visit exercise by Dr. Martin Seligman"
+  },
+  {
+    "id": "grat-012",
+    "text": "What is one modern convenience you used today that people 100 years ago didn't have?",
+    "mood": ["grateful", "curious"],
+    "direction": ["gratitude"],
+    "scene": "gratitude",
+    "depth": "light",
+    "source": "Inspired by perspective-taking gratitude exercises"
+  },
+  {
+    "id": "grat-013",
+    "text": "Describe a moment this week when you felt genuinely content — not excited, not thrilled, just peacefully content.",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "gratitude",
+    "depth": "medium",
+    "source": "Based on contentment research in positive psychology"
+  },
+  {
+    "id": "grat-014",
+    "text": "What is one thing about your home that makes you feel safe or comfortable?",
+    "mood": ["grateful"],
+    "direction": ["gratitude"],
+    "scene": "gratitude",
+    "depth": "light",
+    "source": "Inspired by environmental psychology and place attachment theory"
+  },
+  {
+    "id": "grat-015",
+    "text": "Reflect on a mistake that ultimately led to something good. How does gratitude for imperfection feel?",
+    "mood": ["grateful", "reflective", "curious"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "gratitude",
+    "depth": "deep",
+    "source": "Based on self-compassion research by Dr. Kristin Neff"
+  },
+  {
+    "id": "ment-001",
+    "text": "On a scale of 1-10, how would you rate your mental energy right now? What do you think is contributing to that number?",
+    "mood": ["reflective", "anxious"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "mental-health",
+    "depth": "medium",
+    "source": "Based on self-monitoring techniques in cognitive behavioral therapy"
+  },
+  {
+    "id": "ment-002",
+    "text": "What is one thought that keeps replaying in your mind today? Write it down, then ask: is this thought a fact or a feeling?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "deep",
+    "source": "Based on cognitive restructuring techniques from CBT by Dr. Aaron Beck"
+  },
+  {
+    "id": "ment-003",
+    "text": "Describe your current emotional state using a weather metaphor. Is it sunny, cloudy, stormy, or something else?",
+    "mood": ["reflective", "sad"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "mental-health",
+    "depth": "light",
+    "source": "Inspired by emotion-focused therapy techniques"
+  },
+  {
+    "id": "ment-004",
+    "text": "What boundary do you need to set or reinforce right now? What makes it hard to do so?",
+    "mood": ["anxious", "stuck"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "deep",
+    "source": "Based on boundary-setting work by Dr. Henry Cloud"
+  },
+  {
+    "id": "ment-005",
+    "text": "Write about three things you can control today and three things you cannot. How does separating them feel?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "medium",
+    "source": "Inspired by Stoic philosophy and acceptance-based therapies"
+  },
+  {
+    "id": "ment-006",
+    "text": "What does your inner critic sound like right now? Write down what it's saying, then respond with what a compassionate friend would say instead.",
+    "mood": ["sad", "anxious"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "deep",
+    "source": "Based on self-compassion exercises by Dr. Kristin Neff"
+  },
+  {
+    "id": "ment-007",
+    "text": "Name one thing you did today to take care of yourself, even if it was small.",
+    "mood": ["reflective", "grateful"],
+    "direction": ["healing"],
+    "scene": "mental-health",
+    "depth": "light",
+    "source": "Inspired by self-care research in clinical psychology"
+  },
+  {
+    "id": "ment-008",
+    "text": "If your anxiety had a shape and color, what would it look like? Describe it in detail, then imagine it slowly shrinking.",
+    "mood": ["anxious"],
+    "direction": ["healing", "creativity"],
+    "scene": "mental-health",
+    "depth": "medium",
+    "source": "Based on externalization techniques from narrative therapy"
+  },
+  {
+    "id": "ment-009",
+    "text": "What is one coping mechanism you relied on today? Was it helpful or harmful in the long run?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "medium",
+    "source": "Inspired by DBT skills training by Dr. Marsha Linehan"
+  },
+  {
+    "id": "ment-010",
+    "text": "Write about a time you felt overwhelmed and got through it. What resources — internal or external — helped you?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "medium",
+    "source": "Based on resilience and coping research"
+  },
+  {
+    "id": "ment-011",
+    "text": "What emotions are you avoiding right now? What might happen if you allowed yourself to sit with them for just two minutes?",
+    "mood": ["anxious", "stuck"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "deep",
+    "source": "Based on experiential avoidance concepts from Acceptance and Commitment Therapy"
+  },
+  {
+    "id": "ment-012",
+    "text": "List three things that make you feel grounded. When was the last time you did each one?",
+    "mood": ["anxious", "restless"],
+    "direction": ["healing"],
+    "scene": "mental-health",
+    "depth": "light",
+    "source": "Inspired by grounding techniques in trauma-informed care"
+  },
+  {
+    "id": "ment-013",
+    "text": "How has your sleep been this week? Write about any patterns you notice between your sleep and your mood.",
+    "mood": ["reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "medium",
+    "source": "Based on sleep hygiene research and mood-sleep connection studies"
+  },
+  {
+    "id": "ment-014",
+    "text": "What would your life look like if you worried 50% less? Describe one specific day.",
+    "mood": ["anxious", "curious"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "medium",
+    "source": "Inspired by solution-focused brief therapy techniques"
+  },
+  {
+    "id": "ment-015",
+    "text": "Write a permission slip to yourself. What are you giving yourself permission to feel, do, or let go of today?",
+    "mood": ["reflective", "sad"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mental-health",
+    "depth": "light",
+    "source": "Based on expressive writing research by Dr. James Pennebaker"
+  },
+  {
+    "id": "shad-001",
+    "text": "What trait in others irritates you the most? Could it be a reflection of something you haven't accepted in yourself?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on Carl Jung's shadow projection theory"
+  },
+  {
+    "id": "shad-002",
+    "text": "Think of a time you felt ashamed. What belief about yourself was underneath that shame?",
+    "mood": ["reflective", "sad"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Inspired by shame resilience theory by Dr. Brene Brown"
+  },
+  {
+    "id": "shad-003",
+    "text": "What is a role you play in your family that you didn't choose? How does it affect you today?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on family systems theory by Murray Bowen"
+  },
+  {
+    "id": "shad-004",
+    "text": "Write about a fear you've never told anyone. What power does keeping it secret give it?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Inspired by Jung's concept of integrating the shadow self"
+  },
+  {
+    "id": "shad-005",
+    "text": "What is one 'negative' emotion you were taught to suppress growing up? How does it show up in your life now?",
+    "mood": ["reflective", "sad"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on emotional suppression research in developmental psychology"
+  },
+  {
+    "id": "shad-006",
+    "text": "Describe your 'dark side' as if it were a character. What does it want? What is it trying to protect you from?",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on Internal Family Systems therapy by Dr. Richard Schwartz"
+  },
+  {
+    "id": "shad-007",
+    "text": "When was the last time you were jealous of someone? What does that jealousy reveal about your unmet desires?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery"],
+    "scene": "shadow-work",
+    "depth": "medium",
+    "source": "Inspired by Jungian shadow work and envy as a compass"
+  },
+  {
+    "id": "shad-008",
+    "text": "What lie do you tell yourself most often? Write it down, then write the truth next to it.",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on cognitive distortion work in CBT"
+  },
+  {
+    "id": "shad-009",
+    "text": "Write about a time you hurt someone. What part of you was driving that behavior?",
+    "mood": ["reflective", "sad"],
+    "direction": ["healing", "relationships"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Inspired by accountability practices in depth psychology"
+  },
+  {
+    "id": "shad-010",
+    "text": "What pattern in your relationships keeps repeating? What might your unconscious be trying to resolve?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on repetition compulsion theory by Sigmund Freud"
+  },
+  {
+    "id": "shad-011",
+    "text": "If you could go back and parent your younger self differently, what would you change?",
+    "mood": ["reflective", "sad"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Inspired by inner child work in psychodynamic therapy"
+  },
+  {
+    "id": "shad-012",
+    "text": "What are you most afraid people will discover about you? Write about why that feels threatening.",
+    "mood": ["anxious", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on vulnerability research by Dr. Brene Brown"
+  },
+  {
+    "id": "shad-013",
+    "text": "What compliments do you have trouble accepting? What belief makes you deflect them?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "shadow-work",
+    "depth": "medium",
+    "source": "Inspired by self-worth research in humanistic psychology"
+  },
+  {
+    "id": "shad-014",
+    "text": "Write about a memory you've tried to forget. What would happen if you held space for it without judgment?",
+    "mood": ["sad", "reflective"],
+    "direction": ["healing"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Based on trauma processing approaches in somatic experiencing"
+  },
+  {
+    "id": "shad-015",
+    "text": "What part of yourself did you abandon to fit in? Is it time to welcome it back?",
+    "mood": ["reflective", "sad", "curious"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "shadow-work",
+    "depth": "deep",
+    "source": "Inspired by authenticity and belonging research by Dr. Brene Brown"
+  },
+  {
+    "id": "kids-001",
+    "text": "If you could have any superpower for one day, what would you choose and what would you do with it?",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Based on creative play and imagination development research"
+  },
+  {
+    "id": "kids-002",
+    "text": "Draw or describe your favorite place in the whole world. What makes it so special?",
+    "mood": ["grateful", "curious"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Inspired by place-based education and attachment theory"
+  },
+  {
+    "id": "kids-003",
+    "text": "Write about your best friend. What do you like most about them? What makes a good friend?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["relationships"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Based on social-emotional learning curriculum research"
+  },
+  {
+    "id": "kids-004",
+    "text": "If you could teach the whole world one thing, what would it be and why?",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "kids",
+    "depth": "medium",
+    "source": "Inspired by values clarification exercises for children"
+  },
+  {
+    "id": "kids-005",
+    "text": "What was the bravest thing you did this week? It can be something big or something small.",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery"],
+    "scene": "kids",
+    "depth": "medium",
+    "source": "Based on courage and character strengths research in positive psychology"
+  },
+  {
+    "id": "kids-006",
+    "text": "If your feelings were colors, what color are you feeling right now? Draw it and explain why.",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "creativity"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Inspired by art therapy techniques for emotional expression in children"
+  },
+  {
+    "id": "kids-007",
+    "text": "What is something new you learned recently that surprised you?",
+    "mood": ["curious", "energized"],
+    "direction": ["self-discovery"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Based on curiosity and intrinsic motivation research"
+  },
+  {
+    "id": "kids-008",
+    "text": "Write a story about an animal that goes on an adventure. Where does it go? What does it learn?",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity"],
+    "scene": "kids",
+    "depth": "medium",
+    "source": "Inspired by narrative therapy adapted for children"
+  },
+  {
+    "id": "kids-009",
+    "text": "What is one kind thing you can do for someone tomorrow? How do you think it would make them feel?",
+    "mood": ["grateful", "energized"],
+    "direction": ["relationships", "gratitude"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Based on prosocial behavior research in child development"
+  },
+  {
+    "id": "kids-010",
+    "text": "If you could invent something to help people, what would it be? Describe how it works.",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity", "goal-setting"],
+    "scene": "kids",
+    "depth": "medium",
+    "source": "Inspired by design thinking adapted for children"
+  },
+  {
+    "id": "kids-011",
+    "text": "What made you laugh really hard recently? Why do you think it was so funny?",
+    "mood": ["energized", "grateful"],
+    "direction": ["gratitude"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Based on humor and well-being research in developmental psychology"
+  },
+  {
+    "id": "kids-012",
+    "text": "Think about someone in your family. What is your favorite memory with them?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["relationships", "gratitude"],
+    "scene": "kids",
+    "depth": "medium",
+    "source": "Inspired by family narrative research by Dr. Marshall Duke"
+  },
+  {
+    "id": "kids-013",
+    "text": "What is something hard that you're working on right now? What's one small step you could take today?",
+    "mood": ["stuck", "reflective"],
+    "direction": ["goal-setting", "self-discovery"],
+    "scene": "kids",
+    "depth": "medium",
+    "source": "Based on growth mindset research by Dr. Carol Dweck"
+  },
+  {
+    "id": "kids-014",
+    "text": "Describe your perfect day from morning to night. What would you do, eat, and who would you spend it with?",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "kids",
+    "depth": "light",
+    "source": "Inspired by positive future visualization in child psychology"
+  },
+  {
+    "id": "kids-015",
+    "text": "What is one thing about yourself that makes you proud? Why does it matter to you?",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery"],
+    "scene": "kids",
+    "depth": "medium",
+    "source": "Based on self-esteem development research by Dr. Nathaniel Branden"
+  },
+  {
+    "id": "dail-001",
+    "text": "What is the most important thing you want to accomplish today? Why does it matter?",
+    "mood": ["energized", "reflective"],
+    "direction": ["goal-setting"],
+    "scene": "daily",
+    "depth": "light",
+    "source": "Based on intention-setting practices in productivity psychology"
+  },
+  {
+    "id": "dail-002",
+    "text": "What is one thing you're looking forward to today, even if it's small?",
+    "mood": ["energized", "grateful"],
+    "direction": ["gratitude"],
+    "scene": "daily",
+    "depth": "light",
+    "source": "Inspired by anticipatory savoring research by Fred Bryant"
+  },
+  {
+    "id": "dail-003",
+    "text": "Describe your current mood in three words. What do you think influenced each one?",
+    "mood": ["reflective"],
+    "direction": ["self-discovery"],
+    "scene": "daily",
+    "depth": "light",
+    "source": "Based on emotional granularity research by Dr. Lisa Feldman Barrett"
+  },
+  {
+    "id": "dail-004",
+    "text": "What conversation from today is still lingering in your mind? What made it stick?",
+    "mood": ["reflective", "curious"],
+    "direction": ["relationships", "self-discovery"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Inspired by reflective practice in interpersonal psychology"
+  },
+  {
+    "id": "dail-005",
+    "text": "What drained your energy today? What restored it?",
+    "mood": ["reflective", "restless"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Based on energy management research by Dr. Jim Loehr"
+  },
+  {
+    "id": "dail-006",
+    "text": "Write about one decision you made today. Are you satisfied with it? What would you do differently?",
+    "mood": ["reflective"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Inspired by reflective journaling practices in decision science"
+  },
+  {
+    "id": "dail-007",
+    "text": "What is one thing you procrastinated on today? What was really behind the avoidance?",
+    "mood": ["stuck", "reflective"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Based on procrastination research by Dr. Timothy Pychyl"
+  },
+  {
+    "id": "dail-008",
+    "text": "Who made you smile today? Take a moment to appreciate that person.",
+    "mood": ["grateful", "energized"],
+    "direction": ["gratitude", "relationships"],
+    "scene": "daily",
+    "depth": "light",
+    "source": "Inspired by micro-moments of connection research by Dr. Barbara Fredrickson"
+  },
+  {
+    "id": "dail-009",
+    "text": "If you could redo one hour of today, which would it be and what would you change?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Based on reflective practice in cognitive behavioral approaches"
+  },
+  {
+    "id": "dail-010",
+    "text": "What did you learn about yourself today that you didn't know yesterday?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Inspired by daily self-reflection research in positive psychology"
+  },
+  {
+    "id": "dail-011",
+    "text": "Rate your day from 1-10. What would have made it one point higher?",
+    "mood": ["reflective"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "daily",
+    "depth": "light",
+    "source": "Based on scaling questions from solution-focused therapy"
+  },
+  {
+    "id": "dail-012",
+    "text": "What is one thing you want to let go of before tomorrow?",
+    "mood": ["reflective", "anxious"],
+    "direction": ["healing"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Inspired by evening reflection practices in mindfulness traditions"
+  },
+  {
+    "id": "dail-013",
+    "text": "Write about the best thing that happened today, no matter how small.",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude"],
+    "scene": "daily",
+    "depth": "light",
+    "source": "Based on the Three Good Things exercise by Dr. Martin Seligman"
+  },
+  {
+    "id": "dail-014",
+    "text": "How did you show up for yourself today? How did you show up for others?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "daily",
+    "depth": "medium",
+    "source": "Inspired by values-aligned living in Acceptance and Commitment Therapy"
+  },
+  {
+    "id": "dail-015",
+    "text": "What is weighing on your mind right now? Write it all out — don't censor, just let it flow.",
+    "mood": ["anxious", "restless"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "daily",
+    "depth": "deep",
+    "source": "Based on expressive writing research by Dr. James Pennebaker"
+  },
+  {
+    "id": "teen-001",
+    "text": "What is one thing about your identity that you're still figuring out? How does that uncertainty feel?",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Based on identity development theory by Erik Erikson"
+  },
+  {
+    "id": "teen-002",
+    "text": "Describe a moment when you felt pressure to be someone you're not. How did you handle it?",
+    "mood": ["stuck", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Inspired by authenticity research in adolescent psychology"
+  },
+  {
+    "id": "teen-003",
+    "text": "If social media didn't exist, how would your day be different? Be honest.",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Based on digital well-being research by Dr. Jean Twenge"
+  },
+  {
+    "id": "teen-004",
+    "text": "What is one thing you wish adults understood about being a teenager today?",
+    "mood": ["restless", "reflective"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Inspired by adolescent voice and advocacy research"
+  },
+  {
+    "id": "teen-005",
+    "text": "Write about a friendship that changed this year. What did you learn from how it evolved?",
+    "mood": ["reflective", "sad"],
+    "direction": ["relationships", "self-discovery"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Based on adolescent friendship development research"
+  },
+  {
+    "id": "teen-006",
+    "text": "What does success look like to you — not what your parents or teachers say, but YOUR definition?",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "teens",
+    "depth": "deep",
+    "source": "Inspired by self-determination theory by Deci & Ryan"
+  },
+  {
+    "id": "teen-007",
+    "text": "What is something you're passionate about that not many people know? Why do you keep it private?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Based on interest development and identity research"
+  },
+  {
+    "id": "teen-008",
+    "text": "Describe a time when you stood up for yourself or someone else. How did it feel in the moment vs. afterward?",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Inspired by moral development theory by Lawrence Kohlberg"
+  },
+  {
+    "id": "teen-009",
+    "text": "What is one thing you would change about your school if you could? Why that specific thing?",
+    "mood": ["restless", "curious"],
+    "direction": ["creativity", "goal-setting"],
+    "scene": "teens",
+    "depth": "light",
+    "source": "Based on student voice and engagement research"
+  },
+  {
+    "id": "teen-010",
+    "text": "Write a letter to your future self at age 25. What do you hope they remember about this time?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "teens",
+    "depth": "deep",
+    "source": "Inspired by future self continuity research by Hal Hershfield"
+  },
+  {
+    "id": "teen-011",
+    "text": "What comparison trap do you fall into most often? What would happen if you stopped comparing?",
+    "mood": ["stuck", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Based on social comparison theory by Leon Festinger"
+  },
+  {
+    "id": "teen-012",
+    "text": "What song lyric or quote resonates with you right now? Why does it speak to you?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "creativity"],
+    "scene": "teens",
+    "depth": "light",
+    "source": "Inspired by bibliotherapy and music therapy research"
+  },
+  {
+    "id": "teen-013",
+    "text": "How do you deal with stress? Is your go-to strategy actually helping or just distracting?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Based on adolescent coping strategies research"
+  },
+  {
+    "id": "teen-014",
+    "text": "What is one thing about yourself that you've learned to accept this year?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "teens",
+    "depth": "medium",
+    "source": "Inspired by self-acceptance research in adolescent development"
+  },
+  {
+    "id": "teen-015",
+    "text": "If you could have a conversation with any person — living, dead, or fictional — who would it be and what would you ask?",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "teens",
+    "depth": "light",
+    "source": "Based on perspective-taking and empathy development research"
+  },
+  {
+    "id": "disc-001",
+    "text": "What are five words you would use to describe yourself? Now ask: are these words you chose, or words others assigned to you?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Based on self-concept research by Dr. Carl Rogers"
+  },
+  {
+    "id": "disc-002",
+    "text": "What was the last thing that made you lose track of time? What does that tell you about what matters to you?",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Inspired by flow theory by Dr. Mihaly Csikszentmihalyi"
+  },
+  {
+    "id": "disc-003",
+    "text": "Write about a belief you held strongly five years ago that has changed. What shifted?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "deep",
+    "source": "Based on belief change and cognitive flexibility research"
+  },
+  {
+    "id": "disc-004",
+    "text": "If you had no obligations for an entire year, what would you do? What does that reveal about your deepest desires?",
+    "mood": ["curious", "energized"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Inspired by life design exercises by Bill Burnett & Dave Evans"
+  },
+  {
+    "id": "disc-005",
+    "text": "What are you most afraid of failing at? What does that fear protect you from attempting?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "self-discovery",
+    "depth": "deep",
+    "source": "Based on fear of failure research by Dr. Andrew Elliot"
+  },
+  {
+    "id": "disc-006",
+    "text": "Describe the version of yourself that you are most proud of. What was happening in your life during that time?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Inspired by best possible self exercise in positive psychology"
+  },
+  {
+    "id": "disc-007",
+    "text": "What do you need more of in your life right now? What do you need less of?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Based on values clarification exercises in ACT"
+  },
+  {
+    "id": "disc-008",
+    "text": "Write about a crossroads moment in your life. How did you decide which path to take? Do you still stand by that choice?",
+    "mood": ["reflective"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "deep",
+    "source": "Inspired by narrative identity research by Dr. Dan McAdams"
+  },
+  {
+    "id": "disc-009",
+    "text": "What makes you feel most alive? When was the last time you felt that way?",
+    "mood": ["curious", "energized"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Based on vitality and well-being research by Ryan & Frederick"
+  },
+  {
+    "id": "disc-010",
+    "text": "If your life were a book, what would the current chapter be called? Why?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "creativity"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Inspired by narrative therapy techniques by Michael White"
+  },
+  {
+    "id": "disc-011",
+    "text": "What is something you say 'yes' to that you actually want to say 'no' to? Why is that pattern hard to break?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "self-discovery",
+    "depth": "deep",
+    "source": "Based on people-pleasing and codependency research"
+  },
+  {
+    "id": "disc-012",
+    "text": "What environments bring out the best in you? Describe the setting, the people, and the energy.",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "light",
+    "source": "Inspired by person-environment fit theory in psychology"
+  },
+  {
+    "id": "disc-013",
+    "text": "Write about your relationship with money. What beliefs about it did you inherit from your family?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "deep",
+    "source": "Based on financial psychology and money scripts research by Dr. Brad Klontz"
+  },
+  {
+    "id": "disc-014",
+    "text": "What is one thing you've always wanted to try but haven't? What's genuinely holding you back?",
+    "mood": ["curious", "stuck"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "self-discovery",
+    "depth": "medium",
+    "source": "Inspired by approach-avoidance motivation research"
+  },
+  {
+    "id": "disc-015",
+    "text": "If you could only keep three values to guide every decision for the rest of your life, which would you choose and why?",
+    "mood": ["reflective"],
+    "direction": ["self-discovery"],
+    "scene": "self-discovery",
+    "depth": "deep",
+    "source": "Based on values clarification work in Acceptance and Commitment Therapy"
+  },
+  {
+    "id": "love-001",
+    "text": "Write down three things about yourself that you genuinely like. Not achievements — qualities.",
+    "mood": ["reflective", "grateful"],
+    "direction": ["self-discovery"],
+    "scene": "self-love",
+    "depth": "light",
+    "source": "Based on self-esteem and self-regard research by Dr. Nathaniel Branden"
+  },
+  {
+    "id": "love-002",
+    "text": "What would you say to your best friend if they were going through what you're going through? Now say it to yourself.",
+    "mood": ["sad", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "self-love",
+    "depth": "medium",
+    "source": "Based on self-compassion exercises by Dr. Kristin Neff"
+  },
+  {
+    "id": "love-003",
+    "text": "Write about a time you chose yourself over pleasing others. How did it feel? What happened?",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "self-love",
+    "depth": "medium",
+    "source": "Inspired by boundary-setting and self-advocacy research"
+  },
+  {
+    "id": "love-004",
+    "text": "What does your ideal self-care day look like? Not what influencers show — what truly recharges YOU?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "self-love",
+    "depth": "light",
+    "source": "Based on authentic self-care vs. performative self-care research"
+  },
+  {
+    "id": "love-005",
+    "text": "Write a love letter to a part of your body you've struggled to accept.",
+    "mood": ["reflective", "sad"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "self-love",
+    "depth": "deep",
+    "source": "Inspired by body image and self-acceptance work in feminist therapy"
+  },
+  {
+    "id": "love-006",
+    "text": "What narratives about yourself need to be rewritten? Choose one and write the new version.",
+    "mood": ["reflective", "stuck"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "self-love",
+    "depth": "deep",
+    "source": "Based on narrative identity and re-authoring in narrative therapy"
+  },
+  {
+    "id": "love-007",
+    "text": "When was the last time you celebrated yourself — not for a big win, just for being you?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["self-discovery", "gratitude"],
+    "scene": "self-love",
+    "depth": "light",
+    "source": "Inspired by self-appreciation practices in positive psychology"
+  },
+  {
+    "id": "love-008",
+    "text": "What standards do you hold yourself to that you'd never impose on anyone else? Where did those standards come from?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "self-love",
+    "depth": "deep",
+    "source": "Based on perfectionism research by Dr. Thomas Curran"
+  },
+  {
+    "id": "love-009",
+    "text": "List five things your body does for you every day without you even asking.",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "self-love",
+    "depth": "light",
+    "source": "Inspired by embodied gratitude practices"
+  },
+  {
+    "id": "love-010",
+    "text": "What is one thing you need to forgive yourself for? Write the forgiveness out loud.",
+    "mood": ["sad", "reflective"],
+    "direction": ["healing"],
+    "scene": "self-love",
+    "depth": "deep",
+    "source": "Based on self-forgiveness research by Dr. Everett Worthington"
+  },
+  {
+    "id": "love-011",
+    "text": "How do you talk to yourself when you make a mistake? Write the inner dialogue, then rewrite it with kindness.",
+    "mood": ["reflective", "anxious"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "self-love",
+    "depth": "medium",
+    "source": "Based on self-talk research and self-compassion by Dr. Kristin Neff"
+  },
+  {
+    "id": "love-012",
+    "text": "What makes you uniquely you? Not what you do, but how you see the world differently than anyone else.",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery"],
+    "scene": "self-love",
+    "depth": "medium",
+    "source": "Inspired by signature strengths identification in positive psychology"
+  },
+  {
+    "id": "love-013",
+    "text": "Write about a time you were proud of how you handled something difficult. Let yourself feel that pride.",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery"],
+    "scene": "self-love",
+    "depth": "medium",
+    "source": "Based on savoring positive experiences research"
+  },
+  {
+    "id": "love-014",
+    "text": "What do you need to hear right now? Write it as if someone who loves you deeply is saying it.",
+    "mood": ["sad", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "self-love",
+    "depth": "medium",
+    "source": "Inspired by attachment theory and secure base concept"
+  },
+  {
+    "id": "love-015",
+    "text": "If self-love were a daily practice and not a destination, what would one small act of it look like for you today?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "self-love",
+    "depth": "medium",
+    "source": "Based on behavioral activation and micro-habits research"
+  },
+  {
+    "id": "mind-001",
+    "text": "Close your eyes for 30 seconds, then write about everything you noticed — sounds, sensations, thoughts passing through.",
+    "mood": ["reflective"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "light",
+    "source": "Based on mindfulness-based stress reduction (MBSR) by Dr. Jon Kabat-Zinn"
+  },
+  {
+    "id": "mind-002",
+    "text": "Describe what you're feeling right now without using any emotion words. Use only physical sensations and metaphors.",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "medium",
+    "source": "Inspired by somatic awareness practices in mindfulness"
+  },
+  {
+    "id": "mind-003",
+    "text": "What thought keeps pulling you out of the present moment today? Acknowledge it, then gently set it aside on paper.",
+    "mood": ["anxious", "restless"],
+    "direction": ["healing"],
+    "scene": "mindfulness",
+    "depth": "medium",
+    "source": "Based on cognitive defusion techniques in ACT"
+  },
+  {
+    "id": "mind-004",
+    "text": "Look at your hands for a full minute. Then write about what you noticed — the lines, the scars, the stories they hold.",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "medium",
+    "source": "Inspired by body scan meditation practices"
+  },
+  {
+    "id": "mind-005",
+    "text": "Write about this exact moment using all five senses. What do you see, hear, smell, taste, and feel?",
+    "mood": ["reflective"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "light",
+    "source": "Based on five senses grounding technique in mindfulness practice"
+  },
+  {
+    "id": "mind-006",
+    "text": "What does 'being present' actually mean to you? When was the last time you truly experienced it?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "deep",
+    "source": "Inspired by presence research by Dr. Ellen Langer"
+  },
+  {
+    "id": "mind-007",
+    "text": "Notice your breathing right now without changing it. Write about its rhythm. What is your body telling you?",
+    "mood": ["reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "mindfulness",
+    "depth": "light",
+    "source": "Based on breath awareness in MBSR"
+  },
+  {
+    "id": "mind-008",
+    "text": "What story is your mind spinning right now? Write it down, then ask: is this story helpful? Is it true?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mindfulness",
+    "depth": "medium",
+    "source": "Based on cognitive defusion in Acceptance and Commitment Therapy"
+  },
+  {
+    "id": "mind-009",
+    "text": "Describe the last meal you ate as if you were experiencing every bite for the first time.",
+    "mood": ["grateful", "curious"],
+    "direction": ["gratitude"],
+    "scene": "mindfulness",
+    "depth": "light",
+    "source": "Inspired by mindful eating practices by Dr. Jan Chozen Bays"
+  },
+  {
+    "id": "mind-010",
+    "text": "What part of your daily routine do you do on autopilot? Write about what it would be like to do it with full awareness.",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "medium",
+    "source": "Based on habitual automaticity and mindfulness research"
+  },
+  {
+    "id": "mind-011",
+    "text": "Write about a sound you can hear right now that you weren't conscious of until this moment.",
+    "mood": ["reflective"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "light",
+    "source": "Inspired by auditory mindfulness exercises"
+  },
+  {
+    "id": "mind-012",
+    "text": "Observe one emotion without trying to fix it. Describe where it lives in your body, how it moves, and when it shifts.",
+    "mood": ["reflective", "anxious"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "mindfulness",
+    "depth": "deep",
+    "source": "Based on body-based mindfulness and interoception research"
+  },
+  {
+    "id": "mind-013",
+    "text": "What would happen if you did nothing for the next five minutes? Write about what comes up — the restlessness, the peace, or both.",
+    "mood": ["restless", "reflective"],
+    "direction": ["self-discovery"],
+    "scene": "mindfulness",
+    "depth": "medium",
+    "source": "Inspired by stillness practices in contemplative psychology"
+  },
+  {
+    "id": "mind-014",
+    "text": "Write about a moment of beauty you witnessed today that you almost missed.",
+    "mood": ["grateful", "reflective"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "mindfulness",
+    "depth": "light",
+    "source": "Based on savoring and aesthetic appreciation research"
+  },
+  {
+    "id": "mind-015",
+    "text": "If you could freeze one moment from today and live inside it, which would you choose? What makes it worth holding?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["gratitude", "self-discovery"],
+    "scene": "mindfulness",
+    "depth": "deep",
+    "source": "Inspired by peak experience concepts by Abraham Maslow"
+  },
+  {
+    "id": "morn-001",
+    "text": "What is one intention you want to carry with you through today?",
+    "mood": ["energized", "reflective"],
+    "direction": ["goal-setting"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Based on intention-setting practices in mindfulness research"
+  },
+  {
+    "id": "morn-002",
+    "text": "How did you sleep? Write about the quality of your rest and any dreams you remember.",
+    "mood": ["reflective"],
+    "direction": ["self-discovery"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Inspired by sleep journaling in clinical psychology"
+  },
+  {
+    "id": "morn-003",
+    "text": "What is one thing you're grateful for before your day even fully begins?",
+    "mood": ["grateful", "energized"],
+    "direction": ["gratitude"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Based on morning gratitude practices in positive psychology"
+  },
+  {
+    "id": "morn-004",
+    "text": "Write about the version of yourself you want to be today. What choices will that person make?",
+    "mood": ["energized", "reflective"],
+    "direction": ["goal-setting", "self-discovery"],
+    "scene": "morning",
+    "depth": "medium",
+    "source": "Inspired by possible selves theory by Hazel Markus & Paula Nurius"
+  },
+  {
+    "id": "morn-005",
+    "text": "What is one challenge you expect today? How do you want to respond to it?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["goal-setting", "healing"],
+    "scene": "morning",
+    "depth": "medium",
+    "source": "Based on implementation intentions research by Peter Gollwitzer"
+  },
+  {
+    "id": "morn-006",
+    "text": "If today were a fresh page, what would you write on the first line?",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity", "goal-setting"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Inspired by morning pages practice by Julia Cameron"
+  },
+  {
+    "id": "morn-007",
+    "text": "What is one act of kindness you want to offer someone today — even if it's just a smile or a kind word?",
+    "mood": ["energized", "grateful"],
+    "direction": ["relationships", "gratitude"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Based on prosocial behavior and daily kindness research"
+  },
+  {
+    "id": "morn-008",
+    "text": "What is the first emotion you felt when you woke up? Trace it — where did it come from?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "morning",
+    "depth": "medium",
+    "source": "Inspired by emotional awareness practices in psychotherapy"
+  },
+  {
+    "id": "morn-009",
+    "text": "What would make today feel meaningful — not productive, but meaningful?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "morning",
+    "depth": "medium",
+    "source": "Based on meaning in life research by Dr. Michael Steger"
+  },
+  {
+    "id": "morn-010",
+    "text": "What are you carrying from yesterday that you don't need to bring into today?",
+    "mood": ["reflective", "anxious"],
+    "direction": ["healing"],
+    "scene": "morning",
+    "depth": "medium",
+    "source": "Inspired by letting-go practices in mindfulness-based therapy"
+  },
+  {
+    "id": "morn-011",
+    "text": "Write three affirmations that feel true and grounded — not wishful thinking, but honest encouragement.",
+    "mood": ["energized", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Based on self-affirmation theory by Claude Steele"
+  },
+  {
+    "id": "morn-012",
+    "text": "What part of your morning routine makes you feel most like yourself? Why?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["self-discovery"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Inspired by habit and identity research by James Clear"
+  },
+  {
+    "id": "morn-013",
+    "text": "If you could only accomplish one thing today that would make you feel satisfied, what would it be?",
+    "mood": ["energized"],
+    "direction": ["goal-setting"],
+    "scene": "morning",
+    "depth": "light",
+    "source": "Based on single-tasking and priority-setting research"
+  },
+  {
+    "id": "morn-014",
+    "text": "What does your body need today? Scan from head to toe and write what you discover.",
+    "mood": ["reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "morning",
+    "depth": "medium",
+    "source": "Inspired by body scan meditation in MBSR"
+  },
+  {
+    "id": "morn-015",
+    "text": "Imagine your evening self looking back on today. What would make them proud of how you spent this day?",
+    "mood": ["reflective", "energized"],
+    "direction": ["goal-setting", "self-discovery"],
+    "scene": "morning",
+    "depth": "deep",
+    "source": "Based on temporal self-appraisal and future self research"
+  },
+  {
+    "id": "fun-001",
+    "text": "If you could swap lives with any fictional character for a week, who would it be and what's the first thing you'd do?",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Inspired by imaginative play and creative thinking exercises"
+  },
+  {
+    "id": "fun-002",
+    "text": "Write the most ridiculous 'About Me' bio you can imagine. No rules, no judgment — go wild.",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Based on creative writing warm-up exercises"
+  },
+  {
+    "id": "fun-003",
+    "text": "Describe your dream vacation using only your five senses — no naming the place allowed.",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Inspired by sensory-based creative writing prompts"
+  },
+  {
+    "id": "fun-004",
+    "text": "What is the weirdest fact you know? Why has it stuck with you?",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Based on curiosity and knowledge retention research"
+  },
+  {
+    "id": "fun-005",
+    "text": "If you opened a restaurant, what would the theme be? Name three dishes on the menu.",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Inspired by creative ideation exercises"
+  },
+  {
+    "id": "fun-006",
+    "text": "Write a short story in exactly six words. Hemingway did it — now it's your turn.",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "medium",
+    "source": "Inspired by flash fiction and constraint-based creativity research"
+  },
+  {
+    "id": "fun-007",
+    "text": "What would your autobiography be called? Design the book cover in words.",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "fun",
+    "depth": "medium",
+    "source": "Based on narrative identity and creative expression exercises"
+  },
+  {
+    "id": "fun-008",
+    "text": "Make a playlist for your current mood. List 5 songs and explain why each one fits.",
+    "mood": ["reflective", "energized"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Inspired by music therapy and emotional expression research"
+  },
+  {
+    "id": "fun-009",
+    "text": "If animals could talk, which one would be the rudest? Write a conversation with it.",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Based on humor and divergent thinking exercises"
+  },
+  {
+    "id": "fun-010",
+    "text": "What is the most useless talent you have? Why is it actually secretly great?",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Inspired by strengths reframing and positive psychology"
+  },
+  {
+    "id": "fun-011",
+    "text": "Write a review of today as if it were a movie. Give it a rating, describe the highlights, and mention the plot holes.",
+    "mood": ["energized", "reflective"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "medium",
+    "source": "Based on creative distancing and perspective-shifting techniques"
+  },
+  {
+    "id": "fun-012",
+    "text": "If you could only eat three foods for the rest of your life, what would you choose? Defend your choices passionately.",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Inspired by decision-making and preference clarification exercises"
+  },
+  {
+    "id": "fun-013",
+    "text": "Create a new holiday. What's it called, when is it, and how do people celebrate?",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "medium",
+    "source": "Based on creative brainstorming and cultural imagination exercises"
+  },
+  {
+    "id": "fun-014",
+    "text": "Write a text message conversation between your brain and your heart about a recent decision.",
+    "mood": ["reflective", "curious"],
+    "direction": ["creativity", "self-discovery"],
+    "scene": "fun",
+    "depth": "medium",
+    "source": "Inspired by parts work and creative writing therapy"
+  },
+  {
+    "id": "fun-015",
+    "text": "If your pet (or a pet you wish you had) could write a journal entry about you, what would it say?",
+    "mood": ["energized", "curious"],
+    "direction": ["creativity"],
+    "scene": "fun",
+    "depth": "light",
+    "source": "Based on perspective-taking and humor in therapeutic writing"
+  },
+  {
+    "id": "deep-001",
+    "text": "What truth about yourself have you been avoiding? Write it down. Then ask: what changes if I accept this?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on radical acceptance in Dialectical Behavior Therapy by Dr. Marsha Linehan"
+  },
+  {
+    "id": "deep-002",
+    "text": "If you could have a conversation with the person you were 10 years ago, what would surprise them most about your life now?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Inspired by temporal self-appraisal research by Anne Wilson & Michael Ross"
+  },
+  {
+    "id": "deep-003",
+    "text": "What does grief look like in your life right now? It doesn't have to be about death — you can grieve a dream, a version of yourself, a path not taken.",
+    "mood": ["sad", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on ambiguous loss theory by Dr. Pauline Boss"
+  },
+  {
+    "id": "deep-004",
+    "text": "Who are you when no one is watching? Write about the difference between your public and private self.",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Inspired by impression management theory by Erving Goffman"
+  },
+  {
+    "id": "deep-005",
+    "text": "What is your relationship with control? Where does your need for control come from, and what happens when you lose it?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on locus of control research by Julian Rotter"
+  },
+  {
+    "id": "deep-006",
+    "text": "Write about a time you felt truly seen by another person. What did they see that others miss?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["relationships", "self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Inspired by relational depth concept by Mick Cooper & Dave Mearns"
+  },
+  {
+    "id": "deep-007",
+    "text": "What would you do differently if you knew no one would judge you? What does that gap reveal?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on social desirability and authentic living research"
+  },
+  {
+    "id": "deep-008",
+    "text": "Describe your deepest fear — not a phobia, but the existential fear that sits beneath the surface.",
+    "mood": ["anxious", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Inspired by existential psychology by Irvin Yalom"
+  },
+  {
+    "id": "deep-009",
+    "text": "What legacy do you want to leave? Not in grand terms, but in the hearts of the people closest to you.",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on generativity research by Erik Erikson"
+  },
+  {
+    "id": "deep-010",
+    "text": "Is there a relationship in your life that feels unfinished? What would closure look like?",
+    "mood": ["sad", "reflective"],
+    "direction": ["relationships", "healing"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Inspired by unfinished business concept in Gestalt therapy"
+  },
+  {
+    "id": "deep-011",
+    "text": "How has your definition of love changed over your lifetime? What experiences shaped those changes?",
+    "mood": ["reflective"],
+    "direction": ["relationships", "self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on love and attachment research by Dr. Sue Johnson"
+  },
+  {
+    "id": "deep-012",
+    "text": "Write about a moment that fundamentally changed how you see the world. What shifted before and after?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Inspired by transformative learning theory by Jack Mezirow"
+  },
+  {
+    "id": "deep-013",
+    "text": "If you could forgive one person completely — including yourself — who would it be? What has holding on cost you?",
+    "mood": ["sad", "reflective"],
+    "direction": ["healing", "relationships"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on forgiveness research by Dr. Everett Worthington"
+  },
+  {
+    "id": "deep-014",
+    "text": "What does freedom mean to you? Are you free right now? If not, what's the cage — and who built it?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Inspired by existential freedom concepts by Jean-Paul Sartre"
+  },
+  {
+    "id": "deep-015",
+    "text": "Write about something you believe that most people around you don't. What makes you hold onto it?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "deep",
+    "depth": "deep",
+    "source": "Based on independent thinking and conviction research in social psychology"
+  },
+  {
+    "id": "midd-001",
+    "text": "What is one thing about middle school that's harder than you expected? How are you dealing with it?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Based on early adolescent transition research"
+  },
+  {
+    "id": "midd-002",
+    "text": "Describe your friend group. How have your friendships changed since elementary school?",
+    "mood": ["reflective", "curious"],
+    "direction": ["relationships", "self-discovery"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Inspired by peer relationship development in early adolescence"
+  },
+  {
+    "id": "midd-003",
+    "text": "What is something you're really good at that has nothing to do with school grades?",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery"],
+    "scene": "middle-school",
+    "depth": "light",
+    "source": "Based on multiple intelligences theory by Howard Gardner"
+  },
+  {
+    "id": "midd-004",
+    "text": "If you could give advice to a new student at your school, what would you tell them about surviving middle school?",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Inspired by mentoring and peer support research"
+  },
+  {
+    "id": "midd-005",
+    "text": "Write about a time you felt left out. What did you do? What do you wish you had done?",
+    "mood": ["sad", "reflective"],
+    "direction": ["healing", "relationships"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Based on social exclusion and belonging research by Dr. Roy Baumeister"
+  },
+  {
+    "id": "midd-006",
+    "text": "What is one thing you wish your parents or guardians understood about your life right now?",
+    "mood": ["reflective", "restless"],
+    "direction": ["relationships", "self-discovery"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Inspired by parent-adolescent communication research"
+  },
+  {
+    "id": "midd-007",
+    "text": "If you could be known for one thing by your classmates, what would it be?",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "middle-school",
+    "depth": "light",
+    "source": "Based on identity and reputation in early adolescent development"
+  },
+  {
+    "id": "midd-008",
+    "text": "Write about something that made you nervous recently. How did you get through it?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Inspired by anxiety management research in adolescent psychology"
+  },
+  {
+    "id": "midd-009",
+    "text": "What is a hobby or interest you want to explore but haven't tried yet? What's stopping you?",
+    "mood": ["curious", "stuck"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "middle-school",
+    "depth": "light",
+    "source": "Based on interest development and exploration in early adolescence"
+  },
+  {
+    "id": "midd-010",
+    "text": "Describe a teacher who made a difference in your life. What did they do that mattered?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["relationships", "gratitude"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Inspired by teacher-student relationship impact research"
+  },
+  {
+    "id": "midd-011",
+    "text": "What is the hardest part about growing up right now? What is the best part?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Based on developmental transition research in early adolescence"
+  },
+  {
+    "id": "midd-012",
+    "text": "How do you handle peer pressure? Write about a time you either gave in or stood your ground.",
+    "mood": ["reflective", "anxious"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "middle-school",
+    "depth": "medium",
+    "source": "Inspired by resistance to peer influence research by Steinberg & Monahan"
+  },
+  {
+    "id": "midd-013",
+    "text": "What makes you different from everyone else at school? Is that something you celebrate or hide?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "middle-school",
+    "depth": "deep",
+    "source": "Based on individuation and belonging needs in early adolescence"
+  },
+  {
+    "id": "midd-014",
+    "text": "Write about your favorite way to unwind after school. Why does it help you decompress?",
+    "mood": ["reflective", "grateful"],
+    "direction": ["self-discovery"],
+    "scene": "middle-school",
+    "depth": "light",
+    "source": "Inspired by stress recovery and leisure research in adolescent psychology"
+  },
+  {
+    "id": "midd-015",
+    "text": "If you could create a new class for your school, what would it teach? Why do students need it?",
+    "mood": ["curious", "energized"],
+    "direction": ["creativity", "goal-setting"],
+    "scene": "middle-school",
+    "depth": "light",
+    "source": "Based on student agency and engagement research"
+  },
+  {
+    "id": "high-001",
+    "text": "What does the 'real you' look like outside of school performance and social expectations?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery"],
+    "scene": "high-school",
+    "depth": "deep",
+    "source": "Based on identity formation in late adolescence by Erik Erikson"
+  },
+  {
+    "id": "high-002",
+    "text": "Write about a moment this semester when you felt genuinely proud — not because of a grade, but because of who you were.",
+    "mood": ["reflective", "energized"],
+    "direction": ["self-discovery"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Inspired by authentic pride research in developmental psychology"
+  },
+  {
+    "id": "high-003",
+    "text": "What pressure are you putting on yourself that no one else is actually asking for? Where did it come from?",
+    "mood": ["anxious", "reflective"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "high-school",
+    "depth": "deep",
+    "source": "Based on self-imposed perfectionism research by Dr. Thomas Curran"
+  },
+  {
+    "id": "high-004",
+    "text": "Describe a friendship that has helped you grow. What has that person taught you about yourself?",
+    "mood": ["grateful", "reflective"],
+    "direction": ["relationships", "self-discovery"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Inspired by transformative friendship research in adolescence"
+  },
+  {
+    "id": "high-005",
+    "text": "What are you curious about that doesn't fit neatly into a school subject? How could you explore it?",
+    "mood": ["curious", "energized"],
+    "direction": ["self-discovery", "creativity"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Based on curiosity and intrinsic motivation research by Kashdan & Silvia"
+  },
+  {
+    "id": "high-006",
+    "text": "If you weren't worried about college admissions, how would you spend your time differently?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Inspired by extrinsic vs. intrinsic motivation research by Deci & Ryan"
+  },
+  {
+    "id": "high-007",
+    "text": "Write a letter to the person you'll be at graduation. What do you want them to know?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "high-school",
+    "depth": "deep",
+    "source": "Based on future self continuity research by Hal Hershfield"
+  },
+  {
+    "id": "high-008",
+    "text": "What is one opinion you hold that's different from your family's? How do you navigate that difference?",
+    "mood": ["reflective", "curious"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Inspired by individuation and family differentiation theory"
+  },
+  {
+    "id": "high-009",
+    "text": "Describe a failure that taught you more than any success. What was the real lesson?",
+    "mood": ["reflective", "stuck"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Based on growth mindset and productive failure research by Dr. Carol Dweck"
+  },
+  {
+    "id": "high-010",
+    "text": "What does mental health mean to you? What's one thing you do to protect yours?",
+    "mood": ["reflective"],
+    "direction": ["healing", "self-discovery"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Inspired by adolescent mental health literacy research"
+  },
+  {
+    "id": "high-011",
+    "text": "Think about your relationship with your phone and social media. If you had to write rules for yourself, what would they be?",
+    "mood": ["reflective", "restless"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Based on digital well-being and self-regulation research"
+  },
+  {
+    "id": "high-012",
+    "text": "What is something you've outgrown — a belief, a habit, a relationship — that was hard to let go of?",
+    "mood": ["reflective", "sad"],
+    "direction": ["self-discovery", "healing"],
+    "scene": "high-school",
+    "depth": "deep",
+    "source": "Inspired by developmental transitions and letting go in late adolescence"
+  },
+  {
+    "id": "high-013",
+    "text": "Write about someone who inspires you. What qualities of theirs do you see (or want to see) in yourself?",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery", "relationships"],
+    "scene": "high-school",
+    "depth": "medium",
+    "source": "Based on role model influence and aspirational identity research"
+  },
+  {
+    "id": "high-014",
+    "text": "What is one conversation you've been avoiding? What would happen if you had it?",
+    "mood": ["anxious", "stuck"],
+    "direction": ["relationships", "healing"],
+    "scene": "high-school",
+    "depth": "deep",
+    "source": "Inspired by difficult conversations framework by Stone, Patton & Heen"
+  },
+  {
+    "id": "high-015",
+    "text": "What do you want your life to feel like in 5 years? Not what it looks like — how it feels.",
+    "mood": ["curious", "reflective"],
+    "direction": ["self-discovery", "goal-setting"],
+    "scene": "high-school",
+    "depth": "deep",
+    "source": "Based on affective forecasting and life design research"
+  }
+]

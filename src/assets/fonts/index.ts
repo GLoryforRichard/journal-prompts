@@ -1,8 +1,10 @@
 import {
   Bricolage_Grotesque,
+  Kalam,
   Noto_Sans,
   Noto_Sans_Mono,
   Noto_Serif,
+  Patrick_Hand,
 } from 'next/font/google';
 
 /**
@@ -62,4 +64,21 @@ export const fontBricolageGrotesque = Bricolage_Grotesque({
   display: 'swap',
   variable: '--font-bricolage-grotesque',
   weight: ['400', '500', '600', '700'],
+});
+
+// Hand-drawn design system fonts
+// https://fonts.google.com/specimen/Kalam
+export const fontKalam = Kalam({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-hand-title',
+  weight: ['300', '400', '700'],
+});
+
+// https://fonts.google.com/specimen/Patrick+Hand
+export const fontPatrickHand = Patrick_Hand({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-hand-body',
+  weight: ['400'],
 });

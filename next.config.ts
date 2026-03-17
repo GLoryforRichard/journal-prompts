@@ -1,14 +1,14 @@
 import { createMDX } from 'fumadocs-mdx/next';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
+
+initOpenNextCloudflareForDev();
 
 /**
  * https://nextjs.org/docs/app/api-reference/config/next-config-js
  */
 const nextConfig: NextConfig = {
-  // Docker standalone output
-  ...(process.env.DOCKER_BUILD === 'true' && { output: 'standalone' }),
-
   /* config options here */
   devIndicators: false,
 
@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
     // https://vercel.com/docs/image-optimization/managing-image-optimization-costs#minimizing-image-optimization-costs
     // https://nextjs.org/docs/app/api-reference/components/image#unoptimized
     // vercel has limits on image optimization, 1000 images per month
-    unoptimized: process.env.DISABLE_IMAGE_OPTIMIZATION === 'true',
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

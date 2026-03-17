@@ -1,36 +1,24 @@
 'use client';
 
-import LocaleSelector from '@/components/layout/locale-selector';
-import { Logo } from '@/components/layout/logo';
-import { ModeSwitcherHorizontal } from '@/components/layout/mode-switcher-horizontal';
-import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useNavbarLinks } from '@/config/navbar-config';
 import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
-import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
+import { websiteConfig } from '@/config/website';
 import { Routes } from '@/routes';
-import { LoginWrapper } from '@/components/auth/login-wrapper';
 import {
-  ArrowUpRightIcon,
   ChevronRightIcon,
+  LogInIcon,
   MenuIcon,
+  PenLineIcon,
   XIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { UserButtonMobile } from './user-button-mobile';
-
-const mobileLinkClass =
-  'flex w-full items-center rounded-md p-2 text-base text-muted-foreground transition-colors duration-150 hover:text-foreground';
-const mobileLinkActiveClass = 'font-semibold text-primary';
-const mobileSubLinkClass =
-  'flex w-full items-center gap-4 rounded-md p-2 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground';
 
 interface NavbarMobileProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -39,11 +27,8 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
   const localePathname = useLocalePathname();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { data: session, isPending } = authClient.useSession();
-  const currentUser = session?.user;
   const menuLinks = useNavbarLinks();
 
-  // Sync mount (avoid hydration mismatch) and close drawer on route change
   useEffect(() => {
     setMounted(true);
     setOpen(false);
@@ -57,33 +42,43 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
         className={cn('flex items-center justify-between', className)}
         {...props}
       >
-        <LocaleLink href="/" className="flex items-center gap-2">
-          <Logo />
-          <span className="text-xl font-semibold">{t('Metadata.name')}</span>
+        <LocaleLink href="/" className="flex items-center gap-2 no-underline">
+          <div
+            className="flex items-center justify-center w-8 h-8"
+            style={{
+              backgroundColor: '#ff4d4d',
+              border: '2px solid #2d2d2d',
+              borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+              boxShadow: '2px 2px 0px 0px #2d2d2d',
+              transform: 'rotate(-3deg)',
+            }}
+          >
+            <PenLineIcon size={14} color="#fff" strokeWidth={2.5} />
+          </div>
+          <span
+            className="text-lg font-bold"
+            style={{ fontFamily: 'var(--font-hand-title)', color: '#2d2d2d' }}
+          >
+            {t('Metadata.name')}
+          </span>
         </LocaleLink>
 
-        <div className="flex items-center gap-4">
-          {isPending ? (
-            <Skeleton className="size-8 rounded-full" />
-          ) : currentUser ? (
-            <UserButtonMobile user={currentUser} />
-          ) : null}
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            aria-expanded={open}
-            aria-label="Toggle menu"
-            onClick={() => setOpen((o) => !o)}
-            className="size-8 rounded-md border"
-          >
-            {open ? (
-              <XIcon className="size-4" />
-            ) : (
-              <MenuIcon className="size-4" />
-            )}
-          </Button>
-        </div>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-label="Toggle menu"
+          onClick={() => setOpen((o) => !o)}
+          className="w-9 h-9 flex items-center justify-center cursor-pointer"
+          style={{
+            border: '2px solid #2d2d2d',
+            borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+            backgroundColor: open ? '#ff4d4d' : '#fff9c4',
+            color: open ? '#fff' : '#2d2d2d',
+            boxShadow: '2px 2px 0px 0px #2d2d2d',
+          }}
+        >
+          {open ? <XIcon size={18} strokeWidth={2.5} /> : <MenuIcon size={18} strokeWidth={2.5} />}
+        </button>
       </div>
 
       {open && (
@@ -91,117 +86,107 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 top-14.25 z-50 flex flex-col overflow-y-auto bg-background animate-in fade-in-0 duration-200"
+          className="fixed inset-0 top-[60px] z-50 flex flex-col overflow-y-auto"
+          style={{ backgroundColor: '#fdfbf7' }}
         >
-          <div className="flex flex-1 flex-col items-start gap-4 p-4">
-            {!currentUser && (
-              <div className="flex w-full flex-col gap-4">
-                <LoginWrapper mode="modal" asChild>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="lg"
-                    className="w-full"
+          <div className="flex flex-1 flex-col p-4 gap-2">
+            {menuLinks?.map((item) => (
+              <div key={item.title}>
+                {item.items ? (
+                  <Collapsible>
+                    <CollapsibleTrigger
+                      className="w-full flex items-center justify-between py-3 px-3 text-left cursor-pointer"
+                      style={{
+                        fontFamily: 'var(--font-hand-title)',
+                        fontSize: '1.15rem',
+                        color: '#2d2d2d',
+                        borderBottom: '2px dashed #e5e0d8',
+                      }}
+                    >
+                      {item.title}
+                      <ChevronRightIcon size={18} strokeWidth={2.5} style={{ color: '#2d5da1' }} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="pl-2 pt-1 pb-2">
+                      <ul className="space-y-1">
+                        {item.items.map((sub) => (
+                          <li key={sub.title}>
+                            <LocaleLink
+                              href={sub.href ?? '#'}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center gap-3 py-2 px-3 rounded-lg no-underline transition-colors hover:bg-[#fff9c4]"
+                              style={{
+                                fontFamily: 'var(--font-hand-body)',
+                                fontSize: '1rem',
+                                color: '#2d2d2d',
+                              }}
+                            >
+                              {sub.icon ? (
+                                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                                  {sub.icon}
+                                </div>
+                              ) : null}
+                              {sub.title}
+                            </LocaleLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </CollapsibleContent>
+                  </Collapsible>
+                ) : (
+                  <LocaleLink
+                    href={item.href ?? '#'}
                     onClick={() => setOpen(false)}
+                    className="block py-3 px-3 no-underline"
+                    style={{
+                      fontFamily: 'var(--font-hand-title)',
+                      fontSize: '1.15rem',
+                      color: '#2d2d2d',
+                      borderBottom: '2px dashed #e5e0d8',
+                    }}
                   >
-                    {t('Common.login')}
-                  </Button>
-                </LoginWrapper>
-                <LocaleLink
-                  href={Routes.Register}
-                  onClick={() => setOpen(false)}
-                  className={cn(buttonVariants({ size: 'lg' }), 'w-full')}
-                >
-                  {t('Common.signUp')}
-                </LocaleLink>
+                    {item.title}
+                  </LocaleLink>
+                )}
               </div>
-            )}
+            ))}
 
-            <ul className="w-full space-y-1">
-              {menuLinks?.map((item) => {
-                const active = item.href
-                  ? item.href === '/'
-                    ? localePathname === '/'
-                    : localePathname.startsWith(item.href)
-                  : item.items?.some(
-                      (sub) => sub.href && localePathname.startsWith(sub.href)
-                    );
-
-                return (
-                  <li key={item.title} className="py-1">
-                    {item.items ? (
-                      <Collapsible>
-                        <CollapsibleTrigger asChild>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            className={cn(
-                              'w-full justify-between text-left text-base',
-                              'bg-transparent text-muted-foreground hover:text-foreground',
-                              active && 'font-semibold text-primary'
-                            )}
-                          >
-                            {item.title}
-                            <ChevronRightIcon className="size-4" />
-                          </Button>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="pl-2">
-                          <ul className="mt-2 space-y-2">
-                            {item.items.map((sub) => (
-                              <li key={sub.title}>
-                                <LocaleLink
-                                  href={sub.href ?? '#'}
-                                  target={sub.external ? '_blank' : undefined}
-                                  rel={
-                                    sub.external
-                                      ? 'noopener noreferrer'
-                                      : undefined
-                                  }
-                                  onClick={() => setOpen(false)}
-                                  className={cn(
-                                    mobileSubLinkClass,
-                                    sub.href &&
-                                      localePathname.startsWith(sub.href) &&
-                                      mobileLinkActiveClass
-                                  )}
-                                >
-                                  {sub.icon ? (
-                                    <div className="size-4 shrink-0">
-                                      {sub.icon}
-                                    </div>
-                                  ) : null}
-                                  {sub.title}
-                                  {sub.external ? (
-                                    <ArrowUpRightIcon className="size-4 shrink-0" />
-                                  ) : null}
-                                </LocaleLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </CollapsibleContent>
-                      </Collapsible>
-                    ) : (
-                      <LocaleLink
-                        href={item.href ?? '#'}
-                        target={item.external ? '_blank' : undefined}
-                        rel={item.external ? 'noopener noreferrer' : undefined}
-                        onClick={() => setOpen(false)}
-                        className={cn(
-                          mobileLinkClass,
-                          active && mobileLinkActiveClass
-                        )}
-                      >
-                        {item.title}
-                      </LocaleLink>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-
-            <div className="mt-auto w-full border-t border-border/50 p-4 flex items-center justify-between">
-              <LocaleSelector />
-              <ModeSwitcherHorizontal />
+            {/* CTA */}
+            <div className="mt-4 flex flex-col gap-3">
+              {(websiteConfig.auth.enableGoogleLogin || websiteConfig.auth.enableGithubLogin) && (
+                <LocaleLink
+                  href={Routes.Login}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-3 no-underline"
+                  style={{
+                    fontFamily: 'var(--font-hand-title)',
+                    fontSize: '1.1rem',
+                    color: '#2d2d2d',
+                    backgroundColor: '#fff9c4',
+                    border: '2px solid #2d2d2d',
+                    borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                    boxShadow: '4px 4px 0px 0px #2d2d2d',
+                  }}
+                >
+                  <LogInIcon size={18} strokeWidth={2.5} />
+                  Sign In
+                </LocaleLink>
+              )}
+              <a
+                href="#prompt-finder"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-3 text-white no-underline"
+                style={{
+                  fontFamily: 'var(--font-hand-title)',
+                  fontSize: '1.1rem',
+                  backgroundColor: '#ff4d4d',
+                  border: '2px solid #2d2d2d',
+                  borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                  boxShadow: '4px 4px 0px 0px #2d2d2d',
+                }}
+              >
+                <PenLineIcon size={18} strokeWidth={2.5} />
+                Get Your Prompt
+              </a>
             </div>
           </div>
         </div>

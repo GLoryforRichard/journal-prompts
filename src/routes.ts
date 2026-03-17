@@ -19,6 +19,22 @@ export enum Routes {
   PrivacyPolicy = '/privacy',
   TermsOfService = '/terms',
 
+  // scene pages
+  Gratitude = '/gratitude-journal-prompts',
+  MentalHealth = '/journal-prompts-for-mental-health',
+  ShadowWork = '/shadow-work-journal-prompts',
+  Kids = '/journal-prompts-for-kids',
+  Daily = '/daily-journal-prompts',
+  Teens = '/journal-prompts-for-teens',
+  SelfDiscovery = '/self-discovery-journal-prompts',
+  SelfLove = '/self-love-journal-prompts',
+  Mindfulness = '/mindfulness-journal-prompts',
+  Morning = '/morning-journal-prompts',
+  Fun = '/fun-journal-prompts',
+  Deep = '/deep-journal-prompts',
+  MiddleSchool = '/journal-prompts-for-middle-school',
+  HighSchool = '/journal-prompts-for-high-school',
+
   // auth routes
   Login = '/auth/login',
   Register = '/auth/register',

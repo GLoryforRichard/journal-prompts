@@ -1,9 +1,11 @@
 import { Analytics } from '@/analytics/analytics';
 import {
   fontBricolageGrotesque,
+  fontKalam,
   fontNotoSans,
   fontNotoSansMono,
   fontNotoSerif,
+  fontPatrickHand,
 } from '@/assets/fonts';
 import AffonsoScript from '@/components/affiliate/affonso';
 import PromotekitScript from '@/components/affiliate/promotekit';
@@ -50,6 +52,10 @@ export default async function LocaleLayout({
   return (
     <html suppressHydrationWarning lang={locale}>
       <head>
+        <meta
+          name="google-site-verification"
+          content="og9jowYC7fqZFvZ3Se5tKjucZg-O03lHSvqNVKIcgBQ"
+        />
         <AffonsoScript />
         <PromotekitScript />
       </head>
@@ -59,7 +65,9 @@ export default async function LocaleLayout({
           fontNotoSans.className,
           fontNotoSerif.variable,
           fontNotoSansMono.variable,
-          fontBricolageGrotesque.variable
+          fontBricolageGrotesque.variable,
+          fontKalam.variable,
+          fontPatrickHand.variable
         )}
       >
         <NuqsAdapter>

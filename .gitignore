@@ -76,3 +76,6 @@ next-env.d.ts
 .worktrees/
 .security-key
 logs/security/
+
+# Playwright CLI
+.playwright-cli/

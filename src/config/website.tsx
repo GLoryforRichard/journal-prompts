@@ -10,8 +10,8 @@ import type { WebsiteConfig } from '@/types';
 export const websiteConfig: WebsiteConfig = {
   ui: {
     mode: {
-      defaultMode: 'dark',
-      enableSwitch: true,
+      defaultMode: 'light',
+      enableSwitch: false,
     },
   },
   metadata: {
@@ -21,18 +21,13 @@ export const websiteConfig: WebsiteConfig = {
       logoDark: '/logo-dark.png',
     },
     social: {
-      github: 'https://github.com/MkSaaSHQ',
-      twitter: 'https://mksaas.link/twitter',
-      blueSky: 'https://mksaas.link/bsky',
-      discord: 'https://mksaas.link/discord',
-      mastodon: 'https://mksaas.link/mastodon',
-      linkedin: 'https://mksaas.link/linkedin',
-      youtube: 'https://mksaas.link/youtube',
+      twitter: 'https://twitter.com/journalprompts',
+      github: 'https://github.com/journalprompts',
     },
   },
   features: {
-    enableUpgradeCard: true,
-    enableUpdateAvatar: true,
+    enableUpgradeCard: false,
+    enableUpdateAvatar: false,
     enableDatafastRevenueTrack: false,
     enableCrispChat: process.env.NEXT_PUBLIC_DEMO_WEBSITE === 'true',
     enableTurnstileCaptcha: process.env.NEXT_PUBLIC_DEMO_WEBSITE === 'true',
@@ -46,13 +41,13 @@ export const websiteConfig: WebsiteConfig = {
     enableSpeedInsights: false,
   },
   apikeys: {
-    enable: process.env.NEXT_PUBLIC_DEMO_WEBSITE === 'true',
+    enable: false,
   },
   auth: {
     enableGoogleLogin: true,
-    enableGithubLogin: true,
-    enableCredentialLogin: true,
-    enableDeleteUser: true,
+    enableGithubLogin: false,
+    enableCredentialLogin: false,
+    enableDeleteUser: false,
   },
   i18n: {
     defaultLocale: 'en',
@@ -62,11 +57,6 @@ export const websiteConfig: WebsiteConfig = {
         name: 'English',
         hreflang: 'en',
       },
-      zh: {
-        flag: '🇨🇳',
-        name: '中文',
-        hreflang: 'zh-CN',
-      },
     },
   },
   blog: {
@@ -75,25 +65,25 @@ export const websiteConfig: WebsiteConfig = {
     relatedPostsSize: 3,
   },
   docs: {
-    enable: true,
+    enable: false,
   },
   mail: {
-    enable: true,
+    enable: false,
     provider: 'resend',
     fromEmail: 'MkSaaS <support@example.com>',
     supportEmail: 'MkSaaS <support@example.com>',
   },
   newsletter: {
-    enable: true,
+    enable: false,
     provider: 'resend',
     autoSubscribeAfterSignUp: true,
   },
   notification: {
-    enable: true,
+    enable: false,
     provider: 'discord',
   },
   storage: {
-    enable: true,
+    enable: false,
     provider: 's3',
   },
   payment: {
@@ -118,14 +108,14 @@ export const websiteConfig: WebsiteConfig = {
           {
             type: PaymentTypes.SUBSCRIPTION,
             priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_MONTHLY!,
-            amount: 990,
+            amount: 499,
             currency: 'USD',
             interval: PlanIntervals.MONTH,
           },
           {
             type: PaymentTypes.SUBSCRIPTION,
             priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_YEARLY!,
-            amount: 9900,
+            amount: 3999,
             currency: 'USD',
             interval: PlanIntervals.YEAR,
           },
@@ -145,7 +135,7 @@ export const websiteConfig: WebsiteConfig = {
           {
             type: PaymentTypes.ONE_TIME,
             priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_LIFETIME!,
-            amount: 19900,
+            amount: 4999,
             currency: 'USD',
             allowPromotionCode: true,
           },
@@ -161,7 +151,7 @@ export const websiteConfig: WebsiteConfig = {
     },
   },
   credits: {
-    enableCredits: process.env.NEXT_PUBLIC_DEMO_WEBSITE === 'true',
+    enableCredits: false,
     enablePackagesForFreePlan: false,
     registerGiftCredits: {
       enable: true,

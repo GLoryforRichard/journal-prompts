@@ -3,137 +3,130 @@
 import { Routes } from '@/routes';
 import type { NestedMenuItem } from '@/types';
 import {
-  AudioLinesIcon,
-  BuildingIcon,
-  ChartNoAxesCombinedIcon,
-  CircleDollarSignIcon,
-  CircleHelpIcon,
-  ComponentIcon,
-  CookieIcon,
-  FileTextIcon,
-  FilmIcon,
-  FlameIcon,
-  FootprintsIcon,
-  ImageIcon,
-  ListChecksIcon,
-  LockKeyholeIcon,
-  LogInIcon,
-  MailIcon,
-  MailboxIcon,
-  MessageCircleIcon,
-  NewspaperIcon,
-  RocketIcon,
+  HeartIcon,
+  BrainIcon,
+  MoonIcon,
+  BabyIcon,
+  CalendarIcon,
+  GraduationCapIcon,
+  CompassIcon,
+  HeartHandshakeIcon,
+  LeafIcon,
+  SunriseIcon,
+  SmileIcon,
+  LayersIcon,
+  SchoolIcon,
   ShieldCheckIcon,
-  SnowflakeIcon,
-  SplitSquareVerticalIcon,
-  SquareCodeIcon,
-  SquareKanbanIcon,
-  SquarePenIcon,
-  ThumbsUpIcon,
-  UserPlusIcon,
-  UsersIcon,
-  WandSparklesIcon,
+  FileTextIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { websiteConfig } from './website';
 
-/**
- * Get navbar config with translations
- *
- * NOTICE: used in client components only
- *
- * docs:
- * https://mksaas.com/docs/config/navbar
- *
- * @returns The navbar config with translated titles and descriptions
- */
 export function useNavbarLinks(): NestedMenuItem[] {
   const t = useTranslations('Marketing.navbar');
 
   return [
     {
-      title: t('features.title'),
-      href: Routes.Features,
-      external: false,
-    },
-    {
-      title: t('pricing.title'),
-      href: Routes.Pricing,
-      external: false,
-    },
-    ...(websiteConfig.blog.enable
-      ? [
-          {
-            title: t('blog.title'),
-            href: Routes.Blog,
-            external: false,
-          },
-        ]
-      : []),
-    ...(websiteConfig.docs.enable
-      ? [
-          {
-            title: t('docs.title'),
-            href: Routes.Docs,
-            external: false,
-          },
-        ]
-      : []),
-    {
-      title: t('pages.title'),
+      title: 'Topics',
       items: [
         {
-          title: t('pages.items.about.title'),
-          description: t('pages.items.about.description'),
-          icon: <BuildingIcon className="size-4 shrink-0" />,
-          href: Routes.About,
+          title: 'Gratitude',
+          description: 'Practice thankfulness and appreciation',
+          icon: <HeartIcon className="size-4 shrink-0" />,
+          href: '/gratitude-journal-prompts',
           external: false,
         },
         {
-          title: t('pages.items.contact.title'),
-          description: t('pages.items.contact.description'),
-          icon: <MailIcon className="size-4 shrink-0" />,
-          href: Routes.Contact,
+          title: 'Mental Health',
+          description: 'Support your emotional wellbeing',
+          icon: <BrainIcon className="size-4 shrink-0" />,
+          href: '/journal-prompts-for-mental-health',
           external: false,
         },
         {
-          title: t('pages.items.waitlist.title'),
-          description: t('pages.items.waitlist.description'),
-          icon: <MailboxIcon className="size-4 shrink-0" />,
-          href: Routes.Waitlist,
+          title: 'Shadow Work',
+          description: 'Explore your inner self',
+          icon: <MoonIcon className="size-4 shrink-0" />,
+          href: '/shadow-work-journal-prompts',
           external: false,
         },
         {
-          title: t('pages.items.roadmap.title'),
-          description: t('pages.items.roadmap.description'),
-          icon: <SquareKanbanIcon className="size-4 shrink-0" />,
-          href: Routes.Roadmap,
+          title: 'Self-Discovery',
+          description: 'Understand who you truly are',
+          icon: <CompassIcon className="size-4 shrink-0" />,
+          href: '/self-discovery-journal-prompts',
           external: false,
         },
         {
-          title: t('pages.items.changelog.title'),
-          description: t('pages.items.changelog.description'),
-          icon: <ListChecksIcon className="size-4 shrink-0" />,
-          href: Routes.Changelog,
+          title: 'Self-Love',
+          description: 'Build a loving relationship with yourself',
+          icon: <HeartHandshakeIcon className="size-4 shrink-0" />,
+          href: '/self-love-journal-prompts',
           external: false,
         },
         {
-          title: t('pages.items.cookiePolicy.title'),
-          description: t('pages.items.cookiePolicy.description'),
-          icon: <CookieIcon className="size-4 shrink-0" />,
-          href: Routes.CookiePolicy,
+          title: 'Mindfulness',
+          description: 'Be present in the moment',
+          icon: <LeafIcon className="size-4 shrink-0" />,
+          href: '/mindfulness-journal-prompts',
           external: false,
         },
         {
-          title: t('pages.items.privacyPolicy.title'),
-          description: t('pages.items.privacyPolicy.description'),
+          title: 'Morning',
+          description: 'Start your day with intention',
+          icon: <SunriseIcon className="size-4 shrink-0" />,
+          href: '/morning-journal-prompts',
+          external: false,
+        },
+        {
+          title: 'Daily',
+          description: 'Everyday journaling prompts',
+          icon: <CalendarIcon className="size-4 shrink-0" />,
+          href: '/daily-journal-prompts',
+          external: false,
+        },
+      ],
+    },
+    {
+      title: 'More',
+      items: [
+        {
+          title: 'Fun Prompts',
+          description: 'Light-hearted and creative prompts',
+          icon: <SmileIcon className="size-4 shrink-0" />,
+          href: '/fun-journal-prompts',
+          external: false,
+        },
+        {
+          title: 'Deep Prompts',
+          description: 'Thought-provoking introspection',
+          icon: <LayersIcon className="size-4 shrink-0" />,
+          href: '/deep-journal-prompts',
+          external: false,
+        },
+        {
+          title: 'For Kids',
+          description: 'Age-appropriate prompts for children',
+          icon: <BabyIcon className="size-4 shrink-0" />,
+          href: '/journal-prompts-for-kids',
+          external: false,
+        },
+        {
+          title: 'For Teens',
+          description: 'Prompts for teenage self-expression',
+          icon: <GraduationCapIcon className="size-4 shrink-0" />,
+          href: '/journal-prompts-for-teens',
+          external: false,
+        },
+        {
+          title: 'Privacy Policy',
+          description: 'How we handle your data',
           icon: <ShieldCheckIcon className="size-4 shrink-0" />,
           href: Routes.PrivacyPolicy,
           external: false,
         },
         {
-          title: t('pages.items.termsOfService.title'),
-          description: t('pages.items.termsOfService.description'),
+          title: 'Terms of Service',
+          description: 'Our terms and conditions',
           icon: <FileTextIcon className="size-4 shrink-0" />,
           href: Routes.TermsOfService,
           external: false,
