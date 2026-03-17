@@ -4,6 +4,7 @@
   "name": "ai-journal-prompts",
   "compatibility_date": "2025-04-01",
   "compatibility_flags": ["nodejs_compat"],
+  "minify": true,
   "workers_dev": true,
   "assets": {
     "directory": ".open-next/assets",
