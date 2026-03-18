@@ -23,7 +23,7 @@ export const scenes: SceneConfig[] = [
     title: "Gratitude",
     h1: "Gratitude Journal Prompts",
     metaTitle:
-      "Gratitude Journal Prompts - Prompt Finder | JournalPrompts",
+      "Gratitude Journal Prompts | JournalPrompts",
     metaDescription:
       "Discover thoughtful gratitude journal prompts backed by positive psychology. We match you with the perfect prompt for your mood and goals.",
     heroSubtitle:
@@ -85,7 +85,7 @@ export const scenes: SceneConfig[] = [
     title: "Mental Health",
     h1: "Journal Prompts for Mental Health",
     metaTitle:
-      "Journal Prompts for Mental Health - Prompt Finder | JournalPrompts",
+      "Journal Prompts for Mental Health | JournalPrompts",
     metaDescription:
       "Explore journal prompts for mental health designed with CBT and DBT principles. Matched prompts to support your emotional well-being journey.",
     heroSubtitle:
@@ -153,7 +153,7 @@ export const scenes: SceneConfig[] = [
     title: "Shadow Work",
     h1: "Shadow Work Journal Prompts",
     metaTitle:
-      "Shadow Work Journal Prompts - Prompt Finder | JournalPrompts",
+      "Shadow Work Journal Prompts | JournalPrompts",
     metaDescription:
       "Dive into shadow work journal prompts rooted in Jungian psychology. Uncover hidden patterns, integrate your shadow self, and transform inner conflict.",
     heroSubtitle:
@@ -214,7 +214,7 @@ export const scenes: SceneConfig[] = [
     title: "Kids",
     h1: "Journal Prompts for Kids",
     metaTitle:
-      "Journal Prompts for Kids - Prompt Finder | JournalPrompts",
+      "Journal Prompts for Kids | JournalPrompts",
     metaDescription:
       "Fun and age-appropriate journal prompts for kids that build emotional intelligence, creativity, and self-expression. Smart prompt matching.",
     heroSubtitle:
@@ -276,7 +276,7 @@ export const scenes: SceneConfig[] = [
     title: "Daily",
     h1: "Daily Journal Prompts",
     metaTitle:
-      "Daily Journal Prompts - Prompt Finder | JournalPrompts",
+      "Daily Journal Prompts | JournalPrompts",
     metaDescription:
       "Fresh daily journal prompts to build a consistent writing habit. Matched prompts for reflection, growth, and self-awareness every day.",
     heroSubtitle:
@@ -337,7 +337,7 @@ export const scenes: SceneConfig[] = [
     title: "Teens",
     h1: "Journal Prompts for Teens",
     metaTitle:
-      "Journal Prompts for Teens - Prompt Finder | JournalPrompts",
+      "Journal Prompts for Teens | JournalPrompts",
     metaDescription:
       "Engaging journal prompts for teens designed to support identity exploration, emotional growth, and self-expression during the teenage years.",
     heroSubtitle:
@@ -399,7 +399,7 @@ export const scenes: SceneConfig[] = [
     title: "Self-Discovery",
     h1: "Self Discovery Journal Prompts",
     metaTitle:
-      "Self Discovery Journal Prompts - Prompt Finder | JournalPrompts",
+      "Self Discovery Journal Prompts | JournalPrompts",
     metaDescription:
       "Uncover who you really are with self discovery journal prompts. Smart matching helps you explore values, identity, purpose, and personal growth.",
     heroSubtitle:
@@ -462,7 +462,7 @@ export const scenes: SceneConfig[] = [
     title: "Self-Love",
     h1: "Self Love Journal Prompts",
     metaTitle:
-      "Self Love Journal Prompts - Prompt Finder | JournalPrompts",
+      "Self Love Journal Prompts | JournalPrompts",
     metaDescription:
       "Build genuine self-love with journal prompts grounded in self-compassion research. Smart matching for your unique emotional needs.",
     heroSubtitle:
@@ -524,7 +524,7 @@ export const scenes: SceneConfig[] = [
     title: "Mindfulness",
     h1: "Mindfulness Journal Prompts",
     metaTitle:
-      "Mindfulness Journal Prompts - Prompt Finder | JournalPrompts",
+      "Mindfulness Journal Prompts | JournalPrompts",
     metaDescription:
       "Ground yourself in the present with mindfulness journal prompts based on MBSR research. Matched prompts for awareness, calm, and clarity.",
     heroSubtitle:
@@ -586,7 +586,7 @@ export const scenes: SceneConfig[] = [
     title: "Morning",
     h1: "Morning Journal Prompts",
     metaTitle:
-      "Morning Journal Prompts - Prompt Finder | JournalPrompts",
+      "Morning Journal Prompts | JournalPrompts",
     metaDescription:
       "Start your day with purpose using morning journal prompts. Smart prompt matching to set intentions, boost clarity, and build momentum.",
     heroSubtitle:
@@ -647,7 +647,7 @@ export const scenes: SceneConfig[] = [
     title: "Fun",
     h1: "Fun Journal Prompts",
     metaTitle:
-      "Fun Journal Prompts - Prompt Finder | JournalPrompts",
+      "Fun Journal Prompts | JournalPrompts",
     metaDescription:
       "Lighten up your journal with fun, creative, and playful prompts. Smart matching for when you want to write without pressure and just enjoy it.",
     heroSubtitle:
@@ -710,7 +710,7 @@ export const scenes: SceneConfig[] = [
     title: "Deep",
     h1: "Deep Journal Prompts",
     metaTitle:
-      "Deep Journal Prompts - Prompt Finder | JournalPrompts",
+      "Deep Journal Prompts | JournalPrompts",
     metaDescription:
       "Challenge yourself with deep journal prompts that explore identity, mortality, purpose, and meaning. Smart matching for profound self-reflection.",
     heroSubtitle:
@@ -771,7 +771,7 @@ export const scenes: SceneConfig[] = [
     title: "Middle School",
     h1: "Journal Prompts for Middle School",
     metaTitle:
-      "Journal Prompts for Middle School - Prompt Finder | JournalPrompts",
+      "Journal Prompts for Middle School | JournalPrompts",
     metaDescription:
       "Age-appropriate journal prompts for middle school students that support identity development, peer navigation, and emotional growth.",
     heroSubtitle:
@@ -834,7 +834,7 @@ export const scenes: SceneConfig[] = [
     title: "High School",
     h1: "Journal Prompts for High School",
     metaTitle:
-      "Journal Prompts for High School - Prompt Finder | JournalPrompts",
+      "Journal Prompts for High School | JournalPrompts",
     metaDescription:
       "Meaningful journal prompts for high school students exploring identity, pressure, and purpose. Smart prompt matching for teens ready to go deep.",
     heroSubtitle:

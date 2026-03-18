@@ -63,7 +63,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   return constructMetadata({
-    title: `${post.data.title} | ${t('title')}`,
+    title: `${post.data.title} | ${t('name')}`,
     description: post.data.description,
     locale,
     pathname: `/blog/${slug}`,
