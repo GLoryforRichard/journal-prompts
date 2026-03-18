@@ -153,6 +153,14 @@ This is a Next.js full-stack SaaS application with the following key architectur
 - **Cloudflare Workers**: Custom domains journalprompts.org + www.journalprompts.org
 - **Cloudflare Secrets**: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DATABASE_URL, BETTER_AUTH_SECRET, NEXT_PUBLIC_BASE_URL
 
+## UX / Tone Guidelines
+
+- **淡化 AI 属性**：这个产品的目标用户是寻求内心平静和自我反思的人，他们可能对 AI 生成的内容有抵触。在 UI 中：
+  - 不要使用 "AI Generate"、"AI-crafted"、"AI-powered" 等字眼
+  - 用更温暖自然的表达替代，如 "Create a new prompt"、"Get inspired"、"Surprise me"
+  - 功能本身可以用 AI，但面向用户的文案要隐藏技术细节
+  - 同样避免在博客、landing page 中强调 AI 属性
+
 ## Working Style
 
 - **优先用浏览器自动化完成外部平台操作**（Stripe、Google Console 等），只有登录认证或真正卡住时才叫用户

@@ -146,7 +146,6 @@ export const RegisterForm = ({
         onSuccess: (ctx) => {
           // sign up success, user information stored in ctx.data
           // console.log("register, success:", ctx.data);
-          setSuccess(t('checkEmail'));
 
           // add affonso affiliate when provider is affonso
           // https://affonso.io/app/affiliate-program/connect
@@ -156,6 +155,10 @@ export const RegisterForm = ({
           ) {
             window.Affonso.signup(values.email);
           }
+
+          // When requireEmailVerification is false, redirect manually
+          // (the callbackURL from signUp.email is only used in verification emails)
+          window.location.href = callbackUrl;
         },
         onError: (ctx) => {
           // sign up fail, display the error message

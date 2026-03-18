@@ -13,7 +13,7 @@ import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
 import type { NestedMenuItem } from '@/types';
 
 /**
- * Main navigation for the dashboard sidebar
+ * Main navigation for the sidebar — hand-drawn journal style
  */
 export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
   const pathname = useLocalePathname();
@@ -23,7 +23,6 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
     if (isMobile) setOpenMobile(false);
   };
 
-  // Function to check if a path is active
   const isActive = (href: string | undefined): boolean => {
     if (!href) return false;
     return pathname === href || pathname.startsWith(href + '/');
@@ -31,25 +30,44 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
 
   return (
     <>
-      {/* Render items with children as SidebarGroup */}
       {items.map((item) =>
         item.items && item.items.length > 0 ? (
           <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-            <SidebarGroupContent className="flex flex-col gap-2">
-              <SidebarMenu className="gap-2">
+            <SidebarGroupLabel
+              style={{
+                fontFamily: 'var(--font-hand-body)',
+                fontSize: '0.75rem',
+                color: '#2d2d2d',
+                opacity: 0.5,
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {item.title}
+            </SidebarGroupLabel>
+            <SidebarGroupContent className="flex flex-col gap-1">
+              <SidebarMenu className="gap-1">
                 {item.items.map((subItem) => (
                   <SidebarMenuItem key={subItem.title}>
                     <SidebarMenuButton
                       asChild
                       isActive={isActive(subItem.href)}
+                      className="hover:!bg-[#fff9c4] data-[active=true]:!bg-[#fff9c4] data-[active=true]:!border-l-2 data-[active=true]:!border-[#ff4d4d]"
                     >
                       <LocaleLink
                         href={subItem.href || ''}
                         onClick={closeMobileSidebar}
+                        className="!no-underline"
                       >
                         {subItem.icon ? subItem.icon : null}
-                        <span className="truncate font-medium text-sm">
+                        <span
+                          className="truncate"
+                          style={{
+                            fontFamily: 'var(--font-hand-body)',
+                            fontSize: '0.95rem',
+                            color: '#2d2d2d',
+                          }}
+                        >
                           {subItem.title}
                         </span>
                       </LocaleLink>
@@ -60,18 +78,29 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
             </SidebarGroupContent>
           </SidebarGroup>
         ) : (
-          /* Render items without children directly in a SidebarMenu */
           <SidebarGroup key={item.title}>
-            <SidebarGroupContent className="flex flex-col gap-2">
+            <SidebarGroupContent className="flex flex-col gap-1">
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={isActive(item.href)}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActive(item.href)}
+                    className="hover:!bg-[#fff9c4] data-[active=true]:!bg-[#fff9c4] data-[active=true]:!border-l-2 data-[active=true]:!border-[#ff4d4d]"
+                  >
                     <LocaleLink
                       href={item.href || ''}
                       onClick={closeMobileSidebar}
+                      className="!no-underline"
                     >
                       {item.icon ? item.icon : null}
-                      <span className="truncate font-medium text-sm">
+                      <span
+                        className="truncate"
+                        style={{
+                          fontFamily: 'var(--font-hand-body)',
+                          fontSize: '0.95rem',
+                          color: '#2d2d2d',
+                        }}
+                      >
                         {item.title}
                       </span>
                     </LocaleLink>

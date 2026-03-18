@@ -80,9 +80,11 @@ export const generateAIPromptAction = userActionClient
         return {
           success: false,
           error: isPaid
-            ? `Daily limit reached (${DAILY_LIMIT_PAID}/day). Try again tomorrow!`
-            : `Free limit reached (${DAILY_LIMIT_FREE}/day). Upgrade to Pro for ${DAILY_LIMIT_PAID}/day!`,
+            ? 'You\'ve used all your surprises for today. Come back tomorrow!'
+            : 'You\'ve used your 3 free surprises today. Upgrade for more!',
           remainingCount: 0,
+          limitReached: true,
+          isPaid,
         };
       }
 

@@ -16,7 +16,8 @@ import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { websiteConfig } from '@/config/website';
 import { Routes } from '@/routes';
-import { LogInIcon, PenLineIcon } from 'lucide-react';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { BookOpenIcon, LogInIcon, PenLineIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
@@ -29,6 +30,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
   const scrolled = useScroll(50);
   const menuLinks = useNavbarLinks();
   const localePathname = useLocalePathname();
+  const user = useCurrentUser();
   const [menuValue, setMenuValue] = useState<string | undefined>(undefined);
   const showBarBg = scroll && scrolled;
 
@@ -168,9 +170,9 @@ export function Navbar({ scroll = true }: NavBarProps) {
           </NavigationMenu>
 
           <div className="shrink-0 flex items-center gap-3">
-            {(websiteConfig.auth.enableGoogleLogin || websiteConfig.auth.enableGithubLogin) && (
+            {user ? (
               <LocaleLink
-                href={Routes.Login}
+                href={Routes.Dashboard}
                 className="inline-flex items-center gap-2 px-4 py-2 no-underline transition-all duration-200"
                 style={{
                   fontFamily: 'var(--font-hand-title)',
@@ -182,12 +184,31 @@ export function Navbar({ scroll = true }: NavBarProps) {
                   backgroundColor: '#fff9c4',
                 }}
               >
-                <LogInIcon size={16} strokeWidth={2.5} />
-                Sign In
+                <BookOpenIcon size={16} strokeWidth={2.5} />
+                My Journal
               </LocaleLink>
+            ) : (
+              (websiteConfig.auth.enableGoogleLogin || websiteConfig.auth.enableGithubLogin || websiteConfig.auth.enableCredentialLogin) && (
+                <LocaleLink
+                  href={Routes.Login}
+                  className="inline-flex items-center gap-2 px-4 py-2 no-underline transition-all duration-200"
+                  style={{
+                    fontFamily: 'var(--font-hand-title)',
+                    fontSize: '1rem',
+                    color: '#2d2d2d',
+                    border: '2px solid #2d2d2d',
+                    borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                    boxShadow: '2px 2px 0px 0px #2d2d2d',
+                    backgroundColor: '#fff9c4',
+                  }}
+                >
+                  <LogInIcon size={16} strokeWidth={2.5} />
+                  Sign In
+                </LocaleLink>
+              )
             )}
-            <a
-              href="#prompt-finder"
+            <LocaleLink
+              href="/find-your-prompt"
               className="inline-flex items-center gap-2 px-5 py-2 text-white no-underline transition-all duration-200 cursor-pointer"
               style={{
                 fontFamily: 'var(--font-hand-title)',
@@ -200,7 +221,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
             >
               <PenLineIcon size={16} strokeWidth={2.5} />
               Get Your Prompt
-            </a>
+            </LocaleLink>
           </div>
         </nav>
 

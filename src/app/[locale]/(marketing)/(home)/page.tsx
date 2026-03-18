@@ -1,13 +1,20 @@
-import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
 import { SceneFAQ } from '@/components/scene/scene-faq';
 import { FAQSchema } from '@/components/seo/faq-schema';
+import { SceneIcon } from '@/components/ui/scene-icon';
 import { scenes } from '@/data/scenes';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import { constructMetadata } from '@/lib/metadata';
+import { Routes } from '@/routes';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
+import { LocaleLink } from '@/i18n/navigation';
+import {
+  BookOpenIcon,
+  BrainIcon,
+  SparklesIcon,
+  CheckCircleIcon,
+} from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -32,7 +39,7 @@ const homeFaqs = [
       'Journal prompts are thought-provoking questions or statements designed to inspire reflective writing. They help you explore your thoughts, feelings, and experiences in a structured way.',
   },
   {
-    question: 'How does the AI prompt matching work?',
+    question: 'How does the prompt matching work?',
     answer:
       'Our system uses a curated library of 200+ prompts tagged by mood and topic. When you select your current mood and desired direction, we match you with the 3 most relevant prompts.',
   },
@@ -75,7 +82,7 @@ export default async function HomePage(_props: HomePageProps) {
               transform: 'rotate(-1deg)',
             }}
           >
-            AI-Powered Journal Prompt Finder
+            Smart Journal Prompt Finder
           </div>
           <h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold"
@@ -97,9 +104,9 @@ export default async function HomePage(_props: HomePageProps) {
             Don&apos;t scroll through 1000 prompts. Tell us how you feel, and
             we&apos;ll find the perfect journal prompt for you in 3 seconds.
           </p>
-          <a
-            href="#prompt-finder"
-            className="inline-block px-8 py-3 text-lg text-white transition-all duration-200 cursor-pointer"
+          <LocaleLink
+            href={Routes.FindYourPrompt}
+            className="inline-block px-8 py-3 text-lg text-white no-underline transition-all duration-200 cursor-pointer"
             style={{
               fontFamily: 'var(--font-hand-title)',
               backgroundColor: '#ff4d4d',
@@ -109,12 +116,34 @@ export default async function HomePage(_props: HomePageProps) {
             }}
           >
             Get Your Prompt →
-          </a>
+          </LocaleLink>
         </div>
       </section>
 
-      {/* Prompt Finder */}
-      <PromptFinder />
+      {/* Social Proof */}
+      <section className="pb-12 px-4">
+        <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10">
+          {[
+            { icon: BookOpenIcon, text: '200+ curated prompts' },
+            { icon: BrainIcon, text: 'Backed by psychology research' },
+            { icon: SparklesIcon, text: 'Matched to your mood' },
+            { icon: CheckCircleIcon, text: '100% free' },
+          ].map((item) => (
+            <div
+              key={item.text}
+              className="flex items-center gap-2"
+              style={{
+                fontFamily: 'var(--font-hand-body)',
+                color: '#2d2d2d',
+                opacity: 0.6,
+              }}
+            >
+              <item.icon size={16} />
+              <span className="text-sm">{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Browse by Category */}
       <section className="py-16 px-4">
@@ -147,7 +176,7 @@ export default async function HomePage(_props: HomePageProps) {
                 '-1.2deg',
               ];
               return (
-                <Link
+                <LocaleLink
                   key={scene.slug}
                   href={`/${scene.slug}`}
                   className="block p-4 transition-all duration-200 group no-underline relative"
@@ -160,14 +189,16 @@ export default async function HomePage(_props: HomePageProps) {
                     color: '#2d2d2d',
                   }}
                 >
-                  <div className="text-2xl mb-2">{scene.emoji}</div>
+                  <div className="mb-2">
+                    <SceneIcon slug={scene.slug} size={28} />
+                  </div>
                   <h3
                     className="text-base font-bold"
                     style={{ fontFamily: 'var(--font-hand-title)' }}
                   >
                     {scene.h1}
                   </h3>
-                </Link>
+                </LocaleLink>
               );
             })}
           </div>

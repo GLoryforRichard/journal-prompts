@@ -1,6 +1,7 @@
+import { SceneIcon } from '@/components/ui/scene-icon';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import { scenes } from '@/data/scenes';
-import Link from 'next/link';
+import { LocaleLink } from '@/i18n/navigation';
 
 interface RelatedScenesProps {
   sceneSlugs: string[];
@@ -32,7 +33,7 @@ export function RelatedScenes({ sceneSlugs, currentScene }: RelatedScenesProps) 
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {related.map((scene, i) => (
-            <Link
+            <LocaleLink
               key={scene!.slug}
               href={`/${scene!.slug}`}
               className="block p-5 transition-all duration-200 group no-underline"
@@ -54,7 +55,9 @@ export function RelatedScenes({ sceneSlugs, currentScene }: RelatedScenesProps) 
                   transform: 'rotate(-3deg)',
                 }}
               />
-              <div className="text-2xl mb-2">{scene!.emoji}</div>
+              <div className="mb-2">
+                <SceneIcon slug={scene!.slug} size={28} />
+              </div>
               <h3
                 className="text-lg font-bold"
                 style={{ fontFamily: 'var(--font-hand-title)' }}
@@ -67,7 +70,7 @@ export function RelatedScenes({ sceneSlugs, currentScene }: RelatedScenesProps) 
               >
                 {scene!.heroSubtitle}
               </p>
-            </Link>
+            </LocaleLink>
           ))}
         </div>
       </div>

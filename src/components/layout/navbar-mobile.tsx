@@ -10,7 +10,9 @@ import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { websiteConfig } from '@/config/website';
 import { Routes } from '@/routes';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import {
+  BookOpenIcon,
   ChevronRightIcon,
   LogInIcon,
   MenuIcon,
@@ -28,6 +30,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const menuLinks = useNavbarLinks();
+  const user = useCurrentUser();
 
   useEffect(() => {
     setMounted(true);
@@ -152,9 +155,9 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
 
             {/* CTA */}
             <div className="mt-4 flex flex-col gap-3">
-              {(websiteConfig.auth.enableGoogleLogin || websiteConfig.auth.enableGithubLogin) && (
+              {user ? (
                 <LocaleLink
-                  href={Routes.Login}
+                  href={Routes.Dashboard}
                   onClick={() => setOpen(false)}
                   className="flex items-center justify-center gap-2 w-full py-3 no-underline"
                   style={{
@@ -167,12 +170,32 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                     boxShadow: '4px 4px 0px 0px #2d2d2d',
                   }}
                 >
-                  <LogInIcon size={18} strokeWidth={2.5} />
-                  Sign In
+                  <BookOpenIcon size={18} strokeWidth={2.5} />
+                  My Journal
                 </LocaleLink>
+              ) : (
+                (websiteConfig.auth.enableGoogleLogin || websiteConfig.auth.enableGithubLogin || websiteConfig.auth.enableCredentialLogin) && (
+                  <LocaleLink
+                    href={Routes.Login}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-center gap-2 w-full py-3 no-underline"
+                    style={{
+                      fontFamily: 'var(--font-hand-title)',
+                      fontSize: '1.1rem',
+                      color: '#2d2d2d',
+                      backgroundColor: '#fff9c4',
+                      border: '2px solid #2d2d2d',
+                      borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                      boxShadow: '4px 4px 0px 0px #2d2d2d',
+                    }}
+                  >
+                    <LogInIcon size={18} strokeWidth={2.5} />
+                    Sign In
+                  </LocaleLink>
+                )
               )}
-              <a
-                href="#prompt-finder"
+              <LocaleLink
+                href="/find-your-prompt"
                 onClick={() => setOpen(false)}
                 className="flex items-center justify-center gap-2 w-full py-3 text-white no-underline"
                 style={{
@@ -186,7 +209,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
               >
                 <PenLineIcon size={18} strokeWidth={2.5} />
                 Get Your Prompt
-              </a>
+              </LocaleLink>
             </div>
           </div>
         </div>

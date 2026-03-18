@@ -1,16 +1,17 @@
 'use client';
 
+import { MoodIcon } from '@/components/ui/scene-icon';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 
 const moods = [
-  { id: 'anxious', emoji: '😰', label: 'Anxious', description: 'Feeling worried or uneasy' },
-  { id: 'grateful', emoji: '🙏', label: 'Grateful', description: 'Feeling thankful and appreciative' },
-  { id: 'stuck', emoji: '😶', label: 'Stuck', description: 'Feeling blocked or unmotivated' },
-  { id: 'curious', emoji: '🤔', label: 'Curious', description: 'Wanting to explore and learn' },
-  { id: 'sad', emoji: '😢', label: 'Sad', description: 'Feeling down or melancholy' },
-  { id: 'energized', emoji: '⚡', label: 'Energized', description: 'Feeling motivated and alive' },
-  { id: 'reflective', emoji: '🪞', label: 'Reflective', description: 'In a thoughtful, introspective mood' },
-  { id: 'restless', emoji: '🌊', label: 'Restless', description: 'Feeling unsettled or antsy' },
+  { id: 'anxious', label: 'Anxious', description: 'Feeling worried or uneasy' },
+  { id: 'grateful', label: 'Grateful', description: 'Feeling thankful and appreciative' },
+  { id: 'stuck', label: 'Stuck', description: 'Feeling blocked or unmotivated' },
+  { id: 'curious', label: 'Curious', description: 'Wanting to explore and learn' },
+  { id: 'sad', label: 'Sad', description: 'Feeling down or melancholy' },
+  { id: 'energized', label: 'Energized', description: 'Feeling motivated and alive' },
+  { id: 'reflective', label: 'Reflective', description: 'In a thoughtful, introspective mood' },
+  { id: 'restless', label: 'Restless', description: 'Feeling unsettled or antsy' },
 ] as const;
 
 interface MoodSelectorProps {
@@ -48,7 +49,13 @@ export function MoodSelector({ onSelect, selected }: MoodSelectorProps) {
                 fontFamily: 'var(--font-hand-body)',
               }}
             >
-              <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{mood.emoji}</div>
+              <div className="mb-2 group-hover:scale-110 transition-transform">
+                <MoodIcon
+                  mood={mood.id}
+                  size={32}
+                  color={isSelected ? '#fff' : '#2d2d2d'}
+                />
+              </div>
               <div
                 className="text-lg font-bold"
                 style={{ fontFamily: 'var(--font-hand-title)' }}

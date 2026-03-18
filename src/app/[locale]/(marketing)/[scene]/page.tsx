@@ -1,10 +1,10 @@
 import { constructMetadata } from '@/lib/metadata';
 import { scenes } from '@/data/scenes';
 import { getPromptsByScene } from '@/lib/prompt-matcher';
-import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
 import { SceneHero } from '@/components/scene/scene-hero';
 import { WhySection } from '@/components/scene/why-section';
 import { FeaturedPrompts } from '@/components/scene/featured-prompts';
+import { SceneCTA } from '@/components/scene/scene-cta';
 import { HowToUse } from '@/components/scene/how-to-use';
 import { SceneFAQ } from '@/components/scene/scene-faq';
 import { RelatedScenes } from '@/components/scene/related-scenes';
@@ -54,10 +54,8 @@ export default async function ScenePage({
       <SceneHero
         h1={sceneConfig.h1}
         subtitle={sceneConfig.heroSubtitle}
-        emoji={sceneConfig.emoji}
+        slug={sceneConfig.slug}
       />
-
-      <PromptFinder scene={sceneConfig.promptScene} />
 
       <WhySection
         title={sceneConfig.whyTitle}
@@ -66,6 +64,8 @@ export default async function ScenePage({
       />
 
       <FeaturedPrompts prompts={prompts} sceneTitle={sceneConfig.h1} />
+
+      <SceneCTA />
 
       <HowToUse steps={sceneConfig.howToUse} />
 

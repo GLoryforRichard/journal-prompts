@@ -38,6 +38,7 @@ export function PromptResults({
   const [aiPrompt, setAiPrompt] = useState<Prompt | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
   const [remainingCount, setRemainingCount] = useState<number | null>(null);
+  const [limitReached, setLimitReached] = useState(false);
 
   const { execute: generateAI, isExecuting } = useAction(generateAIPromptAction, {
     onSuccess: ({ data }) => {
@@ -49,19 +50,23 @@ export function PromptResults({
           direction: [direction],
           scene: scene || '',
           depth: 'medium',
-          source: 'AI Generated',
+          source: 'Inspired just for you',
         };
         setAiPrompt(newPrompt);
         setAiError(null);
+        setLimitReached(false);
         if (data.remainingCount !== undefined) {
           setRemainingCount(data.remainingCount);
         }
       } else if (data?.error) {
         setAiError(data.error);
+        if (data.limitReached) {
+          setLimitReached(true);
+        }
       }
     },
     onError: () => {
-      setAiError('Failed to generate. Please try again.');
+      setAiError('Something went wrong. Please try again.');
     },
   });
 
@@ -172,7 +177,7 @@ export function PromptResults({
               </span>
               <div className="flex-1">
                 <p className="text-lg leading-relaxed">{aiPrompt.text}</p>
-                <p className="mt-2 text-xs opacity-50 italic">AI Generated</p>
+                <p className="mt-2 text-xs opacity-50 italic">Inspired just for you</p>
               </div>
               <PenLineIcon
                 className="flex-shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -207,23 +212,41 @@ export function PromptResults({
               ) : (
                 <SparklesIcon size={16} strokeWidth={2.5} />
               )}
-              {isExecuting ? 'Generating...' : 'AI Generate'}
+              {isExecuting ? 'Creating...' : 'Surprise Me'}
             </button>
             {remainingCount !== null && (
               <p
                 className="text-xs opacity-50"
                 style={{ fontFamily: 'var(--font-hand-body)' }}
               >
-                {remainingCount} generations remaining today
+                {remainingCount} surprises remaining today
               </p>
             )}
             {aiError && (
-              <p
-                className="text-xs text-red-500"
-                style={{ fontFamily: 'var(--font-hand-body)' }}
-              >
-                {aiError}
-              </p>
+              <div className="flex flex-col items-center gap-2">
+                <p
+                  className="text-xs text-red-500"
+                  style={{ fontFamily: 'var(--font-hand-body)' }}
+                >
+                  {aiError}
+                </p>
+                {limitReached && (
+                  <LocaleLink
+                    href={Routes.Pricing}
+                    className="text-xs no-underline px-4 py-1.5 transition-all duration-200"
+                    style={{
+                      fontFamily: 'var(--font-hand-title)',
+                      color: '#ffffff',
+                      backgroundColor: '#ff4d4d',
+                      border: '2px solid #2d2d2d',
+                      borderRadius: wobblyBorderRadius.sm,
+                      boxShadow: '2px 2px 0px 0px #2d2d2d',
+                    }}
+                  >
+                    Unlock more surprises →
+                  </LocaleLink>
+                )}
+              </div>
             )}
           </>
         ) : (
@@ -241,7 +264,7 @@ export function PromptResults({
             }}
           >
             <SparklesIcon size={16} strokeWidth={2.5} />
-            Sign in for AI Prompts
+            Sign in for more prompts
           </LocaleLink>
         )}
       </div>

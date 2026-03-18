@@ -27,14 +27,17 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
     <SidebarProvider
       style={
         {
-          '--sidebar-width': 'calc(var(--spacing) * 72)',
+          '--sidebar-width': 'calc(var(--spacing) * 64)',
           '--header-height': 'calc(var(--spacing) * 12)',
+          backgroundColor: '#fdfbf7',
         } as React.CSSProperties
       }
     >
       <DashboardSidebar variant="inset" />
 
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset style={{ backgroundColor: '#fdfbf7' }}>
+        {children}
+      </SidebarInset>
     </SidebarProvider>
   );
 }

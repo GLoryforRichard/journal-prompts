@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <!-- Red wobbly circle background -->
-  <path d="M256 28c120 0 228 90 228 228s-108 228-228 228S28 376 28 256 136 28 256 28z" fill="#ff4d4d" stroke="#2d2d2d" stroke-width="16"/>
+  <path d="M256 28c120 0 228 90 228 228s-108 228-228 228S28 376 28 256 136 28 256 28z" fill="#ff4d4d"/>
   <!-- Pen icon (simplified PenLine from Lucide) -->
   <g transform="translate(128, 108) scale(16)" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <!-- Pen body -->

@@ -37,6 +37,7 @@ const staticRoutes = [
   '/privacy',
   '/terms',
   '/about',
+  '/find-your-prompt',
   ...sceneRoutes,
   ...(websiteConfig.blog.enable ? ['/blog'] : []),
   ...(websiteConfig.docs.enable ? ['/docs'] : []),

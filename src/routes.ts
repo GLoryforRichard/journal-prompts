@@ -19,6 +19,8 @@ export enum Routes {
   PrivacyPolicy = '/privacy',
   TermsOfService = '/terms',
 
+  FindYourPrompt = '/find-your-prompt',
+
   // scene pages
   Gratitude = '/gratitude-journal-prompts',
   MentalHealth = '/journal-prompts-for-mental-health',
@@ -42,8 +44,8 @@ export enum Routes {
   ForgotPassword = '/auth/forgot-password',
   ResetPassword = '/auth/reset-password',
 
-  // dashboard routes
-  Dashboard = '/dashboard',
+  // journal (logged-in home)
+  Dashboard = '/my-journal',
 
   // admin routes
   AdminUsers = '/admin/users',

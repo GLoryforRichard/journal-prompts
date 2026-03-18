@@ -33,7 +33,7 @@ Rules:
       'X-Title': 'Journal Prompts',
     },
     body: JSON.stringify({
-      model: 'openai/gpt-4o-mini',
+      model: 'google/gemini-2.0-flash-001',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },

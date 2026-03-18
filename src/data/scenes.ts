@@ -23,16 +23,15 @@ export const scenes: SceneConfig[] = [
     title: "Gratitude",
     h1: "Gratitude Journal Prompts",
     metaTitle:
-      "Gratitude Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Gratitude Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Discover thoughtful gratitude journal prompts backed by positive psychology. Our AI matches you with the perfect prompt for your mood and goals.",
+      "Discover thoughtful gratitude journal prompts backed by positive psychology. We match you with the perfect prompt for your mood and goals.",
     heroSubtitle:
       "Cultivate appreciation and rewire your brain for positivity with research-backed gratitude prompts tailored to your mood.",
-    whyTitle: "Why Gratitude Journaling Transforms Your Well-Being",
+    whyTitle: "Why Gratitude Journal Prompts Work",
     whyContent: [
-      "Research by Dr. Robert Emmons at UC Davis has shown that people who regularly practice gratitude journaling experience 25% greater well-being, sleep better, and exercise more consistently. Gratitude journaling works by shifting your brain's attentional bias from what's missing to what's present, activating neural pathways associated with dopamine and serotonin production.",
-      "Unlike generic positive thinking, gratitude journaling asks you to ground your appreciation in specific, concrete moments. This specificity is what makes it effective — writing 'I'm grateful for the way my colleague covered for me during the meeting' is far more neurologically impactful than 'I'm grateful for my job.' The more detailed you are, the stronger the rewiring effect.",
-      "Consistent gratitude practice has been shown to reduce toxic emotions like envy and resentment, increase empathy, and even improve physical health markers. Dr. Martin Seligman's research at the University of Pennsylvania found that a single gratitude exercise — writing and delivering a thank-you letter — produced the largest positive changes of any positive psychology intervention, with effects lasting up to a month.",
+      "Research by Dr. Robert Emmons (UC Davis) shows that people who use gratitude journal prompts regularly experience 25% greater well-being, better sleep, and more consistent exercise. Gratitude journaling rewires your brain's attentional bias — shifting focus from what's missing to what's present, activating dopamine and serotonin pathways.",
+      "The key to effective gratitude journaling is specificity. Writing 'I'm grateful my colleague covered for me in the meeting' is far more impactful than 'I'm grateful for my job.' The best gratitude journal prompts guide you toward these concrete, detailed moments of appreciation.",
     ],
     howToUse: [
       "Choose a prompt that resonates with your current mood — don't force positivity if you're having a hard day.",
@@ -86,16 +85,15 @@ export const scenes: SceneConfig[] = [
     title: "Mental Health",
     h1: "Journal Prompts for Mental Health",
     metaTitle:
-      "Journal Prompts for Mental Health - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Journal Prompts for Mental Health - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Explore journal prompts for mental health designed with CBT and DBT principles. AI-matched prompts to support your emotional well-being journey.",
+      "Explore journal prompts for mental health designed with CBT and DBT principles. Matched prompts to support your emotional well-being journey.",
     heroSubtitle:
       "Support your mental health with evidence-based journaling prompts drawn from CBT, DBT, and expressive writing research.",
-    whyTitle: "Why Journaling Is a Powerful Mental Health Tool",
+    whyTitle: "Why Journal Prompts for Mental Health Work",
     whyContent: [
-      "Dr. James Pennebaker's groundbreaking research at the University of Texas demonstrated that expressive writing about emotional experiences produces measurable improvements in both mental and physical health. Participants who wrote about difficult experiences for just 15-20 minutes over 3-4 days showed reduced anxiety, fewer doctor visits, and improved immune function.",
-      "Mental health journaling works through several mechanisms: it externalizes internal chaos, making overwhelming thoughts more manageable. It creates distance between you and your emotions, enabling what psychologists call 'cognitive reappraisal' — the ability to reframe experiences. Writing also activates the prefrontal cortex, helping regulate the amygdala's fear response.",
-      "Therapeutic journaling has been integrated into Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), and Acceptance and Commitment Therapy (ACT) as a structured intervention. It's particularly effective for identifying thought patterns, tracking mood fluctuations, and building emotional vocabulary — all skills that enhance therapeutic outcomes.",
+      "Dr. James Pennebaker's groundbreaking research at the University of Texas demonstrated that journal prompts for mental health produce measurable improvements in both mental and physical well-being. Participants who wrote about difficult experiences for just 15-20 minutes over 3-4 days showed reduced anxiety, fewer doctor visits, and improved immune function.",
+      "Journal prompts for mental health have been integrated into Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), and Acceptance and Commitment Therapy (ACT) as structured interventions. They are particularly effective for identifying thought patterns, tracking mood fluctuations, and building emotional vocabulary — all skills that enhance therapeutic outcomes.",
     ],
     howToUse: [
       "Find a quiet, private space where you feel safe to write honestly.",
@@ -155,16 +153,15 @@ export const scenes: SceneConfig[] = [
     title: "Shadow Work",
     h1: "Shadow Work Journal Prompts",
     metaTitle:
-      "Shadow Work Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Shadow Work Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
       "Dive into shadow work journal prompts rooted in Jungian psychology. Uncover hidden patterns, integrate your shadow self, and transform inner conflict.",
     heroSubtitle:
       "Explore the hidden parts of yourself with Jungian-inspired shadow work prompts designed to bring unconscious patterns into the light.",
-    whyTitle: "Why Shadow Work Journaling Leads to Deep Transformation",
+    whyTitle: "Why Shadow Work Journal Prompts Lead to Transformation",
     whyContent: [
-      "Carl Jung introduced the concept of the 'shadow' — the parts of ourselves we suppress, deny, or project onto others because they don't align with our conscious self-image. Shadow work journaling is the practice of bringing these hidden aspects into awareness, not to eliminate them, but to integrate them into a more whole, authentic self.",
-      "Research in depth psychology shows that unexamined shadow material drives compulsive behaviors, relationship conflicts, and emotional reactivity. When you write about jealousy, shame, anger, or fear without judgment, you begin to understand what these emotions are protecting. This understanding transforms unconscious patterns into conscious choices.",
-      "Shadow work journaling isn't about being dark or dramatic — it's about radical honesty. Dr. Brene Brown's research on vulnerability demonstrates that the willingness to face uncomfortable truths about ourselves is the foundation of genuine self-acceptance, stronger relationships, and emotional resilience. The prompts here are designed to guide that process safely.",
+      "Carl Jung introduced the concept of the 'shadow' — the parts of ourselves we suppress, deny, or project onto others. Shadow work journal prompts bring these hidden aspects into awareness, not to eliminate them, but to integrate them into a more whole, authentic self. Writing about jealousy, shame, anger, or fear without judgment transforms unconscious patterns into conscious choices.",
+      "Dr. Brene Brown's research on vulnerability demonstrates that the willingness to face uncomfortable truths is the foundation of genuine self-acceptance and emotional resilience. Shadow work journal prompts guide that process safely — helping you explore what your difficult emotions are protecting and build stronger relationships through radical honesty.",
     ],
     howToUse: [
       "Approach these prompts with curiosity, not judgment. You're exploring, not fixing.",
@@ -217,15 +214,15 @@ export const scenes: SceneConfig[] = [
     title: "Kids",
     h1: "Journal Prompts for Kids",
     metaTitle:
-      "Journal Prompts for Kids - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Journal Prompts for Kids - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Fun and age-appropriate journal prompts for kids that build emotional intelligence, creativity, and self-expression. AI-powered prompt matching.",
+      "Fun and age-appropriate journal prompts for kids that build emotional intelligence, creativity, and self-expression. Smart prompt matching.",
     heroSubtitle:
       "Spark your child's imagination and emotional growth with fun, age-appropriate journal prompts designed by child development experts.",
-    whyTitle: "Why Journaling Helps Kids Thrive",
+    whyTitle: "Why Journal Prompts for Kids Build Emotional Intelligence",
     whyContent: [
-      "Journaling helps children develop critical literacy skills while building emotional intelligence. Research by Dr. Marc Brackett at the Yale Center for Emotional Intelligence shows that children who can name and express their emotions perform better academically, build stronger friendships, and demonstrate greater resilience when facing challenges.",
-      "For kids, journaling doesn't have to look like traditional writing. It can include drawing, lists, stories, or even single sentences. The key is creating a safe space where children feel free to express themselves without grades or corrections. This non-judgmental practice builds confidence in self-expression and teaches children that their thoughts and feelings matter.",
+      "Journal prompts for kids help children develop critical literacy skills while building emotional intelligence. Research by Dr. Marc Brackett at the Yale Center for Emotional Intelligence shows that children who can name and express their emotions perform better academically, build stronger friendships, and demonstrate greater resilience when facing challenges.",
+      "For kids, journal prompts don't have to look like traditional writing. They can include drawing, lists, stories, or even single sentences. The key is creating a safe space where children feel free to express themselves without grades or corrections. The best journal prompts for kids build confidence in self-expression and teach children that their thoughts and feelings matter.",
     ],
     howToUse: [
       "Let kids choose their own prompts — autonomy makes journaling feel like play, not homework.",
@@ -279,16 +276,15 @@ export const scenes: SceneConfig[] = [
     title: "Daily",
     h1: "Daily Journal Prompts",
     metaTitle:
-      "Daily Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Daily Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Fresh daily journal prompts to build a consistent writing habit. AI-matched prompts for reflection, growth, and self-awareness every day.",
+      "Fresh daily journal prompts to build a consistent writing habit. Matched prompts for reflection, growth, and self-awareness every day.",
     heroSubtitle:
       "Build a life-changing journaling habit with fresh daily prompts that help you reflect, grow, and stay grounded — one day at a time.",
-    whyTitle: "Why a Daily Journaling Practice Changes Everything",
+    whyTitle: "Why Daily Journal Prompts Build Lasting Change",
     whyContent: [
-      "The power of daily journaling lies in its consistency. Research shows that regular self-reflection — even for just 10 minutes — builds self-awareness, improves emotional regulation, and enhances decision-making over time. Unlike sporadic journaling during crises, a daily practice creates a baseline of self-knowledge that makes you more resilient when challenges arise.",
-      "A study published in the Harvard Business Review found that employees who spent 15 minutes at the end of each day reflecting on lessons learned performed 23% better than those who didn't. Daily journaling creates a similar feedback loop for your personal life — it helps you notice patterns, celebrate progress, and course-correct before small issues become big problems.",
-      "The key to sustainable daily journaling is lowering the bar. You don't need to write pages — a few sentences that capture your mood, one insight, or a single moment of gratitude is enough. Prompts help by removing the 'blank page' paralysis that stops most people from building a consistent habit.",
+      "A study published in the Harvard Business Review found that employees who spent 15 minutes reflecting on lessons learned performed 23% better than those who didn't. Daily journal prompts create a similar feedback loop for your personal life — helping you notice patterns, celebrate progress, and course-correct before small issues become big problems.",
+      "The key to sustainable use of daily journal prompts is lowering the bar. You don't need to write pages — a few sentences capturing your mood, one insight, or a single moment of gratitude is enough. Daily journal prompts remove the 'blank page' paralysis that stops most people from building a consistent habit.",
     ],
     howToUse: [
       "Pick a consistent time — morning for intention-setting, evening for reflection, or whenever works for your schedule.",
@@ -341,16 +337,15 @@ export const scenes: SceneConfig[] = [
     title: "Teens",
     h1: "Journal Prompts for Teens",
     metaTitle:
-      "Journal Prompts for Teens - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Journal Prompts for Teens - Prompt Finder | JournalPrompts",
     metaDescription:
       "Engaging journal prompts for teens designed to support identity exploration, emotional growth, and self-expression during the teenage years.",
     heroSubtitle:
       "Navigate the complexity of teenage life with journal prompts that meet you where you are — no judgment, just honest self-exploration.",
-    whyTitle: "Why Journaling Matters So Much During the Teen Years",
+    whyTitle: "Why Journal Prompts for Teens Matter Now",
     whyContent: [
-      "Adolescence is one of the most neurologically active periods of human development. The prefrontal cortex — responsible for decision-making, impulse control, and self-awareness — is literally being rewired. Journaling during this period gives teens a tool to process the intensity of their experiences while their brain is still developing the capacity to do so internally.",
-      "Dr. Jean Twenge's research shows that today's teens face unprecedented levels of social comparison, academic pressure, and digital overwhelm. Journaling provides a rare screen-free space for authentic self-expression. It helps teens develop emotional vocabulary, practice perspective-taking, and build the self-awareness that forms the foundation of healthy adult identity.",
-      "Studies in adolescent psychology show that teens who journal regularly report lower levels of anxiety and depression, stronger identity development, and better relationship skills. The prompts here are designed to honor the complexity of teen life without being preachy or condescending.",
+      "Adolescence is one of the most neurologically active periods of human development. The prefrontal cortex — responsible for decision-making, impulse control, and self-awareness — is literally being rewired. Journal prompts for teens give young people a tool to process the intensity of their experiences while their brain is still developing the capacity to do so internally.",
+      "Dr. Jean Twenge's research shows that today's teens face unprecedented levels of social comparison, academic pressure, and digital overwhelm. Journal prompts for teens provide a rare screen-free space for authentic self-expression — helping them develop emotional vocabulary, practice perspective-taking, and build the self-awareness that forms the foundation of healthy adult identity.",
     ],
     howToUse: [
       "Browse the prompts and pick one that feels relevant — skip anything that feels forced.",
@@ -404,16 +399,15 @@ export const scenes: SceneConfig[] = [
     title: "Self-Discovery",
     h1: "Self Discovery Journal Prompts",
     metaTitle:
-      "Self Discovery Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Self Discovery Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Uncover who you really are with self discovery journal prompts. AI-powered matching helps you explore values, identity, purpose, and personal growth.",
+      "Uncover who you really are with self discovery journal prompts. Smart matching helps you explore values, identity, purpose, and personal growth.",
     heroSubtitle:
       "Peel back the layers and uncover your authentic self with prompts designed to explore your values, desires, fears, and hidden strengths.",
-    whyTitle: "Why Self-Discovery Journaling Unlocks Your Authentic Life",
+    whyTitle: "Why Self Discovery Journal Prompts Reveal Your True Self",
     whyContent: [
-      "Most people operate on autopilot, making decisions based on inherited beliefs, social expectations, and unchecked assumptions about who they are. Self-discovery journaling interrupts this pattern by asking questions you've never thought to ask. Dr. Tasha Eurich's research found that only 10-15% of people are truly self-aware, despite 95% believing they are. Journaling closes that gap.",
-      "The process of writing forces your brain to organize abstract feelings into coherent thoughts. When you journal about your values, you discover which ones are genuinely yours versus which ones you absorbed from family or culture. When you explore your fears, you often find they're protecting outdated versions of yourself. This kind of clarity is transformative.",
-      "Narrative identity research by Dr. Dan McAdams shows that the stories we tell about ourselves shape our behavior, relationships, and life satisfaction. Self-discovery journaling lets you examine those stories, keep the ones that serve you, and rewrite the ones that don't. It's not navel-gazing — it's the foundation of intentional living.",
+      "Most people operate on autopilot, making decisions based on inherited beliefs and unchecked assumptions. Self discovery journal prompts interrupt this pattern by asking questions you've never thought to ask. Dr. Tasha Eurich's research found that only 10-15% of people are truly self-aware, despite 95% believing they are — and the right self discovery journal prompts close that gap.",
+      "Narrative identity research by Dr. Dan McAdams shows that the stories we tell about ourselves shape our behavior, relationships, and life satisfaction. Self discovery journal prompts let you examine those stories, keep the ones that serve you, and rewrite the ones that don't. It's not navel-gazing — it's the foundation of intentional living.",
     ],
     howToUse: [
       "Choose prompts that make you slightly uncomfortable — that's often where the richest insights are.",
@@ -468,16 +462,15 @@ export const scenes: SceneConfig[] = [
     title: "Self-Love",
     h1: "Self Love Journal Prompts",
     metaTitle:
-      "Self Love Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Self Love Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Build genuine self-love with journal prompts grounded in self-compassion research. AI-powered matching for your unique emotional needs.",
+      "Build genuine self-love with journal prompts grounded in self-compassion research. Smart matching for your unique emotional needs.",
     heroSubtitle:
       "Cultivate a kinder relationship with yourself through self-love prompts rooted in self-compassion research and authentic acceptance.",
-    whyTitle: "Why Self-Love Journaling Is Not What You Think",
+    whyTitle: "Why Self Love Journal Prompts Actually Work",
     whyContent: [
-      "Self-love journaling isn't about affirmations you don't believe or pretending everything is fine. It's about building a relationship with yourself that mirrors the kindness you'd offer a good friend. Dr. Kristin Neff's research at the University of Texas shows that self-compassion — treating yourself with the same care you'd give others — is more strongly linked to well-being than self-esteem.",
-      "The difference matters. Self-esteem depends on feeling 'above average' and crumbles during failure. Self-compassion holds steady regardless of circumstances because it doesn't require you to be special — just human. Journaling builds this muscle by giving you space to acknowledge struggles without drowning in them, and to celebrate yourself without requiring perfection.",
-      "Studies show that people who practice self-compassion through writing exercises experience reduced anxiety and depression, greater emotional resilience, and improved motivation. Contrary to the myth that self-compassion leads to laziness, Dr. Neff's research demonstrates it actually increases the willingness to try again after failure.",
+      "Self love journal prompts aren't about affirmations you don't believe or pretending everything is fine. They help you build a relationship with yourself that mirrors the kindness you'd offer a good friend. Dr. Kristin Neff's research at the University of Texas shows that self-compassion — treating yourself with the same care you'd give others — is more strongly linked to well-being than self-esteem.",
+      "The difference matters: self-esteem crumbles during failure, while self-compassion holds steady because it doesn't require you to be special — just human. Self love journal prompts build this muscle by giving you space to acknowledge struggles without drowning in them. Contrary to the myth that self-compassion leads to laziness, Dr. Neff's research demonstrates it actually increases the willingness to try again after failure.",
     ],
     howToUse: [
       "Notice your inner dialogue before you start writing. What tone does it take? Then choose a prompt that offers balance.",
@@ -531,16 +524,15 @@ export const scenes: SceneConfig[] = [
     title: "Mindfulness",
     h1: "Mindfulness Journal Prompts",
     metaTitle:
-      "Mindfulness Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Mindfulness Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Ground yourself in the present with mindfulness journal prompts based on MBSR research. AI-matched prompts for awareness, calm, and clarity.",
+      "Ground yourself in the present with mindfulness journal prompts based on MBSR research. Matched prompts for awareness, calm, and clarity.",
     heroSubtitle:
       "Anchor yourself in the present moment with mindfulness prompts that combine the science of MBSR with the reflective power of journaling.",
-    whyTitle: "Why Mindfulness Journaling Brings You Back to Now",
+    whyTitle: "Why Mindfulness Journal Prompts Ground You",
     whyContent: [
-      "Dr. Jon Kabat-Zinn, the creator of Mindfulness-Based Stress Reduction (MBSR), defines mindfulness as 'paying attention, on purpose, in the present moment, non-judgmentally.' Mindfulness journaling extends this practice onto the page — instead of observing your breath, you observe your thoughts, sensations, and surroundings through writing.",
-      "Research shows that mindfulness practices reduce cortisol levels, lower blood pressure, and decrease activity in the amygdala (the brain's fear center). When you combine mindfulness with journaling, you get the benefits of both: the present-moment awareness of meditation and the cognitive processing benefits of expressive writing. It's particularly effective for people who find sitting meditation difficult.",
-      "Mindfulness journaling is especially powerful for breaking the cycle of rumination — the repetitive, unhelpful thinking patterns that fuel anxiety and depression. By writing about what's actually happening right now (not what happened yesterday or what might happen tomorrow), you train your attention to stay in the only moment you can actually influence: this one.",
+      "Dr. Jon Kabat-Zinn, the creator of Mindfulness-Based Stress Reduction (MBSR), defines mindfulness as 'paying attention, on purpose, in the present moment, non-judgmentally.' Mindfulness journal prompts extend this practice onto the page — instead of observing your breath, you observe your thoughts, sensations, and surroundings through writing.",
+      "Research shows that mindfulness practices reduce cortisol levels, lower blood pressure, and decrease activity in the amygdala (the brain's fear center). When you combine mindfulness with journaling, you get the benefits of both: present-moment awareness and cognitive processing. Mindfulness journal prompts are particularly effective for people who find sitting meditation difficult.",
     ],
     howToUse: [
       "Take three slow breaths before you begin writing. Arrive in the present moment first.",
@@ -594,16 +586,15 @@ export const scenes: SceneConfig[] = [
     title: "Morning",
     h1: "Morning Journal Prompts",
     metaTitle:
-      "Morning Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Morning Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Start your day with purpose using morning journal prompts. AI-powered prompt matching to set intentions, boost clarity, and build momentum.",
+      "Start your day with purpose using morning journal prompts. Smart prompt matching to set intentions, boost clarity, and build momentum.",
     heroSubtitle:
       "Start each morning with clarity and purpose using prompts designed to set intentions, clear mental clutter, and energize your day.",
-    whyTitle: "Why Morning Journaling Sets the Tone for Your Entire Day",
+    whyTitle: "Why Morning Journal Prompts Set Your Day",
     whyContent: [
-      "Your brain is in a unique state during the first 30-60 minutes after waking. Theta and alpha brainwave activity is elevated, creating a window of heightened creativity and reduced mental resistance. Julia Cameron, author of 'The Artist's Way,' leveraged this science with her famous 'Morning Pages' practice, which has helped millions tap into their creative and reflective potential.",
-      "Morning journaling works by front-loading self-awareness. Before the reactive demands of the day take over, you proactively choose what matters. Research on implementation intentions by Peter Gollwitzer shows that people who write down specific intentions for the day are 2-3 times more likely to follow through compared to those who simply think about them.",
-      "A morning journaling practice also reduces decision fatigue — by clarifying your priorities and emotional state early, you free up cognitive resources for the rest of the day. It's less about productivity optimization and more about starting your day from a place of intentionality rather than autopilot.",
+      "Your brain is in a unique state during the first 30-60 minutes after waking — theta and alpha brainwave activity is elevated, creating a window of heightened creativity and reduced mental resistance. Morning journal prompts tap into this window, which is why Julia Cameron's famous 'Morning Pages' practice has helped millions access their creative and reflective potential.",
+      "Research on implementation intentions by Peter Gollwitzer shows that people who use morning journal prompts to write down specific intentions are 2-3 times more likely to follow through compared to those who simply think about them. Morning journal prompts front-load self-awareness — before the reactive demands of the day take over, you proactively choose what matters.",
     ],
     howToUse: [
       "Journal before checking your phone or email. Protect the morning window of clarity.",
@@ -656,15 +647,15 @@ export const scenes: SceneConfig[] = [
     title: "Fun",
     h1: "Fun Journal Prompts",
     metaTitle:
-      "Fun Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Fun Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Lighten up your journal with fun, creative, and playful prompts. AI-powered matching for when you want to write without pressure and just enjoy it.",
+      "Lighten up your journal with fun, creative, and playful prompts. Smart matching for when you want to write without pressure and just enjoy it.",
     heroSubtitle:
       "Because journaling should sometimes just be fun. Playful, creative, no-pressure prompts for when you want to write and actually enjoy it.",
-    whyTitle: "Why Fun Journaling Is Secretly Powerful",
+    whyTitle: "Why Fun Journal Prompts Are Secretly Powerful",
     whyContent: [
-      "Not every journal entry needs to be deep or therapeutic. Research on positive emotions by Dr. Barbara Fredrickson shows that experiences of joy, amusement, and playfulness broaden your cognitive resources, build psychological resilience, and undo the physiological effects of stress. Fun journaling creates these positive emotional experiences through creative expression.",
-      "Playful writing also activates divergent thinking — the cognitive process behind creativity and problem-solving. When you write a fake restaurant menu or imagine a conversation with your pet, you're strengthening the same neural pathways used for innovation, flexible thinking, and lateral problem-solving in other areas of life.",
+      "Not every journal entry needs to be deep or therapeutic. Research on positive emotions by Dr. Barbara Fredrickson shows that experiences of joy, amusement, and playfulness broaden your cognitive resources, build psychological resilience, and undo the physiological effects of stress. Fun journal prompts create these positive emotional experiences through creative expression.",
+      "Fun journal prompts also activate divergent thinking — the cognitive process behind creativity and problem-solving. When you write a fake restaurant menu or imagine a conversation with your pet, you're strengthening the same neural pathways used for innovation, flexible thinking, and lateral problem-solving in other areas of life.",
     ],
     howToUse: [
       "Drop all expectations of 'good writing.' Fun prompts are about play, not performance.",
@@ -719,16 +710,15 @@ export const scenes: SceneConfig[] = [
     title: "Deep",
     h1: "Deep Journal Prompts",
     metaTitle:
-      "Deep Journal Prompts - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Deep Journal Prompts - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Challenge yourself with deep journal prompts that explore identity, mortality, purpose, and meaning. AI-powered matching for profound self-reflection.",
+      "Challenge yourself with deep journal prompts that explore identity, mortality, purpose, and meaning. Smart matching for profound self-reflection.",
     heroSubtitle:
       "Go beyond the surface with prompts that challenge you to explore life's biggest questions — identity, purpose, mortality, and meaning.",
-    whyTitle: "Why Deep Journaling Changes How You See Everything",
+    whyTitle: "Why Deep Journal Prompts Change How You Think",
     whyContent: [
-      "Deep journaling confronts the questions most people avoid: Who am I really? What am I afraid of? What gives my life meaning? Existential psychologist Irvin Yalom identified four 'ultimate concerns' that shape human experience — death, freedom, isolation, and meaninglessness. Deep journal prompts invite you to engage with these themes directly, rather than letting them operate as background anxiety.",
-      "Research in transformative learning theory by Jack Mezirow shows that genuine personal growth requires 'disorienting dilemmas' — moments where your existing worldview is challenged. Deep journaling creates these moments safely, on your own terms, in a space where you can explore without social pressure or performance anxiety.",
-      "Deep journaling isn't meant to be comfortable. It's meant to be honest. The willingness to sit with uncertainty, to write 'I don't know' and keep going, is where the most meaningful insights emerge. Dr. Dan McAdams' research on narrative identity shows that people who have grappled with life's big questions develop richer, more resilient life stories.",
+      "Existential psychologist Irvin Yalom identified four 'ultimate concerns' that shape human experience — death, freedom, isolation, and meaninglessness. Deep journal prompts invite you to engage with these themes directly, rather than letting them operate as background anxiety. They confront the questions most people avoid: Who am I really? What am I afraid of? What gives my life meaning?",
+      "Research in transformative learning theory by Jack Mezirow shows that genuine personal growth requires 'disorienting dilemmas' — moments where your existing worldview is challenged. Deep journal prompts create these moments safely, on your own terms, in a space where you can explore without social pressure or performance anxiety.",
     ],
     howToUse: [
       "Set aside at least 20 minutes. Deep prompts need space — rushing defeats the purpose.",
@@ -781,16 +771,15 @@ export const scenes: SceneConfig[] = [
     title: "Middle School",
     h1: "Journal Prompts for Middle School",
     metaTitle:
-      "Journal Prompts for Middle School - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Journal Prompts for Middle School - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Age-appropriate journal prompts for middle school students that support identity development, peer navigation, and emotional growth. AI-powered.",
+      "Age-appropriate journal prompts for middle school students that support identity development, peer navigation, and emotional growth.",
     heroSubtitle:
       "Navigate the ups and downs of middle school with journal prompts that get what you're going through — no lectures, just real questions.",
-    whyTitle: "Why Middle School Is the Perfect Time to Start Journaling",
+    whyTitle: "Why Journal Prompts for Middle School Students Matter",
     whyContent: [
-      "Middle school (ages 10-14) marks the beginning of what psychologists call 'formal operational thinking' — the ability to think abstractly, consider hypotheticals, and reflect on your own thought processes. Journaling during this critical window helps students develop metacognition — thinking about thinking — which research links to better academic performance, emotional regulation, and social skills.",
-      "This age is also when peer relationships become intensely important and social dynamics grow more complex. Dr. Roy Baumeister's belonging research shows that social exclusion during early adolescence can have lasting effects on self-worth. Journaling gives middle schoolers a private space to process social challenges, build self-awareness, and develop coping strategies without the vulnerability of sharing publicly.",
-      "Importantly, middle school journaling doesn't have to look like an essay assignment. Short responses, lists, drawings, and even single sentences are valid and valuable. The goal is building the habit of self-reflection that will serve students through high school, college, and adult life.",
+      "Middle school (ages 10-14) marks the beginning of 'formal operational thinking' — the ability to think abstractly and reflect on your own thought processes. Journal prompts for middle school help students develop metacognition — thinking about thinking — which research links to better academic performance, emotional regulation, and social skills.",
+      "This age is also when peer relationships become intensely important. Dr. Roy Baumeister's belonging research shows that social exclusion during early adolescence can have lasting effects on self-worth. Journal prompts for middle school give students a private space to process social challenges, build self-awareness, and develop coping strategies without the vulnerability of sharing publicly.",
     ],
     howToUse: [
       "Start with prompts that are fun or creative — build the habit before going deep.",
@@ -845,16 +834,15 @@ export const scenes: SceneConfig[] = [
     title: "High School",
     h1: "Journal Prompts for High School",
     metaTitle:
-      "Journal Prompts for High School - AI-Powered Prompt Finder | AiJournalPrompts",
+      "Journal Prompts for High School - Prompt Finder | JournalPrompts",
     metaDescription:
-      "Meaningful journal prompts for high school students exploring identity, pressure, and purpose. AI-powered prompt matching for teens ready to go deep.",
+      "Meaningful journal prompts for high school students exploring identity, pressure, and purpose. Smart prompt matching for teens ready to go deep.",
     heroSubtitle:
       "Process the pressure, explore your identity, and figure out what actually matters to you — with prompts designed for the high school experience.",
-    whyTitle: "Why High School Students Need Journaling More Than Ever",
+    whyTitle: "Why Journal Prompts for High School Students Help",
     whyContent: [
-      "High school students today face a uniquely intense combination of pressures: academic performance anxiety, social comparison amplified by social media, college admissions stress, and the fundamental question of identity formation. The American Psychological Association consistently finds that teens report stress levels higher than adults, yet have fewer developed coping tools. Journaling bridges that gap.",
-      "Erik Erikson identified the core psychological task of adolescence as 'identity vs. role confusion' — figuring out who you are. High school is where this task reaches peak intensity. Journaling provides the reflective space to explore identity questions without the social risk of exploring them publicly. It's where you can be honest about confusion, contradiction, and growth.",
-      "Research in educational psychology shows that students who engage in reflective writing perform better academically, demonstrate stronger critical thinking skills, and report greater well-being. High school journaling isn't just about feelings — it builds the metacognitive skills that college admissions officers, employers, and, most importantly, students themselves actually need.",
+      "The American Psychological Association consistently finds that teens report stress levels higher than adults, yet have fewer developed coping tools. Journal prompts for high school students bridge that gap — addressing academic performance anxiety, social comparison amplified by social media, college admissions stress, and the fundamental question of identity formation.",
+      "Erik Erikson identified the core psychological task of adolescence as 'identity vs. role confusion' — figuring out who you are. Journal prompts for high school provide the reflective space to explore identity questions without the social risk of doing so publicly. It's where students can be honest about confusion, contradiction, and growth.",
     ],
     howToUse: [
       "Choose prompts that feel relevant to your life right now. If nothing fits perfectly, adapt it.",
