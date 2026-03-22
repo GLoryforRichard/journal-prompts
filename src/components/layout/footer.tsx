@@ -172,19 +172,34 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
           >
             Made with ♥ for journaling
           </span>
-          <a
-            href="https://link.zhihu.com/?target=https%3A%2F%2Fjournalprompts.org"
-            className="text-xs"
-            style={{
-              fontFamily: 'var(--font-hand-body)',
-              color: '#2d2d2d',
-              opacity: 0.35,
-              textDecoration: 'none',
-              fontSize: '0.75rem',
-            }}
-          >
-            journal prompts
-          </a>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://goodaitools.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://goodaitools.com/assets/images/badge.png"
+                alt="Good AI Tools"
+                height={54}
+                style={{ height: '36px', width: 'auto' }}
+              />
+            </a>
+            <a
+              href="https://link.zhihu.com/?target=https%3A%2F%2Fjournalprompts.org"
+              className="text-xs"
+              style={{
+                fontFamily: 'var(--font-hand-body)',
+                color: '#2d2d2d',
+                opacity: 0.35,
+                textDecoration: 'none',
+                fontSize: '0.75rem',
+              }}
+            >
+              journal prompts
+            </a>
+          </div>
         </Container>
       </div>
     </footer>
