@@ -29,6 +29,14 @@ export function useFooterLinks(): NestedMenuItem[] {
       ],
     },
     {
+      title: 'Techniques',
+      items: [
+        { title: 'All Techniques', href: '/techniques', external: false },
+        { title: 'Free Writing', href: '/techniques/free-writing', external: false },
+        { title: 'For Beginners', href: '/techniques/for-beginners', external: false },
+      ],
+    },
+    {
       title: 'For Students',
       items: [
         { title: 'For Kids', href: '/journal-prompts-for-kids', external: false },

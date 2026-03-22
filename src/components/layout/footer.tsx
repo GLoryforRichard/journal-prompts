@@ -172,6 +172,19 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
           >
             Made with ♥ for journaling
           </span>
+          <a
+            href="https://link.zhihu.com/?target=https%3A%2F%2Fjournalprompts.org"
+            className="text-xs"
+            style={{
+              fontFamily: 'var(--font-hand-body)',
+              color: '#2d2d2d',
+              opacity: 0.35,
+              textDecoration: 'none',
+              fontSize: '0.75rem',
+            }}
+          >
+            journal prompts
+          </a>
         </Container>
       </div>
     </footer>

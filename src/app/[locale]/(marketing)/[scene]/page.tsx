@@ -1,5 +1,6 @@
 import { constructMetadata } from '@/lib/metadata';
 import { scenes } from '@/data/scenes';
+import { getTechniquesForScene } from '@/data/techniques';
 import { getPromptsByScene } from '@/lib/prompt-matcher';
 import { SceneHero } from '@/components/scene/scene-hero';
 import { WhySection } from '@/components/scene/why-section';
@@ -8,6 +9,7 @@ import { SceneCTA } from '@/components/scene/scene-cta';
 import { HowToUse } from '@/components/scene/how-to-use';
 import { SceneFAQ } from '@/components/scene/scene-faq';
 import { RelatedScenes } from '@/components/scene/related-scenes';
+import { RelatedTechniques } from '@/components/scene/related-techniques';
 import { FAQSchema } from '@/components/seo/faq-schema';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -46,6 +48,14 @@ export default async function ScenePage({
   if (!sceneConfig) notFound();
 
   const prompts = getPromptsByScene(sceneConfig.promptScene);
+  const relatedTechniques = getTechniquesForScene(sceneSlug, [
+    'free-writing',
+    'gratitude-journaling',
+    '5-minute-journal',
+    'morning-pages',
+    'bullet-journaling',
+    'cbt-journaling',
+  ]);
 
   return (
     <>
@@ -70,6 +80,8 @@ export default async function ScenePage({
       <HowToUse steps={sceneConfig.howToUse} />
 
       <SceneFAQ faqs={sceneConfig.faqs} />
+
+      <RelatedTechniques techniques={relatedTechniques} />
 
       <RelatedScenes
         sceneSlugs={sceneConfig.relatedScenes}

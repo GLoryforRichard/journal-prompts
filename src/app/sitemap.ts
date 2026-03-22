@@ -30,6 +30,20 @@ const sceneRoutes = [
 ];
 
 /**
+ * Technique routes (Phase 1: only active pages)
+ */
+const techniqueRoutes = [
+  '/techniques',
+  '/techniques/free-writing',
+  '/techniques/gratitude-journaling',
+  '/techniques/5-minute-journal',
+  '/techniques/morning-pages',
+  '/techniques/bullet-journaling',
+  '/techniques/cbt-journaling',
+  '/techniques/for-beginners',
+];
+
+/**
  * static routes for sitemap
  */
 const staticRoutes = [
@@ -39,6 +53,7 @@ const staticRoutes = [
   '/about',
   '/find-your-prompt',
   ...sceneRoutes,
+  ...techniqueRoutes,
   ...(websiteConfig.blog.enable ? ['/blog'] : []),
   ...(websiteConfig.docs.enable ? ['/docs'] : []),
 ];

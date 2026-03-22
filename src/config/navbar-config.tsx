@@ -18,6 +18,8 @@ import {
   SchoolIcon,
   ShieldCheckIcon,
   FileTextIcon,
+  PenToolIcon,
+  SproutIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -82,6 +84,32 @@ export function useNavbarLinks(): NestedMenuItem[] {
           description: 'Everyday journaling prompts',
           icon: <CalendarIcon className="size-4 shrink-0" />,
           href: '/daily-journal-prompts',
+          external: false,
+        },
+      ],
+    },
+    {
+      title: 'Techniques',
+      items: [
+        {
+          title: 'All Techniques',
+          description: 'Find the right journaling method for you',
+          icon: <PenToolIcon className="size-4 shrink-0" />,
+          href: '/techniques',
+          external: false,
+        },
+        {
+          title: 'Free Writing',
+          description: 'Write without stopping or editing',
+          icon: <PenToolIcon className="size-4 shrink-0" />,
+          href: '/techniques/free-writing',
+          external: false,
+        },
+        {
+          title: 'For Beginners',
+          description: 'Best techniques to start journaling',
+          icon: <SproutIcon className="size-4 shrink-0" />,
+          href: '/techniques/for-beginners',
           external: false,
         },
       ],

@@ -21,6 +21,16 @@ export enum Routes {
 
   FindYourPrompt = '/find-your-prompt',
 
+  // technique pages
+  Techniques = '/techniques',
+  TechniqueFreeWriting = '/techniques/free-writing',
+  TechniqueGratitudeJournaling = '/techniques/gratitude-journaling',
+  Technique5MinuteJournal = '/techniques/5-minute-journal',
+  TechniqueMorningPages = '/techniques/morning-pages',
+  TechniqueBulletJournaling = '/techniques/bullet-journaling',
+  TechniqueCbtJournaling = '/techniques/cbt-journaling',
+  TechniqueForBeginners = '/techniques/for-beginners',
+
   // scene pages
   Gratitude = '/gratitude-journal-prompts',
   MentalHealth = '/journal-prompts-for-mental-health',
