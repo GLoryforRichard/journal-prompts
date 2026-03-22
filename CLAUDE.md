@@ -121,8 +121,9 @@ This is a Next.js full-stack SaaS application with the following key architectur
 
 ### SEO Architecture
 - 14 topic landing pages targeting long-tail keywords (e.g., "gratitude journal prompts", "shadow work journal prompts")
-- Each landing page follows a 7-section structure: SceneHero → PromptFinder → WhySection → FeaturedPrompts → HowToUse → FAQ(Schema) → RelatedScenes
-- FAQ Schema markup on every page for rich snippets
+- Each landing page follows an 8-section structure: SceneHero → WhySection → FeaturedPrompts → SceneCTA → HowToUse → SceneFAQ(Schema) → RelatedTechniques → RelatedScenes
+- 8 technique pages (`/techniques/[technique]`) with HowTo Schema + Breadcrumb Schema, bidirectional linking with scene pages
+- FAQ Schema markup on every scene page + homepage for rich snippets
 - Blog enabled for content marketing and Adsense qualification
 
 ### Key SEO Targets
@@ -136,8 +137,10 @@ This is a Next.js full-stack SaaS application with the following key architectur
 - **NEVER remove** the `robots.txt`, `sitemap.xml`, or their generation logic
 - **NEVER remove** the Google verification meta tag in `src/app/[locale]/layout.tsx`
 - **NEVER remove** FAQ Schema (`application/ld+json`) from scene pages
+- **NEVER remove** HowTo Schema or Breadcrumb Schema from technique pages
 - Adding new pages, changing styles/content/interactions, and improving performance are all safe and encouraged
 - When adding new scene pages, add them to: `scenes.ts`, `routes.ts`, `sitemap.ts`, navbar config, and footer config
+- When adding new technique pages, add them to: `techniques.ts`, `routes.ts`, `sitemap.ts`, and update related scenes' technique links
 
 ### Deployment Commands
 - Build: `pnpm build`
@@ -160,6 +163,14 @@ This is a Next.js full-stack SaaS application with the following key architectur
   - 用更温暖自然的表达替代，如 "Create a new prompt"、"Get inspired"、"Surprise me"
   - 功能本身可以用 AI，但面向用户的文案要隐藏技术细节
   - 同样避免在博客、landing page 中强调 AI 属性
+
+## Git Version Control
+
+- **Remote**: `https://github.com/GLoryforRichard/journal-prompts.git` (origin)
+- **主分支**: `main`
+- **每次修改后必须进行 git 版本管理**：完成功能开发或修改后，先 `pnpm build` 验证无错误，然后 commit 并 push 到远程
+- Commit message 使用英文，遵循 conventional commits 格式（`feat:`, `fix:`, `chore:`, `docs:` 等）
+- 不要在一个 commit 里混合不相关的改动，按功能/目的拆分 commit
 
 ## Working Style
 
