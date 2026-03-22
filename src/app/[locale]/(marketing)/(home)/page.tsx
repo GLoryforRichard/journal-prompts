@@ -41,7 +41,7 @@ const homeFaqs = [
   {
     question: 'How does the prompt matching work?',
     answer:
-      'Our system uses a curated library of 200+ prompts tagged by mood and topic. When you select your current mood and desired direction, we match you with the 3 most relevant prompts.',
+      'Our system uses a curated library of 1,000+ prompts tagged by mood and topic. When you select your current mood and desired direction, we match you with the 3 most relevant prompts.',
   },
   {
     question: 'Is my writing saved?',
@@ -124,7 +124,7 @@ export default async function HomePage(_props: HomePageProps) {
       <section className="pb-12 px-4">
         <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10">
           {[
-            { icon: BookOpenIcon, text: '200+ curated prompts' },
+            { icon: BookOpenIcon, text: '1,000+ curated prompts' },
             { icon: BrainIcon, text: 'Backed by psychology research' },
             { icon: SparklesIcon, text: 'Matched to your mood' },
             { icon: CheckCircleIcon, text: '100% free' },

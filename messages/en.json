@@ -73,7 +73,7 @@
       "name": "Free",
       "description": "Start your journaling journey",
       "features": {
-        "feature-1": "200+ curated journal prompts",
+        "feature-1": "1,000+ curated journal prompts",
         "feature-2": "14 themed prompt collections",
         "feature-3": "Mood-based prompt matching",
         "feature-4": "Local journal writing"
@@ -798,7 +798,7 @@
       "items": {
         "item-1": {
           "title": "Smart Mood Matching",
-          "description": "Tell us how you're feeling, and we match you with the most relevant journal prompts from our curated library of 200+ prompts."
+          "description": "Tell us how you're feeling, and we match you with the most relevant journal prompts from our curated library of 1,000+ prompts."
         },
         "item-2": {
           "title": "Write Right Here",
@@ -869,7 +869,7 @@
         },
         "item-2": {
           "question": "How does the prompt matching work?",
-          "answer": "Our system uses a curated library of 200+ prompts tagged by mood and topic. When you select your current mood and desired direction, we match you with the 3 most relevant prompts."
+          "answer": "Our system uses a curated library of 1,000+ prompts tagged by mood and topic. When you select your current mood and desired direction, we match you with the 3 most relevant prompts."
         },
         "item-3": {
           "question": "Is my writing saved?",
