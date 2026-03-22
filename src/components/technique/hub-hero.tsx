@@ -33,8 +33,32 @@ export function TechniqueHubHero() {
             opacity: 0.8,
           }}
         >
-          Not sure which journaling method fits you? Take our quick quiz or explore proven techniques — from free writing to CBT journaling.
+          Not sure where to start? You&apos;re not alone. Most people try journaling, get stuck, and quit within two weeks.
         </p>
+        <p
+          className="text-lg max-w-2xl mx-auto"
+          style={{
+            fontFamily: 'var(--font-hand-body)',
+            color: '#2d2d2d',
+            opacity: 0.65,
+          }}
+        >
+          Take our quiz to find the right technique for your goals — or compare methods side by side.
+        </p>
+        <a
+          href="#technique-quiz"
+          className="inline-block px-8 py-3 text-lg font-bold no-underline transition-all duration-150 hover:-translate-y-0.5"
+          style={{
+            fontFamily: 'var(--font-hand-title)',
+            color: '#ffffff',
+            backgroundColor: '#ff4d4d',
+            border: '2px solid #2d2d2d',
+            borderRadius: wobblyBorderRadius.sm,
+            boxShadow: '4px 4px 0px 0px #2d2d2d',
+          }}
+        >
+          Take the Quiz →
+        </a>
       </div>
     </section>
   );

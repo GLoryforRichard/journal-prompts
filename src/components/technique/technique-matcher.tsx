@@ -305,22 +305,34 @@ export function TechniqueMatcher() {
                   </a>
                 ))}
               </div>
-              <button
-                onClick={() => {
-                  setStep(0);
-                  setBlocker('');
-                  setGoal('');
-                }}
-                className="text-sm cursor-pointer"
-                style={{
-                  fontFamily: 'var(--font-hand-body)',
-                  color: '#2d5da1',
-                  background: 'none',
-                  border: 'none',
-                }}
-              >
-                ← Try again
-              </button>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => {
+                    setStep(0);
+                    setBlocker('');
+                    setGoal('');
+                  }}
+                  className="text-sm cursor-pointer"
+                  style={{
+                    fontFamily: 'var(--font-hand-body)',
+                    color: '#2d5da1',
+                    background: 'none',
+                    border: 'none',
+                  }}
+                >
+                  ← Try again
+                </button>
+                <a
+                  href="#compare"
+                  className="text-sm no-underline hover:underline"
+                  style={{
+                    fontFamily: 'var(--font-hand-body)',
+                    color: '#2d5da1',
+                  }}
+                >
+                  Compare all techniques side by side →
+                </a>
+              </div>
             </div>
           )}
         </div>
