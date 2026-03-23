@@ -36,7 +36,7 @@ export const techniques: TechniqueConfig[] = [
     slug: 'free-writing',
     title: 'Free Writing',
     h1: 'Free Writing Journaling Technique',
-    metaTitle: 'Free Writing Journaling Technique: A Complete Guide | JournalPrompts',
+    metaTitle: 'Free Writing Journaling: A Complete How-To Guide',
     metaDescription:
       'Learn the free writing journaling technique — write without stopping, editing, or judging. Unlock creativity, reduce anxiety, and discover hidden thoughts.',
     heroSubtitle:
@@ -104,6 +104,22 @@ export const techniques: TechniqueConfig[] = [
         question: 'Can I free write on a computer?',
         answer: 'Yes, though many practitioners prefer pen and paper because the slower pace feels more connected. If you type, try turning off spell-check and autocorrect to avoid the urge to fix things.',
       },
+      {
+        question: 'What is the difference between free writing and journaling?',
+        answer: 'Traditional journaling usually has a topic, structure, or prompt. Free writing has no rules at all — you write whatever comes to mind without any plan or direction. Think of journaling as driving to a destination, and free writing as going for a walk with no map. Both are valuable, and many people use free writing as a warm-up before their regular journaling practice.',
+      },
+      {
+        question: 'Can free writing help with anxiety?',
+        answer: 'Yes. Research shows that expressive writing reduces anxiety by externalizing worries — getting them out of your head and onto paper. The act of writing activates the parasympathetic nervous system, which calms the body\'s stress response. Many therapists recommend free writing as a daily anxiety management tool alongside other treatments.',
+      },
+      {
+        question: 'How is free writing different from morning pages?',
+        answer: 'Morning pages, created by Julia Cameron, are a specific form of free writing: exactly three pages, done first thing in the morning, by hand. Free writing is more flexible — you can do it any time, for any length, on any medium. Morning pages are like a structured version of free writing with a specific time and volume requirement.',
+      },
+      {
+        question: 'What should I do if free writing brings up painful emotions?',
+        answer: 'This is actually a sign that free writing is working — it surfaces emotions that need processing. If feelings become overwhelming, pause and ground yourself with deep breathing. You can also set boundaries before writing, like choosing a lighter topic. If intense emotions persist, consider working with a therapist who can guide you through expressive writing safely.',
+      },
     ],
     relatedTechniques: ['morning-pages', 'stream-of-consciousness', 'expressive-writing'],
     relatedScenes: ['deep-journal-prompts', 'journal-prompts-for-mental-health', 'self-discovery-journal-prompts'],
@@ -112,7 +128,7 @@ export const techniques: TechniqueConfig[] = [
     slug: 'gratitude-journaling',
     title: 'Gratitude Journaling',
     h1: 'Gratitude Journaling Technique',
-    metaTitle: 'Gratitude Journaling Technique: Science-Backed Guide | JournalPrompts',
+    metaTitle: 'Gratitude Journaling: Science-Backed Technique Guide',
     metaDescription:
       'Master the gratitude journaling technique backed by positive psychology. Learn how writing 3 specific things you\'re grateful for can rewire your brain for happiness.',
     heroSubtitle:
@@ -173,6 +189,22 @@ export const techniques: TechniqueConfig[] = [
         question: 'Can gratitude journaling help with depression?',
         answer: 'Studies show gratitude journaling can complement treatment for mild to moderate depression. However, it\'s not a substitute for professional help. If you\'re experiencing clinical depression, please consult a mental health professional.',
       },
+      {
+        question: 'How is gratitude journaling different from positive affirmations?',
+        answer: 'Positive affirmations focus on future aspirations ("I am confident"), while gratitude journaling focuses on real things that already happened ("I\'m grateful my colleague helped me today"). Because gratitude entries are rooted in actual experiences, your brain accepts them more easily, making the practice more effective for rewiring thought patterns.',
+      },
+      {
+        question: 'Who benefits most from gratitude journaling?',
+        answer: 'Gratitude journaling is especially powerful for people prone to negativity bias, perfectionists who focus on what went wrong, and anyone going through a stressful period. Research also shows it\'s highly effective for older adults and people recovering from trauma, though it works well for virtually anyone willing to practice consistently.',
+      },
+      {
+        question: 'What does the research say about gratitude journaling?',
+        answer: 'Dr. Robert Emmons\' studies at UC Davis found that gratitude journaling increased happiness by 25%, improved sleep quality, and even strengthened immune function. A 2019 meta-analysis in the Journal of Happiness Studies confirmed that gratitude interventions produce reliable positive effects on well-being, with the benefits increasing the longer you practice.',
+      },
+      {
+        question: 'How do I start a gratitude journal if I\'m naturally pessimistic?',
+        answer: 'Start very small — just one specific thing per day, even something as simple as "I\'m grateful for hot coffee this morning." Pessimistic thinkers often benefit the most from this practice because they have the most room for a perspective shift. Don\'t force positivity; just train yourself to notice one genuine good thing each day, and the habit will grow naturally.',
+      },
     ],
     relatedTechniques: ['5-minute-journal', 'bullet-journaling'],
     relatedScenes: ['gratitude-journal-prompts', 'mindfulness-journal-prompts', 'self-love-journal-prompts'],
@@ -181,7 +213,7 @@ export const techniques: TechniqueConfig[] = [
     slug: '5-minute-journal',
     title: '5-Minute Journal',
     h1: '5-Minute Journal Technique',
-    metaTitle: '5-Minute Journal Technique: Quick Daily Journaling Method | JournalPrompts',
+    metaTitle: '5-Minute Journal: Quick Daily Journaling Method',
     metaDescription:
       'Learn the 5-minute journal technique — a structured morning and evening routine that takes just 5 minutes. Perfect for busy people who want journaling benefits fast.',
     heroSubtitle:
@@ -242,6 +274,22 @@ export const techniques: TechniqueConfig[] = [
         question: 'Is 5 minutes really enough to get benefits?',
         answer: 'Yes. Research shows that even 2-3 minutes of structured gratitude practice produces measurable improvements in well-being. The 5-minute format maximizes impact per minute invested.',
       },
+      {
+        question: 'How is the 5-minute journal different from gratitude journaling?',
+        answer: 'Gratitude journaling focuses solely on what you\'re thankful for. The 5-minute journal combines gratitude with intention-setting (what would make today great) and reflection (how could today have been better). This three-part structure engages both forward-looking motivation and backward-looking learning, making it a more complete daily practice.',
+      },
+      {
+        question: 'Can kids or teenagers use the 5-minute journal?',
+        answer: 'Absolutely. The 5-minute journal is one of the best journaling methods for young people because the prompts are simple, the time commitment is tiny, and the structure removes the intimidation of a blank page. Many parents and teachers use it as a daily classroom or bedtime routine with great results.',
+      },
+      {
+        question: 'What should I write for the daily affirmation?',
+        answer: 'Focus on who you want to be, not what you want to have. Instead of "I am rich," try "I am someone who follows through on commitments" or "I am patient with myself when things get hard." The most effective affirmations are specific, process-oriented, and feel genuinely true or achievable.',
+      },
+      {
+        question: 'How long does it take to build a 5-minute journal habit?',
+        answer: 'Research from University College London suggests it takes an average of 66 days to form a new habit. However, because the 5-minute journal is so quick and structured, many people find it becomes automatic within 2-3 weeks. The key is to anchor it to an existing habit like your morning coffee or brushing your teeth.',
+      },
     ],
     relatedTechniques: ['gratitude-journaling', 'morning-pages', 'bullet-journaling'],
     relatedScenes: ['morning-journal-prompts', 'daily-journal-prompts', 'gratitude-journal-prompts'],
@@ -250,7 +298,7 @@ export const techniques: TechniqueConfig[] = [
     slug: 'morning-pages',
     title: 'Morning Pages',
     h1: 'Morning Pages Journaling Technique',
-    metaTitle: 'Morning Pages: Julia Cameron\'s Journaling Technique | JournalPrompts',
+    metaTitle: 'Morning Pages: Julia Cameron\'s Writing Technique',
     metaDescription:
       'Learn Morning Pages — Julia Cameron\'s technique of writing 3 pages longhand first thing in the morning. Clear mental clutter, unlock creativity, and find clarity.',
     heroSubtitle:
@@ -311,6 +359,22 @@ export const techniques: TechniqueConfig[] = [
         question: 'How long does it take to see results?',
         answer: 'Most people notice reduced anxiety and clearer thinking within 1-2 weeks. Julia Cameron suggests committing to 12 weeks (the length of "The Artist\'s Way" program) for the full transformative effect.',
       },
+      {
+        question: 'How are morning pages different from free writing?',
+        answer: 'Morning pages are a specific form of free writing with three fixed rules: exactly three pages, done by hand, first thing in the morning. Free writing is more flexible — any length, any time, any medium. Think of morning pages as a structured daily ritual, and free writing as a technique you can use whenever you need it.',
+      },
+      {
+        question: 'Can morning pages help with creative blocks?',
+        answer: 'Yes, this is one of the primary reasons Julia Cameron created the practice. Morning pages clear the "mental debris" — worries, to-do lists, resentments — that blocks creative flow. Many writers, artists, and musicians credit morning pages with unlocking breakthroughs they couldn\'t achieve through willpower alone.',
+      },
+      {
+        question: 'Who is morning pages best for?',
+        answer: 'Morning pages are ideal for creatives, overthinkers, and anyone who feels mentally cluttered. They\'re especially powerful for people in transitional life phases — career changes, relationship shifts, or personal growth periods — because the practice surfaces subconscious thoughts that guide decision-making.',
+      },
+      {
+        question: 'Is there scientific evidence that morning pages work?',
+        answer: 'While there are no clinical trials specifically on morning pages, the underlying mechanisms are well-researched. Expressive writing reduces cortisol and anxiety (Pennebaker, 1997), handwriting improves cognitive processing (Mueller & Oppenheimer, 2014), and cognitive offloading — getting thoughts on paper — frees working memory for creative thinking.',
+      },
     ],
     relatedTechniques: ['free-writing', 'stream-of-consciousness', 'expressive-writing'],
     relatedScenes: ['morning-journal-prompts', 'deep-journal-prompts', 'self-discovery-journal-prompts'],
@@ -319,7 +383,7 @@ export const techniques: TechniqueConfig[] = [
     slug: 'bullet-journaling',
     title: 'Bullet Journaling',
     h1: 'Bullet Journaling Technique',
-    metaTitle: 'Bullet Journaling: The Rapid Logging Method Explained | JournalPrompts',
+    metaTitle: 'Bullet Journaling: Rapid Logging Method Explained',
     metaDescription:
       'Learn the bullet journaling technique — Ryder Carroll\'s rapid logging system that combines task management, journaling, and planning in one notebook.',
     heroSubtitle:
@@ -380,6 +444,22 @@ export const techniques: TechniqueConfig[] = [
         question: 'What if I run out of space mid-month?',
         answer: 'Just continue on the next available page and update your index. This is a feature of the system — no wasted pages, no rigid structure.',
       },
+      {
+        question: 'How do I start bullet journaling as a complete beginner?',
+        answer: 'Start with just three things: an index page, a monthly log, and daily logs using rapid logging symbols (dot for tasks, circle for events, dash for notes). Skip the fancy spreads and trackers until the basic system feels natural. Ryder Carroll recommends spending your first month with only the core modules before customizing.',
+      },
+      {
+        question: 'Is bullet journaling good for ADHD?',
+        answer: 'Many people with ADHD find bullet journaling extremely helpful because it externalizes working memory — getting tasks, ideas, and commitments out of your head and into a reliable system. The migration process also helps with prioritization, which is often challenging for ADHD brains. The key is keeping your system simple so it doesn\'t become another source of overwhelm.',
+      },
+      {
+        question: 'How is bullet journaling different from using a to-do list app?',
+        answer: 'A to-do list app captures tasks, but bullet journaling combines task management with reflection, journaling, and intentional review. The monthly migration process forces you to ask "Is this still worth doing?" — something apps rarely encourage. The analog format also reduces screen time and improves focus through handwriting.',
+      },
+      {
+        question: 'What is the best notebook for bullet journaling?',
+        answer: 'The Leuchtturm1917 dotted A5 is the most popular choice because it has numbered pages, a built-in index, and a dot grid that works for both writing and drawing. However, any notebook you already own works perfectly fine. The best notebook is the one you\'ll actually use — don\'t let gear shopping become a form of procrastination.',
+      },
     ],
     relatedTechniques: ['5-minute-journal', 'gratitude-journaling'],
     relatedScenes: ['daily-journal-prompts', 'morning-journal-prompts', 'fun-journal-prompts'],
@@ -388,7 +468,7 @@ export const techniques: TechniqueConfig[] = [
     slug: 'cbt-journaling',
     title: 'CBT Journaling',
     h1: 'CBT Journaling Technique',
-    metaTitle: 'CBT Journaling: Cognitive Behavioral Therapy Journaling Guide | JournalPrompts',
+    metaTitle: 'CBT Journaling: Cognitive Behavioral Therapy Guide',
     metaDescription:
       'Learn CBT journaling — a structured technique from cognitive behavioral therapy to identify and reframe negative thought patterns. Evidence-based and therapist-recommended.',
     heroSubtitle:
@@ -449,6 +529,22 @@ export const techniques: TechniqueConfig[] = [
         question: 'Can CBT journaling help with anxiety?',
         answer: 'Yes, it\'s one of the most evidence-based self-help techniques for anxiety. Multiple studies show that regular thought recording reduces anxiety symptoms. However, for severe anxiety, please combine it with professional treatment.',
       },
+      {
+        question: 'Is CBT journaling effective according to research?',
+        answer: 'Yes. CBT is one of the most studied psychotherapy approaches, with over 2,000 clinical trials. Studies published in Behaviour Research and Therapy show that structured thought recording — the core of CBT journaling — significantly reduces symptoms of anxiety and depression, even when practiced without a therapist\'s guidance.',
+      },
+      {
+        question: 'How is CBT journaling different from regular journaling?',
+        answer: 'Regular journaling is open-ended — you write about whatever comes to mind. CBT journaling follows a specific structured format: identify the situation, capture automatic thoughts, examine evidence for and against those thoughts, and create a balanced alternative. This structure is what makes it therapeutically effective rather than just expressive.',
+      },
+      {
+        question: 'Who should try CBT journaling?',
+        answer: 'CBT journaling is ideal for people who tend to overthink, catastrophize, or get stuck in negative thought loops. It\'s especially helpful for those dealing with anxiety, mild depression, low self-esteem, or workplace stress. If you often catch yourself thinking in extremes like "always" or "never," CBT journaling can help you develop more balanced perspectives.',
+      },
+      {
+        question: 'Can I combine CBT journaling with other journaling techniques?',
+        answer: 'Absolutely. Many people use CBT journaling when they need to work through a specific negative thought, and switch to gratitude journaling or free writing on calmer days. Combining techniques gives you a versatile toolkit — CBT for challenging moments, gratitude for building positivity, and free writing for creative exploration and emotional release.',
+      },
     ],
     relatedTechniques: ['expressive-writing', 'gratitude-journaling'],
     relatedScenes: ['journal-prompts-for-mental-health', 'shadow-work-journal-prompts', 'deep-journal-prompts'],
@@ -477,7 +573,7 @@ export const audienceTechniques: AudienceTechniqueConfig[] = [
     slug: 'for-beginners',
     title: 'For Beginners',
     h1: 'Journaling Techniques for Beginners',
-    metaTitle: 'Journaling Techniques for Beginners: Start Here | JournalPrompts',
+    metaTitle: 'Journaling Techniques for Beginners: Start Here',
     metaDescription:
       'New to journaling? Discover the best journaling techniques for beginners — from the 5-minute journal to free writing. Start your journaling habit today.',
     heroSubtitle:
@@ -514,13 +610,29 @@ export const audienceTechniques: AudienceTechniqueConfig[] = [
         question: 'How long before I see benefits from journaling?',
         answer: 'Most people notice reduced stress and clearer thinking within 1-2 weeks of consistent practice. Deeper benefits like improved emotional regulation and self-awareness typically emerge after 4-6 weeks.',
       },
+      {
+        question: 'What is the biggest mistake beginners make with journaling?',
+        answer: 'Trying to write too much, too perfectly, too soon. Many beginners set unrealistic expectations — long entries, deep insights, beautiful handwriting — and quit when they can\'t sustain it. Start with just 2-3 sentences using a structured technique like the 5-minute journal, and build from there.',
+      },
+      {
+        question: 'Do I need to journal every day as a beginner?',
+        answer: 'No. Starting with 3 times per week is more sustainable and still delivers meaningful benefits according to research. Daily journaling is great once the habit is established, but forcing daily practice too early often leads to burnout and abandonment.',
+      },
+      {
+        question: 'Which journaling technique is best for someone who hates writing?',
+        answer: 'Try bullet journaling — it uses short-form notation with symbols instead of long prose. You can capture your thoughts in just a few words per line. Alternatively, the 5-minute journal only requires one-sentence answers to simple prompts, making it very approachable for non-writers.',
+      },
+      {
+        question: 'Is journaling scientifically proven to be beneficial?',
+        answer: 'Yes. Decades of research support journaling\'s benefits. Dr. James Pennebaker\'s studies show expressive writing reduces anxiety and improves immune function. Dr. Robert Emmons\' research confirms gratitude journaling boosts happiness by 25%. And CBT-based journaling is one of the most evidence-backed self-help tools in psychology.',
+      },
     ],
   },
   {
     slug: 'for-anxiety',
     title: 'For Anxiety',
     h1: 'Journaling Techniques for Anxiety',
-    metaTitle: 'Journaling Techniques for Anxiety: Evidence-Based Methods | JournalPrompts',
+    metaTitle: 'Journaling for Anxiety: Evidence-Based Techniques',
     metaDescription:
       'Discover evidence-based journaling techniques for anxiety — from CBT thought records to expressive writing. Reduce worry, calm racing thoughts, and regain control.',
     heroSubtitle:
@@ -549,6 +661,22 @@ export const audienceTechniques: AudienceTechniqueConfig[] = [
       {
         question: 'What if journaling makes my anxiety worse?',
         answer: 'If open-ended writing increases rumination, switch to a structured technique like the 5-minute journal or CBT thought records. The structure prevents spiraling. If any form of journaling consistently worsens your anxiety, talk to a mental health professional.',
+      },
+      {
+        question: 'How long should I journal each day for anxiety relief?',
+        answer: 'Even 5 minutes of structured journaling can reduce anxious thoughts. Research shows that 15-20 minutes of expressive writing produces the strongest effects, but consistency matters more than duration. A short daily practice beats an occasional long session.',
+      },
+      {
+        question: 'Is journaling for anxiety backed by science?',
+        answer: 'Yes. A meta-analysis in the Journal of Affective Disorders found that expressive writing significantly reduces anxiety symptoms. CBT-based journaling is one of the most evidence-supported self-help interventions in psychology. Studies also show that the physical act of writing activates the parasympathetic nervous system, which calms the body\'s stress response.',
+      },
+      {
+        question: 'What should I write about when I feel anxious?',
+        answer: 'Start by naming the emotion and rating its intensity (0-100). Then write down the specific thought causing the anxiety and ask yourself: "What evidence do I have for this thought? What evidence against it?" This simple CBT technique interrupts the anxiety spiral by engaging your rational mind.',
+      },
+      {
+        question: 'Can I use journaling alongside therapy for anxiety?',
+        answer: 'Absolutely — many therapists actively encourage it. Journaling between therapy sessions helps you track thought patterns, practice CBT skills, and bring concrete examples to discuss with your therapist. It\'s one of the most effective ways to accelerate progress in therapy.',
       },
     ],
   },
