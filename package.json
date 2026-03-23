@@ -22,6 +22,8 @@
     "fix-payments-scene": "tsx scripts/fix-payments-scene.ts",
     "distribute-credits": "tsx scripts/distribute-credits.ts",
     "content": "fumadocs-mdx",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "email": "email dev --dir src/mail/templates --port 3333",
     "knip": "knip",
     "preview": "opennextjs-cloudflare build && wrangler dev",
@@ -156,6 +158,7 @@
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
+    "vitest": "^4.1.0",
     "wrangler": "^4.73.0"
   }
 }

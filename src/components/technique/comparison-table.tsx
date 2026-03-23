@@ -3,18 +3,10 @@
 import { wobblyBorderRadius, handShadow } from '@/lib/design-tokens';
 import { LocaleLink } from '@/i18n/navigation';
 import { useState, useMemo } from 'react';
+import { timeMinutes, DIFFICULTY_ORDER, STRUCTURE_ORDER } from './technique-logic';
 
 type SortKey = 'name' | 'time' | 'difficulty' | 'structure';
 type SortDir = 'asc' | 'desc';
-
-const DIFFICULTY_ORDER: Record<string, number> = { Beginner: 0, Intermediate: 1, Advanced: 2 };
-const STRUCTURE_ORDER: Record<string, number> = { None: 0, Low: 1, Moderate: 2, High: 3 };
-
-/** Extract the first number from a time string like "10-20 min" → 10, "5 min" → 5 */
-function timeMinutes(t: string): number {
-  const m = t.match(/(\d+)/);
-  return m ? Number.parseInt(m[1], 10) : 0;
-}
 
 const techniques = [
   {

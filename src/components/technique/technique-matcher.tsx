@@ -2,6 +2,8 @@
 
 import { wobblyBorderRadius, handShadow } from '@/lib/design-tokens';
 import { useEffect, useState } from 'react';
+import { getRecommendations } from './technique-logic';
+import type { Recommendation } from './technique-logic';
 
 const BLOCKERS = [
   { id: 'blank-page', label: 'Blank page anxiety', emoji: '😰' },
@@ -20,106 +22,6 @@ const GOALS = [
   { id: 'habit', label: 'Build a daily habit', emoji: '✅' },
   { id: 'healing', label: 'Emotional healing', emoji: '💜' },
 ] as const;
-
-interface Recommendation {
-  name: string;
-  slug: string;
-  emoji: string;
-  reason: string;
-  time: string;
-}
-
-function getRecommendations(
-  blocker: string,
-  goal: string
-): Recommendation[] {
-  // Simplified matching logic — returns 2-3 technique recommendations
-  const recs: Recommendation[] = [];
-
-  if (blocker === 'blank-page' || goal === 'habit') {
-    recs.push({
-      name: '5-Minute Journal',
-      slug: '5-minute-journal',
-      emoji: '⚡',
-      reason: 'Structured prompts eliminate blank page anxiety. Only 5 minutes.',
-      time: '5 min',
-    });
-  }
-
-  if (goal === 'mental-health' || blocker === 'negative' || goal === 'healing') {
-    recs.push({
-      name: 'CBT Journaling',
-      slug: 'cbt-journaling',
-      emoji: '🧠',
-      reason: 'Evidence-based technique for managing anxiety and reframing negative thoughts.',
-      time: '10-15 min',
-    });
-  }
-
-  if (goal === 'creativity' || goal === 'self-discovery' || blocker === 'boring') {
-    recs.push({
-      name: 'Free Writing',
-      slug: 'free-writing',
-      emoji: '✍️',
-      reason: 'Write without rules. Unlocks hidden thoughts and sparks creativity.',
-      time: '10-20 min',
-    });
-  }
-
-  if (goal === 'productivity' || blocker === 'consistency') {
-    recs.push({
-      name: 'Bullet Journaling',
-      slug: 'bullet-journaling',
-      emoji: '📓',
-      reason: 'Combines task management with reflection. Great for organized minds.',
-      time: '10-15 min',
-    });
-  }
-
-  if (blocker === 'therapeutic' || goal === 'healing') {
-    recs.push({
-      name: 'Morning Pages',
-      slug: 'morning-pages',
-      emoji: '🌅',
-      reason: 'Three pages of stream-of-consciousness writing. Deep emotional processing.',
-      time: '25-40 min',
-    });
-  }
-
-  if (blocker === 'unsure') {
-    recs.push({
-      name: 'Gratitude Journaling',
-      slug: 'gratitude-journaling',
-      emoji: '🙏',
-      reason: 'The most researched technique. Simple, effective, and great for beginners.',
-      time: '5-10 min',
-    });
-  }
-
-  // Ensure at least 2 recommendations
-  if (recs.length < 2) {
-    if (!recs.find((r) => r.slug === 'free-writing')) {
-      recs.push({
-        name: 'Free Writing',
-        slug: 'free-writing',
-        emoji: '✍️',
-        reason: 'The most flexible method — no rules, just write.',
-        time: '10-20 min',
-      });
-    }
-    if (!recs.find((r) => r.slug === 'gratitude-journaling')) {
-      recs.push({
-        name: 'Gratitude Journaling',
-        slug: 'gratitude-journaling',
-        emoji: '🙏',
-        reason: 'The most researched technique with proven benefits.',
-        time: '5-10 min',
-      });
-    }
-  }
-
-  return recs.slice(0, 3);
-}
 
 const STORAGE_KEY = 'technique-quiz-result';
 
@@ -167,10 +69,17 @@ export function TechniqueMatcher() {
     url.searchParams.set('qb', blocker);
     url.searchParams.set('qg', goal);
     url.hash = 'technique-quiz';
-    navigator.clipboard.writeText(url.toString()).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    const shareUrl = url.toString();
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }).catch(() => {
+        window.prompt('Copy this link:', shareUrl);
+      });
+    } else {
+      window.prompt('Copy this link:', shareUrl);
+    }
   };
 
   const recommendations = step === 2 ? getRecommendations(blocker, goal) : [];
