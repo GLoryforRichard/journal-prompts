@@ -1,7 +1,7 @@
 'use client';
 
 import { wobblyBorderRadius, handShadow } from '@/lib/design-tokens';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const BLOCKERS = [
   { id: 'blank-page', label: 'Blank page anxiety', emoji: '😰' },
@@ -121,10 +121,57 @@ function getRecommendations(
   return recs.slice(0, 3);
 }
 
+const STORAGE_KEY = 'technique-quiz-result';
+
 export function TechniqueMatcher() {
   const [step, setStep] = useState(0);
   const [blocker, setBlocker] = useState('');
   const [goal, setGoal] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  // Restore from URL params or localStorage on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlBlocker = params.get('qb');
+    const urlGoal = params.get('qg');
+    if (urlBlocker && urlGoal) {
+      setBlocker(urlBlocker);
+      setGoal(urlGoal);
+      setStep(2);
+      return;
+    }
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const { blocker: b, goal: g } = JSON.parse(saved);
+        if (b && g) {
+          setBlocker(b);
+          setGoal(g);
+          setStep(2);
+        }
+      }
+    } catch {}
+  }, []);
+
+  // Save to localStorage when result is shown
+  useEffect(() => {
+    if (step === 2 && blocker && goal) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ blocker, goal }));
+      } catch {}
+    }
+  }, [step, blocker, goal]);
+
+  const handleShare = () => {
+    const url = new URL(window.location.href.split('?')[0]);
+    url.searchParams.set('qb', blocker);
+    url.searchParams.set('qg', goal);
+    url.hash = 'technique-quiz';
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   const recommendations = step === 2 ? getRecommendations(blocker, goal) : [];
 
@@ -305,12 +352,13 @@ export function TechniqueMatcher() {
                   </a>
                 ))}
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => {
                     setStep(0);
                     setBlocker('');
                     setGoal('');
+                    try { localStorage.removeItem(STORAGE_KEY); } catch {}
                   }}
                   className="text-sm cursor-pointer"
                   style={{
@@ -332,6 +380,19 @@ export function TechniqueMatcher() {
                 >
                   Compare all techniques side by side →
                 </a>
+                <button
+                  onClick={handleShare}
+                  className="text-sm cursor-pointer px-3 py-1 transition-colors"
+                  style={{
+                    fontFamily: 'var(--font-hand-body)',
+                    color: '#ffffff',
+                    backgroundColor: copied ? '#22c55e' : '#ff4d4d',
+                    border: 'none',
+                    borderRadius: wobblyBorderRadius.sm,
+                  }}
+                >
+                  {copied ? 'Link copied!' : 'Share your result'}
+                </button>
               </div>
             </div>
           )}

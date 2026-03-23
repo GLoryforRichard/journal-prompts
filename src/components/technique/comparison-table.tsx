@@ -2,6 +2,19 @@
 
 import { wobblyBorderRadius, handShadow } from '@/lib/design-tokens';
 import { LocaleLink } from '@/i18n/navigation';
+import { useState, useMemo } from 'react';
+
+type SortKey = 'name' | 'time' | 'difficulty' | 'structure';
+type SortDir = 'asc' | 'desc';
+
+const DIFFICULTY_ORDER: Record<string, number> = { Beginner: 0, Intermediate: 1, Advanced: 2 };
+const STRUCTURE_ORDER: Record<string, number> = { None: 0, Low: 1, Moderate: 2, High: 3 };
+
+/** Extract the first number from a time string like "10-20 min" → 10, "5 min" → 5 */
+function timeMinutes(t: string): number {
+  const m = t.match(/(\d+)/);
+  return m ? Number.parseInt(m[1], 10) : 0;
+}
 
 const techniques = [
   {
@@ -70,6 +83,49 @@ const headDuels = [
 ];
 
 export function ComparisonTable() {
+  const [sortKey, setSortKey] = useState<SortKey | null>(null);
+  const [sortDir, setSortDir] = useState<SortDir>('asc');
+
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortDir('asc');
+    }
+  };
+
+  const sortedTechniques = useMemo(() => {
+    if (!sortKey) return techniques;
+    const sorted = [...techniques].sort((a, b) => {
+      let cmp = 0;
+      switch (sortKey) {
+        case 'name':
+          cmp = a.name.localeCompare(b.name);
+          break;
+        case 'time':
+          cmp = timeMinutes(a.time) - timeMinutes(b.time);
+          break;
+        case 'difficulty':
+          cmp = (DIFFICULTY_ORDER[a.difficulty] ?? 0) - (DIFFICULTY_ORDER[b.difficulty] ?? 0);
+          break;
+        case 'structure':
+          cmp = (STRUCTURE_ORDER[a.structure] ?? 0) - (STRUCTURE_ORDER[b.structure] ?? 0);
+          break;
+      }
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+    return sorted;
+  }, [sortKey, sortDir]);
+
+  const columns: { label: string; key: SortKey | null }[] = [
+    { label: 'Technique', key: 'name' },
+    { label: 'Best For', key: null },
+    { label: 'Time', key: 'time' },
+    { label: 'Difficulty', key: 'difficulty' },
+    { label: 'Structure', key: 'structure' },
+  ];
+
   return (
     <section className="py-12 px-4" id="compare">
       <div className="max-w-4xl mx-auto">
@@ -95,24 +151,31 @@ export function ComparisonTable() {
           <table className="w-full text-left" style={{ fontFamily: 'var(--font-hand-body)' }}>
             <thead>
               <tr style={{ backgroundColor: '#fff9c4', borderBottom: '2px solid #2d2d2d' }}>
-                {['Technique', 'Best For', 'Time', 'Difficulty', 'Structure'].map((h) => (
+                {columns.map((col) => (
                   <th
-                    key={h}
-                    className="px-4 py-3 text-sm font-bold"
+                    key={col.label}
+                    className={`px-4 py-3 text-sm font-bold${col.key ? ' cursor-pointer select-none hover:opacity-80' : ''}`}
                     style={{ color: '#2d2d2d', fontFamily: 'var(--font-hand-title)' }}
+                    onClick={col.key ? () => handleSort(col.key as SortKey) : undefined}
                   >
-                    {h}
+                    {col.label}
+                    {col.key && sortKey === col.key && (
+                      <span className="ml-1">{sortDir === 'asc' ? '↑' : '↓'}</span>
+                    )}
+                    {col.key && sortKey !== col.key && (
+                      <span className="ml-1 opacity-30">↕</span>
+                    )}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {techniques.map((t, i) => (
+              {sortedTechniques.map((t, i) => (
                 <tr
                   key={t.slug}
                   style={{
                     backgroundColor: i % 2 === 0 ? '#ffffff' : '#fdfbf7',
-                    borderBottom: i < techniques.length - 1 ? '1px dashed #e5e0d8' : undefined,
+                    borderBottom: i < sortedTechniques.length - 1 ? '1px dashed #e5e0d8' : undefined,
                   }}
                 >
                   <td className="px-4 py-3">

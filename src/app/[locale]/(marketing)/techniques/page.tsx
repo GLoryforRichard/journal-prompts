@@ -11,6 +11,7 @@ import { TroubleshootingGuide } from '@/components/technique/troubleshooting-gui
 import { AudienceRecommendations } from '@/components/technique/audience-recommendations';
 import { ScienceSection } from '@/components/technique/science-section';
 import { TechniqueHubFAQ } from '@/components/technique/hub-faq';
+import { TocSidebar } from '@/components/technique/toc-sidebar';
 import { LocaleLink } from '@/i18n/navigation';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -155,6 +156,9 @@ export default function TechniquesHubPage() {
 
   return (
     <>
+      {/* Floating TOC sidebar — visible on xl screens */}
+      <TocSidebar />
+
       {/* Structured Data */}
       <FAQSchema faqs={hubFaqs} />
       <HowToSchema
@@ -180,7 +184,7 @@ export default function TechniquesHubPage() {
       <ComparisonTable />
 
       {/* 4. Technique Cards — grouped by type */}
-      <section className="py-12 px-4">
+      <section id="popular-techniques" className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <h2
             className="text-3xl md:text-4xl font-bold mb-8"
@@ -254,7 +258,7 @@ export default function TechniquesHubPage() {
       <AudienceRecommendations />
 
       {/* 7. How to Start Journaling */}
-      <section className="py-12 px-4">
+      <section id="how-to-start" className="py-12 px-4">
         <div className="max-w-3xl mx-auto">
           <h2
             className="text-3xl md:text-4xl font-bold mb-8"
@@ -307,7 +311,7 @@ export default function TechniquesHubPage() {
       <ScienceSection />
 
       {/* 9. What Are Journaling Techniques — SEO content */}
-      <section className="py-12 px-4">
+      <section id="what-are" className="py-12 px-4">
         <div className="max-w-3xl mx-auto space-y-6">
           <h2
             className="text-3xl md:text-4xl font-bold"
@@ -349,7 +353,7 @@ export default function TechniquesHubPage() {
       </section>
 
       {/* 10. Types of Journaling Techniques — SEO content (trimmed: removed How to Choose and Science subsections) */}
-      <section className="py-12 px-4">
+      <section id="types" className="py-12 px-4">
         <div className="max-w-3xl mx-auto space-y-6">
           <h2
             className="text-3xl md:text-4xl font-bold"
@@ -391,7 +395,7 @@ export default function TechniquesHubPage() {
       </section>
 
       {/* 11. Internal links to scene pages — expanded to 10 */}
-      <section className="py-12 px-4">
+      <section id="prompts" className="py-12 px-4">
         <div className="max-w-3xl mx-auto">
           <h2
             className="text-3xl md:text-4xl font-bold mb-4"
