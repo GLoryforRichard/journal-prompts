@@ -56,8 +56,6 @@ export default async function LocaleLayout({
           name="google-site-verification"
           content="og9jowYC7fqZFvZ3Se5tKjucZg-O03lHSvqNVKIcgBQ"
         />
-        <AffonsoScript />
-        <PromotekitScript />
       </head>
       <body
         className={cn(
@@ -78,6 +76,8 @@ export default async function LocaleLayout({
               <Toaster richColors position="top-right" offset={64} />
               <TailwindIndicator />
               <Analytics />
+              <AffonsoScript />
+              <PromotekitScript />
             </Providers>
           </NextIntlClientProvider>
         </NuqsAdapter>

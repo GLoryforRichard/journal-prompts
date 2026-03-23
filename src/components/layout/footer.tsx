@@ -182,8 +182,9 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
               <img
                 src="https://goodaitools.com/assets/images/badge.png"
                 alt="Good AI Tools"
-                height={54}
-                style={{ height: '36px', width: 'auto' }}
+                width={108}
+                height={36}
+                loading="lazy"
               />
             </a>
             <a

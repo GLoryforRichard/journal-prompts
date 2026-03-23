@@ -153,7 +153,7 @@ export const RegisterForm = ({
             websiteConfig.affiliates?.enable &&
             websiteConfig.affiliates.provider === 'affonso'
           ) {
-            window.Affonso.signup(values.email);
+            (window as unknown as Record<string, { signup: (email: string) => void }>).Affonso?.signup(values.email);
           }
 
           // When requireEmailVerification is false, redirect manually

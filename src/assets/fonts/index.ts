@@ -45,7 +45,7 @@ export const fontNotoSans = Noto_Sans({
 // https://fonts.google.com/noto/specimen/Noto+Serif
 export const fontNotoSerif = Noto_Serif({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'optional',
   variable: '--font-noto-serif',
   weight: ['400'],
 });
@@ -53,7 +53,7 @@ export const fontNotoSerif = Noto_Serif({
 // https://fonts.google.com/noto/specimen/Noto+Sans+Mono
 export const fontNotoSansMono = Noto_Sans_Mono({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'optional',
   variable: '--font-noto-sans-mono',
   weight: ['400'],
 });
@@ -61,7 +61,7 @@ export const fontNotoSansMono = Noto_Sans_Mono({
 // https://fonts.google.com/specimen/Bricolage+Grotesque
 export const fontBricolageGrotesque = Bricolage_Grotesque({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'optional',
   variable: '--font-bricolage-grotesque',
   weight: ['400', '500', '600', '700'],
 });
