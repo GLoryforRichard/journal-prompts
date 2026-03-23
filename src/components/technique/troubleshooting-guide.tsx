@@ -39,6 +39,7 @@ function ProblemItem({ problem }: { problem: { question: string; answer: string 
     <div className="border-b-2 border-dashed border-[#e5e0d8] last:border-0">
       <button
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
         className="w-full flex items-center justify-between py-4 text-left cursor-pointer group"
       >
         <h3
@@ -54,14 +55,19 @@ function ProblemItem({ problem }: { problem: { question: string; answer: string 
           style={{ color: '#ff4d4d' }}
         />
       </button>
-      {open && (
-        <p
-          className="pb-4 text-base leading-relaxed"
-          style={{ fontFamily: 'var(--font-hand-body)', color: '#2d2d2d', opacity: 0.85 }}
-        >
-          {problem.answer}
-        </p>
-      )}
+      <div
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+      >
+        <div className="overflow-hidden">
+          <p
+            className="pb-4 text-base leading-relaxed"
+            style={{ fontFamily: 'var(--font-hand-body)', color: '#2d2d2d', opacity: 0.85 }}
+          >
+            {problem.answer}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -41,7 +41,7 @@ export function TocSidebar() {
 
   return (
     <nav
-      className="hidden xl:block fixed right-8 top-1/2 -translate-y-1/2 z-40"
+      className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-40"
       aria-label="Table of contents"
     >
       <ul className="space-y-2 list-none p-0 m-0">

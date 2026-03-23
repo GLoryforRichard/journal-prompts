@@ -149,6 +149,7 @@ export function ComparisonTable() {
                     className={`px-4 py-3 text-sm font-bold${col.key ? ' cursor-pointer select-none hover:opacity-80' : ''}`}
                     style={{ color: '#2d2d2d', fontFamily: 'var(--font-hand-title)' }}
                     onClick={col.key ? () => handleSort(col.key as SortKey) : undefined}
+                    aria-sort={col.key && sortKey === col.key ? (sortDir === 'asc' ? 'ascending' : 'descending') : col.key ? 'none' : undefined}
                   >
                     {col.label}
                     {col.key && sortKey === col.key && (
