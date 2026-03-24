@@ -56,8 +56,10 @@ export class StripeProvider implements PaymentProvider {
       throw new Error('STRIPE_WEBHOOK_SECRET environment variable is not set.');
     }
 
-    // Initialize Stripe without specifying apiVersion to use default/latest version
-    this.stripe = new Stripe(apiKey);
+    // Use fetch-based HTTP client for Cloudflare Workers compatibility
+    this.stripe = new Stripe(apiKey, {
+      httpClient: Stripe.createFetchHttpClient(),
+    });
     this.webhookSecret = webhookSecret;
   }
 
