@@ -99,12 +99,8 @@ export function CheckoutButton({
       if (result?.data?.success && result?.data?.data?.url) {
         window.location.href = result?.data?.data?.url;
       } else {
-        const errorDetail =
-          result?.data?.error ||
-          result?.serverError ||
-          'Unknown error';
         console.error('Create checkout session error, result:', result);
-        toast.error(`${t('checkoutFailed')}: ${errorDetail}`);
+        toast.error(t('checkoutFailed'));
       }
     } catch (error) {
       console.error('Create checkout session error:', error);
