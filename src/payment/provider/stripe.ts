@@ -440,8 +440,8 @@ export class StripeProvider implements PaymentProvider {
     signature: string
   ): Promise<void> {
     try {
-      // Verify the event signature if webhook secret is available
-      const event = this.stripe.webhooks.constructEvent(
+      // Verify the event signature (use async version for Cloudflare Workers compatibility)
+      const event = await this.stripe.webhooks.constructEventAsync(
         payload,
         signature,
         this.webhookSecret
