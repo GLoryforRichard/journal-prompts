@@ -105,7 +105,7 @@ export function MyJournal() {
       source: '',
     };
     return (
-      <div className="py-6 px-4 md:px-6">
+      <div className="py-6 px-4 md:px-6 min-w-0 overflow-hidden">
         <WritingArea
           prompt={editPrompt}
           onBack={handleBackFromEdit}
@@ -117,7 +117,7 @@ export function MyJournal() {
 
   if (showFinder) {
     return (
-      <div className="py-6 px-4 md:px-6">
+      <div className="py-6 px-4 md:px-6 min-w-0 overflow-hidden">
         <button
           onClick={() => {
             setShowFinder(false);
@@ -138,7 +138,7 @@ export function MyJournal() {
 
   return (
     <div
-      className="py-6 px-4 md:px-6 space-y-6"
+      className="py-6 px-4 md:px-6 space-y-6 min-w-0 overflow-hidden"
       style={{ fontFamily: 'var(--font-hand-body)' }}
     >
       {/* Greeting */}
