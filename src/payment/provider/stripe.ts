@@ -295,7 +295,9 @@ export class StripeProvider implements PaymentProvider {
       };
     } catch (error) {
       console.error('Create checkout session error:', error);
-      throw new Error('Failed to create checkout session');
+      const message =
+        error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to create checkout session: ${message}`);
     }
   }
 
