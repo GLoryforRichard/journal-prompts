@@ -9,16 +9,10 @@ import { getSession } from './server';
 export const actionClient = createSafeActionClient({
   handleServerError: (e) => {
     if (e instanceof Error) {
-      return {
-        success: false,
-        error: e.message,
-      };
+      return e.message;
     }
 
-    return {
-      success: false,
-      error: 'Something went wrong while executing the action',
-    };
+    return 'Something went wrong while executing the action';
   },
 });
 
@@ -28,10 +22,7 @@ export const actionClient = createSafeActionClient({
 export const userActionClient = actionClient.use(async ({ next }) => {
   const session = await getSession();
   if (!session?.user) {
-    return {
-      success: false,
-      error: 'Unauthorized',
-    };
+    throw new Error('Unauthorized');
   }
 
   return next({ ctx: { user: session.user } });
@@ -47,10 +38,7 @@ export const adminActionClient = userActionClient.use(async ({ next, ctx }) => {
 
   // If this is a demo website and user is not an admin, allow the request
   if (!isAdmin && !isDemo) {
-    return {
-      success: false,
-      error: 'Unauthorized',
-    };
+    throw new Error('Unauthorized');
   }
 
   return next({ ctx });
