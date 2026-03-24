@@ -118,7 +118,9 @@ export class StripeProvider implements PaymentProvider {
       return customer.id;
     } catch (error) {
       console.error('Create or get customer error:', error);
-      throw new Error('Failed to create or get customer');
+      const message =
+        error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to create or get customer: ${message}`);
     }
   }
 
