@@ -87,15 +87,21 @@ export function PricingCard({
   // generate formatted price and price label
   let formattedPrice = '';
   let priceLabel = '';
+  let yearlyTotalLabel = '';
   if (plan.isFree) {
     formattedPrice = t('freePrice');
   } else if (price && price.amount > 0) {
-    // price is available
-    formattedPrice = formatPrice(price.amount, price.currency);
-    if (interval === PlanIntervals.MONTH) {
+    if (interval === PlanIntervals.YEAR) {
+      // Show per-month price as big number for yearly plans
+      const monthlyEquivalent = Math.round(price.amount / 12);
+      formattedPrice = formatPrice(monthlyEquivalent, price.currency);
       priceLabel = t('perMonth');
-    } else if (interval === PlanIntervals.YEAR) {
-      priceLabel = t('perYear');
+      yearlyTotalLabel = formatPrice(price.amount, price.currency) + t('perYear');
+    } else {
+      formattedPrice = formatPrice(price.amount, price.currency);
+      if (interval === PlanIntervals.MONTH) {
+        priceLabel = t('perMonth');
+      }
     }
   } else {
     formattedPrice = t('notAvailable');
@@ -142,15 +148,27 @@ export function PricingCard({
 
       <CardHeader>
         <CardTitle>
-          <h3 className="font-medium">{plan.name}</h3>
+          <h3
+            className="font-medium"
+            style={{ fontFamily: 'var(--font-hand-title)' }}
+          >
+            {plan.name}
+          </h3>
         </CardTitle>
 
         {/* show price and price label */}
-        <div className="flex items-baseline gap-2">
-          <span className="my-4 block text-4xl font-semibold">
-            {formattedPrice}
-          </span>
-          {priceLabel && <span className="text-2xl">{priceLabel}</span>}
+        <div className="flex flex-col">
+          <div className="flex items-baseline gap-2">
+            <span className="my-4 block text-4xl font-semibold">
+              {formattedPrice}
+            </span>
+            {priceLabel && <span className="text-2xl">{priceLabel}</span>}
+          </div>
+          {yearlyTotalLabel && (
+            <span className="text-sm text-muted-foreground -mt-3">
+              {yearlyTotalLabel}
+            </span>
+          )}
         </div>
 
         <CardDescription>
