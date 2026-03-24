@@ -20,6 +20,7 @@ import {
   FileTextIcon,
   PenToolIcon,
   SproutIcon,
+  SparklesIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -143,6 +144,13 @@ export function useNavbarLinks(): NestedMenuItem[] {
           description: 'Prompts for teenage self-expression',
           icon: <GraduationCapIcon className="size-4 shrink-0" />,
           href: '/journal-prompts-for-teens',
+          external: false,
+        },
+        {
+          title: 'Pricing',
+          description: 'Plans and pricing',
+          icon: <SparklesIcon className="size-4 shrink-0" />,
+          href: Routes.Pricing,
           external: false,
         },
         {
