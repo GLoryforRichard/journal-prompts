@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils';
 import { type Locale, NextIntlClientProvider, hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import type { ReactNode } from 'react';
 import { Toaster } from 'sonner';
@@ -76,6 +77,13 @@ export default async function LocaleLayout({
               <Toaster richColors position="top-right" offset={64} />
               <TailwindIndicator />
               <Analytics />
+              <Script
+                id="clarity-analytics"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "w0uzbho8i6");`,
+                }}
+              />
               <AffonsoScript />
               <PromotekitScript />
             </Providers>
