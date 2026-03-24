@@ -1,14 +1,20 @@
 'use client';
 
+import {
+  saveJournalAction,
+  loadJournalAction,
+  deleteJournalAction,
+} from '@/actions/journal';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import {
-  saveJournalEntry,
-  loadJournalEntry,
-  deleteJournalEntry,
+  saveJournalEntryLocal,
+  loadJournalEntryLocal,
+  deleteJournalEntryLocal,
 } from '@/lib/journal-storage';
 import type { Prompt } from '@/lib/prompt-matcher';
 import { ArrowLeftIcon, SaveIcon, Trash2Icon } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface WritingAreaProps {
   prompt: Prompt;
@@ -17,39 +23,82 @@ interface WritingAreaProps {
 }
 
 export function WritingArea({ prompt, onBack, backLabel }: WritingAreaProps) {
+  const user = useCurrentUser();
   const [text, setText] = useState('');
   const [saved, setSaved] = useState(false);
   const [wordCount, setWordCount] = useState(0);
+  const [limitReached, setLimitReached] = useState(false);
+  const saveTimer = useRef<ReturnType<typeof setTimeout>>(null);
 
-  // Load from localStorage on mount
+  // Load on mount
   useEffect(() => {
-    const entry = loadJournalEntry(prompt.id);
-    if (entry) {
-      setText(entry.text);
-      setWordCount(entry.text.trim().split(/\s+/).filter(Boolean).length);
+    if (user) {
+      loadJournalAction({ promptId: prompt.id }).then((res) => {
+        if (res?.data?.data) {
+          setText(res.data.data.text);
+          setWordCount(
+            res.data.data.text.trim().split(/\s+/).filter(Boolean).length,
+          );
+        }
+      });
+    } else {
+      const entry = loadJournalEntryLocal(prompt.id);
+      if (entry) {
+        setText(entry.text);
+        setWordCount(entry.text.trim().split(/\s+/).filter(Boolean).length);
+      }
     }
-  }, [prompt.id]);
+  }, [prompt.id, user]);
 
-  // Auto-save to localStorage
+  // Debounced save to server
+  const saveToServer = useCallback(
+    (value: string) => {
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+      saveTimer.current = setTimeout(async () => {
+        const res = await saveJournalAction({
+          promptId: prompt.id,
+          text: value,
+          promptText: prompt.text,
+        });
+        if (res?.data?.error === 'limit_reached') {
+          setLimitReached(true);
+        } else {
+          setLimitReached(false);
+        }
+      }, 800);
+    },
+    [prompt.id, prompt.text],
+  );
+
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       const value = e.target.value;
       setText(value);
       setWordCount(value.trim().split(/\s+/).filter(Boolean).length);
-      saveJournalEntry(prompt.id, value, prompt.text);
+
+      if (user) {
+        saveToServer(value);
+      } else {
+        saveJournalEntryLocal(prompt.id, value, prompt.text);
+      }
       setSaved(true);
       setTimeout(() => setSaved(false), 1500);
     },
-    [prompt.id, prompt.text],
+    [user, prompt.id, prompt.text, saveToServer],
   );
 
   const handleClear = useCallback(() => {
     if (text && window.confirm('Clear your writing? This cannot be undone.')) {
       setText('');
       setWordCount(0);
-      deleteJournalEntry(prompt.id);
+      setLimitReached(false);
+      if (user) {
+        deleteJournalAction({ promptId: prompt.id });
+      } else {
+        deleteJournalEntryLocal(prompt.id);
+      }
     }
-  }, [text, prompt.id]);
+  }, [text, prompt.id, user]);
 
   return (
     <div className="space-y-4">
@@ -81,6 +130,23 @@ export function WritingArea({ prompt, onBack, backLabel }: WritingAreaProps) {
         <p className="text-lg">{prompt.text}</p>
       </div>
 
+      {/* Limit warning */}
+      {limitReached && (
+        <div
+          className="p-3 text-sm"
+          style={{
+            fontFamily: 'var(--font-hand-body)',
+            backgroundColor: '#fff3cd',
+            border: '2px solid #ffc107',
+            borderRadius: wobblyBorderRadius.sm,
+            color: '#856404',
+          }}
+        >
+          You&apos;ve reached the free limit of 10 journal entries. Upgrade to
+          save more, or delete an older entry to make room.
+        </div>
+      )}
+
       {/* Writing textarea */}
       <div
         className="relative"
@@ -91,7 +157,6 @@ export function WritingArea({ prompt, onBack, backLabel }: WritingAreaProps) {
           overflow: 'hidden',
         }}
       >
-        {/* Red margin line */}
         <div
           className="absolute top-0 bottom-0 left-10 w-0.5"
           style={{ backgroundColor: '#ff4d4d', opacity: 0.3 }}

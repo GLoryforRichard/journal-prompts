@@ -61,3 +61,16 @@ export const creditTransaction = pgTable("credit_transaction", {
 	creditTransactionUserIdIdx: index("credit_transaction_user_id_idx").on(table.userId),
 	creditTransactionTypeIdx: index("credit_transaction_type_idx").on(table.type),
 }));
+
+export const journalEntry = pgTable("journal_entry", {
+	id: text("id").primaryKey(),
+	userId: text("user_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
+	promptId: text("prompt_id").notNull(),
+	promptText: text("prompt_text").notNull().default(''),
+	text: text("text").notNull(),
+	createdAt: timestamp("created_at").notNull().defaultNow(),
+	updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => ({
+	journalEntryUserIdIdx: index("journal_entry_user_id_idx").on(table.userId),
+	journalEntryUserPromptIdx: index("journal_entry_user_prompt_idx").on(table.userId, table.promptId),
+}));

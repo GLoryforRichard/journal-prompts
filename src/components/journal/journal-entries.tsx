@@ -1,9 +1,13 @@
 'use client';
 
+import { deleteJournalAction } from '@/actions/journal';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import type { StoredJournalEntry } from '@/lib/journal-storage';
-import { formatRelativeTime } from '@/lib/journal-storage';
-import { deleteJournalEntry } from '@/lib/journal-storage';
+import {
+  formatRelativeTime,
+  deleteJournalEntryLocal,
+} from '@/lib/journal-storage';
 import { FileTextIcon, PenLineIcon, Trash2Icon } from 'lucide-react';
 
 interface JournalEntriesProps {
@@ -12,7 +16,13 @@ interface JournalEntriesProps {
   onDelete: (promptId: string) => void;
 }
 
-export function JournalEntries({ entries, onEdit, onDelete }: JournalEntriesProps) {
+export function JournalEntries({
+  entries,
+  onEdit,
+  onDelete,
+}: JournalEntriesProps) {
+  const user = useCurrentUser();
+
   if (entries.length === 0) {
     return (
       <div
@@ -52,6 +62,17 @@ export function JournalEntries({ entries, onEdit, onDelete }: JournalEntriesProp
     );
   }
 
+  const handleDelete = async (e: React.MouseEvent, promptId: string) => {
+    e.stopPropagation();
+    if (!window.confirm('Delete this journal entry?')) return;
+    if (user) {
+      await deleteJournalAction({ promptId });
+    } else {
+      deleteJournalEntryLocal(promptId);
+    }
+    onDelete(promptId);
+  };
+
   return (
     <div className="space-y-3">
       <h2
@@ -89,7 +110,6 @@ export function JournalEntries({ entries, onEdit, onDelete }: JournalEntriesProp
                   <FileTextIcon size={14} style={{ color: '#2d2d2d' }} />
                 </div>
                 <div className="flex-1 min-w-0 space-y-1">
-                  {/* Prompt source */}
                   <p
                     className="text-xs truncate italic"
                     style={{
@@ -100,7 +120,6 @@ export function JournalEntries({ entries, onEdit, onDelete }: JournalEntriesProp
                   >
                     {entry.promptText || 'Earlier entry'}
                   </p>
-                  {/* Journal text preview */}
                   <p
                     className="text-sm truncate"
                     style={{
@@ -131,29 +150,17 @@ export function JournalEntries({ entries, onEdit, onDelete }: JournalEntriesProp
                     className="p-1.5 rounded-full"
                     style={{ backgroundColor: '#f5f0e8' }}
                   >
-                    <PenLineIcon
-                      size={12}
-                      style={{ color: '#2d5da1' }}
-                    />
+                    <PenLineIcon size={12} style={{ color: '#2d5da1' }} />
                   </div>
                   <div
                     className="p-1.5 rounded-full transition-colors duration-150 hover:bg-red-100"
                     style={{ backgroundColor: '#f5f0e8' }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (window.confirm('Delete this journal entry?')) {
-                        deleteJournalEntry(entry.promptId);
-                        onDelete(entry.promptId);
-                      }
-                    }}
+                    onClick={(e) => handleDelete(e, entry.promptId)}
                     onKeyDown={() => {}}
                     role="button"
                     tabIndex={0}
                   >
-                    <Trash2Icon
-                      size={12}
-                      style={{ color: '#ff4d4d' }}
-                    />
+                    <Trash2Icon size={12} style={{ color: '#ff4d4d' }} />
                   </div>
                 </div>
               </div>

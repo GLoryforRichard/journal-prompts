@@ -5,11 +5,13 @@ export interface StoredJournalEntry {
   promptId: string;
 }
 
+// ─── localStorage helpers (guest / fallback) ───
+
 function getStorageKey(promptId: string) {
   return `journal-writing-${promptId}`;
 }
 
-export function saveJournalEntry(
+export function saveJournalEntryLocal(
   promptId: string,
   text: string,
   promptText: string,
@@ -22,7 +24,7 @@ export function saveJournalEntry(
   localStorage.setItem(getStorageKey(promptId), JSON.stringify(entry));
 }
 
-export function loadJournalEntry(
+export function loadJournalEntryLocal(
   promptId: string,
 ): StoredJournalEntry | null {
   const raw = localStorage.getItem(getStorageKey(promptId));
@@ -35,32 +37,25 @@ export function loadJournalEntry(
   } catch {
     // Legacy plain-text format
   }
-  // Fallback: treat raw as plain text
   if (raw.trim()) {
-    return {
-      text: raw,
-      promptText: '',
-      savedAt: '',
-      promptId,
-    };
+    return { text: raw, promptText: '', savedAt: '', promptId };
   }
   return null;
 }
 
-export function getAllJournalEntries(): StoredJournalEntry[] {
+export function getAllJournalEntriesLocal(): StoredJournalEntry[] {
   if (typeof window === 'undefined') return [];
   const entries: StoredJournalEntry[] = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key?.startsWith('journal-writing-')) {
       const promptId = key.replace('journal-writing-', '');
-      const entry = loadJournalEntry(promptId);
+      const entry = loadJournalEntryLocal(promptId);
       if (entry && entry.text.trim()) {
         entries.push(entry);
       }
     }
   }
-  // Sort by savedAt descending, entries without date go last
   return entries.sort((a, b) => {
     if (!a.savedAt && !b.savedAt) return 0;
     if (!a.savedAt) return 1;
@@ -69,9 +64,11 @@ export function getAllJournalEntries(): StoredJournalEntry[] {
   });
 }
 
-export function deleteJournalEntry(promptId: string) {
+export function deleteJournalEntryLocal(promptId: string) {
   localStorage.removeItem(getStorageKey(promptId));
 }
+
+// ─── Shared util ───
 
 export function formatRelativeTime(isoString: string): string {
   if (!isoString) return 'Some time ago';

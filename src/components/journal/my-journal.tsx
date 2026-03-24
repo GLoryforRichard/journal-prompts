@@ -1,11 +1,12 @@
 'use client';
 
+import { listJournalsAction } from '@/actions/journal';
 import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
 import { WritingArea } from '@/components/prompt-finder/writing-area';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import {
-  getAllJournalEntries,
+  getAllJournalEntriesLocal,
   type StoredJournalEntry,
 } from '@/lib/journal-storage';
 import type { Prompt } from '@/lib/prompt-matcher';
@@ -53,11 +54,21 @@ export function MyJournal() {
     null,
   );
   const [entries, setEntries] = useState<StoredJournalEntry[]>([]);
+  const [journalLimit, setJournalLimit] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  const refreshEntries = useCallback(() => {
-    setEntries(getAllJournalEntries());
-  }, []);
+  const refreshEntries = useCallback(async () => {
+    if (user) {
+      const res = await listJournalsAction();
+      if (res?.data?.data) {
+        setEntries(res.data.data.entries);
+        setJournalLimit(res.data.data.limit);
+      }
+    } else {
+      setEntries(getAllJournalEntriesLocal());
+      setJournalLimit(null);
+    }
+  }, [user]);
 
   useEffect(() => {
     setMounted(true);
@@ -82,7 +93,7 @@ export function MyJournal() {
   const firstName = user?.name?.split(' ')[0] || '';
   const streak = entries.length;
 
-  // Editing mode: reuse WritingArea with the entry's prompt
+  // Editing mode
   if (editingEntry) {
     const editPrompt: Prompt = {
       id: editingEntry.promptId,
@@ -148,6 +159,13 @@ export function MyJournal() {
           >
             <FlameIcon size={16} style={{ color: '#ff4d4d' }} />
             {streak} journal {streak === 1 ? 'entry' : 'entries'} written
+            {journalLimit !== null && (
+              <span className="opacity-60">
+                {' '}
+                ({journalLimit - streak > 0 ? journalLimit - streak : 0} free
+                remaining)
+              </span>
+            )}
           </p>
         )}
       </div>
@@ -202,7 +220,6 @@ export function MyJournal() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Find Your Prompt */}
         <button
           onClick={handleStartWriting}
           className="p-5 text-left cursor-pointer transition-all duration-200 group"
@@ -238,7 +255,6 @@ export function MyJournal() {
           </div>
         </button>
 
-        {/* Surprise Me */}
         <button
           onClick={handleStartWriting}
           className="p-5 text-left cursor-pointer transition-all duration-200 group"
