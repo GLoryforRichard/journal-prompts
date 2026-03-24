@@ -276,7 +276,13 @@ export function MyJournal() {
       </div>
 
       {/* Recent Journals */}
-      {mounted && <JournalEntries entries={entries} onEdit={handleEdit} />}
+      {mounted && (
+        <JournalEntries
+          entries={entries}
+          onEdit={handleEdit}
+          onDelete={() => refreshEntries()}
+        />
+      )}
     </div>
   );
 }

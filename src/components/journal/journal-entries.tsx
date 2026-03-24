@@ -3,14 +3,16 @@
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import type { StoredJournalEntry } from '@/lib/journal-storage';
 import { formatRelativeTime } from '@/lib/journal-storage';
-import { FileTextIcon, PenLineIcon } from 'lucide-react';
+import { deleteJournalEntry } from '@/lib/journal-storage';
+import { FileTextIcon, PenLineIcon, Trash2Icon } from 'lucide-react';
 
 interface JournalEntriesProps {
   entries: StoredJournalEntry[];
   onEdit: (entry: StoredJournalEntry) => void;
+  onDelete: (promptId: string) => void;
 }
 
-export function JournalEntries({ entries, onEdit }: JournalEntriesProps) {
+export function JournalEntries({ entries, onEdit, onDelete }: JournalEntriesProps) {
   if (entries.length === 0) {
     return (
       <div
@@ -132,6 +134,25 @@ export function JournalEntries({ entries, onEdit }: JournalEntriesProps) {
                     <PenLineIcon
                       size={12}
                       style={{ color: '#2d5da1' }}
+                    />
+                  </div>
+                  <div
+                    className="p-1.5 rounded-full transition-colors duration-150 hover:bg-red-100"
+                    style={{ backgroundColor: '#f5f0e8' }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (window.confirm('Delete this journal entry?')) {
+                        deleteJournalEntry(entry.promptId);
+                        onDelete(entry.promptId);
+                      }
+                    }}
+                    onKeyDown={() => {}}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <Trash2Icon
+                      size={12}
+                      style={{ color: '#ff4d4d' }}
                     />
                   </div>
                 </div>
