@@ -1,6 +1,7 @@
 'use client';
 
 import { wobblyBorderRadius } from '@/lib/design-tokens';
+import { saveJournalEntry } from '@/lib/journal-storage';
 import type { Prompt } from '@/lib/prompt-matcher';
 import { useSession } from '@/hooks/use-session';
 import { Routes } from '@/routes';
@@ -117,7 +118,7 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
 
   const handleSave = useCallback(() => {
     // Save to localStorage so my-journal can pick it up
-    localStorage.setItem(`journal-writing-${prompt.id}`, text);
+    saveJournalEntry(prompt.id, text, prompt.text);
     if (session?.user) {
       window.location.href = '/my-journal';
     } else {

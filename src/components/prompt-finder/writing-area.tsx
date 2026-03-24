@@ -1,6 +1,11 @@
 'use client';
 
 import { wobblyBorderRadius } from '@/lib/design-tokens';
+import {
+  saveJournalEntry,
+  loadJournalEntry,
+  deleteJournalEntry,
+} from '@/lib/journal-storage';
 import type { Prompt } from '@/lib/prompt-matcher';
 import { ArrowLeftIcon, SaveIcon, Trash2Icon } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -8,23 +13,20 @@ import { useCallback, useEffect, useState } from 'react';
 interface WritingAreaProps {
   prompt: Prompt;
   onBack: () => void;
+  backLabel?: string;
 }
 
-function getStorageKey(promptId: string) {
-  return `journal-writing-${promptId}`;
-}
-
-export function WritingArea({ prompt, onBack }: WritingAreaProps) {
+export function WritingArea({ prompt, onBack, backLabel }: WritingAreaProps) {
   const [text, setText] = useState('');
   const [saved, setSaved] = useState(false);
   const [wordCount, setWordCount] = useState(0);
 
   // Load from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem(getStorageKey(prompt.id));
-    if (stored) {
-      setText(stored);
-      setWordCount(stored.trim().split(/\s+/).filter(Boolean).length);
+    const entry = loadJournalEntry(prompt.id);
+    if (entry) {
+      setText(entry.text);
+      setWordCount(entry.text.trim().split(/\s+/).filter(Boolean).length);
     }
   }, [prompt.id]);
 
@@ -34,18 +36,18 @@ export function WritingArea({ prompt, onBack }: WritingAreaProps) {
       const value = e.target.value;
       setText(value);
       setWordCount(value.trim().split(/\s+/).filter(Boolean).length);
-      localStorage.setItem(getStorageKey(prompt.id), value);
+      saveJournalEntry(prompt.id, value, prompt.text);
       setSaved(true);
       setTimeout(() => setSaved(false), 1500);
     },
-    [prompt.id],
+    [prompt.id, prompt.text],
   );
 
   const handleClear = useCallback(() => {
     if (text && window.confirm('Clear your writing? This cannot be undone.')) {
       setText('');
       setWordCount(0);
-      localStorage.removeItem(getStorageKey(prompt.id));
+      deleteJournalEntry(prompt.id);
     }
   }, [text, prompt.id]);
 
@@ -61,7 +63,7 @@ export function WritingArea({ prompt, onBack }: WritingAreaProps) {
           }}
         >
           <ArrowLeftIcon size={14} strokeWidth={2.5} />
-          Back to prompts
+          {backLabel || 'Back to prompts'}
         </button>
       </div>
 

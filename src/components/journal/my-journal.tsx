@@ -1,8 +1,14 @@
 'use client';
 
 import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
+import { WritingArea } from '@/components/prompt-finder/writing-area';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
+import {
+  getAllJournalEntries,
+  type StoredJournalEntry,
+} from '@/lib/journal-storage';
+import type { Prompt } from '@/lib/prompt-matcher';
 import {
   BookOpenIcon,
   FlameIcon,
@@ -40,66 +46,72 @@ function getGreeting(): string {
   return 'Good evening';
 }
 
-interface JournalEntry {
-  promptId: string;
-  text: string;
-  date: string;
-  wordCount: number;
-}
-
-function getJournalEntries(): JournalEntry[] {
-  if (typeof window === 'undefined') return [];
-  const entries: JournalEntry[] = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key?.startsWith('journal-writing-')) {
-      const text = localStorage.getItem(key) || '';
-      if (text.trim()) {
-        entries.push({
-          promptId: key.replace('journal-writing-', ''),
-          text,
-          date: '', // We don't store dates yet, will show as "Recent"
-          wordCount: text.trim().split(/\s+/).filter(Boolean).length,
-        });
-      }
-    }
-  }
-  return entries.sort((a, b) => b.wordCount - a.wordCount);
-}
-
-function getStreak(): number {
-  // Simple streak based on number of entries (placeholder)
-  if (typeof window === 'undefined') return 0;
-  const entries = getJournalEntries();
-  return entries.length;
-}
-
 export function MyJournal() {
   const user = useCurrentUser();
   const [showFinder, setShowFinder] = useState(false);
-  const [entries, setEntries] = useState<JournalEntry[]>([]);
-  const [streak, setStreak] = useState(0);
+  const [editingEntry, setEditingEntry] = useState<StoredJournalEntry | null>(
+    null,
+  );
+  const [entries, setEntries] = useState<StoredJournalEntry[]>([]);
   const [mounted, setMounted] = useState(false);
+
+  const refreshEntries = useCallback(() => {
+    setEntries(getAllJournalEntries());
+  }, []);
 
   useEffect(() => {
     setMounted(true);
-    setEntries(getJournalEntries());
-    setStreak(getStreak());
-  }, []);
+    refreshEntries();
+  }, [refreshEntries]);
 
   const handleStartWriting = useCallback(() => {
     setShowFinder(true);
   }, []);
 
+  const handleEdit = useCallback((entry: StoredJournalEntry) => {
+    setEditingEntry(entry);
+  }, []);
+
+  const handleBackFromEdit = useCallback(() => {
+    setEditingEntry(null);
+    refreshEntries();
+  }, [refreshEntries]);
+
   const dailyPrompt = getDailyPrompt();
   const greeting = getGreeting();
   const firstName = user?.name?.split(' ')[0] || '';
+  const streak = entries.length;
+
+  // Editing mode: reuse WritingArea with the entry's prompt
+  if (editingEntry) {
+    const editPrompt: Prompt = {
+      id: editingEntry.promptId,
+      text: editingEntry.promptText || 'Your journal entry',
+      mood: [],
+      direction: [],
+      scene: '',
+      depth: '',
+      source: '',
+    };
+    return (
+      <div className="py-6 px-4 md:px-6">
+        <WritingArea
+          prompt={editPrompt}
+          onBack={handleBackFromEdit}
+          backLabel="Back to My Journal"
+        />
+      </div>
+    );
+  }
 
   if (showFinder) {
     return (
       <div className="py-6 px-4 md:px-6">
         <button
-          onClick={() => setShowFinder(false)}
+          onClick={() => {
+            setShowFinder(false);
+            refreshEntries();
+          }}
           className="mb-4 text-sm cursor-pointer"
           style={{
             fontFamily: 'var(--font-hand-body)',
@@ -263,8 +275,8 @@ export function MyJournal() {
         </button>
       </div>
 
-      {/* Recent Entries */}
-      {mounted && <JournalEntries entries={entries} />}
+      {/* Recent Journals */}
+      {mounted && <JournalEntries entries={entries} onEdit={handleEdit} />}
     </div>
   );
 }
