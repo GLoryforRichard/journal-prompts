@@ -846,11 +846,11 @@
         },
         "item-5": {
           "title": "Free to Use",
-          "description": "All prompts and the writing space are completely free with no account required."
+          "description": "Browse curated prompts and write locally for free. Sign in for cloud saving and AI prompts, with optional paid plans for higher limits."
         },
         "item-6": {
           "title": "Private by Design",
-          "description": "Your writing stays on your device. Nothing is sent to any server."
+          "description": "Guest writing stays in your browser. Signed-in entries are stored privately with your account for access across devices."
         }
       }
     },
@@ -873,11 +873,11 @@
         },
         "item-3": {
           "question": "Is my writing saved?",
-          "answer": "Your writing is saved locally in your browser using localStorage. It stays on your device and is never sent to any server. Clear your browser data to remove it."
+          "answer": "Guest writing is saved in this browser. When you sign in, entries are saved to your account after the editor confirms they are saved. Local drafts protect unsynced changes. Clearing browser data removes guest entries and local drafts, but not entries already saved to your account."
         },
         "item-4": {
           "question": "Are these prompts free to use?",
-          "answer": "Yes! All prompts and the writing space are completely free. No account required, no hidden fees."
+          "answer": "Curated prompts and guest writing are free. A free account includes 10 cloud-saved entries and 3 AI prompts per day. Paid plans add unlimited cloud-saved entries and up to 100 AI prompts per day; pricing is shown before checkout."
         },
         "item-5": {
           "question": "Can I use these prompts for therapy?",
@@ -886,8 +886,8 @@
       }
     },
     "testimonials": {
-      "title": "Testimonials",
-      "subtitle": "What our journalers are saying",
+      "title": "Reviews",
+      "subtitle": "Journal Prompt Finder Reviews",
       "items": {
         "item-1": {
           "name": "Sarah M.",

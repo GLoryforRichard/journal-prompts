@@ -16,8 +16,11 @@ import {
 } from '@/lib/constants';
 import { findPlanByPlanId, findPriceInPlan } from '@/lib/price-plan';
 import { sendPaymentNotification } from '@/notification';
-import { desc, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 import { Stripe } from 'stripe';
+import { ownsStripeCustomer } from '../customer-ownership';
+import { billingCustomerId } from '../billing-customer';
+import { extractStripeSubscriptionId } from '../stripe-subscription';
 import {
   type CheckoutResult,
   type CreateCheckoutParams,
@@ -79,9 +82,44 @@ export class StripeProvider implements PaymentProvider {
    */
   private async createOrGetCustomer(
     email: string,
-    name?: string
+    name?: string,
+    expectedUserId?: string,
+    emailVerified = false
   ): Promise<string> {
     try {
+      if (!expectedUserId) throw new Error('Authenticated user is required');
+      const db = await getDb();
+      const ownedPayments = await db
+        .select()
+        .from(payment)
+        .where(eq(payment.userId, expectedUserId));
+      const users = await db
+        .select({ customerId: user.customerId })
+        .from(user)
+        .where(eq(user.id, expectedUserId))
+        .limit(1);
+      const savedCustomerId = billingCustomerId(
+        ownedPayments,
+        users[0]?.customerId
+      );
+      if (savedCustomerId) {
+        const customer = await this.stripe.customers.retrieve(savedCustomerId);
+        if (
+          await this.ownsCustomer(customer, {
+            userId: expectedUserId,
+            customerEmail: email,
+            emailVerified,
+            hasPaymentHistory: ownedPayments.some(
+              (record) => record.customerId === savedCustomerId
+            ),
+          })
+        )
+          return savedCustomerId;
+        if (!customer.deleted) {
+          throw new Error('Unable to verify the existing billing account');
+        }
+      }
+
       // Search for existing customer
       const customers = await this.stripe.customers.list({
         email,
@@ -90,26 +128,28 @@ export class StripeProvider implements PaymentProvider {
 
       // Find existing customer
       if (customers.data && customers.data.length > 0) {
-        const customerId = customers.data[0].id;
-
-        // Find user id by customer id
-        const userId = await this.findUserIdByCustomerId(customerId);
-        // If no userId found, it means the user record exists (by email) but lacks customerId
-        // This can happen when user was created before Stripe integration or data got out of sync
-        // Fix the data inconsistency by updating the user's customerId field
-        if (!userId) {
-          console.log(
-            'User exists but missing customerId, fixing data inconsistency'
-          );
+        const customer = customers.data[0];
+        const customerId = customer.id;
+        if (
+          await this.ownsCustomer(customer, {
+            userId: expectedUserId,
+            customerEmail: email,
+            emailVerified,
+            hasPaymentHistory: ownedPayments.some(
+              (record) => record.customerId === customerId
+            ),
+          })
+        ) {
           await this.updateUserWithCustomerId(customerId, email);
+          return customerId;
         }
-        return customerId;
       }
 
       // Create new customer
       const customer = await this.stripe.customers.create({
         email,
         name: name || undefined,
+        metadata: { userId: expectedUserId },
       });
 
       // Update user record in database with the new customer ID
@@ -118,8 +158,7 @@ export class StripeProvider implements PaymentProvider {
       return customer.id;
     } catch (error) {
       console.error('Create or get customer error:', error);
-      const message =
-        error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : 'Unknown error';
       throw new Error(`Failed to create or get customer: ${message}`);
     }
   }
@@ -154,35 +193,6 @@ export class StripeProvider implements PaymentProvider {
     } catch (error) {
       console.error('Update user with customer ID error:', error);
       throw new Error('Failed to update user with customer ID');
-    }
-  }
-
-  /**
-   * Finds a user by customerId
-   * @param customerId Stripe customer ID
-   * @returns User ID or undefined if not found
-   */
-  private async findUserIdByCustomerId(
-    customerId: string
-  ): Promise<string | undefined> {
-    try {
-      // Query the user table for a matching customerId
-      const db = await getDb();
-      const result = await db
-        .select({ id: user.id })
-        .from(user)
-        .where(eq(user.customerId, customerId))
-        .limit(1);
-
-      if (result.length > 0) {
-        return result[0].id;
-      }
-      console.warn('No user found with given customerId');
-
-      return undefined;
-    } catch (error) {
-      console.error('Find user by customer ID error:', error);
-      return undefined;
     }
   }
 
@@ -223,10 +233,65 @@ export class StripeProvider implements PaymentProvider {
       // Create or get customer
       const customerId = await this.createOrGetCustomer(
         customerEmail,
-        userName
+        userName,
+        params.userId,
+        params.customerEmailVerified
       );
 
-      // Add planId and priceId to metadata, so we can get it in the webhook event
+      // Read Stripe's current state so stale local records cannot create a
+      // duplicate subscription or prevent a canceled user from resubscribing.
+      const subscriptions = await this.stripe.subscriptions.list({
+        customer: customerId,
+        status: 'all',
+        limit: 100,
+      });
+      const recoverable = subscriptions.data.find((subscription) =>
+        [
+          'active',
+          'trialing',
+          'past_due',
+          'unpaid',
+          'incomplete',
+          'paused',
+        ].includes(subscription.status)
+      );
+      const db = await getDb();
+      const ownedPayments = await db
+        .select({
+          type: payment.type,
+          scene: payment.scene,
+          status: payment.status,
+          paid: payment.paid,
+        })
+        .from(payment)
+        .where(
+          and(
+            eq(payment.userId, params.userId),
+            eq(payment.customerId, customerId)
+          )
+        );
+      const hasLifetime = ownedPayments.some(
+        (record) =>
+          record.paid &&
+          record.type === PaymentTypes.ONE_TIME &&
+          record.scene === PaymentScenes.LIFETIME &&
+          record.status === 'completed'
+      );
+      if (recoverable || hasLifetime) {
+        return this.createCustomerPortal({
+          customerId,
+          userId: params.userId,
+          customerEmail,
+          emailVerified: params.customerEmailVerified,
+          hasPaymentHistory:
+            ownedPayments.length > 0 ||
+            recoverable?.metadata.userId === params.userId,
+          returnUrl: cancelUrl,
+          locale,
+        });
+      }
+
+      // Add plan and price metadata for subsequent webhook processing.
       const customMetadata = {
         ...metadata,
         planId,
@@ -297,8 +362,7 @@ export class StripeProvider implements PaymentProvider {
       };
     } catch (error) {
       console.error('Create checkout session error:', error);
-      const message =
-        error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : 'Unknown error';
       throw new Error(`Failed to create checkout session: ${message}`);
     }
   }
@@ -339,7 +403,8 @@ export class StripeProvider implements PaymentProvider {
       // Create or get customer
       const customerId = await this.createOrGetCustomer(
         customerEmail,
-        userName
+        userName,
+        metadata?.userId
       );
 
       // Add planId and priceId to metadata, so we can get it in the webhook event
@@ -411,6 +476,10 @@ export class StripeProvider implements PaymentProvider {
     const { customerId, returnUrl, locale } = params;
 
     try {
+      const customer = await this.stripe.customers.retrieve(customerId);
+      if (!(await this.ownsCustomer(customer, params))) {
+        throw new Error('Customer does not belong to the signed-in user');
+      }
       const session = await this.stripe.billingPortal.sessions.create({
         customer: customerId,
         return_url: returnUrl ?? '',
@@ -428,6 +497,32 @@ export class StripeProvider implements PaymentProvider {
       console.error('Create customer portal error:', error);
       throw new Error('Failed to create customer portal');
     }
+  }
+
+  private async ownsCustomer(
+    customer: Stripe.Customer | Stripe.DeletedCustomer,
+    identity: Pick<
+      CreatePortalParams,
+      'userId' | 'customerEmail' | 'emailVerified' | 'hasPaymentHistory'
+    >
+  ): Promise<boolean> {
+    if (ownsStripeCustomer(customer, identity)) return true;
+    if (
+      customer.deleted ||
+      ('metadata' in customer && customer.metadata?.userId)
+    ) {
+      return false;
+    }
+    // Legacy customers lack metadata, while Checkout has always placed the
+    // authenticated user ID on subscriptions. This also recovers a missed webhook.
+    const subscriptions = await this.stripe.subscriptions.list({
+      customer: customer.id,
+      status: 'all',
+      limit: 100,
+    });
+    return subscriptions.data.some(
+      (subscription) => subscription.metadata.userId === identity.userId
+    );
   }
 
   /**
@@ -652,7 +747,7 @@ export class StripeProvider implements PaymentProvider {
     console.log('>> Update subscription payment record');
 
     try {
-      let subscriptionId = invoice.subscription as string | null;
+      let subscriptionId = extractStripeSubscriptionId(invoice);
 
       // If invoice.subscription is null, try to use paymentRecord.subscriptionId
       if (!subscriptionId && paymentRecord.subscriptionId) {
@@ -668,7 +763,6 @@ export class StripeProvider implements PaymentProvider {
       // Get subscription details from Stripe
       const subscription =
         await this.stripe.subscriptions.retrieve(subscriptionId);
-      const customerId = subscription.customer as string;
 
       // Get priceId from subscription items
       const priceId = subscription.items.data[0]?.price.id;
@@ -677,19 +771,8 @@ export class StripeProvider implements PaymentProvider {
         return;
       }
 
-      // Get userId from subscription metadata or fallback to customerId lookup
-      let userId: string | undefined = subscription.metadata.userId;
-
-      // If no userId in metadata (common in renewals), find by customerId
-      if (!userId) {
-        console.log('No userId in metadata, finding by customerId');
-        userId = await this.findUserIdByCustomerId(customerId);
-
-        if (!userId) {
-          console.error('<< No userId found, this should not happen');
-          return;
-        }
-      }
+      // The existing payment is the ownership record, including legacy renewals.
+      const userId = paymentRecord.userId;
 
       const periodStart = this.getPeriodStart(subscription);
       const periodEnd = this.getPeriodEnd(subscription);
@@ -708,6 +791,7 @@ export class StripeProvider implements PaymentProvider {
         .set({
           // invoiceId: invoice.id, // do not update invoiceId
           paid: true, // Mark as paid
+          priceId,
           interval: this.mapStripeIntervalToPlanInterval(subscription),
           status: this.mapSubscriptionStatusToPaymentStatus(
             subscription.status
@@ -906,6 +990,11 @@ export class StripeProvider implements PaymentProvider {
     stripeSubscription: Stripe.Subscription
   ): Promise<void> {
     console.log('>> Handle subscription update:', stripeSubscription.id);
+    // Webhooks can arrive out of order. Read current Stripe state so an older
+    // update cannot reactivate a canceled subscription or undo a plan change.
+    stripeSubscription = await this.stripe.subscriptions.retrieve(
+      stripeSubscription.id
+    );
 
     // get priceId from subscription items (this is always available)
     const priceId = stripeSubscription.items.data[0]?.price.id;
@@ -1061,27 +1150,32 @@ export class StripeProvider implements PaymentProvider {
     const db = await getDb();
 
     try {
-      await db.insert(payment).values({
-        id: randomUUID(),
-        priceId,
-        type: PaymentTypes.SUBSCRIPTION,
-        scene: PaymentScenes.SUBSCRIPTION,
-        userId,
-        customerId,
-        subscriptionId,
-        sessionId: session.id,
-        invoiceId, // may be null initially
-        paid: false, // will be set to true when invoice.paid event occurs
-        interval: this.mapStripeIntervalToPlanInterval(subscription),
-        status: this.mapSubscriptionStatusToPaymentStatus(subscription.status),
-        periodStart,
-        periodEnd,
-        cancelAtPeriodEnd: subscription.cancel_at_period_end,
-        trialStart,
-        trialEnd,
-        createdAt: currentDate,
-        updatedAt: currentDate,
-      });
+      await db
+        .insert(payment)
+        .values({
+          id: randomUUID(),
+          priceId,
+          type: PaymentTypes.SUBSCRIPTION,
+          scene: PaymentScenes.SUBSCRIPTION,
+          userId,
+          customerId,
+          subscriptionId,
+          sessionId: session.id,
+          invoiceId, // may be null initially
+          paid: false, // will be set to true when invoice.paid event occurs
+          interval: this.mapStripeIntervalToPlanInterval(subscription),
+          status: this.mapSubscriptionStatusToPaymentStatus(
+            subscription.status
+          ),
+          periodStart,
+          periodEnd,
+          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          trialStart,
+          trialEnd,
+          createdAt: currentDate,
+          updatedAt: currentDate,
+        })
+        .onConflictDoNothing({ target: payment.invoiceId });
 
       console.log('<< Created subscription payment record success');
     } catch (error) {
@@ -1133,20 +1227,23 @@ export class StripeProvider implements PaymentProvider {
     const db = await getDb();
 
     try {
-      await db.insert(payment).values({
-        id: randomUUID(),
-        priceId,
-        type: PaymentTypes.ONE_TIME,
-        scene,
-        userId,
-        customerId,
-        sessionId: session.id,
-        invoiceId, // may be null initially
-        paid: false, // will be set to true when invoice.paid event occurs
-        status: 'completed', // one-time payments are completed once checkout is done
-        createdAt: currentDate,
-        updatedAt: currentDate,
-      });
+      await db
+        .insert(payment)
+        .values({
+          id: randomUUID(),
+          priceId,
+          type: PaymentTypes.ONE_TIME,
+          scene,
+          userId,
+          customerId,
+          sessionId: session.id,
+          invoiceId, // may be null initially
+          paid: false, // will be set to true when invoice.paid event occurs
+          status: 'completed', // one-time payments are completed once checkout is done
+          createdAt: currentDate,
+          updatedAt: currentDate,
+        })
+        .onConflictDoNothing({ target: payment.invoiceId });
 
       console.log('<< Created one-time payment record success');
     } catch (error) {
@@ -1271,78 +1368,7 @@ export class StripeProvider implements PaymentProvider {
    * @returns Payment record or null if not found
    */
   private extractSubscriptionId(invoice: Stripe.Invoice): string | null {
-    const invoiceSubscription = invoice.subscription;
-    if (typeof invoiceSubscription === 'string') {
-      console.log(`invoice.subscription is string: ${invoiceSubscription}`);
-      return invoiceSubscription;
-    }
-    if (
-      invoiceSubscription &&
-      typeof invoiceSubscription === 'object' &&
-      'id' in invoiceSubscription
-    ) {
-      console.log(`invoice.subscription is object: ${invoiceSubscription.id}`);
-      return invoiceSubscription.id;
-    }
-
-    const invoiceAny = invoice as any;
-    if (invoiceAny.parent?.subscription_details?.subscription) {
-      const subscriptionId =
-        invoiceAny.parent.subscription_details.subscription;
-      console.log(
-        `invoice.parent.subscription_details.subscription is string: ${subscriptionId}`
-      );
-      return subscriptionId;
-    }
-
-    const lineItems = invoice.lines?.data ?? [];
-    for (const lineItem of lineItems) {
-      if (typeof lineItem.subscription === 'string') {
-        console.log(
-          `invoice.lineItem.subscription is string: ${lineItem.subscription}`
-        );
-        return lineItem.subscription;
-      }
-      if (
-        lineItem.subscription &&
-        typeof lineItem.subscription === 'object' &&
-        'id' in lineItem.subscription
-      ) {
-        console.log(
-          `invoice.lineItem.subscription is object: ${lineItem.subscription.id}`
-        );
-        return lineItem.subscription.id;
-      }
-
-      const lineItemAny = lineItem as any;
-      if (lineItemAny.parent?.subscription_item_details?.subscription) {
-        const subscriptionId =
-          lineItemAny.parent.subscription_item_details.subscription;
-        console.log(
-          `invoice.lineItem.parent.subscription_item_details.subscription is string: ${subscriptionId}`
-        );
-        return subscriptionId;
-      }
-
-      if (typeof lineItem.subscription_item === 'string') {
-        console.log(
-          `invoice.lineItem.subscription_item is string: ${lineItem.subscription_item}`
-        );
-        return lineItem.subscription_item;
-      }
-      if (
-        lineItem.subscription_item &&
-        typeof lineItem.subscription_item === 'object' &&
-        'id' in lineItem.subscription_item
-      ) {
-        console.log(
-          `invoice.lineItem.subscription_item is object: ${lineItem.subscription_item.id}`
-        );
-        return lineItem.subscription_item.id;
-      }
-    }
-
-    return null;
+    return extractStripeSubscriptionId(invoice);
   }
 
   private getPeriodStart(subscription: Stripe.Subscription): Date | undefined {

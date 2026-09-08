@@ -87,12 +87,6 @@ export default function TestimonialsSection() {
       quote: t('items.item-10.quote'),
     },
     {
-      name: t('items.item-11.name'),
-      role: t('items.item-11.role'),
-      image: t('items.item-11.image'),
-      quote: t('items.item-11.quote'),
-    },
-    {
       name: t('items.item-12.name'),
       role: t('items.item-12.role'),
       image: t('items.item-12.image'),

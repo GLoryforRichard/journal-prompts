@@ -1,22 +1,30 @@
 'use client';
 
-import { listJournalsAction } from '@/actions/journal';
+import { listJournalsAction, saveJournalAction } from '@/actions/journal';
 import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
 import { WritingArea } from '@/components/prompt-finder/writing-area';
-import { useCurrentUser } from '@/hooks/use-current-user';
+import { authClient } from '@/lib/auth-client';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import {
   getAllJournalEntriesLocal,
+  deleteJournalEntryLocal,
+  mergeJournalEntries,
+  getJournalImportId,
   type StoredJournalEntry,
 } from '@/lib/journal-storage';
-import type { Prompt } from '@/lib/prompt-matcher';
+import {
+  getAllDirections,
+  getAllMoods,
+  matchPrompts,
+  type Prompt,
+} from '@/lib/prompt-matcher';
 import {
   BookOpenIcon,
   FlameIcon,
   PenLineIcon,
   SparklesIcon,
 } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { JournalEntries } from './journal-entries';
 
 const dailyPrompts = [
@@ -48,32 +56,116 @@ function getGreeting(): string {
 }
 
 export function MyJournal() {
-  const user = useCurrentUser();
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
   const [showFinder, setShowFinder] = useState(false);
   const [editingEntry, setEditingEntry] = useState<StoredJournalEntry | null>(
-    null,
+    null
   );
   const [entries, setEntries] = useState<StoredJournalEntry[]>([]);
   const [journalLimit, setJournalLimit] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
+  const [error, setError] = useState('');
+  const [guestEntries, setGuestEntries] = useState<StoredJournalEntry[]>([]);
+  const [importing, setImporting] = useState<string | null>(null);
+  const [accountLoaded, setAccountLoaded] = useState(false);
+  const refreshVersion = useRef(0);
+  const currentAccountId = useRef(user?.id);
+  currentAccountId.current = user?.id;
+
   const refreshEntries = useCallback(async () => {
+    if (isPending || currentAccountId.current !== user?.id) return;
+    const version = ++refreshVersion.current;
+    setError('');
+    let drafts: StoredJournalEntry[] = [];
+    try {
+      drafts = getAllJournalEntriesLocal(user?.id);
+      setGuestEntries(user ? getAllJournalEntriesLocal() : []);
+    } catch {
+      setError('Could not read drafts saved on this device.');
+    }
     if (user) {
-      const res = await listJournalsAction();
-      if (res?.data?.data) {
-        setEntries(res.data.data.entries);
+      try {
+        const res = await listJournalsAction({ expectedUserId: user.id });
+        if (!res?.data?.success || !res.data.data)
+          throw new Error('load_failed');
+        if (
+          version !== refreshVersion.current ||
+          currentAccountId.current !== user.id
+        )
+          return;
+        setEntries(mergeJournalEntries(res.data.data.entries, drafts));
         setJournalLimit(res.data.data.limit);
+        setAccountLoaded(true);
+      } catch {
+        if (
+          version !== refreshVersion.current ||
+          currentAccountId.current !== user.id
+        )
+          return;
+        setAccountLoaded(false);
+        setEntries((previous) => mergeJournalEntries(previous, drafts));
+        setError(
+          'Could not load your account journals. Your saved drafts are still available on this device.'
+        );
       }
     } else {
-      setEntries(getAllJournalEntriesLocal());
+      setEntries(drafts);
       setJournalLimit(null);
     }
-  }, [user]);
+  }, [user?.id, isPending]);
 
   useEffect(() => {
     setMounted(true);
-    refreshEntries();
+    setEntries([]);
+    setGuestEntries([]);
+    setAccountLoaded(false);
+    setImporting(null);
+    setEditingEntry(null);
+    setShowFinder(false);
+    void refreshEntries();
+    return () => {
+      refreshVersion.current += 1;
+    };
   }, [refreshEntries]);
+
+  async function importGuestEntry(entry: StoredJournalEntry) {
+    if (!user || importing || !accountLoaded) return;
+    const importingUserId = user.id;
+    setImporting(entry.promptId);
+    setError('');
+    try {
+      const promptId = await getJournalImportId(entry);
+      if (currentAccountId.current !== importingUserId) return;
+      const result = await saveJournalAction({
+        promptId,
+        promptText: entry.promptText,
+        text: entry.text,
+        createOnly: true,
+        expectedUserId: importingUserId,
+      });
+      if (currentAccountId.current !== importingUserId) return;
+      if (!result?.data?.success) {
+        throw new Error(
+          result?.data?.error === 'limit_reached'
+            ? 'limit_reached'
+            : 'save_failed'
+        );
+      }
+      deleteJournalEntryLocal(entry.promptId);
+      await refreshEntries();
+    } catch (cause) {
+      if (currentAccountId.current !== importingUserId) return;
+      setError(
+        cause instanceof Error && cause.message === 'limit_reached'
+          ? 'Your account has reached its journal limit. This writing remains saved on this device.'
+          : 'Could not save this writing to your account. It remains saved on this device. Please try again.'
+      );
+    } finally {
+      if (currentAccountId.current === importingUserId) setImporting(null);
+    }
+  }
 
   const handleStartWriting = useCallback(() => {
     setShowFinder(true);
@@ -92,6 +184,38 @@ export function MyJournal() {
   const greeting = getGreeting();
   const firstName = user?.name?.split(' ')[0] || '';
   const streak = entries.length;
+  function startDailyPrompt() {
+    const today = new Date();
+    const date = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    setEditingEntry({
+      promptId: `daily-${date}`,
+      promptText: dailyPrompt,
+      text: '',
+      savedAt: '',
+    });
+  }
+
+  function startRandomPrompt() {
+    const moods = getAllMoods();
+    const directions = getAllDirections();
+    const candidates = matchPrompts(
+      moods[Math.floor(Math.random() * moods.length)],
+      directions[Math.floor(Math.random() * directions.length)],
+      undefined,
+      20
+    );
+    const prompt =
+      candidates.find(
+        (candidate) => !entries.some((entry) => entry.promptId === candidate.id)
+      ) ?? candidates[0];
+    if (prompt)
+      setEditingEntry({
+        promptId: prompt.id,
+        promptText: prompt.text,
+        text: '',
+        savedAt: '',
+      });
+  }
 
   // Editing mode
   if (editingEntry) {
@@ -108,6 +232,7 @@ export function MyJournal() {
       <div className="py-6 px-4 md:px-6 min-w-0 overflow-hidden">
         <WritingArea
           prompt={editPrompt}
+          initialEntry={editingEntry}
           onBack={handleBackFromEdit}
           backLabel="Back to My Journal"
         />
@@ -119,6 +244,7 @@ export function MyJournal() {
     return (
       <div className="py-6 px-4 md:px-6 min-w-0 overflow-hidden">
         <button
+          type="button"
           onClick={() => {
             setShowFinder(false);
             refreshEntries();
@@ -203,7 +329,8 @@ export function MyJournal() {
           &ldquo;{dailyPrompt}&rdquo;
         </p>
         <button
-          onClick={handleStartWriting}
+          type="button"
+          onClick={startDailyPrompt}
           className="inline-flex items-center gap-2 px-6 py-2.5 text-white cursor-pointer transition-all duration-200"
           style={{
             fontFamily: 'var(--font-hand-title)',
@@ -221,6 +348,7 @@ export function MyJournal() {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <button
+          type="button"
           onClick={handleStartWriting}
           className="p-5 text-left cursor-pointer transition-all duration-200 group"
           style={{
@@ -256,7 +384,8 @@ export function MyJournal() {
         </button>
 
         <button
-          onClick={handleStartWriting}
+          type="button"
+          onClick={startRandomPrompt}
           className="p-5 text-left cursor-pointer transition-all duration-200 group"
           style={{
             backgroundColor: '#ffffff',
@@ -284,13 +413,54 @@ export function MyJournal() {
                 Surprise Me
               </h3>
               <p className="text-sm" style={{ color: '#2d2d2d', opacity: 0.6 }}>
-                Get a fresh, unique prompt
+                Try a randomly chosen prompt
               </p>
             </div>
           </div>
         </button>
       </div>
 
+      {error && (
+        <p role="alert" className="text-sm text-red-700">
+          {error}{' '}
+          <button
+            type="button"
+            className="underline"
+            onClick={() => void refreshEntries()}
+          >
+            Retry
+          </button>
+        </p>
+      )}
+      {guestEntries.length > 0 && (
+        <section className="space-y-3 rounded-lg border-2 border-amber-300 p-4">
+          <h2 className="text-lg font-bold">Writing saved on this device</h2>
+          <p className="text-sm">
+            These entries were written without an account. Choose which ones to
+            save to your account.
+          </p>
+          {guestEntries.map((entry) => (
+            <div key={entry.promptId} className="space-y-2 border-t pt-3">
+              <p className="text-sm italic">
+                {entry.promptText || 'Earlier entry'}
+              </p>
+              <p className="text-sm whitespace-pre-wrap max-h-40 overflow-auto">
+                {entry.text}
+              </p>
+              <button
+                type="button"
+                disabled={!!importing || !accountLoaded}
+                className="text-sm underline disabled:opacity-50"
+                onClick={() => void importGuestEntry(entry)}
+              >
+                {importing === entry.promptId
+                  ? 'Saving...'
+                  : 'Save to my account'}
+              </button>
+            </div>
+          ))}
+        </section>
+      )}
       {/* Recent Journals */}
       {mounted && (
         <JournalEntries

@@ -17,6 +17,7 @@ export function useCurrentPlan(userId: string | undefined) {
     queryFn: async (): Promise<{
       currentPlan: PricePlan | null;
       subscription: Subscription | null;
+      canManageBilling: boolean;
     }> => {
       if (!userId) {
         throw new Error('User ID is required');
@@ -33,6 +34,7 @@ export function useCurrentPlan(userId: string | undefined) {
         result.data.data || {
           currentPlan: getAllPricePlans().find((plan) => plan.isFree) || null,
           subscription: null,
+          canManageBilling: false,
         }
       );
     },

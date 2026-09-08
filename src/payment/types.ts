@@ -144,6 +144,8 @@ export interface Payment {
  * Parameters for creating a checkout session
  */
 export interface CreateCheckoutParams {
+  userId: string;
+  customerEmailVerified: boolean;
   planId: string;
   priceId: string;
   customerEmail: string;
@@ -171,7 +173,7 @@ export interface CreateCreditCheckoutParams {
  */
 export interface CheckoutResult {
   url: string;
-  id: string;
+  id?: string;
 }
 
 /**
@@ -179,6 +181,10 @@ export interface CheckoutResult {
  */
 export interface CreatePortalParams {
   customerId: string;
+  userId: string;
+  customerEmail: string;
+  emailVerified: boolean;
+  hasPaymentHistory: boolean;
   returnUrl?: string;
   locale?: Locale;
 }

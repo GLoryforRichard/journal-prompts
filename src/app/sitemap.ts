@@ -6,6 +6,7 @@ import { blogSource, categorySource, source } from '@/lib/source';
 import type { MetadataRoute } from 'next';
 import type { Locale } from 'next-intl';
 import { getBaseUrl } from '@/lib/urls';
+import { focusedPromptPages } from '@/data/focused-prompt-pages';
 
 type Href = Parameters<typeof getLocalePathname>[0]['href'];
 
@@ -48,10 +49,9 @@ const techniqueRoutes = [
  */
 const staticRoutes = [
   '/',
-  '/privacy',
-  '/terms',
   '/about',
   '/find-your-prompt',
+  ...focusedPromptPages.map((page) => `/${page.slug}`),
   ...sceneRoutes,
   ...techniqueRoutes,
   ...(websiteConfig.blog.enable ? ['/blog'] : []),

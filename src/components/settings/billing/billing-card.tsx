@@ -46,6 +46,7 @@ export default function BillingCard() {
 
   const currentPlan = paymentData?.currentPlan;
   const subscription = paymentData?.subscription;
+  const canManageBilling = paymentData?.canManageBilling || false;
   const isLifetimeMember = currentPlan?.isLifetime || false;
 
   // Get price plans with translations - must be called here to maintain hook order
@@ -144,9 +145,15 @@ export default function BillingCard() {
           </div>
         </CardContent>
         <CardFooter className="mt-2 px-6 py-4 flex justify-end items-center bg-muted rounded-none">
-          <Button variant="default" asChild>
-            <LocaleLink href={Routes.Pricing}>{t('upgradePlan')}</LocaleLink>
-          </Button>
+          {canManageBilling && currentUser ? (
+            <CustomerPortalButton userId={currentUser.id}>
+              {t('manageBilling')}
+            </CustomerPortalButton>
+          ) : (
+            <Button variant="default" asChild>
+              <LocaleLink href={Routes.Pricing}>{t('upgradePlan')}</LocaleLink>
+            </Button>
+          )}
         </CardFooter>
       </Card>
     );
@@ -230,17 +237,9 @@ export default function BillingCard() {
           </Button>
         )}
 
-        {/* user is lifetime member, show manage billing button */}
-        {isLifetimeMember && currentUser && (
-          <CustomerPortalButton userId={currentUser.id} className="">
-            {t('manageBilling')}
-          </CustomerPortalButton>
-        )}
-
-        {/* user has subscription, show manage subscription button */}
-        {subscription && currentUser && (
-          <CustomerPortalButton userId={currentUser.id} className="">
-            {t('manageSubscription')}
+        {canManageBilling && currentUser && (
+          <CustomerPortalButton userId={currentUser.id}>
+            {subscription ? t('manageSubscription') : t('manageBilling')}
           </CustomerPortalButton>
         )}
       </CardFooter>

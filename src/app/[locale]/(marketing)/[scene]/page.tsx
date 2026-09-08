@@ -14,8 +14,10 @@ import { FAQSchema } from '@/components/seo/faq-schema';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { notFound } from 'next/navigation';
+import { focusedPromptPages } from '@/data/focused-prompt-pages';
+import { FocusedPromptPage } from '@/components/home/focused-prompt-page';
 
-const validSlugs = scenes.map((s) => s.slug);
+const validSlugs = [...scenes, ...focusedPromptPages].map((page) => page.slug);
 
 export function generateStaticParams() {
   return validSlugs.map((scene) => ({ scene }));
@@ -27,7 +29,9 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; scene: string }>;
 }): Promise<Metadata | undefined> {
   const { locale, scene: sceneSlug } = await params;
-  const sceneConfig = scenes.find((s) => s.slug === sceneSlug);
+  const sceneConfig = [...scenes, ...focusedPromptPages].find(
+    (page) => page.slug === sceneSlug
+  );
   if (!sceneConfig) return undefined;
 
   return constructMetadata({
@@ -44,6 +48,10 @@ export default async function ScenePage({
   params: Promise<{ locale: Locale; scene: string }>;
 }) {
   const { scene: sceneSlug } = await params;
+  const focusedPage = focusedPromptPages.find(
+    (page) => page.slug === sceneSlug
+  );
+  if (focusedPage) return <FocusedPromptPage page={focusedPage} />;
   const sceneConfig = scenes.find((s) => s.slug === sceneSlug);
   if (!sceneConfig) notFound();
 

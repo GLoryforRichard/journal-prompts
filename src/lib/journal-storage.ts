@@ -3,36 +3,47 @@ export interface StoredJournalEntry {
   promptText: string;
   savedAt: string;
   promptId: string;
+  pendingSync?: boolean;
 }
 
 // ─── localStorage helpers (guest / fallback) ───
 
-function getStorageKey(promptId: string) {
-  return `journal-writing-${promptId}`;
+function getStorageKey(promptId: string, userId?: string) {
+  return userId
+    ? `journal-draft:${encodeURIComponent(userId)}:${promptId}`
+    : `journal-writing-${promptId}`;
 }
 
 export function saveJournalEntryLocal(
   promptId: string,
   text: string,
   promptText: string,
+  userId?: string
 ) {
   const entry: Omit<StoredJournalEntry, 'promptId'> = {
     text,
     promptText,
     savedAt: new Date().toISOString(),
   };
-  localStorage.setItem(getStorageKey(promptId), JSON.stringify(entry));
+  localStorage.setItem(getStorageKey(promptId, userId), JSON.stringify(entry));
 }
 
 export function loadJournalEntryLocal(
   promptId: string,
+  userId?: string
 ): StoredJournalEntry | null {
-  const raw = localStorage.getItem(getStorageKey(promptId));
+  const raw = localStorage.getItem(getStorageKey(promptId, userId));
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw);
     if (parsed && typeof parsed.text === 'string') {
-      return { ...parsed, promptId };
+      return {
+        text: parsed.text,
+        promptText:
+          typeof parsed.promptText === 'string' ? parsed.promptText : '',
+        savedAt: typeof parsed.savedAt === 'string' ? parsed.savedAt : '',
+        promptId,
+      };
     }
   } catch {
     // Legacy plain-text format
@@ -43,15 +54,20 @@ export function loadJournalEntryLocal(
   return null;
 }
 
-export function getAllJournalEntriesLocal(): StoredJournalEntry[] {
+export function getAllJournalEntriesLocal(
+  userId?: string
+): StoredJournalEntry[] {
   if (typeof window === 'undefined') return [];
   const entries: StoredJournalEntry[] = [];
+  const prefix = userId
+    ? `journal-draft:${encodeURIComponent(userId)}:`
+    : 'journal-writing-';
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    if (key?.startsWith('journal-writing-')) {
-      const promptId = key.replace('journal-writing-', '');
-      const entry = loadJournalEntryLocal(promptId);
-      if (entry && entry.text.trim()) {
+    if (key?.startsWith(prefix)) {
+      const promptId = key.slice(prefix.length);
+      const entry = loadJournalEntryLocal(promptId, userId);
+      if (entry && (userId || entry.text.trim())) {
         entries.push(entry);
       }
     }
@@ -64,8 +80,53 @@ export function getAllJournalEntriesLocal(): StoredJournalEntry[] {
   });
 }
 
-export function deleteJournalEntryLocal(promptId: string) {
-  localStorage.removeItem(getStorageKey(promptId));
+export function deleteJournalEntryLocal(promptId: string, userId?: string) {
+  localStorage.removeItem(getStorageKey(promptId, userId));
+}
+
+/** Pending drafts win over server data, including an unsynced clear. */
+export function mergeJournalEntries(
+  serverEntries: StoredJournalEntry[],
+  drafts: StoredJournalEntry[]
+): StoredJournalEntry[] {
+  const entries = new Map(
+    serverEntries.map((entry) => [entry.promptId, entry])
+  );
+  for (const draft of drafts) {
+    entries.set(draft.promptId, { ...draft, pendingSync: true });
+  }
+  return [...entries.values()]
+    .filter((entry) => entry.text.trim() || entry.pendingSync)
+    .sort((a, b) => Date.parse(b.savedAt) - Date.parse(a.savedAt));
+}
+
+export function hasNewerJournalVersion(
+  accountEntry: StoredJournalEntry | null,
+  draft: StoredJournalEntry | null
+): boolean {
+  return !!(
+    accountEntry &&
+    draft &&
+    accountEntry.text !== draft.text &&
+    Date.parse(accountEntry.savedAt) > Date.parse(draft.savedAt)
+  );
+}
+
+/** An imported draft gets its own stable ID, independent of the source prompt. */
+export async function getJournalImportId(
+  entry: StoredJournalEntry
+): Promise<string> {
+  const source = JSON.stringify([
+    entry.promptId,
+    entry.savedAt,
+    entry.promptText,
+    entry.text,
+  ]);
+  const digest = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(source)
+  );
+  return `import-${Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('')}`;
 }
 
 // ─── Shared util ───

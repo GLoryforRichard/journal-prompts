@@ -1,13 +1,14 @@
 'use server';
 
 import { getDb } from '@/db';
-import { user } from '@/db/schema';
+import { payment, user } from '@/db/schema';
 import type { SessionUser } from '@/lib/auth-types';
 import { userActionClient } from '@/lib/safe-action';
-import { getUrlWithLocale } from '@/lib/urls';
+import { getBaseUrl, getUrlWithLocale } from '@/lib/urls';
 import { createCustomerPortal } from '@/payment';
+import { billingCustomerId } from '@/payment/billing-customer';
 import type { CreatePortalParams } from '@/payment/types';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import { getLocale } from 'next-intl/server';
 import { z } from 'zod';
 
@@ -29,13 +30,22 @@ export const createPortalAction = userActionClient
     try {
       // Get the user's customer ID from the database
       const db = await getDb();
+      const ownedPayments = await db
+        .select()
+        .from(payment)
+        .where(eq(payment.userId, currentUser.id))
+        .orderBy(desc(payment.createdAt));
       const customerResult = await db
         .select({ customerId: user.customerId })
         .from(user)
         .where(eq(user.id, currentUser.id))
         .limit(1);
 
-      if (customerResult.length <= 0 || !customerResult[0].customerId) {
+      const customerId = billingCustomerId(
+        ownedPayments,
+        customerResult[0]?.customerId
+      );
+      if (!customerId) {
         console.error(`No customer found for user ${currentUser.id}`);
         return {
           success: false,
@@ -49,8 +59,17 @@ export const createPortalAction = userActionClient
       // Create the portal session with localized URL if no custom return URL is provided
       const returnUrlWithLocale =
         returnUrl || getUrlWithLocale('/settings/billing', locale);
+      if (
+        new URL(returnUrlWithLocale).origin !== new URL(getBaseUrl()).origin
+      ) {
+        return { success: false, error: 'Invalid billing return URL' };
+      }
       const params: CreatePortalParams = {
-        customerId: customerResult[0].customerId,
+        customerId,
+        userId: currentUser.id,
+        customerEmail: currentUser.email,
+        emailVerified: currentUser.emailVerified,
+        hasPaymentHistory: ownedPayments.length > 0,
         returnUrl: returnUrlWithLocale,
         locale,
       };

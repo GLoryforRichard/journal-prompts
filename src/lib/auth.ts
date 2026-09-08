@@ -15,6 +15,7 @@ import { admin, apiKey } from 'better-auth/plugins';
 import { parse as parseCookies } from 'cookie';
 import type { Locale } from 'next-intl';
 import { getAllPricePlans } from './price-plan';
+import { authUserFields } from './auth-user-fields';
 import { getBaseUrl, getUrlWithLocaleInCallbackUrl } from './urls';
 
 /**
@@ -50,20 +51,25 @@ export const auth = betterAuth({
     // https://www.better-auth.com/docs/concepts/email#2-require-email-verification
     requireEmailVerification: false,
     // https://www.better-auth.com/docs/authentication/email-password#forget-password
-    async sendResetPassword({ user, url }, request) {
-      const locale = getLocaleFromRequest(request);
-      const localizedUrl = getUrlWithLocaleInCallbackUrl(url, locale);
+    sendResetPassword: websiteConfig.mail.enable
+      ? async ({ user, url }, request) => {
+          const locale = getLocaleFromRequest(request);
+          const localizedUrl = getUrlWithLocaleInCallbackUrl(url, locale);
 
-      await sendEmail({
-        to: user.email,
-        template: 'forgotPassword',
-        context: {
-          url: localizedUrl,
-          name: user.name,
-        },
-        locale,
-      });
-    },
+          const sent = await sendEmail({
+            to: user.email,
+            template: 'forgotPassword',
+            context: {
+              url: localizedUrl,
+              name: user.name,
+            },
+            locale,
+          });
+          if (!sent) {
+            throw new Error('Password reset email is currently unavailable');
+          }
+        }
+      : undefined,
   },
   emailVerification: {
     // https://www.better-auth.com/docs/concepts/email#auto-signin-after-verification
@@ -105,12 +111,7 @@ export const auth = betterAuth({
   },
   user: {
     // https://www.better-auth.com/docs/concepts/database#extending-core-schema
-    additionalFields: {
-      customerId: {
-        type: 'string',
-        required: false,
-      },
-    },
+    additionalFields: authUserFields,
     // https://www.better-auth.com/docs/concepts/users-accounts#delete-user
     deleteUser: {
       enabled: websiteConfig.auth.enableDeleteUser ?? false,

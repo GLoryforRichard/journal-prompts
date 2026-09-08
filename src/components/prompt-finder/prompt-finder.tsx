@@ -13,19 +13,33 @@ type Step = 'mood' | 'direction' | 'results' | 'writing';
 interface PromptFinderProps {
   scene?: string;
   defaultMood?: string;
+  defaultDirection?: string;
 }
 
-export function PromptFinder({ scene, defaultMood }: PromptFinderProps) {
+export function PromptFinder({
+  scene,
+  defaultMood,
+  defaultDirection,
+}: PromptFinderProps) {
   const [step, setStep] = useState<Step>('mood');
   const [mood, setMood] = useState<string>(defaultMood ?? '');
-  const [direction, setDirection] = useState<string>('');
+  const [direction, setDirection] = useState<string>(defaultDirection ?? '');
   const [results, setResults] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
 
-  const handleMoodSelect = useCallback((m: string) => {
-    setMood(m);
-    setStep('direction');
-  }, []);
+  const handleMoodSelect = useCallback(
+    (m: string) => {
+      setMood(m);
+      if (defaultDirection) {
+        setDirection(defaultDirection);
+        setResults(matchPrompts(m, defaultDirection, scene));
+        setStep('results');
+        return;
+      }
+      setStep('direction');
+    },
+    [defaultDirection, scene]
+  );
 
   const handleDirectionSelect = useCallback(
     (d: string) => {
@@ -34,7 +48,7 @@ export function PromptFinder({ scene, defaultMood }: PromptFinderProps) {
       setResults(matched);
       setStep('results');
     },
-    [mood, scene],
+    [mood, scene]
   );
 
   const handleShuffle = useCallback(() => {
@@ -49,14 +63,18 @@ export function PromptFinder({ scene, defaultMood }: PromptFinderProps) {
 
   const handleBackToMood = useCallback(() => {
     setStep('mood');
-    setDirection('');
+    setDirection(defaultDirection ?? '');
     setResults([]);
-  }, []);
+  }, [defaultDirection]);
 
   const handleBackToDirection = useCallback(() => {
+    if (defaultDirection) {
+      handleBackToMood();
+      return;
+    }
     setStep('direction');
     setResults([]);
-  }, []);
+  }, [defaultDirection, handleBackToMood]);
 
   const handleBackToResults = useCallback(() => {
     setStep('results');

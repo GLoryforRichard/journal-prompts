@@ -18,30 +18,26 @@ export function matchPrompts(
   scene?: string,
   count = 3
 ): Prompt[] {
-  let filtered = prompts.filter(
+  const exact = prompts.filter(
     (p) => p.mood.includes(mood) && p.direction.includes(direction)
   );
-
-  if (scene) {
-    const sceneFiltered = filtered.filter((p) => p.scene === scene);
-    if (sceneFiltered.length >= count) {
-      filtered = sceneFiltered;
-    }
-  }
-
-  // Sort: medium depth first, then light, then deep
+  // Keep exact matches first; fill sparse combinations with relevant prompts.
+  const score = (p: Prompt) =>
+    (p.mood.includes(mood) ? 2 : 0) +
+    (p.direction.includes(direction) ? 3 : 0) +
+    (scene && p.scene === scene ? 1 : 0);
+  const filtered = exact.length >= count ? exact : [...prompts];
   const depthOrder: Record<string, number> = { medium: 0, light: 1, deep: 2 };
-  filtered.sort(
-    (a, b) => (depthOrder[a.depth] ?? 1) - (depthOrder[b.depth] ?? 1)
-  );
-
-  // Shuffle within same depth
+  // Shuffle first, then stable-sort so tied matches vary on each request.
   for (let i = filtered.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    if (filtered[i].depth === filtered[j].depth) {
-      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
-    }
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
   }
+  filtered.sort(
+    (a, b) =>
+      score(b) - score(a) ||
+      (depthOrder[a.depth] ?? 1) - (depthOrder[b.depth] ?? 1)
+  );
 
   return filtered.slice(0, count);
 }

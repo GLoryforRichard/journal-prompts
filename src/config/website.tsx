@@ -68,10 +68,10 @@ export const websiteConfig: WebsiteConfig = {
     enable: false,
   },
   mail: {
-    enable: false,
+    enable: true,
     provider: 'resend',
-    fromEmail: 'MkSaaS <support@example.com>',
-    supportEmail: 'MkSaaS <support@example.com>',
+    fromEmail: 'Journal Prompts <noreply@journalprompts.org>',
+    supportEmail: 'support@journalprompts.org',
   },
   newsletter: {
     enable: false,

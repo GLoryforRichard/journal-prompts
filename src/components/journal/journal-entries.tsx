@@ -9,6 +9,7 @@ import {
   deleteJournalEntryLocal,
 } from '@/lib/journal-storage';
 import { FileTextIcon, PenLineIcon, Trash2Icon } from 'lucide-react';
+import { useState } from 'react';
 
 interface JournalEntriesProps {
   entries: StoredJournalEntry[];
@@ -22,6 +23,9 @@ export function JournalEntries({
   onDelete,
 }: JournalEntriesProps) {
   const user = useCurrentUser();
+  const [visibleCount, setVisibleCount] = useState(20);
+  const [error, setError] = useState('');
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   if (entries.length === 0) {
     return (
@@ -65,11 +69,23 @@ export function JournalEntries({
   const handleDelete = async (e: React.MouseEvent, promptId: string) => {
     e.stopPropagation();
     if (!window.confirm('Delete this journal entry?')) return;
-    if (user) {
-      await deleteJournalAction({ promptId });
-    } else {
-      deleteJournalEntryLocal(promptId);
+    setError('');
+    setDeleting(promptId);
+    try {
+      if (user) {
+        const result = await deleteJournalAction({
+          promptId,
+          expectedUserId: user.id,
+        });
+        if (!result?.data?.success) throw new Error('delete_failed');
+      }
+      deleteJournalEntryLocal(promptId, user?.id);
+    } catch {
+      setError('Could not delete this entry. Please try again.');
+      setDeleting(null);
+      return;
     }
+    setDeleting(null);
     onDelete(promptId);
   };
 
@@ -82,20 +98,23 @@ export function JournalEntries({
           color: '#2d2d2d',
         }}
       >
-        Recent Journals
+        Your Journals
       </h2>
+      {error && (
+        <p role="alert" className="text-sm text-red-700">
+          {error}
+        </p>
+      )}
       <div className="space-y-2">
-        {entries.slice(0, 5).map((entry) => {
+        {entries.slice(0, visibleCount).map((entry) => {
           const wordCount = entry.text
             .trim()
             .split(/\s+/)
             .filter(Boolean).length;
           return (
-            <button
-              type="button"
+            <div
               key={entry.promptId}
-              onClick={() => onEdit(entry)}
-              className="w-full text-left p-4 cursor-pointer transition-all duration-150 hover:shadow-md"
+              className="w-full text-left p-4 transition-all duration-150 hover:shadow-md"
               style={{
                 backgroundColor: '#ffffff',
                 border: '2px solid #e5e0d8',
@@ -109,7 +128,11 @@ export function JournalEntries({
                 >
                   <FileTextIcon size={14} style={{ color: '#2d2d2d' }} />
                 </div>
-                <div className="flex-1 min-w-0 space-y-1">
+                <button
+                  type="button"
+                  onClick={() => onEdit(entry)}
+                  className="flex-1 min-w-0 space-y-1 text-left cursor-pointer"
+                >
                   <p
                     className="text-xs truncate italic"
                     style={{
@@ -127,10 +150,16 @@ export function JournalEntries({
                       color: '#2d2d2d',
                     }}
                   >
-                    {entry.text.slice(0, 100)}
+                    {entry.text.slice(0, 100) ||
+                      'Clear pending — open to retry'}
                     {entry.text.length > 100 ? '...' : ''}
                   </p>
-                </div>
+                  {entry.pendingSync && (
+                    <p className="text-xs text-amber-700">
+                      Saved on this device · not yet synced
+                    </p>
+                  )}
+                </button>
                 <div className="flex items-center gap-3 flex-shrink-0">
                   <div
                     className="text-right"
@@ -146,28 +175,40 @@ export function JournalEntries({
                       {formatRelativeTime(entry.savedAt)}
                     </span>
                   </div>
-                  <div
-                    className="p-1.5 rounded-full"
+                  <button
+                    type="button"
+                    aria-label="Edit journal entry"
+                    onClick={() => onEdit(entry)}
+                    className="p-1.5 rounded-full cursor-pointer"
                     style={{ backgroundColor: '#f5f0e8' }}
                   >
                     <PenLineIcon size={12} style={{ color: '#2d5da1' }} />
-                  </div>
-                  <div
-                    className="p-1.5 rounded-full transition-colors duration-150 hover:bg-red-100"
+                  </button>
+                  <button
+                    type="button"
+                    disabled={deleting === entry.promptId}
+                    aria-label="Delete journal entry"
+                    className="p-1.5 rounded-full transition-colors duration-150 hover:bg-red-100 disabled:opacity-50"
                     style={{ backgroundColor: '#f5f0e8' }}
                     onClick={(e) => handleDelete(e, entry.promptId)}
-                    onKeyDown={() => {}}
-                    role="button"
-                    tabIndex={0}
                   >
                     <Trash2Icon size={12} style={{ color: '#ff4d4d' }} />
-                  </div>
+                  </button>
                 </div>
               </div>
-            </button>
+            </div>
           );
         })}
       </div>
+      {visibleCount < entries.length && (
+        <button
+          type="button"
+          onClick={() => setVisibleCount((count) => count + 20)}
+          className="text-sm underline"
+        >
+          Show more journals ({entries.length - visibleCount} remaining)
+        </button>
+      )}
     </div>
   );
 }
