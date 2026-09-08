@@ -180,9 +180,9 @@ export function MyJournal() {
     refreshEntries();
   }, [refreshEntries]);
 
-  const dailyPrompt = getDailyPrompt();
-  const greeting = getGreeting();
-  const firstName = user?.name?.split(' ')[0] || '';
+  const dailyPrompt = mounted ? getDailyPrompt() : dailyPrompts[0];
+  const greeting = mounted ? getGreeting() : 'Welcome';
+  const firstName = mounted ? user?.name?.split(' ')[0] || '' : '';
   const streak = entries.length;
   function startDailyPrompt() {
     const today = new Date();
