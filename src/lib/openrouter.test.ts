@@ -28,7 +28,12 @@ describe('AI prompt provider', () => {
       'What helped you today?'
     );
     const options = fetchMock.mock.calls[0][1];
-    expect(JSON.parse(options.body).model).toBe('google/gemini-2.5-flash-lite');
+    expect(JSON.parse(options.body).model).toBe('google/gemini-3.8-flash');
+    expect(JSON.parse(options.body)).toMatchObject({
+      max_tokens: 1024,
+      reasoning: { effort: 'low', exclude: true },
+    });
+    expect(JSON.parse(options.body)).not.toHaveProperty('temperature');
     expect(options.signal).toBeInstanceOf(AbortSignal);
   });
 
@@ -58,6 +63,11 @@ describe('AI prompt provider', () => {
   it.each([
     {},
     { choices: [{ message: { content: '' } }] },
+    {
+      choices: [
+        { finish_reason: 'length', message: { content: 'What if you' } },
+      ],
+    },
     { choices: [{ message: { content: [{ text: 'invalid shape' }] } }] },
   ])('rejects unusable provider responses', async (body) => {
     fetchMock.mockResolvedValue(Response.json(body));

@@ -1,5 +1,5 @@
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const DEFAULT_MODEL = 'google/gemini-2.5-flash-lite';
+const DEFAULT_MODEL = 'google/gemini-3.8-flash';
 const UNAVAILABLE_MESSAGE =
   'AI prompts are temporarily unavailable. Please try again shortly.';
 
@@ -46,8 +46,9 @@ Rules:
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        max_tokens: 150,
-        temperature: 0.9,
+        // The token limit includes reasoning; keep room for the final prompt.
+        max_tokens: 1024,
+        reasoning: { effort: 'low', exclude: true },
       }),
       signal: AbortSignal.timeout(20_000),
     });
@@ -62,7 +63,12 @@ Rules:
   }
 
   const data = await response.json().catch(() => null);
-  const value = data?.choices?.[0]?.message?.content;
+  const choice = data?.choices?.[0];
+  if (choice?.finish_reason === 'length') {
+    console.error('AI provider returned a truncated prompt');
+    throw new Error(UNAVAILABLE_MESSAGE);
+  }
+  const value = choice?.message?.content;
   const content = typeof value === 'string' ? value.trim() : '';
 
   if (!content) {
