@@ -7,11 +7,12 @@ import { useSession } from '@/hooks/use-session';
 import { Routes } from '@/routes';
 import { LocaleLink } from '@/i18n/navigation';
 import { CopyIcon, CheckIcon, PenLineIcon } from 'lucide-react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, type ReactNode } from 'react';
 
 interface FeaturedPromptsProps {
   prompts: Prompt[];
   sceneTitle: string;
+  afterPreview?: ReactNode;
 }
 
 function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
@@ -122,7 +123,14 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
   );
 }
 
-export function FeaturedPrompts({ prompts, sceneTitle }: FeaturedPromptsProps) {
+export function FeaturedPrompts({
+  prompts,
+  sceneTitle,
+  afterPreview,
+}: FeaturedPromptsProps) {
+  const previewCount = afterPreview
+    ? Math.min(5, prompts.length)
+    : prompts.length;
   return (
     <section className="py-12 px-4">
       <div className="max-w-3xl mx-auto">
@@ -151,10 +159,22 @@ export function FeaturedPrompts({ prompts, sceneTitle }: FeaturedPromptsProps) {
           }}
         >
           <ol className="list-none">
-            {prompts.map((prompt, i) => (
+            {prompts.slice(0, previewCount).map((prompt, i) => (
               <PromptItem key={prompt.id} prompt={prompt} index={i} />
             ))}
           </ol>
+          {afterPreview}
+          {previewCount < prompts.length && (
+            <ol className="list-none" start={previewCount + 1}>
+              {prompts.slice(previewCount).map((prompt, i) => (
+                <PromptItem
+                  key={prompt.id}
+                  prompt={prompt}
+                  index={previewCount + i}
+                />
+              ))}
+            </ol>
+          )}
         </div>
       </div>
     </section>

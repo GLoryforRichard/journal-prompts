@@ -6,7 +6,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/*', '/_next/*', '/settings/*', '/my-journal/*', '/auth/*', '/admin/*'],
+      // Crawlers need /_next/static CSS and JS to render public pages.
+      // Include the route itself as well as descendants of private areas.
+      disallow: [
+        '/api/',
+        '/settings',
+        '/my-journal',
+        '/auth/',
+        '/admin/',
+        '/payment',
+      ],
     },
     sitemap: `${getBaseUrl()}/sitemap.xml`,
   };

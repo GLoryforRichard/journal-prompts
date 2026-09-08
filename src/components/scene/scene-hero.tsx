@@ -1,5 +1,6 @@
 import { SceneIcon } from '@/components/ui/scene-icon';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
+import { SceneActions } from './scene-cta';
 
 interface SceneHeroProps {
   h1: string;
@@ -9,7 +10,7 @@ interface SceneHeroProps {
 
 export function SceneHero({ h1, subtitle, slug }: SceneHeroProps) {
   return (
-    <section className="py-16 md:py-24 text-center px-4">
+    <section className="py-12 md:py-16 text-center px-4">
       <div className="max-w-3xl mx-auto space-y-6">
         <div
           className="inline-block p-4"
@@ -42,6 +43,7 @@ export function SceneHero({ h1, subtitle, slug }: SceneHeroProps) {
         >
           {subtitle}
         </p>
+        <SceneActions sceneSlug={slug} />
       </div>
     </section>
   );

@@ -153,7 +153,12 @@ export const RegisterForm = ({
             websiteConfig.affiliates?.enable &&
             websiteConfig.affiliates.provider === 'affonso'
           ) {
-            (window as unknown as Record<string, { signup: (email: string) => void }>).Affonso?.signup(values.email);
+            (
+              window as unknown as Record<
+                string,
+                { signup: (email: string) => void }
+              >
+            ).Affonso?.signup(values.email);
           }
 
           // When requireEmailVerification is false, redirect manually
@@ -181,7 +186,7 @@ export const RegisterForm = ({
     <AuthCard
       headerLabel={t('createAccount')}
       bottomButtonLabel={t('signInHint')}
-      bottomButtonHref={`${Routes.Login}`}
+      bottomButtonHref={`${Routes.Login}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
     >
       {credentialLoginEnabled && (
         <Form {...form}>

@@ -42,12 +42,15 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
   return (
     <>
       <div
-        className={cn('flex items-center justify-between', className)}
+        className={cn('flex items-center justify-between gap-3', className)}
         {...props}
       >
-        <LocaleLink href="/" className="flex items-center gap-2 no-underline">
+        <LocaleLink
+          href="/"
+          className="flex min-w-0 items-center gap-2 no-underline"
+        >
           <div
-            className="flex items-center justify-center w-8 h-8"
+            className="flex shrink-0 items-center justify-center w-8 h-8"
             style={{
               backgroundColor: '#ff4d4d',
               border: '2px solid #2d2d2d',
@@ -59,29 +62,46 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
             <PenLineIcon size={14} color="#fff" strokeWidth={2.5} />
           </div>
           <span
-            className="text-lg font-bold"
+            className="truncate text-base font-bold sm:text-lg"
             style={{ fontFamily: 'var(--font-hand-title)', color: '#2d2d2d' }}
           >
             {t('Metadata.name')}
           </span>
         </LocaleLink>
 
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-label="Toggle menu"
-          onClick={() => setOpen((o) => !o)}
-          className="w-9 h-9 flex items-center justify-center cursor-pointer"
-          style={{
-            border: '2px solid #2d2d2d',
-            borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
-            backgroundColor: open ? '#ff4d4d' : '#fff9c4',
-            color: open ? '#fff' : '#2d2d2d',
-            boxShadow: '2px 2px 0px 0px #2d2d2d',
-          }}
-        >
-          {open ? <XIcon size={18} strokeWidth={2.5} /> : <MenuIcon size={18} strokeWidth={2.5} />}
-        </button>
+        <div className="flex shrink-0 items-center gap-3">
+          <LocaleLink
+            href={Routes.Pricing}
+            onClick={() => setOpen(false)}
+            aria-current={
+              localePathname === Routes.Pricing ? 'page' : undefined
+            }
+            className="inline-flex min-h-11 items-center justify-center rounded-lg border-2 border-foreground bg-postit px-3 font-bold text-foreground no-underline shadow-sm transition-colors hover:bg-postit/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+            style={{ fontFamily: 'var(--font-hand-title)' }}
+          >
+            {t('Marketing.navbar.pricing.title')}
+          </LocaleLink>
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-label="Toggle menu"
+            onClick={() => setOpen((o) => !o)}
+            className="w-11 h-11 flex items-center justify-center cursor-pointer"
+            style={{
+              border: '2px solid #2d2d2d',
+              borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+              backgroundColor: open ? '#ff4d4d' : '#fff9c4',
+              color: open ? '#fff' : '#2d2d2d',
+              boxShadow: '2px 2px 0px 0px #2d2d2d',
+            }}
+          >
+            {open ? (
+              <XIcon size={18} strokeWidth={2.5} />
+            ) : (
+              <MenuIcon size={18} strokeWidth={2.5} />
+            )}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -89,7 +109,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 top-[60px] z-50 flex flex-col overflow-y-auto"
+          className="fixed inset-0 top-[68px] z-50 flex flex-col overflow-y-auto"
           style={{ backgroundColor: '#fdfbf7' }}
         >
           <div className="flex flex-1 flex-col p-4 gap-2">
@@ -107,7 +127,11 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                       }}
                     >
                       {item.title}
-                      <ChevronRightIcon size={18} strokeWidth={2.5} style={{ color: '#2d5da1' }} />
+                      <ChevronRightIcon
+                        size={18}
+                        strokeWidth={2.5}
+                        style={{ color: '#2d5da1' }}
+                      />
                     </CollapsibleTrigger>
                     <CollapsibleContent className="pl-2 pt-1 pb-2">
                       <ul className="space-y-1">
@@ -139,12 +163,22 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                   <LocaleLink
                     href={item.href ?? '#'}
                     onClick={() => setOpen(false)}
-                    className="block py-3 px-3 no-underline"
+                    aria-current={
+                      localePathname === item.href ? 'page' : undefined
+                    }
+                    className={cn(
+                      'block py-3 px-3 no-underline',
+                      item.href === Routes.Pricing &&
+                        'mt-2 rounded-lg border-2 border-foreground bg-postit font-bold'
+                    )}
                     style={{
                       fontFamily: 'var(--font-hand-title)',
                       fontSize: '1.15rem',
                       color: '#2d2d2d',
-                      borderBottom: '2px dashed #e5e0d8',
+                      borderBottom:
+                        item.href === Routes.Pricing
+                          ? undefined
+                          : '2px dashed #e5e0d8',
                     }}
                   >
                     {item.title}
@@ -166,7 +200,8 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                     color: '#2d2d2d',
                     backgroundColor: '#fff9c4',
                     border: '2px solid #2d2d2d',
-                    borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                    borderRadius:
+                      '255px 15px 225px 15px / 15px 225px 15px 255px',
                     boxShadow: '4px 4px 0px 0px #2d2d2d',
                   }}
                 >
@@ -174,7 +209,9 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                   My Journal
                 </LocaleLink>
               ) : (
-                (websiteConfig.auth.enableGoogleLogin || websiteConfig.auth.enableGithubLogin || websiteConfig.auth.enableCredentialLogin) && (
+                (websiteConfig.auth.enableGoogleLogin ||
+                  websiteConfig.auth.enableGithubLogin ||
+                  websiteConfig.auth.enableCredentialLogin) && (
                   <LocaleLink
                     href={Routes.Login}
                     onClick={() => setOpen(false)}
@@ -185,7 +222,8 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                       color: '#2d2d2d',
                       backgroundColor: '#fff9c4',
                       border: '2px solid #2d2d2d',
-                      borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                      borderRadius:
+                        '255px 15px 225px 15px / 15px 225px 15px 255px',
                       boxShadow: '4px 4px 0px 0px #2d2d2d',
                     }}
                   >

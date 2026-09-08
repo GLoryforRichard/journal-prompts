@@ -60,13 +60,11 @@ export async function generateMetadata({
     notFound();
   }
 
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
-
   return constructMetadata({
-    title: `${post.data.title} | ${t('name')}`,
+    title: post.data.title,
     description: post.data.description,
     locale,
-    pathname: `/blog/${slug}`,
+    pathname: `/blog/${slug.join('/')}`,
     image: post.data.image,
   });
 }

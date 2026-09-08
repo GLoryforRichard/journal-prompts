@@ -220,11 +220,17 @@ export class StripeProvider implements PaymentProvider {
       if (!plan) {
         throw new Error(`Plan with ID ${planId} not found`);
       }
+      if (plan.disabled) {
+        throw new Error('Price plan is not available for new purchases');
+      }
 
       // Find price in plan
       const price = findPriceInPlan(planId, priceId);
       if (!price) {
         throw new Error(`Price ID ${priceId} not found in plan ${planId}`);
+      }
+      if (price.disabled) {
+        throw new Error('Price is not available for new purchases');
       }
 
       // Get userName from metadata if available
@@ -289,6 +295,24 @@ export class StripeProvider implements PaymentProvider {
           returnUrl: cancelUrl,
           locale,
         });
+      }
+
+      // Existing subscribers manage their original price in the portal above.
+      // New checkout must charge exactly the price advertised by this build.
+      const stripePrice = await this.stripe.prices.retrieve(priceId);
+      const matchingBilling =
+        price.type === PaymentTypes.SUBSCRIPTION
+          ? stripePrice.type === 'recurring' &&
+            stripePrice.recurring?.interval === price.interval &&
+            stripePrice.recurring?.interval_count === 1
+          : stripePrice.type === 'one_time' && !stripePrice.recurring;
+      if (
+        !stripePrice.active ||
+        stripePrice.unit_amount !== price.amount ||
+        stripePrice.currency.toUpperCase() !== price.currency.toUpperCase() ||
+        !matchingBilling
+      ) {
+        throw new Error('Stripe price does not match the configured plan');
       }
 
       // Add plan and price metadata for subsequent webhook processing.

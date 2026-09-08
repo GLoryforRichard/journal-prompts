@@ -22,6 +22,7 @@
     "fix-payments-scene": "tsx scripts/fix-payments-scene.ts",
     "distribute-credits": "tsx scripts/distribute-credits.ts",
     "content": "fumadocs-mdx",
+    "indexnow": "tsx scripts/indexnow.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "email": "email dev --dir src/mail/templates --port 3333",

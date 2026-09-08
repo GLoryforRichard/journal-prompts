@@ -51,6 +51,53 @@ describe('current plan and billing availability', () => {
     });
   });
 
+  it('keeps the original monthly price and access while a canceled renewal remains paid through the period end', async () => {
+    state.rows.mockResolvedValue([
+      {
+        ...payment,
+        priceId: 'price_retired_monthly',
+        interval: 'month',
+        cancelAtPeriodEnd: true,
+      },
+    ]);
+    expect(
+      await getCurrentPlanAction({ userId: 'ignored_input' })
+    ).toMatchObject({
+      success: true,
+      data: {
+        currentPlan: { id: 'pro' },
+        subscription: {
+          id: 'sub_original',
+          priceId: 'price_retired_monthly',
+          interval: 'month',
+          cancelAtPeriodEnd: true,
+        },
+        canManageBilling: true,
+      },
+    });
+  });
+
+  it('does not extend an expired legacy subscription when its price is replaced', async () => {
+    state.rows.mockResolvedValue([
+      {
+        ...payment,
+        priceId: 'price_retired_monthly',
+        interval: 'month',
+        periodEnd: new Date('2000-01-01'),
+      },
+    ]);
+    expect(
+      await getCurrentPlanAction({ userId: 'ignored_input' })
+    ).toMatchObject({
+      success: true,
+      data: {
+        currentPlan: { id: 'free' },
+        subscription: null,
+        canManageBilling: true,
+      },
+    });
+  });
+
   it.each([
     'past_due',
     'unpaid',

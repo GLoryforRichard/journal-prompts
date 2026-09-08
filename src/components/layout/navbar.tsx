@@ -46,7 +46,9 @@ export function Navbar({ scroll = true }: NavBarProps) {
         showBarBg && 'border-b-2 border-[#2d2d2d]'
       )}
       style={{
-        backgroundColor: showBarBg ? 'rgba(253, 251, 247, 0.95)' : 'transparent',
+        backgroundColor: showBarBg
+          ? 'rgba(253, 251, 247, 0.95)'
+          : 'transparent',
         backdropFilter: showBarBg ? 'blur(8px)' : 'none',
       }}
     >
@@ -106,7 +108,12 @@ export function Navbar({ scroll = true }: NavBarProps) {
                     <NavigationMenuContent>
                       <ul
                         className="grid w-100 gap-2 p-3 md:w-125 md:grid-cols-2 lg:w-150"
-                        style={{ backgroundColor: '#fdfbf7', border: '2px solid #2d2d2d', borderRadius: '12px', boxShadow: '4px 4px 0px 0px #2d2d2d' }}
+                        style={{
+                          backgroundColor: '#fdfbf7',
+                          border: '2px solid #2d2d2d',
+                          borderRadius: '12px',
+                          boxShadow: '4px 4px 0px 0px #2d2d2d',
+                        }}
                       >
                         {item.items.map((sub) => (
                           <li key={sub.title}>
@@ -120,7 +127,10 @@ export function Navbar({ scroll = true }: NavBarProps) {
                                 {sub.icon ? (
                                   <div
                                     className="flex items-center justify-center w-8 h-8 rounded-full shrink-0"
-                                    style={{ backgroundColor: '#fff9c4', border: '1.5px solid #2d2d2d' }}
+                                    style={{
+                                      backgroundColor: '#fff9c4',
+                                      border: '1.5px solid #2d2d2d',
+                                    }}
                                   >
                                     {sub.icon}
                                   </div>
@@ -128,14 +138,18 @@ export function Navbar({ scroll = true }: NavBarProps) {
                                 <div className="flex-1 min-w-0">
                                   <div
                                     className="font-bold text-sm"
-                                    style={{ fontFamily: 'var(--font-hand-title)' }}
+                                    style={{
+                                      fontFamily: 'var(--font-hand-title)',
+                                    }}
                                   >
                                     {sub.title}
                                   </div>
                                   {sub.description ? (
                                     <p
                                       className="text-xs mt-0.5 opacity-60"
-                                      style={{ fontFamily: 'var(--font-hand-body)' }}
+                                      style={{
+                                        fontFamily: 'var(--font-hand-body)',
+                                      }}
                                     >
                                       {sub.description}
                                     </p>
@@ -153,7 +167,15 @@ export function Navbar({ scroll = true }: NavBarProps) {
                     <NavigationMenuLink asChild>
                       <LocaleLink
                         href={item.href || '#'}
-                        className="px-3 py-2 text-base no-underline transition-colors hover:text-[#ff4d4d]"
+                        aria-current={
+                          localePathname === item.href ? 'page' : undefined
+                        }
+                        className={cn(
+                          'inline-flex min-h-10 items-center whitespace-nowrap rounded-lg px-3 py-2 text-base no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground',
+                          item.href === Routes.Pricing
+                            ? 'border-2 border-foreground bg-postit font-bold shadow-sm hover:bg-postit/70'
+                            : 'hover:text-primary'
+                        )}
                         style={{
                           fontFamily: 'var(--font-hand-body)',
                           color: '#2d2d2d',
@@ -188,7 +210,9 @@ export function Navbar({ scroll = true }: NavBarProps) {
                 My Journal
               </LocaleLink>
             ) : (
-              (websiteConfig.auth.enableGoogleLogin || websiteConfig.auth.enableGithubLogin || websiteConfig.auth.enableCredentialLogin) && (
+              (websiteConfig.auth.enableGoogleLogin ||
+                websiteConfig.auth.enableGithubLogin ||
+                websiteConfig.auth.enableCredentialLogin) && (
                 <LocaleLink
                   href={Routes.Login}
                   className="inline-flex items-center gap-2 px-4 py-2 no-underline transition-all duration-200"
@@ -197,7 +221,8 @@ export function Navbar({ scroll = true }: NavBarProps) {
                     fontSize: '1rem',
                     color: '#2d2d2d',
                     border: '2px solid #2d2d2d',
-                    borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                    borderRadius:
+                      '255px 15px 225px 15px / 15px 225px 15px 255px',
                     boxShadow: '2px 2px 0px 0px #2d2d2d',
                     backgroundColor: '#fff9c4',
                   }}

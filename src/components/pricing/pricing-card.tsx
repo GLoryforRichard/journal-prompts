@@ -10,8 +10,9 @@ import {
 } from '@/components/ui/card';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useMounted } from '@/hooks/use-mounted';
-import { useLocalePathname } from '@/i18n/navigation';
+import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
 import { formatPrice } from '@/lib/formatter';
+import { getPathWithLocale } from '@/lib/urls';
 import { cn } from '@/lib/utils';
 import {
   type PaymentType,
@@ -21,8 +22,10 @@ import {
   type Price,
   type PricePlan,
 } from '@/payment/types';
+import { Routes } from '@/routes';
 import { CheckCircleIcon, XCircleIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { LoginWrapper } from '../auth/login-wrapper';
 import { Badge } from '../ui/badge';
 import { CheckoutButton } from './create-checkout-button';
@@ -81,13 +84,20 @@ export function PricingCard({
   const price = getPriceForPlan(plan, interval, paymentType);
   const currentUser = useCurrentUser();
   const currentPath = useLocalePathname();
+  const locale = useLocale();
+  const searchParams = useSearchParams();
   const mounted = useMounted();
-  // console.log('pricing card, currentPath', currentPath);
+  const callbackParams = new URLSearchParams(searchParams.toString());
+  if (interval) callbackParams.set('interval', interval);
+  const callbackQuery = callbackParams.toString();
+  const callbackUrl = `${getPathWithLocale(currentPath, locale)}${
+    callbackQuery ? `?${callbackQuery}` : ''
+  }`;
 
   // generate formatted price and price label
   let formattedPrice = '';
   let priceLabel = '';
-  let yearlyTotalLabel = '';
+  let billingLabel = '';
   if (plan.isFree) {
     formattedPrice = t('freePrice');
   } else if (price && price.amount > 0) {
@@ -96,11 +106,16 @@ export function PricingCard({
       const monthlyEquivalent = Math.round(price.amount / 12);
       formattedPrice = formatPrice(monthlyEquivalent, price.currency);
       priceLabel = t('perMonth');
-      yearlyTotalLabel = formatPrice(price.amount, price.currency) + t('perYear');
+      billingLabel = t('billedYearly', {
+        price: formatPrice(price.amount, price.currency),
+      });
     } else {
       formattedPrice = formatPrice(price.amount, price.currency);
       if (interval === PlanIntervals.MONTH) {
         priceLabel = t('perMonth');
+        billingLabel = t('billedMonthly');
+      } else if (price.type === PaymentTypes.ONE_TIME) {
+        billingLabel = t('oneTimePayment');
       }
     }
   } else {
@@ -164,9 +179,9 @@ export function PricingCard({
             </span>
             {priceLabel && <span className="text-2xl">{priceLabel}</span>}
           </div>
-          {yearlyTotalLabel && (
+          {billingLabel && (
             <span className="text-sm text-muted-foreground -mt-3">
-              {yearlyTotalLabel}
+              {billingLabel}
             </span>
           )}
         </div>
@@ -177,17 +192,17 @@ export function PricingCard({
 
         {/* show action buttons based on plans */}
         {plan.isFree ? (
-          mounted && currentUser ? (
-            <Button variant="outline" className="mt-4 w-full disabled">
-              {t('getStartedForFree')}
-            </Button>
-          ) : (
-            <LoginWrapper mode="modal" asChild callbackUrl={currentPath}>
-              <Button variant="outline" className="mt-4 w-full">
-                {t('getStartedForFree')}
-              </Button>
-            </LoginWrapper>
-          )
+          <Button asChild variant="outline" className="mt-4 min-h-11 w-full">
+            <LocaleLink
+              href={
+                mounted && currentUser
+                  ? Routes.Dashboard
+                  : Routes.FindYourPrompt
+              }
+            >
+              {mounted && currentUser ? t('openJournal') : t('tryFreePrompts')}
+            </LocaleLink>
+          </Button>
         ) : isCurrentPlan ? (
           <Button
             disabled
@@ -203,14 +218,16 @@ export function PricingCard({
               planId={plan.id}
               priceId={price.priceId}
               metadata={metadata}
-              className="mt-4 w-full"
+              className="mt-4 min-h-11 w-full"
             >
-              {plan.isLifetime ? t('getLifetimeAccess') : t('getStarted')}
+              {plan.isLifetime
+                ? t('getLifetimeAccess')
+                : t('choosePlan', { plan: plan.name ?? plan.id })}
             </CheckoutButton>
           ) : (
-            <LoginWrapper mode="modal" asChild callbackUrl={currentPath}>
-              <Button variant="default" className="mt-4 w-full">
-                {t('getStarted')}
+            <LoginWrapper mode="modal" asChild callbackUrl={callbackUrl}>
+              <Button variant="default" className="mt-4 min-h-11 w-full">
+                {t('signInToChoose', { plan: plan.name ?? plan.id })}
               </Button>
             </LoginWrapper>
           )
@@ -219,6 +236,9 @@ export function PricingCard({
             {t('notAvailable')}
           </Button>
         )}
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+          {plan.isFree ? t('freeAccountNote') : t('checkoutNote')}
+        </p>
       </CardHeader>
 
       <CardContent className="space-y-4">

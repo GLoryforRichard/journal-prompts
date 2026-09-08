@@ -25,15 +25,15 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogListPageProps) {
-  const { locale } = await params;
+  const { locale, page } = await params;
   const t = await getTranslations({ locale, namespace: 'Metadata' });
   const pt = await getTranslations({ locale, namespace: 'BlogPage' });
 
   return constructMetadata({
-    title: `${pt('title')} | ${t('name')}`,
+    title: `${pt('title')} - Page ${page} | ${t('name')}`,
     description: pt('description'),
     locale,
-    pathname: '/blog',
+    pathname: `/blog/page/${page}`,
   });
 }
 

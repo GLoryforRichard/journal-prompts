@@ -11,6 +11,9 @@ const state = vi.hoisted(() => ({
   createCustomer: vi.fn(),
   list: vi.fn(),
   checkout: vi.fn(),
+  findPlan: vi.fn(),
+  findPrice: vi.fn(),
+  stripePrice: vi.fn(),
   rows: [] as Array<Record<string, unknown>>,
 }));
 
@@ -44,14 +47,22 @@ vi.mock('@/credits/credits', () => ({
 }));
 vi.mock('@/notification', () => ({ sendPaymentNotification: vi.fn() }));
 vi.mock('@/lib/price-plan', () => ({
-  findPlanByPlanId: () => ({ id: 'pro' }),
-  findPriceInPlan: () => ({ type: 'subscription' }),
+  findPlanByPlanId: state.findPlan,
+  findPriceInPlan: state.findPrice,
 }));
 
+import { addSubscriptionCredits } from '@/credits/credits';
 import { StripeProvider } from './stripe';
 
 describe('Stripe billing synchronization', () => {
   let provider: StripeProvider;
+  const monthlyPrice = {
+    active: true,
+    unit_amount: 999,
+    currency: 'usd',
+    type: 'recurring',
+    recurring: { interval: 'month', interval_count: 1 },
+  };
   const subscription = {
     id: 'sub_existing',
     customer: 'cus_owned',
@@ -72,6 +83,14 @@ describe('Stripe billing synchronization', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    state.findPlan.mockReturnValue({ id: 'pro' });
+    state.findPrice.mockReturnValue({
+      type: 'subscription',
+      amount: 999,
+      currency: 'USD',
+      interval: 'month',
+    });
+    state.stripePrice.mockResolvedValue(monthlyPrice);
     state.set.mockReturnValue({ where: state.where });
     state.where.mockReturnValue({
       returning: async () => [{ id: 'payment_owned' }],
@@ -101,6 +120,7 @@ describe('Stripe billing synchronization', () => {
     provider = Object.create(StripeProvider.prototype);
     Object.assign(provider, {
       stripe: {
+        prices: { retrieve: state.stripePrice },
         subscriptions: { retrieve: state.retrieve, list: state.list },
         checkout: { sessions: { create: state.checkout } },
         webhooks: { constructEventAsync: state.event },
@@ -113,6 +133,110 @@ describe('Stripe billing synchronization', () => {
       },
       webhookSecret: 'test-only',
     });
+  });
+
+  it.each([
+    { name: 'the old $4.99 amount', override: { unit_amount: 499 } },
+    { name: 'an inactive price', override: { active: false } },
+    { name: 'a different currency', override: { currency: 'cad' } },
+    {
+      name: 'a yearly period for the monthly plan',
+      override: { recurring: { interval: 'year', interval_count: 1 } },
+    },
+    {
+      name: 'multiple months per bill',
+      override: { recurring: { interval: 'month', interval_count: 12 } },
+    },
+    {
+      name: 'a one-time price for a subscription',
+      override: { type: 'one_time', recurring: null },
+    },
+  ])('blocks checkout with $name instead of the advertised $9.99/month', async ({
+    override,
+  }) => {
+    state.stripePrice.mockResolvedValue({ ...monthlyPrice, ...override });
+
+    await expect(
+      provider.createCheckout({
+        userId: 'user_owner',
+        customerEmailVerified: true,
+        planId: 'pro',
+        priceId: 'price_configured',
+        customerEmail: 'owner@example.com',
+      })
+    ).rejects.toThrow('Stripe price does not match the configured plan');
+
+    expect(state.stripePrice).toHaveBeenCalledWith('price_configured');
+    expect(state.checkout).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    { planId: 'pro', amount: 999, interval: 'month' },
+    { planId: 'pro', amount: 3999, interval: 'year' },
+    { planId: 'lifetime', amount: 4999, interval: null },
+  ])('creates a checkout when the $planId price of $amount cents matches Stripe', async ({
+    planId,
+    amount,
+    interval,
+  }) => {
+    state.findPlan.mockReturnValue({ id: planId });
+    state.findPrice.mockReturnValue({
+      type: interval ? 'subscription' : 'one_time',
+      amount,
+      currency: 'USD',
+      interval: interval ?? undefined,
+    });
+    state.stripePrice.mockResolvedValue({
+      active: true,
+      unit_amount: amount,
+      currency: 'usd',
+      type: interval ? 'recurring' : 'one_time',
+      recurring: interval ? { interval, interval_count: 1 } : null,
+    });
+
+    const result = await provider.createCheckout({
+      userId: 'user_owner',
+      customerEmailVerified: true,
+      planId,
+      priceId: 'price_matching',
+      customerEmail: 'owner@example.com',
+    });
+
+    expect(result.id).toBe('cs_new');
+    expect(state.stripePrice).toHaveBeenCalledWith('price_matching');
+    expect(state.checkout).toHaveBeenCalledWith(
+      expect.objectContaining({
+        line_items: [{ price: 'price_matching', quantity: 1 }],
+        mode: interval ? 'subscription' : 'payment',
+      })
+    );
+  });
+
+  it.each([
+    'plan',
+    'price',
+  ])('rejects a disabled %s before creating any billing resources', async (disabled) => {
+    if (disabled === 'plan') {
+      state.findPlan.mockReturnValue({ id: 'pro', disabled: true });
+    } else {
+      state.findPrice.mockReturnValue({
+        type: 'subscription',
+        disabled: true,
+      });
+    }
+    await expect(
+      provider.createCheckout({
+        userId: 'user_owner',
+        customerEmailVerified: true,
+        planId: 'pro',
+        priceId: 'price_retired_monthly',
+        customerEmail: 'owner@example.com',
+      })
+    ).rejects.toThrow('not available for new purchases');
+    expect(state.customer).not.toHaveBeenCalled();
+    expect(state.createCustomer).not.toHaveBeenCalled();
+    expect(state.checkout).not.toHaveBeenCalled();
+    expect(state.portal).not.toHaveBeenCalled();
   });
 
   it('keeps the original billing customer after its email changes in the Stripe portal', async () => {
@@ -221,6 +345,45 @@ describe('Stripe billing synchronization', () => {
     expect(state.portal).not.toHaveBeenCalled();
   });
 
+  it('sends a legacy monthly subscriber to billing without replacing their subscription price', async () => {
+    state.stripePrice.mockResolvedValue({
+      ...monthlyPrice,
+      unit_amount: 499,
+    });
+    vi.spyOn(
+      provider as unknown as { createOrGetCustomer: () => Promise<string> },
+      'createOrGetCustomer'
+    ).mockResolvedValue('cus_owned');
+    state.list.mockResolvedValue({
+      data: [
+        {
+          ...subscription,
+          items: {
+            data: [
+              {
+                price: { id: 'price_retired_monthly', unit_amount: 499 },
+                plan: { interval: 'month' },
+              },
+            ],
+          },
+        },
+      ],
+    });
+
+    const result = await provider.createCheckout({
+      userId: 'user_owner',
+      customerEmailVerified: true,
+      planId: 'pro',
+      priceId: 'price_new_monthly',
+      customerEmail: 'owner@example.com',
+    });
+
+    expect(result.url).toBe('https://billing.stripe.com/test-portal');
+    expect(state.checkout).not.toHaveBeenCalled();
+    expect(state.set).not.toHaveBeenCalled();
+    expect(state.stripePrice).not.toHaveBeenCalled();
+  });
+
   it('does not sell an existing lifetime member another plan', async () => {
     vi.spyOn(
       provider as unknown as { createOrGetCustomer: () => Promise<string> },
@@ -267,6 +430,46 @@ describe('Stripe billing synchronization', () => {
         status: 'active',
       })
     );
+  });
+
+  it('renews the original monthly price even when it is retired from the sales catalog', async () => {
+    state.findPrice.mockReturnValue(undefined);
+    state.retrieve.mockResolvedValue({
+      ...subscription,
+      items: {
+        data: [
+          {
+            ...subscription.items.data[0],
+            price: {
+              id: 'price_retired_monthly',
+              active: false,
+              unit_amount: 499,
+            },
+            plan: { interval: 'month' },
+          },
+        ],
+      },
+    });
+    state.event.mockResolvedValue({
+      type: 'invoice.paid',
+      data: {
+        object: { id: 'in_legacy_renewal', subscription: 'sub_existing' },
+      },
+    });
+
+    await provider.handleWebhookEvent('fixture', 'fixture');
+
+    expect(state.set).toHaveBeenCalledWith(
+      expect.objectContaining({
+        paid: true,
+        priceId: 'price_retired_monthly',
+        interval: 'month',
+        status: 'active',
+      })
+    );
+    expect(state.findPrice).not.toHaveBeenCalled();
+    expect(addSubscriptionCredits).not.toHaveBeenCalled();
+    expect(state.checkout).not.toHaveBeenCalled();
   });
 
   it('does not create a portal for a customer belonging to another user', async () => {

@@ -167,7 +167,7 @@ export const LoginForm = ({
     <AuthCard
       headerLabel={t('welcomeBack')}
       bottomButtonLabel={t('signUpHint')}
-      bottomButtonHref={`${Routes.Register}`}
+      bottomButtonHref={`${Routes.Register}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
       className={cn('', className)}
     >
       {credentialLoginEnabled && (

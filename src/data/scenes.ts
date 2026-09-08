@@ -280,7 +280,7 @@ export const scenes: SceneConfig[] = [
     metaDescription:
       "Fresh daily journal prompts to build a consistent writing habit. Matched prompts for reflection, growth, and self-awareness every day.",
     heroSubtitle:
-      "Build a life-changing journaling habit with fresh daily prompts that help you reflect, grow, and stay grounded — one day at a time.",
+      "Pick a free prompt, write for five minutes, and make room for today's thoughts. Copy a question into your notebook or start writing right here.",
     whyTitle: "Why Daily Journal Prompts Build Lasting Change",
     whyContent: [
       "A study published in the Harvard Business Review found that employees who spent 15 minutes reflecting on lessons learned performed 23% better than those who didn't. Daily journal prompts create a similar feedback loop for your personal life — helping you notice patterns, celebrate progress, and course-correct before small issues become big problems.",

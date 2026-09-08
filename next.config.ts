@@ -2,6 +2,7 @@ import { createMDX } from 'fumadocs-mdx/next';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
+import { getCanonicalRedirects } from './src/config/canonical-redirects';
 
 initOpenNextCloudflareForDev();
 
@@ -11,6 +12,7 @@ initOpenNextCloudflareForDev();
 const nextConfig: NextConfig = {
   /* config options here */
   devIndicators: false,
+  redirects: getCanonicalRedirects,
 
   // https://nextjs.org/docs/architecture/nextjs-compiler#remove-console
   // Remove all console.* calls in production only

@@ -50,6 +50,7 @@ const techniqueRoutes = [
 const staticRoutes = [
   '/',
   '/about',
+  '/pricing',
   '/find-your-prompt',
   ...focusedPromptPages.map((page) => `/${page.slug}`),
   ...sceneRoutes,

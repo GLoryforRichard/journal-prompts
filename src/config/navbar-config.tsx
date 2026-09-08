@@ -15,12 +15,10 @@ import {
   SunriseIcon,
   SmileIcon,
   LayersIcon,
-  SchoolIcon,
   ShieldCheckIcon,
   FileTextIcon,
   PenToolIcon,
   SproutIcon,
-  SparklesIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -147,13 +145,6 @@ export function useNavbarLinks(): NestedMenuItem[] {
           external: false,
         },
         {
-          title: 'Pricing',
-          description: 'Plans and pricing',
-          icon: <SparklesIcon className="size-4 shrink-0" />,
-          href: Routes.Pricing,
-          external: false,
-        },
-        {
           title: 'Privacy Policy',
           description: 'How we handle your data',
           icon: <ShieldCheckIcon className="size-4 shrink-0" />,
@@ -168,6 +159,11 @@ export function useNavbarLinks(): NestedMenuItem[] {
           external: false,
         },
       ],
+    },
+    {
+      title: t('pricing.title'),
+      href: Routes.Pricing,
+      external: false,
     },
   ];
 }

@@ -10,7 +10,7 @@ import {
   type PricePlan,
 } from '@/payment/types';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
 import { PricingCard } from './pricing-card';
 
 interface PricingTableProps {
@@ -33,7 +33,12 @@ export function PricingTable({
   className,
 }: PricingTableProps) {
   const t = useTranslations('PricingPage');
-  const [interval, setInterval] = useState<PlanInterval>(PlanIntervals.YEAR);
+  const [interval, setInterval] = useQueryState(
+    'interval',
+    parseAsStringEnum<PlanInterval>(Object.values(PlanIntervals)).withDefault(
+      PlanIntervals.YEAR
+    )
+  );
 
   // Get price plans with translations
   const pricePlans = usePricePlans();
@@ -82,11 +87,19 @@ export function PricingTable({
   );
 
   const handleIntervalChange = (value: string) => {
-    setInterval(value as PlanInterval);
+    void setInterval(value as PlanInterval);
   };
 
   return (
-    <div className={cn('flex flex-col gap-12', className)}>
+    <div className={cn('flex flex-col gap-8 sm:gap-10', className)}>
+      <div className="mx-auto max-w-3xl rounded-xl border border-border bg-postit/40 px-5 py-3 text-center">
+        <p className="text-sm font-medium leading-relaxed text-foreground">
+          {t('planGuide')}
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {t('existingSubscriberNote')}
+        </p>
+      </div>
       {/* Show interval toggle if there are subscription plans */}
       {(hasMonthlyOption || hasYearlyOption) &&
         subscriptionPlans.length > 0 && (
@@ -175,6 +188,9 @@ export function PricingTable({
           </div>
         );
       })()}
+      <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">
+        {t('guestNote')}
+      </p>
     </div>
   );
 }

@@ -75,17 +75,21 @@ export default async function ScenePage({
         slug={sceneConfig.slug}
       />
 
+      <div id="scene-prompts" className="scroll-mt-24">
+        <FeaturedPrompts
+          prompts={prompts}
+          sceneTitle={sceneConfig.h1}
+          afterPreview={<SceneCTA sceneSlug={sceneConfig.slug} />}
+        />
+      </div>
+
+      <HowToUse steps={sceneConfig.howToUse} />
+
       <WhySection
         title={sceneConfig.whyTitle}
         paragraphs={sceneConfig.whyContent}
         psychologySource={sceneConfig.psychologySource}
       />
-
-      <FeaturedPrompts prompts={prompts} sceneTitle={sceneConfig.h1} />
-
-      <SceneCTA />
-
-      <HowToUse steps={sceneConfig.howToUse} />
 
       <SceneFAQ faqs={sceneConfig.faqs} />
 

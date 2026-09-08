@@ -127,10 +127,13 @@ export function FocusedPromptPage({ page }: { page: FocusedPromptPageConfig }) {
       <PromptArticleSection {...page.intro} />
       {page.steps.length > 0 && <HowToUse steps={page.steps} />}
       <div id="scene-prompts">
-        <FeaturedPrompts prompts={page.prompts} sceneTitle={page.promptTitle} />
+        <FeaturedPrompts
+          prompts={page.prompts}
+          sceneTitle={page.promptTitle}
+          afterPreview={<SceneCTA sceneSlug={page.slug} />}
+        />
       </div>
       <PromptArticleSection {...page.afterPrompts} />
-      <SceneCTA />
       <SceneFAQ faqs={page.faqs} />
       <FocusedPromptLinks currentSlug={page.slug} />
     </>

@@ -108,7 +108,7 @@ export const websiteConfig: WebsiteConfig = {
           {
             type: PaymentTypes.SUBSCRIPTION,
             priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_MONTHLY!,
-            amount: 499,
+            amount: 999,
             currency: 'USD',
             interval: PlanIntervals.MONTH,
           },
