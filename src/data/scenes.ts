@@ -18,231 +18,249 @@ export interface SceneConfig {
 
 export const scenes: SceneConfig[] = [
   {
-    slug: "gratitude-journal-prompts",
-    promptScene: "gratitude",
-    title: "Gratitude",
-    h1: "Gratitude Journal Prompts",
-    metaTitle:
-      "50+ Gratitude Journal Prompts for Daily Reflection",
+    slug: 'gratitude-journal-prompts',
+    promptScene: 'gratitude',
+    title: 'Gratitude',
+    h1: 'Gratitude Journal Prompts',
+    metaTitle: '30 Gratitude Journal Prompts for Daily Reflection',
     metaDescription:
-      "Discover thoughtful gratitude journal prompts backed by positive psychology. We match you with the perfect prompt for your mood and goals.",
+      'Explore 30 gratitude journal prompts for everyday appreciation. Notice small moments, try a specific writing example, and start your own reflection for free.',
     heroSubtitle:
-      "Cultivate appreciation and rewire your brain for positivity with research-backed gratitude prompts tailored to your mood.",
-    whyTitle: "Why Gratitude Journal Prompts Work",
+      'Notice a small kindness, a useful lesson, or an ordinary moment you appreciate. Choose a gratitude prompt and put the details into words.',
+    whyTitle: 'Make Gratitude Journal Prompts Specific',
     whyContent: [
-      "Research by Dr. Robert Emmons (UC Davis) shows that people who use gratitude journal prompts regularly experience 25% greater well-being, better sleep, and more consistent exercise. Gratitude journaling rewires your brain's attentional bias — shifting focus from what's missing to what's present, activating dopamine and serotonin pathways.",
-      "The key to effective gratitude journaling is specificity. Writing 'I'm grateful my colleague covered for me in the meeting' is far more impactful than 'I'm grateful for my job.' The best gratitude journal prompts guide you toward these concrete, detailed moments of appreciation.",
+      'Gratitude journal prompts give you a place to record what you appreciate without needing an extraordinary day. A shared meal, a helpful message, or a few quiet minutes can each become a short entry. You can acknowledge a good moment while also writing honestly about a difficult day.',
+      "Try moving from a broad statement to a particular memory: instead of 'I am grateful for my job,' write 'My colleague covered the meeting while I finished a difficult task.' Add what happened and why it mattered to you. These details make the entry something you can revisit.",
     ],
     howToUse: [
       "Choose a prompt that resonates with your current mood — don't force positivity if you're having a hard day.",
-      "Write for at least 5 minutes without editing. Let your thoughts flow naturally onto the page.",
+      'Try a few sentences or a short five-minute session. You can stop when you have said what you want to say.',
       "Be specific: instead of 'I'm grateful for my family,' describe a particular moment or gesture.",
-      "Try the same prompt on different days to see how your perspective shifts over time.",
-      "Consider ending your entry with one action step — a thank-you text, a kind gesture, or simply a pause to appreciate.",
+      'Try the same prompt on different days to see how your perspective shifts over time.',
+      'Consider ending your entry with one action step — a thank-you text, a kind gesture, or simply a pause to appreciate.',
     ],
     psychologySource:
-      "Based on gratitude research by Dr. Robert Emmons (UC Davis), Dr. Martin Seligman (University of Pennsylvania), and the Greater Good Science Center at UC Berkeley.",
+      'Appreciation does not require forced positivity. If a question does not fit today, skip it or write about what would help instead.',
     faqs: [
       {
-        question: "How often should I write in a gratitude journal?",
+        question: 'How often should I write in a gratitude journal?',
         answer:
-          "Research suggests 2-3 times per week is optimal for most people. Daily gratitude journaling can sometimes lead to habituation, where you start writing the same things on autopilot. Spacing it out keeps the practice fresh and meaningful.",
+          'Choose a schedule you can return to, whether that is daily or a few times a week. If your answers start to feel automatic, choose a different prompt or describe a more specific moment. There is no required frequency for using this collection.',
       },
       {
         question: "What if I can't think of anything to be grateful for?",
         answer:
-          "Start with the basics: clean water, a roof, a working body. Gratitude doesn't require grand gestures — noticing a warm cup of coffee or a kind text counts. On especially hard days, try the prompt 'What didn't go wrong today?' to shift your frame.",
+          'Look for something small that you actually noticed, such as a pleasant taste, a useful tool, or a kind message. You do not have to feel grateful on demand. If nothing fits today, write about what has been difficult or choose another kind of prompt.',
       },
       {
-        question: "Does gratitude journaling really work for mental health?",
+        question: 'Does gratitude journaling really work for mental health?',
         answer:
-          "Yes. Multiple peer-reviewed studies have found that gratitude journaling reduces symptoms of depression and anxiety, improves sleep quality, and increases overall life satisfaction. It works by training your brain to notice positive experiences more readily.",
+          'These prompts offer a way to record appreciation and reflect on your experiences. They do not promise a change in anxiety, depression, sleep, or other health outcomes. If you are looking for mental health treatment, speak with a qualified professional.',
       },
       {
-        question: "Can gratitude journaling replace therapy?",
+        question: 'Can gratitude journaling replace therapy?',
         answer:
-          "Gratitude journaling is a helpful complement to therapy but not a replacement. If you're experiencing clinical depression, anxiety, or other mental health conditions, please work with a licensed professional. Journaling can be a powerful tool within a broader treatment plan.",
+          'No. This collection is for personal reflection, not diagnosis or treatment. If you already work with a therapist, you can ask whether any writing exercise fits your care. Do not replace professional support with a journaling routine.',
       },
       {
         question:
           "What's the difference between a gratitude journal and a regular journal?",
         answer:
-          "A regular journal captures any thoughts or events, while a gratitude journal specifically focuses on what you appreciate. The intentional focus on positive aspects is what creates the documented psychological benefits. Many people keep both — a regular journal for processing and a gratitude journal for perspective.",
+          'A regular journal can cover any event or thought. A gratitude journal focuses on what you appreciate and why it matters. You can keep separate notebooks or include a short gratitude section alongside other reflections.',
       },
       {
-        question: "Is it better to write gratitude prompts by hand or digitally?",
+        question:
+          'Is it better to write gratitude prompts by hand or digitally?',
         answer:
-          "Research by Dr. Virginia Berninger suggests handwriting engages different neural circuits than typing, potentially deepening the emotional processing. However, the best method is whichever one you'll actually stick with. Consistency matters more than medium.",
+          'Choose the format that feels convenient and private to you. A notebook works offline; writing here lets you start from a prompt without copying it first. You can also switch between paper and digital writing as your routine changes.',
       },
     ],
-    relatedScenes: ["mindfulness-journal-prompts", "self-love-journal-prompts", "morning-journal-prompts", "daily-journal-prompts", "journal-prompts-for-mental-health", "deep-journal-prompts"],
-    emoji: "🙏",
-    defaultMood: "grateful",
+    relatedScenes: [
+      'mindfulness-journal-prompts',
+      'self-love-journal-prompts',
+      'morning-journal-prompts',
+      'daily-journal-prompts',
+      'journal-prompts-for-mental-health',
+      'deep-journal-prompts',
+    ],
+    emoji: '🙏',
+    defaultMood: 'grateful',
   },
   {
-    slug: "journal-prompts-for-mental-health",
-    promptScene: "mental-health",
-    title: "Mental Health",
-    h1: "Journal Prompts for Mental Health",
-    metaTitle:
-      "Journal Prompts for Mental Health & Anxiety Relief",
+    slug: 'journal-prompts-for-mental-health',
+    promptScene: 'mental-health',
+    title: 'Mental Health',
+    h1: 'Journal Prompts for Mental Health',
+    metaTitle: 'Journal Prompts for Mental Health and Self-Reflection',
     metaDescription:
-      "Explore journal prompts for mental health designed with CBT and DBT principles. Matched prompts to support your emotional well-being journey.",
+      'Explore 30 journal prompts for mental health reflection. Name feelings, describe daily challenges, and consider support or next steps at a pace that suits you.',
     heroSubtitle:
-      "Support your mental health with evidence-based journaling prompts drawn from CBT, DBT, and expressive writing research.",
-    whyTitle: "Why Journal Prompts for Mental Health Work",
+      'Find a starting point for naming feelings, describing a difficult day, or thinking about the support you need. These prompts are for reflection, not treatment.',
+    whyTitle: 'Use Mental Health Journal Prompts for a Check-In',
     whyContent: [
-      "Dr. James Pennebaker's groundbreaking research at the University of Texas demonstrated that journal prompts for mental health produce measurable improvements in both mental and physical well-being. Participants who wrote about difficult experiences for just 15-20 minutes over 3-4 days showed reduced anxiety, fewer doctor visits, and improved immune function.",
-      "Journal prompts for mental health have been integrated into Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), and Acceptance and Commitment Therapy (ACT) as structured interventions. They are particularly effective for identifying thought patterns, tracking mood fluctuations, and building emotional vocabulary — all skills that enhance therapeutic outcomes.",
+      'A check-in can begin with three concrete details: what happened, what you noticed, and what you need next. The prompts on this page give you questions to work from when a blank page feels difficult. You do not have to explain every feeling or find a solution in one entry.',
+      'You might describe a stressful interaction, list what is within your control, or write down something you want to discuss with a trusted person. Choose a topic that feels manageable today. Skip questions that leave you feeling pressured to revisit difficult experiences.',
     ],
     howToUse: [
-      "Find a quiet, private space where you feel safe to write honestly.",
+      'Find a quiet, private space where you feel safe to write honestly.',
       "Choose a prompt based on what you're feeling right now — not what you think you should feel.",
-      "Write without censoring yourself. No one else needs to read this.",
-      "If a prompt brings up intense emotions, pause and use grounding techniques (5-4-3-2-1 senses exercise) before continuing.",
-      "After writing, read what you wrote with self-compassion, as if a trusted friend wrote it.",
+      'Write only what you want to record. You can leave details out or stop at any point.',
+      'If a question feels overwhelming, stop writing and choose whether to return to it another time.',
+      'After writing, read what you wrote with self-compassion, as if a trusted friend wrote it.',
     ],
     psychologySource:
-      "Based on expressive writing research by Dr. James Pennebaker, CBT by Dr. Aaron Beck, DBT by Dr. Marsha Linehan, and ACT by Dr. Steven Hayes.",
+      'This is a collection of reflection questions, not a clinical program. You can pause or stop any exercise and seek professional support when you need it.',
     faqs: [
       {
-        question: "Can journaling help with anxiety?",
+        question: 'Can journaling help with anxiety?',
         answer:
-          "Yes. Research shows that writing about anxious thoughts for 15-20 minutes can reduce worry and rumination. The act of putting anxious thoughts on paper externalizes them, making them feel more manageable. It also activates the brain's rational processing centers, helping counteract the emotional hijack of anxiety.",
+          'Writing can give you a place to describe a worry and consider what you need next, but these prompts are not an anxiety treatment. You do not need to keep writing if it increases your distress. For ongoing anxiety, ask a qualified mental health professional about support.',
       },
       {
-        question: "How is journaling different from ruminating?",
+        question: 'How is journaling different from ruminating?',
         answer:
-          "Rumination is repetitive, circular, and doesn't lead to new insights — you replay the same thoughts without resolution. Journaling is structured, progressive, and aims for understanding. Using prompts helps direct your writing toward insight and growth rather than getting stuck in loops.",
-      },
-      {
-        question:
-          "What should I do if journaling brings up overwhelming emotions?",
-        answer:
-          "This is normal and can be a sign of meaningful processing. If it feels too intense, try grounding techniques: name 5 things you can see, 4 you can hear, 3 you can touch, 2 you can smell, and 1 you can taste. If overwhelming emotions persist, consider working with a therapist who can guide your journaling practice.",
-      },
-      {
-        question: "How long should I journal for mental health benefits?",
-        answer:
-          "Research suggests 15-20 minutes is the sweet spot for expressive writing. Shorter sessions may not allow enough depth, while significantly longer sessions can sometimes lead to over-processing. Quality and honesty matter more than length.",
+          'Writing can also become repetitive. If you notice yourself replaying the same worry without wanting to continue, pause or switch to a concrete question such as what happened and what support you need. A prompt does not guarantee that writing will feel helpful.',
       },
       {
         question:
-          "Is journaling a replacement for professional mental health support?",
+          'What should I do if journaling brings up overwhelming emotions?',
         answer:
-          "No. Journaling is a valuable self-help tool and can enhance therapy outcomes, but it is not a substitute for professional support. If you're experiencing persistent mental health challenges, crisis situations, or thoughts of self-harm, please reach out to a mental health professional or crisis helpline.",
+          'Stop the exercise rather than pushing through. Put the writing aside and return to a familiar activity or someone you trust. If distress continues or you feel unsafe, seek professional or urgent support. Feeling overwhelmed is not a requirement for useful reflection.',
       },
       {
-        question: "What type of journal is best for mental health?",
+        question: 'How long should I journal for mental health benefits?',
         answer:
-          "Any format works — lined notebook, blank sketchbook, or digital app. The key is privacy and accessibility. Choose something you can write in honestly without worrying about others reading it. Some people prefer physical journals for the tactile experience; others prefer digital for convenience.",
+          'There is no required session length for this collection. Start with one sentence or a few minutes and decide whether you want to continue. Longer or more intense writing is not automatically better, and stopping early is always an option.',
       },
       {
-        question: "Can kids and teens benefit from mental health journaling?",
+        question:
+          'Is journaling a replacement for professional mental health support?',
         answer:
-          "Absolutely. Journaling helps young people develop emotional vocabulary, process complex feelings, and build self-awareness. For younger children, combining drawing with writing can be especially effective. For teens, journaling provides a private outlet during a developmentally intense period.",
+          'No. This website does not provide mental health diagnosis or treatment. Contact a qualified professional for persistent mental health concerns. If you are in immediate danger or may harm yourself, contact local emergency services or a crisis helpline.',
+      },
+      {
+        question: 'What type of journal is best for mental health?',
+        answer:
+          'Any format works — lined notebook, blank sketchbook, or digital app. The key is privacy and accessibility. Choose something you can write in honestly without worrying about others reading it. Some people prefer physical journals for the tactile experience; others prefer digital for convenience.',
+      },
+      {
+        question: 'Can kids and teens benefit from mental health journaling?',
+        answer:
+          'Young people can use age-appropriate questions to write or draw about their day. Use the kids, teens, or school collections rather than assuming every question here fits every age. An adult should help choose suitable material, and writing should not replace needed professional support.',
       },
     ],
-    relatedScenes: ["shadow-work-journal-prompts", "mindfulness-journal-prompts", "deep-journal-prompts", "self-discovery-journal-prompts", "self-love-journal-prompts", "gratitude-journal-prompts"],
-    emoji: "🧠",
-    defaultMood: "anxious",
+    relatedScenes: [
+      'shadow-work-journal-prompts',
+      'mindfulness-journal-prompts',
+      'deep-journal-prompts',
+      'self-discovery-journal-prompts',
+      'self-love-journal-prompts',
+      'gratitude-journal-prompts',
+    ],
+    emoji: '🧠',
+    defaultMood: 'anxious',
   },
   {
-    slug: "shadow-work-journal-prompts",
-    promptScene: "shadow-work",
-    title: "Shadow Work",
-    h1: "Shadow Work Journal Prompts",
-    metaTitle:
-      "Shadow Work Journal Prompts for Deep Self Discovery",
+    slug: 'shadow-work-journal-prompts',
+    promptScene: 'shadow-work',
+    title: 'Shadow Work',
+    h1: 'Shadow Work Journal Prompts',
+    metaTitle: 'Shadow Work Journal Prompts for Deep Self Discovery',
     metaDescription:
-      "Dive into shadow work journal prompts rooted in Jungian psychology. Uncover hidden patterns, integrate your shadow self, and transform inner conflict.",
+      'Explore 30 shadow work journal prompts about reactions, assumptions, and patterns. Choose a manageable question and reflect without forcing a breakthrough.',
     heroSubtitle:
-      "Explore the hidden parts of yourself with Jungian-inspired shadow work prompts designed to bring unconscious patterns into the light.",
-    whyTitle: "Why Shadow Work Journal Prompts Lead to Transformation",
+      'Reflect on reactions, assumptions, and parts of your experience you tend to avoid. Start with a manageable question and keep the depth up to you.',
+    whyTitle: 'Explore Reactions with Shadow Work Journal Prompts',
     whyContent: [
-      "Carl Jung introduced the concept of the 'shadow' — the parts of ourselves we suppress, deny, or project onto others. Shadow work journal prompts bring these hidden aspects into awareness, not to eliminate them, but to integrate them into a more whole, authentic self. Writing about jealousy, shame, anger, or fear without judgment transforms unconscious patterns into conscious choices.",
-      "Dr. Brene Brown's research on vulnerability demonstrates that the willingness to face uncomfortable truths is the foundation of genuine self-acceptance and emotional resilience. Shadow work journal prompts guide that process safely — helping you explore what your difficult emotions are protecting and build stronger relationships through radical honesty.",
+      'You might notice a reaction that you want to understand: feeling left out, becoming defensive, or judging someone quickly. A shadow work journal prompt gives you a question to explore that moment. Describe the situation first, then consider what you felt and what you assumed.',
+      'Keep interpretations open. One entry does not prove that you have found a hidden cause or a fixed pattern in your personality. You can ask what you would like to do differently next time without blaming yourself or deciding what another person must be thinking.',
     ],
     howToUse: [
       "Approach these prompts with curiosity, not judgment. You're exploring, not fixing.",
-      "Write in a private space where you feel emotionally safe. Shadow work can bring up intense feelings.",
-      "Start with lighter prompts if you're new to shadow work. Build up to deeper ones gradually.",
-      "After writing, practice self-compassion. Acknowledge your courage in facing difficult truths.",
-      "Consider pairing shadow work journaling with therapy, especially if trauma surfaces.",
+      'Write in a private space where you feel emotionally safe. Shadow work can bring up intense feelings.',
+      'Start with a lighter question if you want to. There is no requirement to move to more intense topics.',
+      'After writing, decide whether you want to keep the entry, leave it unfinished, or return another day.',
+      'If a topic involves trauma or persistent distress, consider professional support instead of exploring it alone.',
     ],
     psychologySource:
-      "Based on shadow theory by Carl Jung, shame resilience by Dr. Brene Brown, Internal Family Systems by Dr. Richard Schwartz, and psychodynamic therapy principles.",
+      'You do not need to uncover a hidden truth or revisit trauma to use these questions. Skip any prompt that feels too intense.',
     faqs: [
       {
-        question: "What is shadow work in simple terms?",
+        question: 'What is shadow work in simple terms?',
         answer:
-          "Shadow work is the process of exploring parts of yourself that you've hidden, suppressed, or denied — like jealousy, anger, shame, or insecurity. It's based on Carl Jung's idea that these 'shadow' aspects don't disappear when ignored; they influence your behavior unconsciously. Shadow work brings them into awareness so you can choose how to respond.",
+          'Here, shadow work means reflecting on feelings, reactions, or assumptions that you usually avoid or find hard to admit. The questions are invitations to write, not a test that reveals your unconscious mind or a diagnosis of why you behave a certain way.',
       },
       {
-        question: "Is shadow work dangerous?",
+        question: 'Is shadow work dangerous?',
         answer:
-          "Shadow work is generally safe when done mindfully, but it can surface intense emotions, especially if you have unresolved trauma. If you feel overwhelmed, pause and use grounding techniques. For deep trauma work, partnering with a qualified therapist is recommended. Start with lighter prompts and work your way deeper.",
+          'Personal writing about difficult experiences can feel upsetting. There is no need to push through distress or revisit trauma alone. Stop when you want to, choose a lighter topic, and discuss difficult experiences with a qualified professional if you need support.',
       },
       {
-        question: "How do I know if I need shadow work?",
+        question: 'How do I know if I need shadow work?',
         answer:
-          "Signs include repeating the same relationship patterns, strong emotional reactions that seem disproportionate, judging others harshly for traits you secretly recognize in yourself, or feeling disconnected from your authentic self. If certain topics trigger defensiveness, that often points to shadow material worth exploring.",
+          'You do not need shadow work to qualify as self-aware or healthy. You might try a question if there is a reaction or repeated situation you want to describe. If this style of reflection does not suit you, daily, gratitude, or creative prompts are other options.',
       },
       {
-        question: "How often should I do shadow work journaling?",
+        question: 'How often should I do shadow work journaling?',
         answer:
-          "Once or twice a week is enough for most people. Shadow work is emotionally intensive, and you need time to process what comes up. Over-doing it can lead to emotional exhaustion. Balance shadow work sessions with lighter journaling practices like gratitude or fun prompts.",
+          'Use these questions when you have the time and want to reflect. Start with a short entry and notice whether you want to return to it. There is no required weekly schedule, and you can balance it with lighter writing or take a break.',
       },
       {
         question: "What's the difference between shadow work and therapy?",
         answer:
-          "Shadow work journaling is a self-directed exploration of unconscious patterns, while therapy provides professional guidance, clinical tools, and a trained perspective. They complement each other well — journaling can deepen therapy insights, and therapy can provide safe containment for what journaling uncovers.",
+          'Shadow work journaling here is a self-directed writing activity. It does not provide assessment, diagnosis, treatment, or a professional relationship. If you are working with a therapist, ask them whether this kind of writing is appropriate for you.',
       },
       {
-        question: "Can shadow work improve relationships?",
+        question: 'Can shadow work improve relationships?',
         answer:
-          "Yes. Many relationship conflicts stem from projecting our shadow onto others — criticizing in them what we can't accept in ourselves. When you integrate your shadow through journaling, you reduce projection, increase empathy, and show up more authentically in your relationships.",
+          'You can use a prompt to describe your own reaction, consider another possible interpretation, or prepare something you want to say. That reflection does not guarantee a change in a relationship, and it does not replace direct communication or needed support.',
       },
     ],
-    relatedScenes: ["deep-journal-prompts", "journal-prompts-for-mental-health", "self-discovery-journal-prompts", "self-love-journal-prompts", "mindfulness-journal-prompts", "gratitude-journal-prompts"],
-    emoji: "🌑",
-    defaultMood: "reflective",
+    relatedScenes: [
+      'deep-journal-prompts',
+      'journal-prompts-for-mental-health',
+      'self-discovery-journal-prompts',
+      'self-love-journal-prompts',
+      'mindfulness-journal-prompts',
+      'gratitude-journal-prompts',
+    ],
+    emoji: '🌑',
+    defaultMood: 'reflective',
   },
   {
-    slug: "journal-prompts-for-kids",
-    promptScene: "kids",
-    title: "Kids",
-    h1: "Journal Prompts for Kids",
-    metaTitle:
-      "Journal Prompts for Kids: Fun Creative Writing Ideas",
+    slug: 'journal-prompts-for-kids',
+    promptScene: 'kids',
+    title: 'Kids',
+    h1: 'Journal Prompts for Kids',
+    metaTitle: 'Journal Prompts for Kids: Fun Creative Writing Ideas',
     metaDescription:
-      "Fun and age-appropriate journal prompts for kids that build emotional intelligence, creativity, and self-expression. Smart prompt matching.",
+      'Browse 30 journal prompts for kids with drawing and short writing ideas. Find simple ways for parents and teachers to invite creativity without pressure.',
     heroSubtitle:
-      "Spark your child's imagination and emotional growth with fun, age-appropriate journal prompts designed by child development experts.",
-    whyTitle: "Why Journal Prompts for Kids Build Emotional Intelligence",
+      'Give kids a fun question to answer in a drawing, a story, or a few sentences. Parents and teachers can help choose prompts that fit the child.',
+    whyTitle: 'Give Kids More Than One Way to Answer',
     whyContent: [
-      "Journal prompts for kids help children develop critical literacy skills while building emotional intelligence. Research by Dr. Marc Brackett at the Yale Center for Emotional Intelligence shows that children who can name and express their emotions perform better academically, build stronger friendships, and demonstrate greater resilience when facing challenges.",
-      "For kids, journal prompts don't have to look like traditional writing. They can include drawing, lists, stories, or even single sentences. The key is creating a safe space where children feel free to express themselves without grades or corrections. The best journal prompts for kids build confidence in self-expression and teach children that their thoughts and feelings matter.",
+      'A child can answer a journal prompt by drawing a made-up animal, listing favorite things, or telling a short story. A specific question gives the activity a starting point. Let the child choose between a few prompts rather than requiring a personal disclosure.',
+      'Keep the focus on expression instead of a polished result. A picture, a dictated sentence, or a list can all count as a response. If this is a classroom activity, explain who will see the work before anyone writes and offer a less personal alternative.',
     ],
     howToUse: [
-      "Let kids choose their own prompts — autonomy makes journaling feel like play, not homework.",
-      "Keep it short: 5-10 minutes is plenty for younger kids. Let older kids write longer if they want to.",
-      "Offer colored pens, stickers, or drawing materials to make the journal feel special and personal.",
-      "Never read a child's journal without permission — trust is essential for honest expression.",
-      "Celebrate the practice, not the product. Praise effort and bravery in sharing feelings, not spelling or grammar.",
+      'Let kids choose a prompt or skip the activity; keep it an invitation rather than an assignment about private feelings.',
+      'Keep it short: 5-10 minutes is plenty for younger kids. Let older kids write longer if they want to.',
+      'Offer colored pens, stickers, or drawing materials to make the journal feel special and personal.',
+      'Agree in advance on who can read the journal. Respect privacy while being clear about adult responsibilities when safety is a concern.',
+      "Acknowledge the effort to draw or write without grading a child's feelings or requiring them to share.",
     ],
     psychologySource:
-      "Based on emotional intelligence research by Dr. Marc Brackett (Yale), social-emotional learning frameworks, and creative expression research in child development.",
+      'Adults should preview prompts for the individual child. Offer drawing or storytelling, allow skipping, and explain privacy expectations before starting.',
     faqs: [
       {
-        question: "At what age should kids start journaling?",
+        question: 'At what age should kids start journaling?',
         answer:
-          "Kids can start journaling as early as age 4-5 with drawing-based prompts. By age 7-8, most children can handle simple writing prompts. The key is matching the complexity to the child's developmental stage. Even pre-literate children benefit from 'dictated journals' where they tell a story and an adult writes it down.",
+          'Start when a child is interested in drawing, storytelling, or recording something about their day. There is no required starting age. An adult can write down a story the child wants to tell, while children who enjoy writing can try a sentence or a short list.',
       },
       {
-        question: "How do I get my child interested in journaling?",
+        question: 'How do I get my child interested in journaling?',
         answer:
-          "Make it fun, not forced. Let them pick a cool notebook, use colorful pens, and choose prompts that excite them. Start with creative and imaginative prompts rather than reflective ones. Model journaling yourself — kids are more likely to journal when they see adults doing it too.",
+          'Make it optional and playful. Let your child choose the notebook, materials, or prompt, and begin with an imaginary story rather than a personal question. You can write alongside them without asking them to share their answer.',
       },
       {
         question: "Should I read my child's journal?",
@@ -255,117 +273,128 @@ export const scenes: SceneConfig[] = [
           "This is normal! Start with very specific, concrete prompts like 'What did you eat for lunch and did you like it?' rather than abstract ones. You can also try 'finish the sentence' starters like 'Today I felt happy when...' Removing pressure to write 'a lot' helps too — even one sentence counts.",
       },
       {
-        question: "Can journaling help kids with anxiety?",
+        question: 'Can journaling help kids with anxiety?',
         answer:
-          "Yes. Research shows that expressive writing helps children process worries and develop coping strategies. Drawing or writing about fears can externalize them, making them feel less overwhelming. For children with clinical anxiety, journaling works well alongside professional support.",
+          'A drawing or short entry can be a way for a child to describe a worry, if they want to. These prompts do not treat anxiety. If worries are persistent or affect daily life, speak with a qualified professional instead of relying on a writing activity.',
       },
       {
-        question:
-          "How long should kids spend journaling?",
+        question: 'How long should kids spend journaling?',
         answer:
-          "For kids aged 5-8, 5 minutes is a great start. For ages 9-12, aim for 10-15 minutes. The goal is consistency over duration. A child who writes three sentences happily every day benefits more than one who writes a full page reluctantly once a month.",
+          'Try a short session, such as five minutes, and let the child decide whether to continue. A picture or one sentence can be enough. Adjust the activity to the child rather than requiring a time or word count based only on age.',
       },
     ],
-    relatedScenes: ["journal-prompts-for-middle-school", "fun-journal-prompts", "daily-journal-prompts", "journal-prompts-for-teens", "gratitude-journal-prompts", "mindfulness-journal-prompts"],
-    emoji: "🧒",
-    defaultMood: "curious",
+    relatedScenes: [
+      'journal-prompts-for-middle-school',
+      'fun-journal-prompts',
+      'daily-journal-prompts',
+      'journal-prompts-for-teens',
+      'gratitude-journal-prompts',
+      'mindfulness-journal-prompts',
+    ],
+    emoji: '🧒',
+    defaultMood: 'curious',
   },
   {
-    slug: "daily-journal-prompts",
-    promptScene: "daily",
-    title: "Daily",
-    h1: "Daily Journal Prompts",
-    metaTitle:
-      "Daily Journal Prompts to Spark Your Writing Habit",
+    slug: 'daily-journal-prompts',
+    promptScene: 'daily',
+    title: 'Daily',
+    h1: 'Daily Journal Prompts',
+    metaTitle: 'Daily Journal Prompts to Spark Your Writing Habit',
     metaDescription:
-      "Fresh daily journal prompts to build a consistent writing habit. Matched prompts for reflection, growth, and self-awareness every day.",
+      'Use 30 daily journal prompts to record your day, reflect on a choice, or plan a next step. Pick a free question and start a short entry right on the page.',
     heroSubtitle:
       "Pick a free prompt, write for five minutes, and make room for today's thoughts. Copy a question into your notebook or start writing right here.",
-    whyTitle: "Why Daily Journal Prompts Build Lasting Change",
+    whyTitle: 'Make Daily Journal Prompts Easy to Return To',
     whyContent: [
-      "A study published in the Harvard Business Review found that employees who spent 15 minutes reflecting on lessons learned performed 23% better than those who didn't. Daily journal prompts create a similar feedback loop for your personal life — helping you notice patterns, celebrate progress, and course-correct before small issues become big problems.",
-      "The key to sustainable use of daily journal prompts is lowering the bar. You don't need to write pages — a few sentences capturing your mood, one insight, or a single moment of gratitude is enough. Daily journal prompts remove the 'blank page' paralysis that stops most people from building a consistent habit.",
+      'A daily prompt gives you one question to answer when you sit down to write. You might record a moment from the day, a lesson you want to remember, or something to try tomorrow. A few sentences are enough to leave a record that you can revisit.',
+      'Choose a small routine that fits your day rather than a word count you have to meet. Repeating a favorite prompt can show how your answers change; choosing a new one can give you another starting point. Both approaches leave room for busy days and breaks.',
     ],
     howToUse: [
-      "Pick a consistent time — morning for intention-setting, evening for reflection, or whenever works for your schedule.",
-      "Start with just 5 minutes. You can always write more, but a low commitment prevents burnout.",
-      "Use a different prompt each day, or revisit favorites to see how your answers evolve.",
+      'Pick a consistent time — morning for intention-setting, evening for reflection, or whenever works for your schedule.',
+      'Start with a few sentences or five minutes so the activity fits the time you have.',
+      'Use a different prompt each day, or revisit favorites to see how your answers evolve.',
       "Don't judge your writing — this is a practice, not a performance.",
-      "Track your streak. The habit itself is more valuable than any individual entry.",
+      'Look back when you want to notice what you have recorded. A streak is optional, and breaks are allowed.',
     ],
     psychologySource:
-      "Based on reflective practice research, habit formation science by Dr. BJ Fogg, and the daily reflection study published in Harvard Business Review by Di Stefano et al.",
+      'Start with one question and a few sentences. Missing a day does not erase your earlier entries; continue when it fits your life.',
     faqs: [
       {
-        question: "When is the best time to journal daily?",
+        question: 'When is the best time to journal daily?',
         answer:
           "There's no universally 'best' time. Morning journaling helps set intentions and prioritize your day. Evening journaling supports reflection and emotional processing. The best time is whichever time you'll actually do consistently. Many people find pairing it with an existing habit (like morning coffee) helps it stick.",
       },
       {
-        question: "How long should daily journaling take?",
+        question: 'How long should daily journaling take?',
         answer:
-          "Even 5 minutes daily produces measurable benefits. Research suggests 10-20 minutes is ideal for deeper reflection, but consistency matters far more than duration. Start small and let your practice naturally expand as it becomes a habit.",
+          'Try one sentence or a five-minute session to see what fits your day. You can write more when you want to, but there is no required duration or promise of a particular benefit from writing for a set number of minutes.',
       },
       {
-        question: "What if I miss a day of journaling?",
+        question: 'What if I miss a day of journaling?',
         answer:
-          "Don't aim for perfection — aim for consistency. Missing a day doesn't erase the benefits of previous entries. Simply pick up where you left off. Habit research by Dr. BJ Fogg shows that self-compassion after a missed day is more effective than guilt for maintaining long-term habits.",
+          'Return whenever you are ready. You do not need to catch up, explain the gap, or protect a perfect streak. Pick a question about today and continue from there.',
       },
       {
-        question: "Should I use the same prompt every day or switch them up?",
+        question: 'Should I use the same prompt every day or switch them up?',
         answer:
           "Both approaches work. Repeating prompts (like 'What am I grateful for today?') builds depth and reveals patterns over time. Switching prompts keeps the practice fresh and prevents staleness. A good strategy is to have 2-3 'anchor' prompts you rotate with new ones.",
       },
       {
-        question: "Do I need a special journal for daily writing?",
+        question: 'Do I need a special journal for daily writing?',
         answer:
           "No. Any notebook, document, or app works. Some people prefer dedicated journals for the ritual aspect, while others use their phone's notes app. The medium matters less than the act of writing. Choose whatever removes friction from the process.",
       },
       {
-        question: "Can daily journaling improve productivity?",
+        question: 'Can daily journaling improve productivity?',
         answer:
-          "Yes. Research shows that daily reflection improves performance by helping you identify what's working, what's not, and where to focus your energy. Journaling also reduces decision fatigue by helping you clarify priorities before your day begins.",
+          'You can use a daily entry to list a priority, reflect on a task, or decide what to try next. That makes the page a place for planning and review. It does not guarantee that you will become more productive or finish more work.',
       },
     ],
-    relatedScenes: ["morning-journal-prompts", "gratitude-journal-prompts", "mindfulness-journal-prompts", "self-love-journal-prompts", "fun-journal-prompts", "journal-prompts-for-mental-health"],
-    emoji: "📝",
-    defaultMood: "reflective",
+    relatedScenes: [
+      'morning-journal-prompts',
+      'gratitude-journal-prompts',
+      'mindfulness-journal-prompts',
+      'self-love-journal-prompts',
+      'fun-journal-prompts',
+      'journal-prompts-for-mental-health',
+    ],
+    emoji: '📝',
+    defaultMood: 'reflective',
   },
   {
-    slug: "journal-prompts-for-teens",
-    promptScene: "teens",
-    title: "Teens",
-    h1: "Journal Prompts for Teens",
-    metaTitle:
-      "Journal Prompts for Teens: Self Expression Ideas",
+    slug: 'journal-prompts-for-teens',
+    promptScene: 'teens',
+    title: 'Teens',
+    h1: 'Journal Prompts for Teens',
+    metaTitle: 'Journal Prompts for Teens: Self Expression Ideas',
     metaDescription:
-      "Engaging journal prompts for teens designed to support identity exploration, emotional growth, and self-expression during the teenage years.",
+      'Explore 30 journal prompts for teens about school, friendships, interests, and everyday choices. Try a response, choose what to share, and skip any question.',
     heroSubtitle:
-      "Navigate the complexity of teenage life with journal prompts that meet you where you are — no judgment, just honest self-exploration.",
-    whyTitle: "Why Journal Prompts for Teens Matter Now",
+      'Navigate the complexity of teenage life with journal prompts that meet you where you are — no judgment, just honest self-exploration.',
+    whyTitle: "Journal Prompts for the Things on a Teen's Mind",
     whyContent: [
-      "Adolescence is one of the most neurologically active periods of human development. The prefrontal cortex — responsible for decision-making, impulse control, and self-awareness — is literally being rewired. Journal prompts for teens give young people a tool to process the intensity of their experiences while their brain is still developing the capacity to do so internally.",
-      "Dr. Jean Twenge's research shows that today's teens face unprecedented levels of social comparison, academic pressure, and digital overwhelm. Journal prompts for teens provide a rare screen-free space for authentic self-expression — helping them develop emotional vocabulary, practice perspective-taking, and build the self-awareness that forms the foundation of healthy adult identity.",
+      'Friends, school, family expectations, and plans for the future can all give you something to write about. These journal prompts offer starting points for describing a situation in your own words. You can explore a question without having to settle on a final answer about who you are.',
+      'A list, a sketch, or a few sentences can be enough. Choose which details you want to record and which you would rather leave private. If an adult is using these prompts in a group, they should explain who will read the work and allow less personal alternatives.',
     ],
     howToUse: [
-      "Browse the prompts and pick one that feels relevant — skip anything that feels forced.",
-      "Write honestly. This journal is for you, not for teachers, parents, or social media.",
+      'Browse the prompts and pick one that feels relevant — skip anything that feels forced.',
+      'Write honestly. This journal is for you, not for teachers, parents, or social media.',
       "There's no right answer and no wrong length. One sentence counts. So does five pages.",
-      "Try revisiting older entries occasionally — it's powerful to see how you've changed.",
-      "If a prompt brings up something heavy, talk to someone you trust. Journaling is a starting point, not the whole solution.",
+      'Revisit an older entry if you want to compare what you thought then with what you think now.',
+      'If a prompt brings up something heavy, talk to someone you trust. Journaling is a starting point, not the whole solution.',
     ],
     psychologySource:
-      "Based on adolescent identity development by Erik Erikson, digital well-being research by Dr. Jean Twenge, and self-determination theory by Deci & Ryan.",
+      'Keep sharing optional. For classroom or family use, agree on privacy before writing and offer a different question when a prompt feels too personal.',
     faqs: [
       {
-        question: "Why should teens journal?",
+        question: 'Why should teens journal?',
         answer:
-          "Journaling helps teens process complex emotions, develop self-awareness, and build communication skills during a critical period of brain development. It provides a private, non-judgmental space to explore identity, work through social challenges, and develop the reflective capacity that supports healthy decision-making.",
+          'A journal is a place to record a day, try out an idea, or describe something you have not decided how to talk about. Prompts provide a starting question. You can use them for personal reflection or simply because you enjoy writing.',
       },
       {
-        question: "How can I encourage a teen to start journaling?",
+        question: 'How can I encourage a teen to start journaling?',
         answer:
-          "Don't force it. Offer it as a tool, not a chore. Let them choose their own journal and writing tools. Start with creative or fun prompts rather than heavy emotional ones. Model journaling yourself. Most importantly, guarantee their privacy — teens need to know their journal won't be read without permission.",
+          'Offer journaling as an option, not a duty. Let the teen choose the format and begin with creative or everyday topics. Discuss privacy honestly, including any safety responsibilities, and do not require personal entries to be shared.',
       },
       {
         question: "What if a teen doesn't like writing?",
@@ -373,15 +402,15 @@ export const scenes: SceneConfig[] = [
           "Journaling doesn't have to mean paragraphs. Teens can use bullet points, voice memos, drawings, collages, or even single-word responses. Some teens prefer digital journaling through apps. The goal is self-expression, not writing practice. Meet them in whatever medium feels natural.",
       },
       {
-        question: "Are these prompts appropriate for all teens?",
+        question: 'Are these prompts appropriate for all teens?',
         answer:
-          "These prompts are designed for teens aged 13-18 and cover a range of depths. Some are light and fun, others go deeper into identity and emotions. We recommend starting with lighter prompts and letting teens choose their own level of depth. Parents and educators can preview prompts to ensure they're appropriate for specific developmental stages.",
+          'Not every question will suit every teen. This collection covers school, identity, relationships, and everyday experiences at different levels of depth. Let the teen skip questions; parents and educators should preview material for their specific situation.',
       },
       {
         question:
-          "Can journaling help teens with social media and comparison issues?",
+          'Can journaling help teens with social media and comparison issues?',
         answer:
-          "Yes. Journaling helps teens develop internal validation rather than relying on external metrics like likes and followers. Prompts that explore identity, values, and authentic self-expression can counteract the curated perfection of social media by grounding teens in who they really are.",
+          'A prompt can invite a teen to describe how they feel after using social media, what they notice about comparison, or a boundary they want to try. It is a reflection exercise, not a guarantee of improved confidence or a solution to harmful online experiences.',
       },
       {
         question: "Should parents read their teen's journal?",
@@ -389,346 +418,382 @@ export const scenes: SceneConfig[] = [
           "No, unless the teen invites you to or there's a genuine safety concern. Privacy is essential for honest self-expression. If you're worried about your teen, have direct, caring conversations instead. Reading a teen's journal without permission can damage trust and make them stop journaling altogether.",
       },
     ],
-    relatedScenes: ["journal-prompts-for-high-school", "journal-prompts-for-middle-school", "self-discovery-journal-prompts", "deep-journal-prompts", "shadow-work-journal-prompts", "fun-journal-prompts"],
-    emoji: "🎯",
-    defaultMood: "curious",
+    relatedScenes: [
+      'journal-prompts-for-high-school',
+      'journal-prompts-for-middle-school',
+      'self-discovery-journal-prompts',
+      'deep-journal-prompts',
+      'shadow-work-journal-prompts',
+      'fun-journal-prompts',
+    ],
+    emoji: '🎯',
+    defaultMood: 'curious',
   },
   {
-    slug: "self-discovery-journal-prompts",
-    promptScene: "self-discovery",
-    title: "Self-Discovery",
-    h1: "Self Discovery Journal Prompts",
-    metaTitle:
-      "Self Discovery Journal Prompts for Personal Growth",
+    slug: 'self-discovery-journal-prompts',
+    promptScene: 'self-discovery',
+    title: 'Self-Discovery',
+    h1: 'Self Discovery Journal Prompts',
+    metaTitle: 'Self Discovery Journal Prompts for Personal Growth',
     metaDescription:
-      "Uncover who you really are with self discovery journal prompts. Smart matching helps you explore values, identity, purpose, and personal growth.",
+      'Explore 30 self discovery journal prompts about values, interests, and choices. Record a specific experience, ask a question, and reflect at your own pace.',
     heroSubtitle:
-      "Peel back the layers and uncover your authentic self with prompts designed to explore your values, desires, fears, and hidden strengths.",
-    whyTitle: "Why Self Discovery Journal Prompts Reveal Your True Self",
+      'Explore your values, interests, and choices through a specific experience. You can leave questions open and revisit your answers another day.',
+    whyTitle: 'Explore Values with Self Discovery Journal Prompts',
     whyContent: [
-      "Most people operate on autopilot, making decisions based on inherited beliefs and unchecked assumptions. Self discovery journal prompts interrupt this pattern by asking questions you've never thought to ask. Dr. Tasha Eurich's research found that only 10-15% of people are truly self-aware, despite 95% believing they are — and the right self discovery journal prompts close that gap.",
-      "Narrative identity research by Dr. Dan McAdams shows that the stories we tell about ourselves shape our behavior, relationships, and life satisfaction. Self discovery journal prompts let you examine those stories, keep the ones that serve you, and rewrite the ones that don't. It's not navel-gazing — it's the foundation of intentional living.",
+      'Self discovery journal prompts give you questions about the choices, interests, and relationships that matter to you. Start with a concrete example: a decision you felt good about, an activity you wanted more time for, or a situation in which you changed your mind.',
+      'You can use an entry to compare what you say matters with how you spent your time, or to consider a choice you have been postponing. Treat what you write as one perspective from today. Returning to an entry later can show where your view has stayed the same or changed.',
     ],
     howToUse: [
-      "Choose prompts that make you slightly uncomfortable — that's often where the richest insights are.",
-      "Write without an agenda. Let the prompt guide you somewhere unexpected.",
-      "Revisit your answers after a few weeks. Growth becomes visible in the distance between entries.",
-      "If a prompt stumps you, write about why it stumps you. That resistance is information.",
-      "Pair self-discovery journaling with conversations — sharing insights with a trusted friend deepens the learning.",
+      'Choose a question you are curious about. Discomfort is not a requirement for a useful entry.',
+      'Write without an agenda. Let the prompt guide you somewhere unexpected.',
+      'Revisit your answers when you want to compare your current perspective with an earlier one.',
+      'If a prompt stumps you, leave it unfinished or try a more concrete question.',
+      'If you want another perspective, discuss an idea with someone you trust without sharing the full entry.',
     ],
     psychologySource:
-      "Based on self-awareness research by Dr. Tasha Eurich, narrative identity by Dr. Dan McAdams, flow theory by Dr. Mihaly Csikszentmihalyi, and values clarification in ACT.",
+      'Your entry is an exploration, not a personality test or a verdict. You can leave a question open and revisit it later.',
     faqs: [
       {
-        question: "What is self-discovery journaling?",
+        question: 'What is self-discovery journaling?',
         answer:
-          "Self-discovery journaling is a reflective practice that uses targeted prompts to explore your values, beliefs, desires, fears, and identity. Unlike free-writing, the prompts guide you toward specific areas of self-exploration, helping you uncover patterns and insights you might miss through ordinary reflection.",
+          'Self-discovery journaling is a reflective practice that uses targeted prompts to explore your values, beliefs, desires, fears, and identity. Unlike free-writing, the prompts guide you toward specific areas of self-exploration, helping you uncover patterns and insights you might miss through ordinary reflection.',
       },
       {
-        question: "How is self-discovery journaling different from regular journaling?",
+        question:
+          'How is self-discovery journaling different from regular journaling?',
         answer:
           "Regular journaling often documents events and feelings as they happen. Self-discovery journaling goes deeper — it asks 'why' and 'what does this mean about who I am?' The prompts are designed to challenge assumptions, reveal blind spots, and help you understand the beliefs driving your behavior.",
       },
       {
         question:
-          "Can self-discovery journaling help me figure out my career path?",
+          'Can self-discovery journaling help me figure out my career path?',
         answer:
-          "Absolutely. Prompts that explore what makes you lose track of time, what environments bring out your best, and what you'd do without financial pressure can reveal vocational interests that standard career assessments miss. It's a tool for understanding what you actually want, not just what seems practical.",
+          'You can use prompts to list interests, working conditions you prefer, and experiences you would like to try. These notes can inform a conversation or a small experiment, such as talking to someone in a field. Journaling cannot tell you which career is right for you.',
       },
       {
-        question: "How long does self-discovery take?",
+        question: 'How long does self-discovery take?',
         answer:
-          "Self-discovery is a lifelong process, not a destination. However, most people experience significant 'aha moments' within the first few weeks of consistent journaling. The value compounds over time as you build a rich archive of self-knowledge to draw on during major life decisions.",
+          'There is no completion date or expected week when an insight should appear. Some entries may clarify a small question, and others may simply record what you are thinking. Use the practice when it is useful rather than measuring it by breakthroughs.',
       },
       {
-        question:
-          "What if I don't like what I discover about myself?",
+        question: "What if I don't like what I discover about myself?",
         answer:
-          "This is a natural and important part of the process. Self-discovery isn't about confirming a flattering self-image — it's about seeing yourself clearly so you can grow. Meeting uncomfortable truths with self-compassion, rather than judgment, is what transforms awareness into change.",
+          'One entry is not a complete or permanent account of who you are. Describe the situation without turning it into a label, and consider what you want to do next. You can pause if the writing becomes harsh or upsetting and seek support for concerns you find difficult to work through alone.',
       },
       {
-        question: "Is self-discovery journaling the same as therapy?",
+        question: 'Is self-discovery journaling the same as therapy?',
         answer:
-          "No, but they complement each other well. Journaling is self-directed and exploratory, while therapy provides professional guidance and evidence-based interventions. Many therapists encourage journaling between sessions as a way to deepen therapeutic work.",
+          'No. These are self-directed questions for exploring preferences and experiences, not therapy or a clinical assessment. If you already work with a therapist, ask whether any of the prompts would be appropriate to discuss with them.',
       },
     ],
-    relatedScenes: ["deep-journal-prompts", "shadow-work-journal-prompts", "self-love-journal-prompts", "journal-prompts-for-mental-health", "mindfulness-journal-prompts", "gratitude-journal-prompts"],
-    emoji: "🔍",
-    defaultMood: "curious",
+    relatedScenes: [
+      'deep-journal-prompts',
+      'shadow-work-journal-prompts',
+      'self-love-journal-prompts',
+      'journal-prompts-for-mental-health',
+      'mindfulness-journal-prompts',
+      'gratitude-journal-prompts',
+    ],
+    emoji: '🔍',
+    defaultMood: 'curious',
   },
   {
-    slug: "self-love-journal-prompts",
-    promptScene: "self-love",
-    title: "Self-Love",
-    h1: "Self Love Journal Prompts",
-    metaTitle:
-      "Self Love Journal Prompts for Confidence & Self Care",
+    slug: 'self-love-journal-prompts',
+    promptScene: 'self-love',
+    title: 'Self-Love',
+    h1: 'Self Love Journal Prompts',
+    metaTitle: 'Self Love Journal Prompts for Confidence & Self Care',
     metaDescription:
-      "Build genuine self-love with journal prompts grounded in self-compassion research. Smart matching for your unique emotional needs.",
+      'Try 30 self love journal prompts about self-kindness, boundaries, and everyday care. Write a thoughtful response to yourself without forcing positive feelings.',
     heroSubtitle:
-      "Cultivate a kinder relationship with yourself through self-love prompts rooted in self-compassion research and authentic acceptance.",
-    whyTitle: "Why Self Love Journal Prompts Actually Work",
+      'Practice writing to yourself with care. Explore everyday needs, boundaries, and small moments of self-kindness without forcing positive affirmations.',
+    whyTitle: 'Write a Kinder Response with Self Love Journal Prompts',
     whyContent: [
-      "Self love journal prompts aren't about affirmations you don't believe or pretending everything is fine. They help you build a relationship with yourself that mirrors the kindness you'd offer a good friend. Dr. Kristin Neff's research at the University of Texas shows that self-compassion — treating yourself with the same care you'd give others — is more strongly linked to well-being than self-esteem.",
-      "The difference matters: self-esteem crumbles during failure, while self-compassion holds steady because it doesn't require you to be special — just human. Self love journal prompts build this muscle by giving you space to acknowledge struggles without drowning in them. Contrary to the myth that self-compassion leads to laziness, Dr. Neff's research demonstrates it actually increases the willingness to try again after failure.",
+      'Self love journal prompts can begin with an ordinary moment: a mistake, a hard conversation, or a day when you needed rest. Describe what happened, then consider what a fair and caring response to yourself could sound like. You do not have to pretend that everything went well.',
+      'A useful entry can stay practical. You might name a need, decide on a boundary, or write one small action you want to take for yourself. Choose words you can honestly stand behind rather than an affirmation you feel obliged to believe.',
     ],
     howToUse: [
-      "Notice your inner dialogue before you start writing. What tone does it take? Then choose a prompt that offers balance.",
+      'Notice your inner dialogue before you start writing. What tone does it take? Then choose a prompt that offers balance.',
       "Write to yourself the way you'd write to someone you love. If that feels foreign, notice that gap — it's information.",
-      "Focus on small, specific moments of self-kindness rather than grand declarations of self-love.",
-      "If resistance comes up (thoughts like 'this is selfish' or 'I don't deserve this'), write about the resistance itself.",
-      "Practice regularly — self-love is built through repetition, not single breakthroughs.",
+      'Focus on small, specific moments of self-kindness rather than grand declarations of self-love.',
+      'If a question brings up resistance, you can name it briefly, choose a neutral question, or stop.',
+      'Return when you want to reflect; you do not have to produce a breakthrough or a positive entry.',
     ],
     psychologySource:
-      "Based on self-compassion research by Dr. Kristin Neff (UT Austin), shame resilience by Dr. Brene Brown, and self-acceptance in humanistic psychology by Carl Rogers.",
+      'Kindness does not require a positive mood. Use language that feels honest, and skip questions that make you feel pressured or judged.',
     faqs: [
       {
-        question: "What is self-love journaling?",
+        question: 'What is self-love journaling?',
         answer:
-          "Self-love journaling is a structured practice of writing prompts that help you develop a kinder, more accepting relationship with yourself. It's grounded in self-compassion research and focuses on recognizing your worth, acknowledging your struggles with kindness, and building internal validation rather than depending on external approval.",
+          'Self-love journaling uses questions about how you treat yourself, what you need, and where you want to set boundaries. You can write a caring response to a difficult moment or record a small action you want to take for yourself.',
       },
       {
         question: "Isn't self-love just being narcissistic?",
         answer:
-          "No. Research clearly distinguishes self-love (self-compassion) from narcissism. Narcissism involves an inflated sense of superiority over others. Self-compassion involves treating yourself with the same kindness you'd offer anyone, especially during difficult times. It actually increases empathy and connection with others.",
+          'In this collection, self-love means considering your needs and treating yourself with care while respecting other people. You do not need to compare your worth with anyone else or use a personality label to try these questions.',
       },
       {
-        question: "How can journaling help with negative self-talk?",
+        question: 'How can journaling help with negative self-talk?',
         answer:
-          "Journaling makes your inner dialogue visible. When you write down negative self-talk, you can examine it objectively and ask: 'Would I say this to a friend?' This awareness is the first step toward change. Over time, writing compassionate responses rewires the automatic self-criticism pattern.",
-      },
-      {
-        question: "How long does it take to build self-love through journaling?",
-        answer:
-          "Self-love is a practice, not a switch. Most people notice shifts in their inner dialogue within 2-4 weeks of regular journaling. Deeper changes in self-perception typically emerge over 2-3 months. The key is consistency and genuine engagement with the prompts, not just going through the motions.",
-      },
-      {
-        question: "Can self-love journaling help with body image?",
-        answer:
-          "Yes. Prompts that focus on body gratitude, function over appearance, and challenging internalized beauty standards can meaningfully shift your relationship with your body. Research in feminist therapy shows that written exercises exploring body image improve body satisfaction and reduce appearance-based anxiety.",
+          "You can write down a critical thought and consider a more specific, fair response. For example, separate 'I missed a deadline' from a sweeping judgment about your worth. The exercise offers a different way to phrase an experience; it does not promise to change automatic thoughts.",
       },
       {
         question:
-          "What if I feel uncomfortable with self-love prompts?",
+          'How long does it take to build self-love through journaling?',
         answer:
-          "Discomfort is normal and expected, especially if you're not used to being kind to yourself. The discomfort itself is valuable — it reveals internalized beliefs about your worthiness. Start with lighter prompts and gradually work toward deeper ones. The discomfort usually softens with practice.",
+          'There is no fixed timeline. You might find a particular question useful today, or decide that another kind of writing suits you better. Look for responses that feel honest and practical instead of expecting a change after a set number of weeks.',
+      },
+      {
+        question: 'Can self-love journaling help with body image?',
+        answer:
+          'You can use a prompt to consider comfort, care, or boundaries around appearance-related comments. You do not have to feel grateful for your body or write about appearance. If body image concerns are distressing or affect daily life, seek qualified support.',
+      },
+      {
+        question: 'What if I feel uncomfortable with self-love prompts?',
+        answer:
+          'You do not have to push through discomfort or interpret it as progress. Choose a more neutral question, such as what would make today easier, or take a break. You decide whether this style of reflection is helpful for you.',
       },
     ],
-    relatedScenes: ["gratitude-journal-prompts", "self-discovery-journal-prompts", "mindfulness-journal-prompts", "morning-journal-prompts", "journal-prompts-for-mental-health", "deep-journal-prompts"],
-    emoji: "💗",
-    defaultMood: "reflective",
+    relatedScenes: [
+      'gratitude-journal-prompts',
+      'self-discovery-journal-prompts',
+      'mindfulness-journal-prompts',
+      'morning-journal-prompts',
+      'journal-prompts-for-mental-health',
+      'deep-journal-prompts',
+    ],
+    emoji: '💗',
+    defaultMood: 'reflective',
   },
   {
-    slug: "mindfulness-journal-prompts",
-    promptScene: "mindfulness",
-    title: "Mindfulness",
-    h1: "Mindfulness Journal Prompts",
-    metaTitle:
-      "Mindfulness Journal Prompts for Inner Peace",
+    slug: 'mindfulness-journal-prompts',
+    promptScene: 'mindfulness',
+    title: 'Mindfulness',
+    h1: 'Mindfulness Journal Prompts',
+    metaTitle: 'Mindfulness Journal Prompts for Everyday Awareness',
     metaDescription:
-      "Ground yourself in the present with mindfulness journal prompts based on MBSR research. Matched prompts for awareness, calm, and clarity.",
+      'Explore 30 mindfulness journal prompts for noticing sounds, sensations, and everyday moments. Try a short observation exercise and write at your own pace.',
     heroSubtitle:
-      "Anchor yourself in the present moment with mindfulness prompts that combine the science of MBSR with the reflective power of journaling.",
-    whyTitle: "Why Mindfulness Journal Prompts Ground You",
+      'Describe what you notice right now: a sound, a sensation, or a passing thought. Start with one observation and let a short entry be enough.',
+    whyTitle: 'Start with an Observation in Mindfulness Journaling',
     whyContent: [
-      "Dr. Jon Kabat-Zinn, the creator of Mindfulness-Based Stress Reduction (MBSR), defines mindfulness as 'paying attention, on purpose, in the present moment, non-judgmentally.' Mindfulness journal prompts extend this practice onto the page — instead of observing your breath, you observe your thoughts, sensations, and surroundings through writing.",
-      "Research shows that mindfulness practices reduce cortisol levels, lower blood pressure, and decrease activity in the amygdala (the brain's fear center). When you combine mindfulness with journaling, you get the benefits of both: present-moment awareness and cognitive processing. Mindfulness journal prompts are particularly effective for people who find sitting meditation difficult.",
+      'Mindfulness journal prompts on this page ask you to describe your present experience. You might note the sound outside your window, the temperature of a drink, or where your attention wandered. There is no need to empty your mind or produce an insightful answer.',
+      'Try separating an observation from a judgment: write what you heard or felt before deciding what it means. If noticing your body or thoughts feels uncomfortable, choose something neutral around you or stop. The page is a writing exercise, not a mindfulness treatment program.',
     ],
     howToUse: [
-      "Take three slow breaths before you begin writing. Arrive in the present moment first.",
-      "Choose a prompt and write in present tense — describe what is, not what was or might be.",
-      "Engage your senses. The best mindfulness writing is grounded in physical sensations, not abstract thoughts.",
-      "Write slowly and deliberately. This is not a race to fill a page.",
-      "If your mind wanders while writing, note where it went — that's valuable data, not a failure.",
+      'Choose a comfortable place and notice one neutral detail around you before writing.',
+      'Choose a prompt and write in present tense — describe what is, not what was or might be.',
+      'Try describing a sound, sight, or texture. You can choose an external observation instead of focusing on your body.',
+      'Write slowly and deliberately. This is not a race to fill a page.',
+      'If your attention moves elsewhere, you can write down what you noticed or return to the question.',
     ],
     psychologySource:
-      "Based on Mindfulness-Based Stress Reduction (MBSR) by Dr. Jon Kabat-Zinn, mindful awareness research at UCLA, and interoception research by Dr. A.D. Craig.",
+      'One neutral observation is enough. You do not need to feel calm, focus on your breathing, or continue an exercise that feels uncomfortable.',
     faqs: [
       {
-        question: "What is mindfulness journaling?",
+        question: 'What is mindfulness journaling?',
         answer:
-          "Mindfulness journaling combines mindfulness meditation principles with reflective writing. Instead of clearing your mind, you observe your thoughts, sensations, and environment through writing prompts. It's a way to practice present-moment awareness that many people find more accessible than silent meditation.",
-      },
-      {
-        question: "How is mindfulness journaling different from regular journaling?",
-        answer:
-          "Regular journaling often focuses on narrating events or processing emotions from the past. Mindfulness journaling focuses specifically on present-moment experience — what you're sensing, feeling, and thinking right now. It trains attention and awareness rather than analysis.",
-      },
-      {
-        question: "Can mindfulness journaling reduce anxiety?",
-        answer:
-          "Yes. Anxiety lives in the future — 'what if' thinking. Mindfulness journaling anchors you in the present, which naturally reduces anxious thoughts. Research shows that mindfulness practices decrease amygdala reactivity and increase prefrontal cortex activity, directly counteracting the neural patterns of anxiety.",
-      },
-      {
-        question: "Do I need meditation experience to try mindfulness journaling?",
-        answer:
-          "Not at all. Mindfulness journaling is actually a great entry point for people who find sitting meditation challenging. The act of writing gives your mind something to do, making it easier to stay focused. Many meditation teachers recommend journaling as a stepping stone to formal practice.",
-      },
-      {
-        question: "How long should a mindfulness journaling session last?",
-        answer:
-          "Start with 5-10 minutes. The quality of attention matters more than the duration. A focused 5-minute session where you're truly present is more valuable than 30 minutes of distracted writing. You can gradually extend the time as your mindfulness muscle develops.",
+          'Mindfulness journaling is writing about what you notice in the present moment, such as sounds, sensations, surroundings, or thoughts. These prompts offer a starting point for observation without requiring meditation experience.',
       },
       {
         question:
-          "When is the best time for mindfulness journaling?",
+          'How is mindfulness journaling different from regular journaling?',
         answer:
-          "Any time you feel disconnected from the present moment. Many people find it helpful during transitions — between meetings, after arriving home, or before bed. Morning mindfulness journaling can set a grounded tone for the day, while evening sessions help you decompress and let go.",
+          'A regular journal can cover past events, plans, or any other topic. Mindfulness journaling puts attention on what you notice now. You might record a sound or a passing thought instead of explaining an entire day.',
+      },
+      {
+        question: 'Can mindfulness journaling reduce anxiety?',
+        answer:
+          'These questions invite present-moment observation; they do not treat anxiety or guarantee calm. If inward attention feels uncomfortable, you can describe a neutral object around you or stop. Seek qualified support for anxiety that is persistent or affects your daily life.',
+      },
+      {
+        question:
+          'Do I need meditation experience to try mindfulness journaling?',
+        answer:
+          'No. Start with a simple question about something you can notice, such as a sound or an object nearby. You do not need to clear your mind, meditate, or follow a breathing practice to write a short answer.',
+      },
+      {
+        question: 'How long should a mindfulness journaling session last?',
+        answer:
+          'Try one observation or a few minutes. You can continue if you want to, but there is no required duration and no need to compare a short session with a longer one.',
+      },
+      {
+        question: 'When is the best time for mindfulness journaling?',
+        answer:
+          'Try a moment that fits your routine: between tasks, after arriving home, or before bed. Choose one thing you can observe and write a short note about it. There is no required time of day.',
       },
     ],
-    relatedScenes: ["morning-journal-prompts", "gratitude-journal-prompts", "journal-prompts-for-mental-health", "self-love-journal-prompts", "daily-journal-prompts", "deep-journal-prompts"],
-    emoji: "🧘",
-    defaultMood: "reflective",
+    relatedScenes: [
+      'morning-journal-prompts',
+      'gratitude-journal-prompts',
+      'journal-prompts-for-mental-health',
+      'self-love-journal-prompts',
+      'daily-journal-prompts',
+      'deep-journal-prompts',
+    ],
+    emoji: '🧘',
+    defaultMood: 'reflective',
   },
   {
-    slug: "morning-journal-prompts",
-    promptScene: "morning",
-    title: "Morning",
-    h1: "Morning Journal Prompts",
-    metaTitle:
-      "Morning Journal Prompts to Start Your Day Right",
+    slug: 'morning-journal-prompts',
+    promptScene: 'morning',
+    title: 'Morning',
+    h1: 'Morning Journal Prompts',
+    metaTitle: 'Morning Journal Prompts to Start Your Day Right',
     metaDescription:
-      "Start your day with purpose using morning journal prompts. Smart prompt matching to set intentions, boost clarity, and build momentum.",
+      'Try 30 morning journal prompts to note a priority, check in with yourself, or plan your day. Write a few sentences and adapt the routine to your schedule.',
     heroSubtitle:
-      "Start each morning with clarity and purpose using prompts designed to set intentions, clear mental clutter, and energize your day.",
-    whyTitle: "Why Morning Journal Prompts Set Your Day",
+      'Start your morning with a few lines about what is on your mind and what matters today. Choose a question and make a small, practical plan.',
+    whyTitle: 'Make a Small Plan with Morning Journal Prompts',
     whyContent: [
-      "Your brain is in a unique state during the first 30-60 minutes after waking — theta and alpha brainwave activity is elevated, creating a window of heightened creativity and reduced mental resistance. Morning journal prompts tap into this window, which is why Julia Cameron's famous 'Morning Pages' practice has helped millions access their creative and reflective potential.",
-      "Research on implementation intentions by Peter Gollwitzer shows that people who use morning journal prompts to write down specific intentions are 2-3 times more likely to follow through compared to those who simply think about them. Morning journal prompts front-load self-awareness — before the reactive demands of the day take over, you proactively choose what matters.",
+      'A morning journal prompt can give you a moment to decide what you want to pay attention to today. You might name one priority, note how much time you have, or record something left on your mind from yesterday. The entry can be a few lines alongside your usual morning routine.',
+      'Make an intention concrete enough to use: what will you do, and when could it fit? You can also write about a likely obstacle and a smaller alternative. This creates a written plan to refer to; it does not guarantee that the day will go as expected.',
     ],
     howToUse: [
-      "Journal before checking your phone or email. Protect the morning window of clarity.",
-      "Keep your journal by your bed or coffee station — remove friction from the habit.",
-      "Write for 5-10 minutes. Morning journaling works best when it's brief and focused.",
-      "Alternate between intention-setting prompts (looking forward) and awareness prompts (how you feel right now).",
+      'If it suits your routine, try writing before email or social media so you have a moment for your own notes.',
+      'Keep your journal by your bed or coffee station — remove friction from the habit.',
+      'Try a few sentences or five minutes, and adjust the length to the morning you actually have.',
+      'Alternate between intention-setting prompts (looking forward) and awareness prompts (how you feel right now).',
       "Don't overthink it — morning journaling is about capturing honest first thoughts, not polished writing.",
     ],
     psychologySource:
-      "Based on Morning Pages by Julia Cameron, implementation intentions research by Peter Gollwitzer, and circadian neuroscience research on morning cognition.",
+      'There is no special hour you need to catch. Write when your day begins, and adapt the routine to your sleep, work, and family schedule.',
     faqs: [
       {
-        question: "What should I write in a morning journal?",
+        question: 'What should I write in a morning journal?',
         answer:
-          "Morning journals work best when they combine awareness (how you feel right now, what you dreamed about) with intention (what matters today, how you want to show up). Some people also include a quick gratitude note. The key is capturing your authentic morning state before the day's agenda takes over.",
+          'Try a note about how you feel, one priority for the day, or a question you want to think about. You could also record a dream or a moment you appreciate. Choose one topic rather than trying to include everything each morning.',
       },
       {
-        question: "How early do I need to wake up for morning journaling?",
+        question: 'How early do I need to wake up for morning journaling?',
         answer:
           "You don't need to wake up extra early. Five minutes before your normal routine begins is enough. The goal is to journal before consuming external input (news, email, social media), not necessarily at dawn. Even journaling over your first cup of coffee counts.",
       },
       {
-        question: "What's the difference between morning pages and morning journaling?",
+        question:
+          "What's the difference between morning pages and morning journaling?",
         answer:
           "Julia Cameron's Morning Pages are a specific practice: three pages of stream-of-consciousness writing every morning. Morning journaling is broader — it can include prompted reflection, intention-setting, gratitude, or any structured writing done in the morning. Both are valuable; choose the format that suits your style.",
       },
       {
-        question: "Can morning journaling replace meditation?",
+        question: 'Can morning journaling replace meditation?',
         answer:
-          "They serve different purposes but can complement each other. Meditation trains focused attention and awareness. Morning journaling trains reflective thinking and intention-setting. Many people find that journaling after a short meditation combines the benefits of both practices.",
+          'Writing and meditation are different activities. You can use a prompt to plan or reflect without needing to meditate first. Choose the activity that fits what you want to do that morning; this page does not offer a substitute for a clinical program.',
       },
       {
         question: "What if I'm not a morning person?",
         answer:
-          "Morning journaling still works even if you're groggy. In fact, the slightly unfocused morning state can produce more honest, less filtered writing. Keep it short (3-5 minutes) and simple. If mornings truly don't work, try journaling at whatever transition point starts your 'real' day.",
+          'Try a brief note later in the morning or at another transition in your day. You do not need to wake up earlier or write while tired. Evening or daily prompts are other options if mornings do not suit you.',
       },
       {
-        question: "How long before I see benefits from morning journaling?",
+        question: 'How long before I see benefits from morning journaling?',
         answer:
-          "Most people report feeling more focused and intentional within the first week. Deeper benefits — better self-awareness, reduced morning anxiety, clearer decision-making — typically emerge after 2-4 weeks of consistent practice. The habit itself becomes rewarding quickly.",
+          'There is no promised timeline. After a few entries, you can review whether the questions helped you record priorities or remember what was on your mind. Adjust the routine based on that experience rather than expecting a particular change within a week or month.',
       },
     ],
-    relatedScenes: ["daily-journal-prompts", "mindfulness-journal-prompts", "gratitude-journal-prompts", "self-love-journal-prompts", "fun-journal-prompts", "journal-prompts-for-mental-health"],
-    emoji: "🌅",
-    defaultMood: "energized",
+    relatedScenes: [
+      'daily-journal-prompts',
+      'mindfulness-journal-prompts',
+      'gratitude-journal-prompts',
+      'self-love-journal-prompts',
+      'fun-journal-prompts',
+      'journal-prompts-for-mental-health',
+    ],
+    emoji: '🌅',
+    defaultMood: 'energized',
   },
   {
-    slug: "fun-journal-prompts",
-    promptScene: "fun",
-    title: "Fun",
-    h1: "Fun Journal Prompts",
-    metaTitle:
-      "Fun Journal Prompts: Creative Ideas for Any Mood",
+    slug: 'fun-journal-prompts',
+    promptScene: 'fun',
+    title: 'Fun',
+    h1: 'Fun Journal Prompts',
+    metaTitle: 'Fun Journal Prompts: Creative Ideas for Any Mood',
     metaDescription:
-      "Lighten up your journal with fun, creative, and playful prompts. Smart matching for when you want to write without pressure and just enjoy it.",
+      'Browse 30 fun journal prompts for playful stories, imaginary situations, and creative lists. Pick a free idea to write about without needing a serious topic.',
     heroSubtitle:
-      "Because journaling should sometimes just be fun. Playful, creative, no-pressure prompts for when you want to write and actually enjoy it.",
-    whyTitle: "Why Fun Journal Prompts Are Secretly Powerful",
+      'Because journaling should sometimes just be fun. Playful, creative, no-pressure prompts for when you want to write and actually enjoy it.',
+    whyTitle: 'Use Fun Journal Prompts to Play with an Idea',
     whyContent: [
-      "Not every journal entry needs to be deep or therapeutic. Research on positive emotions by Dr. Barbara Fredrickson shows that experiences of joy, amusement, and playfulness broaden your cognitive resources, build psychological resilience, and undo the physiological effects of stress. Fun journal prompts create these positive emotional experiences through creative expression.",
-      "Fun journal prompts also activate divergent thinking — the cognitive process behind creativity and problem-solving. When you write a fake restaurant menu or imagine a conversation with your pet, you're strengthening the same neural pathways used for innovation, flexible thinking, and lateral problem-solving in other areas of life.",
+      'A journal entry does not have to explain your feelings or solve a problem. Fun prompts invite you to invent a character, imagine an unlikely situation, or make an amusing list. You can write for enjoyment without finding a lesson in the result.',
+      'Try answering with the first playful idea that comes to mind. A fake restaurant menu, a conversation with a pet, or a made-up holiday can become a few lines, a sketch, or a longer story. You decide when the activity is finished and whether to share it.',
     ],
     howToUse: [
       "Drop all expectations of 'good writing.' Fun prompts are about play, not performance.",
-      "Set a timer for 10 minutes and write without stopping — the sillier, the better.",
-      "Share your responses with friends or family if you want — fun prompts make great conversation starters.",
-      "Use fun prompts on days when serious journaling feels like too much. They keep the habit alive without the heaviness.",
-      "Combine fun prompts with creative materials — colored pens, doodles, or voice memos add another layer of playfulness.",
+      'Set a timer for 10 minutes and write without stopping — the sillier, the better.',
+      'Share your responses with friends or family if you want — fun prompts make great conversation starters.',
+      'Use fun prompts on days when serious journaling feels like too much. They keep the habit alive without the heaviness.',
+      'Combine fun prompts with creative materials — colored pens, doodles, or voice memos add another layer of playfulness.',
     ],
     psychologySource:
-      "Based on the broaden-and-build theory by Dr. Barbara Fredrickson, divergent thinking research, and play theory by Dr. Stuart Brown.",
+      'Keep the activity optional and low pressure. A silly answer is enough; it does not have to reveal anything about you or improve a skill.',
     faqs: [
       {
-        question: "Can fun journal prompts actually be beneficial?",
+        question: 'Can fun journal prompts actually be beneficial?',
         answer:
-          "Absolutely. Research shows that playful activities reduce cortisol, build creative thinking skills, and increase emotional resilience. Fun journaling keeps your writing habit alive on days when heavy reflection feels like too much. It also reveals surprising things about your personality and preferences.",
+          'They give you an enjoyable starting point for a story, a list, or an imaginary situation. That can be useful when you want to write without a serious topic. You do not need to justify a playful entry with a health or productivity benefit.',
       },
       {
-        question: "Are fun prompts appropriate for adults?",
+        question: 'Are fun prompts appropriate for adults?',
         answer:
-          "Yes! Play isn't just for children. Dr. Stuart Brown's research shows that adults who maintain playful activities in their lives report greater life satisfaction, creativity, and stress resilience. Fun journaling is a legitimate adult wellness practice — not a juvenile one.",
+          'Yes. Adults can use imaginative or humorous prompts for their own enjoyment. Adapt the situation to your interests, or use it as a starting point for a story rather than a personal reflection.',
       },
       {
-        question: "How can I use fun prompts with a journaling group?",
+        question: 'How can I use fun prompts with a journaling group?',
         answer:
-          "Fun prompts are perfect for groups. Choose a prompt, give everyone 5-10 minutes to write, then share responses. The playful nature lowers the vulnerability barrier that can make group journaling intimidating. It builds connection through shared laughter and creativity.",
+          'Offer a few prompts, give people a short period to write, and invite sharing without requiring it. Explain who will see the responses and let participants choose a different question if they prefer.',
       },
       {
-        question: "Can kids use these fun prompts too?",
+        question: 'Can kids use these fun prompts too?',
         answer:
-          "Most fun prompts work well for ages 8 and up. Younger children might need slight simplification. Fun prompts are actually a great way to introduce kids to journaling because they remove the pressure of 'getting it right' and make writing feel like a game.",
+          'An adult should preview each question for the individual child. For material selected specifically for younger writers, start with the kids collection. A child can draw or tell a story instead of writing a full response.',
       },
       {
-        question:
-          "What if I can't think of creative responses?",
+        question: "What if I can't think of creative responses?",
         answer:
-          "That's the beauty of fun prompts — there are no wrong answers. Write the first thing that comes to mind, even if it's absurd. Creativity research shows that lowering your standards initially actually produces more creative output. Let yourself be silly and imperfect.",
+          'Start with one simple or deliberately silly answer. You can borrow a familiar setting, make a short list, or draw something. There is no need to be original, funny, or polished for the activity to count.',
       },
       {
-        question:
-          "How often should I use fun prompts vs. serious ones?",
+        question: 'How often should I use fun prompts vs. serious ones?',
         answer:
-          "There's no formula, but a good rhythm is to mix fun prompts in 1-2 times per week alongside deeper ones. Think of it like a workout routine — you need recovery days. Fun prompts are the journaling equivalent of a light, enjoyable workout that still builds the habit.",
+          'Choose whichever kind of question you want to answer today. You can write playful entries every time, mix them with personal reflection, or take a break. There is no required ratio of fun to serious writing.',
       },
     ],
-    relatedScenes: ["journal-prompts-for-kids", "daily-journal-prompts", "journal-prompts-for-teens", "morning-journal-prompts", "gratitude-journal-prompts", "journal-prompts-for-middle-school"],
-    emoji: "🎨",
-    defaultMood: "energized",
+    relatedScenes: [
+      'journal-prompts-for-kids',
+      'daily-journal-prompts',
+      'journal-prompts-for-teens',
+      'morning-journal-prompts',
+      'gratitude-journal-prompts',
+      'journal-prompts-for-middle-school',
+    ],
+    emoji: '🎨',
+    defaultMood: 'energized',
   },
   {
-    slug: "deep-journal-prompts",
-    promptScene: "deep",
-    title: "Deep",
-    h1: "Deep Journal Prompts",
-    metaTitle:
-      "Deep Journal Prompts for Meaningful Reflection",
+    slug: 'deep-journal-prompts',
+    promptScene: 'deep',
+    title: 'Deep',
+    h1: 'Deep Journal Prompts',
+    metaTitle: 'Deep Journal Prompts for Meaningful Reflection',
     metaDescription:
-      "Challenge yourself with deep journal prompts that explore identity, mortality, purpose, and meaning. Smart matching for profound self-reflection.",
+      'Explore 30 deep journal prompts about values, identity, relationships, and meaning. Choose a question, write at your own pace, and leave room for uncertainty.',
     heroSubtitle:
       "Go beyond the surface with prompts that challenge you to explore life's biggest questions — identity, purpose, mortality, and meaning.",
-    whyTitle: "Why Deep Journal Prompts Change How You Think",
+    whyTitle: 'Leave Room for Open Questions with Deep Journal Prompts',
     whyContent: [
-      "Existential psychologist Irvin Yalom identified four 'ultimate concerns' that shape human experience — death, freedom, isolation, and meaninglessness. Deep journal prompts invite you to engage with these themes directly, rather than letting them operate as background anxiety. They confront the questions most people avoid: Who am I really? What am I afraid of? What gives my life meaning?",
-      "Research in transformative learning theory by Jack Mezirow shows that genuine personal growth requires 'disorienting dilemmas' — moments where your existing worldview is challenged. Deep journal prompts create these moments safely, on your own terms, in a space where you can explore without social pressure or performance anxiety.",
+      'Deep journal prompts focus on questions about values, identity, relationships, and meaning. You might consider a belief you have changed, a choice you still think about, or what matters to you now. A question can stay open; an entry does not need a final answer.',
+      'Start with a specific situation rather than trying to explain your whole life. You can describe what you thought then, what you think now, and what remains uncertain. Choose how far you want to explore, and leave out details that you do not want to revisit.',
     ],
     howToUse: [
-      "Set aside at least 20 minutes. Deep prompts need space — rushing defeats the purpose.",
-      "Write in a place where you feel safe and uninterrupted. These prompts can surface intense emotions.",
+      'Choose a short period you can comfortably set aside. There is no minimum session length.',
+      'Write in a place where you feel safe and uninterrupted. These prompts can surface intense emotions.',
       "Don't aim for answers. Aim for honesty. The best deep journaling explores questions without forcing conclusions.",
-      "If you feel stuck, write about the stuckness itself. Resistance is often the doorway to insight.",
-      "Follow up deep sessions with something nourishing — a walk, a conversation, or a lighter journaling prompt.",
+      'If you feel stuck, leave the question open or choose a lighter prompt rather than pushing for an insight.',
+      'Follow up deep sessions with something nourishing — a walk, a conversation, or a lighter journaling prompt.',
     ],
     psychologySource:
-      "Based on existential psychology by Irvin Yalom, narrative identity by Dr. Dan McAdams, transformative learning by Jack Mezirow, and meaning-making research by Dr. Viktor Frankl.",
+      'Intensity is not a measure of a good entry. You can stop, switch to a lighter prompt, or seek support without finishing a difficult question.',
     faqs: [
       {
         question: "What makes a journal prompt 'deep'?",
@@ -736,81 +801,87 @@ export const scenes: SceneConfig[] = [
           "Deep prompts go beyond daily events and surface emotions to explore fundamental questions about identity, values, mortality, meaning, and relationships. They challenge assumptions, invite vulnerability, and often don't have simple answers. The depth comes from the willingness to sit with complexity.",
       },
       {
-        question: "Is deep journaling the same as therapy?",
+        question: 'Is deep journaling the same as therapy?',
         answer:
-          "No. Deep journaling is self-directed exploration, while therapy provides professional guidance, diagnostic tools, and evidence-based interventions. However, they complement each other well. Many therapists assign deep journaling between sessions to deepen self-awareness and process therapeutic insights.",
+          'No. These prompts are self-directed reflection questions, not clinical assessment or treatment. If you work with a therapist and want to bring in personal writing, ask them whether the exercise is appropriate for you.',
       },
       {
-        question: "How often should I do deep journaling?",
+        question: 'How often should I do deep journaling?',
         answer:
-          "Once or twice a week is sufficient for most people. Deep journaling is emotionally intensive and requires processing time. Balance it with lighter practices like gratitude or daily reflection. Think of it as strength training — you need recovery between sessions.",
+          'There is no required schedule. Choose a time when you want to reflect and can stop without pressure to finish. You can use lighter prompts, write less often, or leave a question alone.',
       },
       {
-        question: "What if deep journaling makes me feel worse?",
+        question: 'What if deep journaling makes me feel worse?',
         answer:
-          "It's normal to feel temporarily unsettled after deep journaling — you're touching raw material. This discomfort usually passes within a day and is often followed by clarity. However, if distress persists or feels overwhelming, take a break and consider working with a therapist. Deep journaling should challenge you, not harm you.",
+          'Stop the exercise and take a break. You do not need to keep writing, wait a set period for discomfort to pass, or treat distress as evidence of progress. If distress persists, feels overwhelming, or raises safety concerns, seek appropriate professional support.',
       },
       {
-        question: "Can beginners start with deep prompts?",
+        question: 'Can beginners start with deep prompts?',
         answer:
-          "It's better to build a journaling foundation with lighter prompts first. Once you're comfortable with the practice and have developed trust in the process, gradually introduce deeper prompts. Think of it as learning to swim — start in the shallow end before diving deep.",
+          'Yes, if a question feels manageable and you want to explore it. Start with a specific example and leave the entry unfinished if you prefer. Daily or fun prompts are alternatives; you do not have to progress toward more intense writing.',
       },
       {
         question: "How do I know if I'm journaling deeply enough?",
         answer:
-          "If your writing surprises you — if you write something you didn't know you thought — you're going deep enough. Depth isn't about word count or tears. It's about honesty and discovery. If every entry confirms what you already knew, try pushing past your first answer to the question underneath it.",
+          'There is no depth standard to meet. A concrete, honest note can be enough, even if it confirms something you already knew. You do not need tears, a surprising revelation, or a long entry to justify the time spent writing.',
       },
     ],
-    relatedScenes: ["shadow-work-journal-prompts", "self-discovery-journal-prompts", "journal-prompts-for-mental-health", "mindfulness-journal-prompts", "self-love-journal-prompts", "gratitude-journal-prompts"],
-    emoji: "🌊",
-    defaultMood: "reflective",
+    relatedScenes: [
+      'shadow-work-journal-prompts',
+      'self-discovery-journal-prompts',
+      'journal-prompts-for-mental-health',
+      'mindfulness-journal-prompts',
+      'self-love-journal-prompts',
+      'gratitude-journal-prompts',
+    ],
+    emoji: '🌊',
+    defaultMood: 'reflective',
   },
   {
-    slug: "journal-prompts-for-middle-school",
-    promptScene: "middle-school",
-    title: "Middle School",
-    h1: "Journal Prompts for Middle School",
-    metaTitle:
-      "Journal Prompts for Middle School Students",
+    slug: 'journal-prompts-for-middle-school',
+    promptScene: 'middle-school',
+    title: 'Middle School',
+    h1: 'Journal Prompts for Middle School',
+    metaTitle: 'Journal Prompts for Middle School Students',
     metaDescription:
-      "Age-appropriate journal prompts for middle school students that support identity development, peer navigation, and emotional growth.",
+      'Browse 30 journal prompts for middle school about school, friendships, and everyday choices. Find short writing ideas with guidance for teachers and parents.',
     heroSubtitle:
       "Navigate the ups and downs of middle school with journal prompts that get what you're going through — no lectures, just real questions.",
-    whyTitle: "Why Journal Prompts for Middle School Students Matter",
+    whyTitle: 'Make Middle School Journal Prompts Flexible',
     whyContent: [
-      "Middle school (ages 10-14) marks the beginning of 'formal operational thinking' — the ability to think abstractly and reflect on your own thought processes. Journal prompts for middle school help students develop metacognition — thinking about thinking — which research links to better academic performance, emotional regulation, and social skills.",
-      "This age is also when peer relationships become intensely important. Dr. Roy Baumeister's belonging research shows that social exclusion during early adolescence can have lasting effects on self-worth. Journal prompts for middle school give students a private space to process social challenges, build self-awareness, and develop coping strategies without the vulnerability of sharing publicly.",
+      'A middle school journal can hold a short account of the day, a question about friendship, or an idea for a story. These prompts offer specific starting points around school and everyday experiences. Students can choose a question that fits instead of being asked to share their most personal thoughts.',
+      'For classroom use, explain the audience before writing: is the response private, submitted to a teacher, or shared with a group? Offer a fictional or less personal alternative. A short list or drawing can be an option when a paragraph does not fit the student or the activity.',
     ],
     howToUse: [
-      "Start with prompts that are fun or creative — build the habit before going deep.",
-      "Write for 5-10 minutes. Short, consistent sessions work better than occasional long ones.",
-      "Your journal is private — write honestly without worrying about grades or judgment.",
+      'Start with prompts that are fun or creative — build the habit before going deep.',
+      'Try a short session, such as five minutes, with a smaller or longer response available as needed.',
+      'Before writing in a group or class, check who will read the response and choose details you are comfortable recording.',
       "If a prompt doesn't click, skip it and try another. Not every prompt is for everyone.",
-      "Look back at old entries occasionally. You'll be surprised how much you've changed and grown.",
+      'Look back at an earlier entry if you want to compare your experiences or interests over time.',
     ],
     psychologySource:
-      "Based on metacognitive development research, belonging theory by Dr. Roy Baumeister, and social-emotional learning frameworks for early adolescence.",
+      'Preview prompts for the class or individual. Explain who can read the response, keep personal sharing optional, and offer another question when needed.',
     faqs: [
       {
-        question: "Why is journaling good for middle school students?",
+        question: 'Why is journaling good for middle school students?',
         answer:
-          "Middle school is a period of rapid cognitive and emotional development. Journaling helps students process social complexity, develop emotional vocabulary, and build self-awareness during a time when these skills are actively forming. It also improves writing skills as a natural byproduct.",
+          'Prompts give students a starting point for describing an experience, considering a choice, or trying an idea in writing. The activity can be short and optional. It does not need to involve private feelings or promise a change in academic performance.',
       },
       {
         question:
-          "How can teachers incorporate journal prompts in the classroom?",
+          'How can teachers incorporate journal prompts in the classroom?',
         answer:
-          "Start with 5-minute warm-up writes at the beginning of class. Use fun or low-stakes prompts to build the habit. Allow students to choose from 2-3 prompts so they have autonomy. Most importantly, establish clear privacy norms — not every journal entry should be graded or shared.",
+          'Start with 5-minute warm-up writes at the beginning of class. Use fun or low-stakes prompts to build the habit. Allow students to choose from 2-3 prompts so they have autonomy. Most importantly, establish clear privacy norms — not every journal entry should be graded or shared.',
       },
       {
-        question: "What if a student refuses to journal?",
+        question: 'What if a student refuses to journal?',
         answer:
           "Don't force it. Offer alternatives like drawing, bullet points, or dictating to a voice recorder. Some students resist because of writing anxiety, not because they don't want to reflect. Remove the 'wrong answer' pressure by emphasizing that content and grammar won't be graded.",
       },
       {
-        question: "Are these prompts appropriate for 10-14 year olds?",
+        question: 'Are these prompts appropriate for 10-14 year olds?',
         answer:
-          "Yes. These prompts are specifically designed for the middle school developmental stage. They address age-relevant topics like friendships, school stress, growing up, and identity without touching on themes more appropriate for older teens or adults.",
+          'This collection focuses on school, friendships, and everyday choices, but no prompt is suitable for every student. Parents and educators should preview questions and let students choose a less personal or fictional response when needed.',
       },
       {
         question: "How can parents support their middle schooler's journaling?",
@@ -818,51 +889,56 @@ export const scenes: SceneConfig[] = [
           "Provide materials (a cool notebook and pens), create space (time and a quiet spot), and then step back. Don't read their journal without permission, don't critique their writing, and don't ask 'What did you write about?' Instead, model journaling yourself and be available if they want to share.",
       },
       {
-        question:
-          "Can journaling help with middle school bullying?",
+        question: 'Can journaling help with middle school bullying?',
         answer:
-          "Journaling gives bullied students a safe outlet to process their experiences and maintain self-worth. It can also help students who bully examine their behavior's impact. However, journaling alone doesn't stop bullying — it's a coping and reflection tool, not an intervention. Schools need comprehensive anti-bullying programs alongside individual supports.",
+          'A student may want to write down what happened or what they want to tell a trusted adult, but writing does not stop bullying. Involve an appropriate adult or school contact to address the situation and safety concerns instead of relying on a journal as the response.',
       },
     ],
-    relatedScenes: ["journal-prompts-for-teens", "journal-prompts-for-kids", "journal-prompts-for-high-school", "fun-journal-prompts", "daily-journal-prompts", "self-discovery-journal-prompts"],
-    emoji: "📚",
-    defaultMood: "curious",
+    relatedScenes: [
+      'journal-prompts-for-teens',
+      'journal-prompts-for-kids',
+      'journal-prompts-for-high-school',
+      'fun-journal-prompts',
+      'daily-journal-prompts',
+      'self-discovery-journal-prompts',
+    ],
+    emoji: '📚',
+    defaultMood: 'curious',
   },
   {
-    slug: "journal-prompts-for-high-school",
-    promptScene: "high-school",
-    title: "High School",
-    h1: "Journal Prompts for High School",
-    metaTitle:
-      "Journal Prompts for High School Students & Teens",
+    slug: 'journal-prompts-for-high-school',
+    promptScene: 'high-school',
+    title: 'High School',
+    h1: 'Journal Prompts for High School',
+    metaTitle: 'Journal Prompts for High School Students & Teens',
     metaDescription:
-      "Meaningful journal prompts for high school students exploring identity, pressure, and purpose. Smart prompt matching for teens ready to go deep.",
+      'Explore 30 journal prompts for high school about interests, friendships, school, and future plans. Choose a reflection with optional sharing and no grades.',
     heroSubtitle:
-      "Process the pressure, explore your identity, and figure out what actually matters to you — with prompts designed for the high school experience.",
-    whyTitle: "Why Journal Prompts for High School Students Help",
+      'Process the pressure, explore your identity, and figure out what actually matters to you — with prompts designed for the high school experience.',
+    whyTitle: 'Use High School Journal Prompts for Choices and Reflection',
     whyContent: [
-      "The American Psychological Association consistently finds that teens report stress levels higher than adults, yet have fewer developed coping tools. Journal prompts for high school students bridge that gap — addressing academic performance anxiety, social comparison amplified by social media, college admissions stress, and the fundamental question of identity formation.",
-      "Erik Erikson identified the core psychological task of adolescence as 'identity vs. role confusion' — figuring out who you are. Journal prompts for high school provide the reflective space to explore identity questions without the social risk of doing so publicly. It's where students can be honest about confusion, contradiction, and growth.",
+      'High school journal prompts can start a reflection about a class, friendship, decision, or future plan. You might list the options you are considering, describe an experience you want to remember, or note a question to discuss with someone you trust.',
+      'The writing does not have to become an assignment or an application essay. Choose what you want to keep for yourself and what you are comfortable sharing. For a group activity, offer more than one prompt and make the audience clear before anyone starts.',
     ],
     howToUse: [
-      "Choose prompts that feel relevant to your life right now. If nothing fits perfectly, adapt it.",
-      "Write for at least 10 minutes. Give yourself space to get past the surface-level answer.",
-      "Be radically honest. This journal is for you — not your teacher, your parents, or your social media followers.",
-      "Use journaling to process decisions, conflicts, and stress before they build up.",
+      'Choose prompts that feel relevant to your life right now. If nothing fits perfectly, adapt it.',
+      'Begin with a few sentences and write more only if you want to.',
+      'Record only the details you want to keep. For class activities, check who will read your response first.',
+      'Use journaling to process decisions, conflicts, and stress before they build up.',
       "Keep your journal private and respect others' privacy too.",
     ],
     psychologySource:
-      "Based on identity development by Erik Erikson, adolescent stress research by the American Psychological Association, and academic reflection research in educational psychology.",
+      'A personal entry is not a performance or an application requirement. Students should know who can read it and be able to choose less personal material.',
     faqs: [
       {
-        question: "Why should high school students journal?",
+        question: 'Why should high school students journal?',
         answer:
-          "High school is a period of intense identity formation, social complexity, and academic pressure. Journaling provides a private space to process all of this, develop self-awareness, and build coping strategies. It also strengthens writing and critical thinking skills that directly benefit academic performance.",
+          'A journal can be a place to record an experience, organize options, or explore a question without writing a polished essay. Prompts provide a starting point when you do not know what to write. Use the format and level of detail that suit you.',
       },
       {
-        question: "How can journaling help with college application stress?",
+        question: 'How can journaling help with college application stress?',
         answer:
-          "Journaling helps you clarify who you are and what matters to you — which directly feeds into stronger personal essays. It also reduces the anxiety of the admissions process by giving you a private outlet for fears and pressures. Many students find that their journal entries become the raw material for compelling application essays.",
+          "You can list questions about courses, write down experiences you might discuss, or separate your own priorities from other people's expectations. These notes may be useful for planning, but they do not guarantee a stronger application or less anxiety. Seek help from a counselor or trusted adult when needed.",
       },
       {
         question: "What if I don't consider myself a 'journal person'?",
@@ -870,12 +946,12 @@ export const scenes: SceneConfig[] = [
           "Journaling doesn't require a certain personality type. It's simply a tool for thinking on paper. If traditional journaling doesn't appeal to you, try bullet-point reflections, voice memos, or even texting your thoughts to yourself. The format matters less than the practice of regular self-reflection.",
       },
       {
-        question: "How do I find time to journal with a busy schedule?",
+        question: 'How do I find time to journal with a busy schedule?',
         answer:
-          "Start with just 5 minutes — before bed, during a study break, or while eating breakfast. You don't need a dedicated 'journaling hour.' Even brief, consistent sessions build the self-awareness muscle. Many busy students find that journaling actually saves time by helping them think more clearly and stress less.",
+          'Try one sentence during a break or a few minutes at a time that fits your schedule. You can leave an entry unfinished and return later. You do not need to add another demanding task to an already busy day.',
       },
       {
-        question: "Can teachers use these prompts in class?",
+        question: 'Can teachers use these prompts in class?',
         answer:
           "Yes! These prompts work well as warm-up exercises, reflective assignments, or discussion starters. For classroom use, let students choose from multiple prompts and establish that reflective journals won't be graded on content — only participation. This preserves the honesty that makes journaling effective.",
       },
@@ -883,16 +959,23 @@ export const scenes: SceneConfig[] = [
         question:
           "What's the difference between middle school and high school journal prompts?",
         answer:
-          "High school prompts address more complex themes: identity formation, existential questions, relationship depth, future planning, and systemic pressures like college admissions and social media. They assume greater cognitive maturity and invite deeper self-analysis than middle school prompts.",
+          'The high school collection puts more emphasis on future plans, personal priorities, and choices around school and relationships. The middle school collection centers more on everyday school experiences. Preview individual questions rather than using the age label as a guarantee of fit.',
       },
       {
-        question: "How can journaling help with mental health in high school?",
+        question: 'How can journaling help with mental health in high school?',
         answer:
-          "Journaling reduces rumination, improves emotional regulation, and provides an outlet for stress. For high school students dealing with anxiety, depression, or social challenges, journaling creates a safe processing space. It's not a replacement for professional support, but a valuable complement to it.",
+          'A short entry can help a student describe what is happening or prepare what they want to tell a trusted adult. These prompts are not a treatment for anxiety, depression, or other mental health concerns, and should not replace qualified support.',
       },
     ],
-    relatedScenes: ["journal-prompts-for-teens", "journal-prompts-for-middle-school", "self-discovery-journal-prompts", "deep-journal-prompts", "shadow-work-journal-prompts", "daily-journal-prompts"],
-    emoji: "🎓",
-    defaultMood: "reflective",
+    relatedScenes: [
+      'journal-prompts-for-teens',
+      'journal-prompts-for-middle-school',
+      'self-discovery-journal-prompts',
+      'deep-journal-prompts',
+      'shadow-work-journal-prompts',
+      'daily-journal-prompts',
+    ],
+    emoji: '🎓',
+    defaultMood: 'reflective',
   },
 ];

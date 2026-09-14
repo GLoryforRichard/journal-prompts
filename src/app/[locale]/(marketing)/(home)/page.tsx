@@ -1,5 +1,6 @@
 import { SceneFAQ } from '@/components/scene/scene-faq';
-import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
+import { DailyPromptCard } from '@/components/home/daily-prompt-card';
+import { JournalBenefits } from '@/components/home/journal-benefits';
 import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
 import { FocusedPromptLinks } from '@/components/home/focused-prompt-links';
 import { PromptArticleSection } from '@/components/home/focused-prompt-page';
@@ -26,7 +27,7 @@ export async function generateMetadata({
   const { locale } = await params;
 
   return constructMetadata({
-    title: '#1 Journal Prompt Finder | Journal Prompts by Mood',
+    title: 'Daily Journal Prompts to Start a Writing Habit',
     description:
       'Find free journal prompts for mental health, self-discovery, gratitude, daily reflection, and more with our fast journal prompt finder and built-in writing space.',
     locale,
@@ -43,7 +44,7 @@ const homeFaqs = [
   {
     question: 'How does the journal prompt finder work?',
     answer:
-      'Our journal prompt finder uses a curated library of 1,000+ prompts tagged by mood, topic, and writing direction. When you choose how you feel and what you want to explore, we surface the most relevant journal prompts so you can start writing fast.',
+      'Our journal prompt finder uses a library of reflection prompts tagged by mood, topic, and writing direction. When you choose how you feel and what you want to explore, we surface the most relevant journal prompts so you can start writing fast.',
   },
   {
     question: 'Can I use these journal prompts for daily journaling?',
@@ -54,7 +55,7 @@ const homeFaqs = [
     question:
       'Are these journal prompts good for mental health and self-discovery?',
     answer:
-      'They are designed to support emotional awareness, self-reflection, and honest writing. Many prompts are inspired by CBT, mindfulness, expressive writing, and positive psychology. They can support mental health habits, but they are not a replacement for professional care.',
+      'They are designed to support emotional awareness, self-reflection, and honest writing. Use them as writing suggestions, not a diagnosis or treatment. They are not a replacement for professional care.',
   },
   {
     question: 'Is my writing saved?',
@@ -69,7 +70,7 @@ const homeFaqs = [
   {
     question: 'Can I use these prompts for therapy?',
     answer:
-      'While our prompts are grounded in psychology research, they are not a substitute for professional therapy. They can complement therapeutic practices when used alongside professional guidance.',
+      'These are self-directed writing prompts, not therapy. If you work with a therapist, ask whether and how journaling could fit your care.',
   },
 ];
 
@@ -130,7 +131,7 @@ export default async function HomePage(_props: HomePageProps) {
               transform: 'rotate(-1deg)',
             }}
           >
-            Smart Journal Prompt Finder
+            A daily space for reflection
           </div>
           <h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold"
@@ -139,7 +140,7 @@ export default async function HomePage(_props: HomePageProps) {
               color: '#2d2d2d',
             }}
           >
-            Journal Prompt Finder for Every Mood
+            Find your words. Keep your story.
           </h1>
           <p
             className="text-xl md:text-2xl max-w-2xl mx-auto"
@@ -150,12 +151,12 @@ export default async function HomePage(_props: HomePageProps) {
             }}
           >
             {
-              "Find free journal prompts for daily reflection, self-discovery, gratitude, mental health, and more. Tell us how you feel, and we'll match you with the right journal prompt in seconds."
+              'A simple journal for adults who want to reflect but do not know where to start. Choose a prompt, write for five minutes, and return to your thoughts whenever you need.'
             }
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="#prompt-finder"
+              href="#today"
               className="inline-block px-8 py-3 text-lg text-white no-underline transition-all duration-200 cursor-pointer"
               style={{
                 fontFamily: 'var(--font-hand-title)',
@@ -165,7 +166,7 @@ export default async function HomePage(_props: HomePageProps) {
                 boxShadow: '4px 4px 0px 0px #2d2d2d',
               }}
             >
-              Get Your Prompt →
+              Write today's entry →
             </a>
             <a
               href="#topics"
@@ -189,10 +190,10 @@ export default async function HomePage(_props: HomePageProps) {
       <section className="pb-12 px-4">
         <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10">
           {[
-            { icon: BookOpenIcon, text: '1,000+ curated prompts' },
-            { icon: BrainIcon, text: 'Backed by psychology research' },
+            { icon: BookOpenIcon, text: 'Hundreds of writing prompts' },
+            { icon: BrainIcon, text: 'Space for everyday reflection' },
             { icon: SparklesIcon, text: 'Matched to your mood' },
-            { icon: CheckCircleIcon, text: '100% free' },
+            { icon: CheckCircleIcon, text: 'Free to start · No card needed' },
           ].map((item) => (
             <div
               key={item.text}
@@ -210,6 +211,13 @@ export default async function HomePage(_props: HomePageProps) {
         </div>
       </section>
 
+      <DailyPromptCard />
+      <section className="px-4 pt-10 text-center">
+        <h2 className="text-3xl font-bold">Want a different starting point?</h2>
+        <p className="mt-3 text-lg text-muted-foreground">
+          Find a prompt that fits how you feel today.
+        </p>
+      </section>
       <PromptFinder />
 
       <section className="py-12 px-4">
@@ -340,7 +348,7 @@ export default async function HomePage(_props: HomePageProps) {
       </section>
 
       <FocusedPromptLinks />
-      <TestimonialsSection />
+      <JournalBenefits />
 
       {/* FAQ Section */}
       <SceneFAQ faqs={homeFaqs} />

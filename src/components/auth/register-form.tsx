@@ -16,6 +16,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/lib/auth-client';
+import { trackFunnelEvent } from '@/lib/analytics';
+import { getSafeReturnPath } from '@/lib/checkout-flow';
 import { getPathWithLocale } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -44,7 +46,10 @@ export const RegisterForm = ({
   // console.log('register form, propCallbackUrl', propCallbackUrl);
   // console.log('register form, paramCallbackUrl', paramCallbackUrl);
   // console.log('register form, defaultCallbackUrl', defaultCallbackUrl);
-  const callbackUrl = propCallbackUrl || paramCallbackUrl || defaultCallbackUrl;
+  const callbackUrl = getSafeReturnPath(
+    propCallbackUrl || paramCallbackUrl,
+    defaultCallbackUrl
+  );
 
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
@@ -67,8 +72,8 @@ export const RegisterForm = ({
     email: z.email({
       message: t('emailRequired'),
     }),
-    password: z.string().min(1, {
-      message: t('passwordRequired'),
+    password: z.string().min(8, {
+      message: t('minLength'),
     }),
     name: z.string().min(1, {
       message: t('nameRequired'),
@@ -112,7 +117,7 @@ export const RegisterForm = ({
       });
 
       if (!captchaResult?.data?.success || !captchaResult?.data?.valid) {
-        console.error('register, captcha invalid:', values.captchaToken);
+        console.error('register, captcha invalid');
         const errorMessage = captchaResult?.data?.error || t('captchaInvalid');
         setError(errorMessage);
         setIsPending(false);
@@ -144,6 +149,7 @@ export const RegisterForm = ({
           setIsPending(false);
         },
         onSuccess: (ctx) => {
+          trackFunnelEvent('sign_up', { method: 'email' });
           // sign up success, user information stored in ctx.data
           // console.log("register, success:", ctx.data);
 
@@ -203,6 +209,7 @@ export const RegisterForm = ({
                         {...field}
                         disabled={isPending}
                         placeholder="name"
+                        autoComplete="name"
                       />
                     </FormControl>
                     <FormMessage />
@@ -221,6 +228,7 @@ export const RegisterForm = ({
                         disabled={isPending}
                         placeholder="name@example.com"
                         type="email"
+                        autoComplete="email"
                       />
                     </FormControl>
                     <FormMessage />
@@ -241,6 +249,7 @@ export const RegisterForm = ({
                           placeholder="******"
                           type={showPassword ? 'text' : 'password'}
                           className="pr-10"
+                          autoComplete="new-password"
                         />
                         <Button
                           type="button"

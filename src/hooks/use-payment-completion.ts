@@ -20,25 +20,27 @@ export function usePaymentCompletion(
       if (!sessionId) {
         return {
           isPaid: false,
+          isFailed: false,
         };
       }
-      console.log('>>> Check payment completion for sessionId:', sessionId);
       const result = await checkPaymentCompletionAction({ sessionId });
       if (!result?.data?.success) {
-        console.log('<<< Check payment completion error:', result?.data?.error);
         throw new Error(
           result?.data?.error || 'Failed to check payment completion'
         );
       }
 
-      const { isPaid } = result.data;
-      console.log('<<< Check payment completion, paid:', isPaid);
+      const { isPaid, isFailed } = result.data;
       return {
         isPaid,
+        isFailed,
       };
     },
     enabled: !!sessionId,
-    refetchInterval: enablePolling ? PAYMENT_POLL_INTERVAL : false,
+    refetchInterval: (query) =>
+      enablePolling && !query.state.data?.isPaid && !query.state.data?.isFailed
+        ? PAYMENT_POLL_INTERVAL
+        : false,
     refetchIntervalInBackground: true,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,

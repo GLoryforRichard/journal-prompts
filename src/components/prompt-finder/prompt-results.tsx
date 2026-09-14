@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface PromptResultsProps {
   prompts: Prompt[];
@@ -35,40 +37,51 @@ export function PromptResults({
   scene,
 }: PromptResultsProps) {
   const user = useCurrentUser();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const requestedScene = searchParams.get('scene');
+  const callbackUrl =
+    pathname +
+    (requestedScene && /^[a-z0-9-]+$/.test(requestedScene)
+      ? `?scene=${requestedScene}`
+      : '');
   const [aiPrompt, setAiPrompt] = useState<Prompt | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
   const [remainingCount, setRemainingCount] = useState<number | null>(null);
   const [limitReached, setLimitReached] = useState(false);
 
-  const { execute: generateAI, isExecuting } = useAction(generateAIPromptAction, {
-    onSuccess: ({ data }) => {
-      if (data?.success && data.prompt) {
-        const newPrompt: Prompt = {
-          id: `ai-${Date.now()}`,
-          text: data.prompt,
-          mood: [mood],
-          direction: [direction],
-          scene: scene || '',
-          depth: 'medium',
-          source: 'Inspired just for you',
-        };
-        setAiPrompt(newPrompt);
-        setAiError(null);
-        setLimitReached(false);
-        if (data.remainingCount !== undefined) {
-          setRemainingCount(data.remainingCount);
+  const { execute: generateAI, isExecuting } = useAction(
+    generateAIPromptAction,
+    {
+      onSuccess: ({ data }) => {
+        if (data?.success && data.prompt) {
+          const newPrompt: Prompt = {
+            id: `ai-${Date.now()}`,
+            text: data.prompt,
+            mood: [mood],
+            direction: [direction],
+            scene: scene || '',
+            depth: 'medium',
+            source: 'AI-generated prompt',
+          };
+          setAiPrompt(newPrompt);
+          setAiError(null);
+          setLimitReached(false);
+          if (data.remainingCount !== undefined) {
+            setRemainingCount(data.remainingCount);
+          }
+        } else if (data?.error) {
+          setAiError(data.error);
+          if (data.limitReached) {
+            setLimitReached(true);
+          }
         }
-      } else if (data?.error) {
-        setAiError(data.error);
-        if (data.limitReached) {
-          setLimitReached(true);
-        }
-      }
-    },
-    onError: () => {
-      setAiError('Something went wrong. Please try again.');
-    },
-  });
+      },
+      onError: () => {
+        setAiError('Something went wrong. Please try again.');
+      },
+    }
+  );
 
   const handleAIGenerate = () => {
     setAiError(null);
@@ -76,9 +89,10 @@ export function PromptResults({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-clarity-mask="true">
       <div className="flex items-center gap-4">
         <button
+          type="button"
           onClick={onBack}
           className="text-sm underline decoration-wavy decoration-[#2d5da1] underline-offset-4 cursor-pointer"
           style={{ fontFamily: 'var(--font-hand-body)', color: '#2d5da1' }}
@@ -92,6 +106,7 @@ export function PromptResults({
           Your Journal Prompts
         </h2>
         <button
+          type="button"
           onClick={onShuffle}
           className="flex items-center gap-1 px-3 py-1.5 text-sm cursor-pointer transition-all duration-200"
           style={{
@@ -110,12 +125,14 @@ export function PromptResults({
         className="text-center text-sm opacity-70"
         style={{ fontFamily: 'var(--font-hand-body)' }}
       >
-        Feeling <strong>{mood}</strong> · Exploring <strong>{direction.replace('-', ' ')}</strong>
+        Feeling <strong>{mood}</strong> · Exploring{' '}
+        <strong>{direction.replace('-', ' ')}</strong>
       </p>
 
       <div className="space-y-4">
         {prompts.map((prompt, index) => (
           <button
+            type="button"
             key={prompt.id}
             onClick={() => onSelectPrompt(prompt)}
             className="group w-full text-left p-5 transition-all duration-200 cursor-pointer"
@@ -141,9 +158,9 @@ export function PromptResults({
               </span>
               <div className="flex-1">
                 <p className="text-lg leading-relaxed">{prompt.text}</p>
-                {prompt.source && (
-                  <p className="mt-2 text-xs opacity-50 italic">{prompt.source}</p>
-                )}
+                <p className="mt-2 text-sm text-[#2d5da1]">
+                  Curated prompt · Write about this →
+                </p>
               </div>
               <PenLineIcon
                 className="flex-shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -158,6 +175,7 @@ export function PromptResults({
         {/* AI Generated prompt */}
         {aiPrompt && (
           <button
+            type="button"
             onClick={() => onSelectPrompt(aiPrompt)}
             className="group w-full text-left p-5 transition-all duration-200 cursor-pointer"
             style={{
@@ -177,7 +195,9 @@ export function PromptResults({
               </span>
               <div className="flex-1">
                 <p className="text-lg leading-relaxed">{aiPrompt.text}</p>
-                <p className="mt-2 text-xs opacity-50 italic">Inspired just for you</p>
+                <p className="mt-2 text-sm text-[#2d5da1]">
+                  AI-generated prompt · Write about this →
+                </p>
               </div>
               <PenLineIcon
                 className="flex-shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -195,6 +215,7 @@ export function PromptResults({
         {user ? (
           <>
             <button
+              type="button"
               onClick={handleAIGenerate}
               disabled={isExecuting}
               className="flex items-center gap-2 px-6 py-2.5 text-white cursor-pointer transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -212,14 +233,14 @@ export function PromptResults({
               ) : (
                 <SparklesIcon size={16} strokeWidth={2.5} />
               )}
-              {isExecuting ? 'Creating...' : 'Surprise Me'}
+              {isExecuting ? 'Creating...' : 'Create a personalized AI prompt'}
             </button>
             {remainingCount !== null && (
               <p
                 className="text-xs opacity-50"
                 style={{ fontFamily: 'var(--font-hand-body)' }}
               >
-                {remainingCount} surprises remaining today
+                {remainingCount} AI prompts remaining today
               </p>
             )}
             {aiError && (
@@ -243,7 +264,7 @@ export function PromptResults({
                       boxShadow: '2px 2px 0px 0px #2d2d2d',
                     }}
                   >
-                    Unlock more surprises →
+                    See plans for more AI prompts →
                   </LocaleLink>
                 )}
               </div>
@@ -251,7 +272,7 @@ export function PromptResults({
           </>
         ) : (
           <LocaleLink
-            href={Routes.Login}
+            href={`${Routes.Register}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
             className="flex items-center gap-2 px-6 py-2.5 no-underline transition-all duration-200"
             style={{
               fontFamily: 'var(--font-hand-title)',
@@ -264,9 +285,14 @@ export function PromptResults({
             }}
           >
             <SparklesIcon size={16} strokeWidth={2.5} />
-            Sign in for more prompts
+            Try 3 free AI prompts per day
           </LocaleLink>
         )}
+        <p className="max-w-md text-center text-sm text-[#58534d]">
+          {user
+            ? 'AI uses your selected mood and direction. Your journal writing is not sent to AI.'
+            : 'Create a free account. No card needed. Keep your current choices when you return.'}
+        </p>
       </div>
     </div>
   );

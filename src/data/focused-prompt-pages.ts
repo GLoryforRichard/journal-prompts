@@ -1,3 +1,4 @@
+import { yearOfPrompts } from '@/data/journal-program';
 import promptsData from '@/data/prompts.json';
 import type { Prompt } from '@/lib/prompt-matcher';
 
@@ -165,31 +166,31 @@ export const focusedPromptPages: FocusedPromptPageConfig[] = [
   },
   {
     slug: '365-daily-journal-prompts',
-    badge: 'Daily Writing Guide',
+    badge: 'Your Year of Reflection',
     h1: '365 Daily Journal Prompts',
     metaTitle: '365 Daily Journal Prompts for Year-Round Reflection',
     metaDescription:
-      'Browse 365 daily journal prompts for reflection, clarity, and habit-building. Use the daily prompt finder or work through a year-round list without burning out.',
+      'Explore 365 daily journal prompts in twelve themed chapters. Reflect on gratitude, self-discovery, and daily life, and save your writing in your own journal.',
     heroSubtitle:
       'Build a year-round writing habit with 365 daily journal prompts for reflection, clarity, gratitude, self-awareness, and honest daily check-ins.',
-    primaryCta: 'Get a Daily Prompt',
+    primaryCta: 'Start Day 1',
     secondaryCta: 'Browse the Prompt List',
     finderTitle: 'Use the Daily Prompt Finder Instead of Guessing',
     finderDescription:
       'The best 365 daily journal prompts are the ones you will actually answer today. The tool below narrows the prompt list based on mood and writing direction, so the page supports both habit-building and immediate action.',
     intro: {
-      title: 'Do You Need 365 Completely Different Prompts?',
+      title: 'A Full Year of Prompts, at Your Own Pace',
       paragraphs: [
-        'Not really. Most people searching for 365 daily journal prompts are not asking for novelty at all costs. They are asking for enough structure to keep writing all year. That is a different problem, and it needs a different page.',
-        'A sustainable daily journal practice usually rotates through a few useful prompt types: emotional check-ins, gratitude, lessons from the day, self-discovery questions, and intention-setting. The habit breaks when every day feels like homework. It lasts when the prompts stay varied enough to feel fresh and structured enough to feel easy.',
-        'That is why this page mixes a curated list with a tool. You can work through daily prompts steadily, but you can also get a better-fit prompt on days when your energy, mood, or attention feel completely different from yesterday.',
+        'This collection contains 365 different questions in twelve themed chapters. Begin with everyday check-ins, explore gratitude and self-discovery, and finish with reflection and intentions for what comes next.',
+        'Start whenever you like. The day numbers are a guide, not a deadline. Choose one question, write a few sentences, and return tomorrow. If a theme does not fit, skip to another chapter.',
+        'Use the writing space beside each prompt or copy a question into your own notebook. My Journal helps you find your entries again; a free account can save up to ten entries across devices.',
       ],
     },
     steps: [
       'Choose a consistent time of day so the prompt becomes part of a routine instead of a decision.',
       'Write a short response before you judge whether the prompt is perfect for you.',
       'Rotate between reflection, gratitude, self-discovery, and planning so the habit stays fresh.',
-      'If you miss a day, keep the streak in your head unbroken by returning the next time you can.',
+      'If you miss a day, resume with the next prompt. You do not need to catch up.',
     ],
     promptTitle: 'Daily Journal Prompts',
     afterPrompts: {
@@ -201,9 +202,9 @@ export const focusedPromptPages: FocusedPromptPageConfig[] = [
     },
     faqs: [
       {
-        question: 'Do I really need 365 completely different journal prompts?',
+        question: 'Are there actually 365 different prompts here?',
         answer:
-          'No. Most people do better with a strong rotation of useful prompt types than with forced novelty every day. A good 365 daily journal prompts page helps you build a habit, not chase perfect uniqueness.',
+          'Yes. The twelve chapters contain 365 different questions. You can work through them in order, start at any point, or return to a favorite prompt. In a leap year, revisit an earlier entry on the extra day.',
       },
       {
         question: 'What is the best time to use 365 daily journal prompts?',
@@ -223,32 +224,7 @@ export const focusedPromptPages: FocusedPromptPageConfig[] = [
     ],
     summary:
       'A year-round daily journaling page built to support steady reflection without overwhelm.',
-    prompts: selectPrompts([
-      'dail-001',
-      'dail-002',
-      'dail-003',
-      'dail-004',
-      'dail-005',
-      'dail-006',
-      'dail-007',
-      'dail-008',
-      'dail-009',
-      'dail-010',
-      'dail-011',
-      'dail-012',
-      'dail-013',
-      'dail-014',
-      'dail-015',
-      'dail-016',
-      'dail-017',
-      'dail-018',
-      'dail-019',
-      'dail-020',
-      'dail-021',
-      'dail-022',
-      'dail-023',
-      'dail-024',
-    ]),
+    prompts: yearOfPrompts,
     promptScene: 'daily',
     defaultMood: 'reflective',
   },

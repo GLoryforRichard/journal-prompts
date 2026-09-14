@@ -3,6 +3,8 @@
 import { createCheckoutAction } from '@/actions/create-checkout-session';
 import { Button } from '@/components/ui/button';
 import { websiteConfig } from '@/config/website';
+import { getFunnelSource, trackFunnelEvent } from '@/lib/analytics';
+import { findPriceInPlan } from '@/lib/price-plan';
 import { Loader2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -48,6 +50,13 @@ export function CheckoutButton({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = async () => {
+    const price = findPriceInPlan(planId, priceId);
+    const eventParams = {
+      source: getFunnelSource(),
+      plan: planId === 'lifetime' ? ('lifetime' as const) : ('pro' as const),
+      interval: price?.interval ?? ('lifetime' as const),
+    };
+    trackFunnelEvent('select_plan', eventParams);
     try {
       setIsLoading(true);
 
@@ -97,12 +106,23 @@ export function CheckoutButton({
 
       // Redirect to checkout page
       if (result?.data?.success && result?.data?.data?.url) {
+        // Returning existing subscribers to the billing portal is not checkout.
+        if (result.data.data.id)
+          trackFunnelEvent('begin_checkout', eventParams);
         window.location.href = result?.data?.data?.url;
       } else {
+        trackFunnelEvent('checkout_error', {
+          ...eventParams,
+          error_type: 'request_failed',
+        });
         console.error('Create checkout session error, result:', result);
         toast.error(t('checkoutFailed'));
       }
     } catch (error) {
+      trackFunnelEvent('checkout_error', {
+        ...eventParams,
+        error_type: 'unknown',
+      });
       console.error('Create checkout session error:', error);
       toast.error(t('checkoutFailed'));
     } finally {

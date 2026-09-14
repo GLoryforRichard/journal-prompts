@@ -6,12 +6,14 @@ import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/lib/auth-client';
+import { getSafeReturnPath } from '@/lib/checkout-flow';
 import { getPathWithLocale } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { Loader2Icon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { FormError } from '@/components/shared/form-error';
 
 interface SocialLoginButtonProps {
   callbackUrl?: string;
@@ -29,6 +31,7 @@ export const SocialLoginButton = ({
   const searchParams = useSearchParams();
   const locale = useLocale();
   const [isLoading, setIsLoading] = useState<'google' | 'github' | null>(null);
+  const [error, setError] = useState('');
 
   if (
     !websiteConfig.auth.enableGoogleLogin &&
@@ -40,7 +43,10 @@ export const SocialLoginButton = ({
   const paramCallbackUrl = searchParams.get('callbackUrl');
   // Use prop callback URL or param callback URL if provided, otherwise use the default login redirect
   const defaultCallbackUrl = getPathWithLocale(DEFAULT_LOGIN_REDIRECT, locale);
-  const callbackUrl = propCallbackUrl || paramCallbackUrl || defaultCallbackUrl;
+  const callbackUrl = getSafeReturnPath(
+    propCallbackUrl || paramCallbackUrl,
+    defaultCallbackUrl
+  );
 
   const onClick = async (provider: 'google' | 'github') => {
     await authClient.signIn.social(
@@ -58,7 +64,7 @@ export const SocialLoginButton = ({
         /**
          * a url to redirect if an error occurs during the sign in process
          */
-        errorCallbackURL: Routes.AuthError,
+        errorCallbackURL: `${Routes.AuthError}?callbackUrl=${encodeURIComponent(callbackUrl)}`,
         /**
          * a url to redirect if the user is newly registered
          */
@@ -73,6 +79,7 @@ export const SocialLoginButton = ({
         onRequest: (ctx) => {
           // console.log("onRequest", ctx);
           setIsLoading(provider);
+          setError('');
         },
         onResponse: (ctx) => {
           // console.log("onResponse", ctx.response);
@@ -83,7 +90,7 @@ export const SocialLoginButton = ({
           setIsLoading(null);
         },
         onError: (ctx) => {
-          console.error('social login error', ctx.error.message);
+          setError(t('socialLoginFailed'));
           setIsLoading(null);
         },
       }
@@ -99,7 +106,7 @@ export const SocialLoginButton = ({
           className="w-full"
           variant="outline"
           onClick={() => onClick('google')}
-          disabled={isLoading === 'google'}
+          disabled={isLoading !== null}
         >
           {isLoading === 'google' ? (
             <Loader2Icon className="mr-2 size-4 animate-spin" />
@@ -115,7 +122,7 @@ export const SocialLoginButton = ({
           className="w-full"
           variant="outline"
           onClick={() => onClick('github')}
-          disabled={isLoading === 'github'}
+          disabled={isLoading !== null}
         >
           {isLoading === 'github' ? (
             <Loader2Icon className="mr-2 size-4 animate-spin" />
@@ -125,6 +132,7 @@ export const SocialLoginButton = ({
           <span>{t('signInWithGitHub')}</span>
         </Button>
       )}
+      <FormError message={error} />
     </div>
   );
 };

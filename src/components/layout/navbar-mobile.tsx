@@ -189,7 +189,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
 
             {/* CTA */}
             <div className="mt-4 flex flex-col gap-3">
-              {user ? (
+              {
                 <LocaleLink
                   href={Routes.Dashboard}
                   onClick={() => setOpen(false)}
@@ -208,7 +208,8 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                   <BookOpenIcon size={18} strokeWidth={2.5} />
                   My Journal
                 </LocaleLink>
-              ) : (
+              }
+              {!user &&
                 (websiteConfig.auth.enableGoogleLogin ||
                   websiteConfig.auth.enableGithubLogin ||
                   websiteConfig.auth.enableCredentialLogin) && (
@@ -230,8 +231,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                     <LogInIcon size={18} strokeWidth={2.5} />
                     Sign In
                   </LocaleLink>
-                )
-              )}
+                )}
               <LocaleLink
                 href="/find-your-prompt"
                 onClick={() => setOpen(false)}

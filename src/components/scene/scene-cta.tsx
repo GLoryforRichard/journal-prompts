@@ -51,7 +51,7 @@ export function SceneActions({ sceneSlug }: { sceneSlug: string }) {
           <>
             {' '}
             <LocaleLink
-              href={Routes.Pricing}
+              href={`${Routes.Pricing}?plan=pro&interval=month`}
               className="font-semibold text-secondary underline underline-offset-4"
             >
               {monthlyPrice
@@ -107,13 +107,13 @@ export function SceneCTA({ sceneSlug }: { sceneSlug?: string }) {
       </dl>
       <div className="flex flex-wrap items-center gap-4">
         <LocaleLink
-          href={finderHref(sceneSlug)}
+          href={`${Routes.Register}?callbackUrl=%2Fmy-journal`}
           className="inline-flex min-h-11 items-center justify-center rounded-lg bg-secondary px-5 py-2 text-lg text-secondary-foreground no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
         >
-          Try the free prompt finder
+          Create a free journal
         </LocaleLink>
         <LocaleLink
-          href={Routes.Pricing}
+          href={`${Routes.Pricing}?plan=pro&interval=month`}
           className="inline-flex min-h-11 items-center font-semibold text-secondary underline underline-offset-4"
         >
           Compare free and Pro plans →

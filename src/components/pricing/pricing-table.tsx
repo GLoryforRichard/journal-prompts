@@ -2,6 +2,10 @@
 
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { usePricePlans } from '@/config/price-config';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { useCurrentPlan } from '@/hooks/use-payment';
+import { findCheckoutSelection } from '@/lib/checkout-flow';
+import { getFunnelSource, trackFunnelEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import {
   PaymentTypes,
@@ -10,8 +14,11 @@ import {
   type PricePlan,
 } from '@/payment/types';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { parseAsStringEnum, useQueryState } from 'nuqs';
+import { useEffect } from 'react';
 import { PricingCard } from './pricing-card';
+import { CheckoutResume } from './checkout-resume';
 
 interface PricingTableProps {
   metadata?: Record<string, string>;
@@ -33,6 +40,15 @@ export function PricingTable({
   className,
 }: PricingTableProps) {
   const t = useTranslations('PricingPage');
+  useEffect(() => {
+    trackFunnelEvent(
+      'view_pricing',
+      { source: getFunnelSource() },
+      {
+        dedupeKey: `pricing:${window.location.pathname}`,
+      }
+    );
+  }, []);
   const [interval, setInterval] = useQueryState(
     'interval',
     parseAsStringEnum<PlanInterval>(Object.values(PlanIntervals)).withDefault(
@@ -43,9 +59,18 @@ export function PricingTable({
   // Get price plans with translations
   const pricePlans = usePricePlans();
   const plans = Object.values(pricePlans);
+  const currentUser = useCurrentUser();
+  const { data: paymentData } = useCurrentPlan(currentUser?.id);
+  const activePlan = currentPlan ?? paymentData?.currentPlan;
+  const searchParams = useSearchParams();
+  const selection = findCheckoutSelection(
+    plans,
+    searchParams.get('plan'),
+    interval
+  );
 
   // Current plan ID for comparison
-  const currentPlanId = currentPlan?.id || null;
+  const currentPlanId = activePlan?.id || null;
 
   // Filter plans into free, subscription and one-time plans
   const freePlans = plans.filter((plan) => plan.isFree && !plan.disabled);
@@ -92,6 +117,14 @@ export function PricingTable({
 
   return (
     <div className={cn('flex flex-col gap-8 sm:gap-10', className)}>
+      {selection && (
+        <CheckoutResume
+          {...selection}
+          canceled={searchParams.get('checkout') === 'canceled'}
+          metadata={metadata}
+          hasPaidPlan={!!activePlan && !activePlan.isFree}
+        />
+      )}
       <div className="mx-auto max-w-3xl rounded-xl border border-border bg-postit/40 px-5 py-3 text-center">
         <p className="text-sm font-medium leading-relaxed text-foreground">
           {t('planGuide')}

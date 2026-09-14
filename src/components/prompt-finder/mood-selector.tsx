@@ -5,13 +5,37 @@ import { wobblyBorderRadius } from '@/lib/design-tokens';
 
 const moods = [
   { id: 'anxious', label: 'Anxious', description: 'Feeling worried or uneasy' },
-  { id: 'grateful', label: 'Grateful', description: 'Feeling thankful and appreciative' },
-  { id: 'stuck', label: 'Stuck', description: 'Feeling blocked or unmotivated' },
-  { id: 'curious', label: 'Curious', description: 'Wanting to explore and learn' },
+  {
+    id: 'grateful',
+    label: 'Grateful',
+    description: 'Feeling thankful and appreciative',
+  },
+  {
+    id: 'stuck',
+    label: 'Stuck',
+    description: 'Feeling blocked or unmotivated',
+  },
+  {
+    id: 'curious',
+    label: 'Curious',
+    description: 'Wanting to explore and learn',
+  },
   { id: 'sad', label: 'Sad', description: 'Feeling down or melancholy' },
-  { id: 'energized', label: 'Energized', description: 'Feeling motivated and alive' },
-  { id: 'reflective', label: 'Reflective', description: 'In a thoughtful, introspective mood' },
-  { id: 'restless', label: 'Restless', description: 'Feeling unsettled or antsy' },
+  {
+    id: 'energized',
+    label: 'Energized',
+    description: 'Feeling motivated and alive',
+  },
+  {
+    id: 'reflective',
+    label: 'Reflective',
+    description: 'In a thoughtful, introspective mood',
+  },
+  {
+    id: 'restless',
+    label: 'Restless',
+    description: 'Feeling unsettled or antsy',
+  },
 ] as const;
 
 interface MoodSelectorProps {
@@ -30,10 +54,20 @@ export function MoodSelector({ onSelect, selected }: MoodSelectorProps) {
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {moods.map((mood, index) => {
-          const rotation = ['-1.5deg', '1deg', '-0.5deg', '1.5deg', '0.5deg', '-1deg', '2deg', '-2deg'][index];
+          const rotation = [
+            '-1.5deg',
+            '1deg',
+            '-0.5deg',
+            '1.5deg',
+            '0.5deg',
+            '-1deg',
+            '2deg',
+            '-2deg',
+          ][index];
           const isSelected = selected === mood.id;
           return (
             <button
+              type="button"
               key={mood.id}
               onClick={() => onSelect(mood.id)}
               className="group relative p-4 transition-all duration-200 cursor-pointer text-left"

@@ -2,7 +2,8 @@
 
 import { websiteConfig } from '@/config/website';
 import type { SessionUser } from '@/lib/auth-types';
-import { findPlanByPlanId } from '@/lib/price-plan';
+import { getCheckoutReturnPath } from '@/lib/checkout-flow';
+import { findPlanByPlanId, findPriceInPlan } from '@/lib/price-plan';
 import { userActionClient } from '@/lib/safe-action';
 import { getUrlWithLocale } from '@/lib/urls';
 import { createCheckout } from '@/payment';
@@ -36,7 +37,8 @@ export const createCheckoutAction = userActionClient
 
       // Check if plan exists
       const plan = findPlanByPlanId(planId);
-      if (!plan) {
+      const price = findPriceInPlan(planId, priceId);
+      if (!plan || plan.disabled || !price || price.disabled) {
         return {
           success: false,
           error: 'Price plan not found',
@@ -62,10 +64,13 @@ export const createCheckoutAction = userActionClient
 
       // Create the checkout session with localized URLs
       const successUrl = getUrlWithLocale(
-        `${Routes.Payment}?session_id={CHECKOUT_SESSION_ID}&callback=${Routes.SettingsBilling}`,
+        `${Routes.Payment}?session_id={CHECKOUT_SESSION_ID}&callback=${Routes.Dashboard}`,
         locale
       );
-      const cancelUrl = getUrlWithLocale(Routes.SettingsBilling, locale);
+      const cancelUrl = getUrlWithLocale(
+        getCheckoutReturnPath(planId, price.interval, true),
+        locale
+      );
       const params: CreateCheckoutParams = {
         userId: currentUser.id,
         customerEmailVerified: currentUser.emailVerified,

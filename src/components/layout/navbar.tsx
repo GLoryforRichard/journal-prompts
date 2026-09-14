@@ -192,7 +192,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
           </NavigationMenu>
 
           <div className="shrink-0 flex items-center gap-3">
-            {user ? (
+            {
               <LocaleLink
                 href={Routes.Dashboard}
                 className="inline-flex items-center gap-2 px-4 py-2 no-underline transition-all duration-200"
@@ -209,7 +209,8 @@ export function Navbar({ scroll = true }: NavBarProps) {
                 <BookOpenIcon size={16} strokeWidth={2.5} />
                 My Journal
               </LocaleLink>
-            ) : (
+            }
+            {!user &&
               (websiteConfig.auth.enableGoogleLogin ||
                 websiteConfig.auth.enableGithubLogin ||
                 websiteConfig.auth.enableCredentialLogin) && (
@@ -230,8 +231,7 @@ export function Navbar({ scroll = true }: NavBarProps) {
                   <LogInIcon size={16} strokeWidth={2.5} />
                   Sign In
                 </LocaleLink>
-              )
-            )}
+              )}
             <LocaleLink
               href="/find-your-prompt"
               className="inline-flex items-center gap-2 px-5 py-2 text-white no-underline transition-all duration-200 cursor-pointer"

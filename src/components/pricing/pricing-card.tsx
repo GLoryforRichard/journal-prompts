@@ -10,7 +10,9 @@ import {
 } from '@/components/ui/card';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useMounted } from '@/hooks/use-mounted';
-import { LocaleLink, useLocalePathname } from '@/i18n/navigation';
+import { LocaleLink } from '@/i18n/navigation';
+import { getCheckoutReturnPath } from '@/lib/checkout-flow';
+import { getFunnelSource, trackFunnelEvent } from '@/lib/analytics';
 import { formatPrice } from '@/lib/formatter';
 import { getPathWithLocale } from '@/lib/urls';
 import { cn } from '@/lib/utils';
@@ -25,7 +27,6 @@ import {
 import { Routes } from '@/routes';
 import { CheckCircleIcon, XCircleIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
 import { LoginWrapper } from '../auth/login-wrapper';
 import { Badge } from '../ui/badge';
 import { CheckoutButton } from './create-checkout-button';
@@ -58,6 +59,7 @@ function getPriceForPlan(
 
   // non-free plans must have a price
   return plan.prices.find((price) => {
+    if (price.disabled || !price.priceId) return false;
     if (paymentType === PaymentTypes.ONE_TIME) {
       return price.type === PaymentTypes.ONE_TIME;
     }
@@ -83,16 +85,12 @@ export function PricingCard({
   const t = useTranslations('PricingPage.PricingCard');
   const price = getPriceForPlan(plan, interval, paymentType);
   const currentUser = useCurrentUser();
-  const currentPath = useLocalePathname();
   const locale = useLocale();
-  const searchParams = useSearchParams();
   const mounted = useMounted();
-  const callbackParams = new URLSearchParams(searchParams.toString());
-  if (interval) callbackParams.set('interval', interval);
-  const callbackQuery = callbackParams.toString();
-  const callbackUrl = `${getPathWithLocale(currentPath, locale)}${
-    callbackQuery ? `?${callbackQuery}` : ''
-  }`;
+  const callbackUrl = getPathWithLocale(
+    getCheckoutReturnPath(plan.id, price?.interval),
+    locale
+  );
 
   // generate formatted price and price label
   let formattedPrice = '';
@@ -226,7 +224,17 @@ export function PricingCard({
             </CheckoutButton>
           ) : (
             <LoginWrapper mode="modal" asChild callbackUrl={callbackUrl}>
-              <Button variant="default" className="mt-4 min-h-11 w-full">
+              <Button
+                variant="default"
+                className="mt-4 min-h-11 w-full"
+                onClick={() =>
+                  trackFunnelEvent('select_plan', {
+                    source: getFunnelSource(),
+                    plan: plan.id === 'lifetime' ? 'lifetime' : 'pro',
+                    interval: price?.interval ?? 'lifetime',
+                  })
+                }
+              >
                 {t('signInToChoose', { plan: plan.name ?? plan.id })}
               </Button>
             </LoginWrapper>

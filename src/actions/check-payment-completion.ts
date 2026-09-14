@@ -3,11 +3,12 @@
 import { getDb } from '@/db';
 import { payment } from '@/db/schema';
 import { userActionClient } from '@/lib/safe-action';
+import { isCheckoutSessionId } from '@/lib/checkout-flow';
 import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 const checkPaymentCompletionSchema = z.object({
-  sessionId: z.string(),
+  sessionId: z.string().refine(isCheckoutSessionId, 'Invalid checkout session'),
 });
 
 /**
@@ -28,11 +29,15 @@ export const checkPaymentCompletionAction = userActionClient
 
       const paymentData = paymentRecord[0] || null;
       const isPaid = paymentData ? paymentData.paid : false;
-      console.log('Check payment completion, isPaid:', isPaid);
+      const isFailed =
+        !!paymentData &&
+        !isPaid &&
+        ['failed', 'incomplete_expired', 'unpaid'].includes(paymentData.status);
 
       return {
         success: true,
         isPaid,
+        isFailed,
       };
     } catch (error) {
       console.error('Check payment completion error:', error);

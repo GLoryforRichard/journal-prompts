@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-14",
+  "property": "JournalPrompts",
+  "stream": "JournalPrompts Web",
+  "site": "https://journalprompts.org",
+  "evidence": "GA Admin UI: before-state snapshots, save confirmations, and reopened settings/lists. No personal records were inspected.",
+  "enhancedMeasurement": {
+    "historyPageViews": false,
+    "formInteractions": false,
+    "siteSearch": false,
+    "outboundClicks": false,
+    "scrolls": false,
+    "videoEngagement": false,
+    "fileDownloads": false,
+    "pageLoadHandling": "The UI page-load option remains; production code uses send_page_view:false and sends manual sanitized page_view events.",
+    "verification": "Saved and rechecked by the coordinating agent."
+  },
+  "userProvidedData": {
+    "before": {
+      "capabilitiesEnabled": true,
+      "automaticDetection": true,
+      "emailDetection": true,
+      "phoneDetection": true,
+      "nameAndAddressDetection": true
+    },
+    "after": {
+      "capabilitiesEnabled": false,
+      "automaticDetection": false
+    },
+    "verification": "Automatic detection was unchecked, then the main capability was unchecked and saved. Reopening confirmed the main capability unchecked; subordinate controls are hidden while disabled.",
+    "unrelatedAdvertisingSettingsChanged": false
+  },
+  "keyEvents": {
+    "before": ["close_convert_lead", "purchase", "qualify_lead"],
+    "added": [
+      {
+        "name": "sign_up",
+        "countingMethod": "once_per_event",
+        "defaultMonetaryValue": null,
+        "creation": "Code event definition; no event was emitted by this configuration."
+      },
+      {
+        "name": "journal_saved",
+        "countingMethod": "once_per_session",
+        "defaultMonetaryValue": null,
+        "creation": "Code event definition; no event was emitted by this configuration."
+      },
+      {
+        "name": "payment_confirmed",
+        "countingMethod": "once_per_event",
+        "defaultMonetaryValue": null,
+        "creation": "Derived event in the website data stream.",
+        "allConditions": [
+          {
+            "parameter": "event_name",
+            "operator": "equals",
+            "value": "checkout_return"
+          },
+          { "parameter": "status", "operator": "equals", "value": "confirmed" }
+        ],
+        "copySourceParameters": true
+      }
+    ],
+    "verification": "All three added events appeared starred in Key events. The derived event was reopened and both exact conditions were visible in Custom events.",
+    "existingDefinitionsModified": false,
+    "checkoutReturnMarkedAsKeyEvent": false,
+    "newEventsHadStreamDataAtVerification": false
+  },
+  "customDimensions": {
+    "beforeCount": 0,
+    "afterCount": 7,
+    "scope": "Event",
+    "definitions": [
+      { "name": "Funnel source", "parameter": "source" },
+      { "name": "Prompt kind", "parameter": "prompt_kind" },
+      { "name": "Journal storage", "parameter": "storage" },
+      { "name": "Selected plan", "parameter": "plan" },
+      { "name": "Billing interval", "parameter": "interval" },
+      { "name": "Checkout error type", "parameter": "error_type" },
+      { "name": "Checkout status", "parameter": "status" }
+    ],
+    "verification": "Final list showed all seven names, parameters, and Event scopes."
+  },
+  "limitations": [
+    "No synthetic business events or revenue were sent.",
+    "New event delivery requires the updated production code and real traffic or separately intercepted QA.",
+    "payment_confirmed measures trusted confirmation after a browser return, not complete order or revenue totals.",
+    "Configuration does not delete or backfill historical data."
+  ]
+}

@@ -1,3 +1,5 @@
+import type { Prompt } from '@/lib/prompt-matcher';
+
 export interface StoredJournalEntry {
   text: string;
   promptText: string;
@@ -147,4 +149,12 @@ export function formatRelativeTime(isoString: string): string {
   if (days < 7) return `${days}d ago`;
   if (days < 30) return `${Math.floor(days / 7)}w ago`;
   return `${Math.floor(days / 30)}mo ago`;
+}
+
+/** A new response never overwrites an earlier answer to the same prompt. */
+export function createJournalEntryPrompt(prompt: Prompt): Prompt {
+  return {
+    ...prompt,
+    id: `${prompt.id.startsWith('ai-') ? 'ai' : 'entry'}-${crypto.randomUUID()}`,
+  };
 }

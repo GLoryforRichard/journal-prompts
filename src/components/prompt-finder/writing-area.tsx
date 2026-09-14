@@ -1,6 +1,9 @@
 'use client';
 
 import { loadJournalAction, saveJournalAction } from '@/actions/journal';
+import { getFunnelSource, trackFunnelEvent } from '@/lib/analytics';
+import { LocaleLink } from '@/i18n/navigation';
+import { Routes } from '@/routes';
 import { authClient } from '@/lib/auth-client';
 import { JournalAutosave, type SaveStatus } from '@/lib/journal-autosave';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
@@ -35,6 +38,12 @@ export function WritingArea({
   } = authClient.useSession();
   const userId = session?.user.id;
   const [text, setText] = useState('');
+  const [displayPromptText, setDisplayPromptText] = useState(prompt.text);
+  const writeContext = useRef<{
+    promptId: string;
+    userId?: string;
+    question: string;
+  } | null>(null);
   const [status, setStatus] = useState<SaveStatus>('idle');
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -46,6 +55,8 @@ export function WritingArea({
   const queue = useRef<JournalAutosave | null>(null);
   const currentText = useRef('');
   const hasBackup = useRef(false);
+  const startedTracking = useRef(false);
+  const savedTracking = useRef(false);
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
 
   useEffect(() => {
@@ -56,6 +67,12 @@ export function WritingArea({
       return;
     }
     let active = true;
+    // Each queue keeps its own question and owner, even if another account opens.
+    const context = { promptId: prompt.id, userId, question: prompt.text };
+    writeContext.current = context;
+    setDisplayPromptText(prompt.text);
+    startedTracking.current = false;
+    savedTracking.current = false;
     setLoading(true);
     setText('');
     currentText.current = '';
@@ -69,7 +86,7 @@ export function WritingArea({
         const result = await saveJournalAction({
           promptId: prompt.id,
           text: value,
-          promptText: prompt.text,
+          promptText: context.question,
           expectedUserId: userId,
         });
         if (!result?.data?.success) {
@@ -78,6 +95,13 @@ export function WritingArea({
               ? 'limit_reached'
               : 'save_failed'
           );
+        }
+        if (active && value.trim() && !savedTracking.current) {
+          savedTracking.current = true;
+          trackFunnelEvent('journal_saved', {
+            source: getFunnelSource(),
+            storage: 'cloud',
+          });
         }
         // Only discard the backup for the version acknowledged by the server.
         if (active && currentText.current === value) {
@@ -115,7 +139,9 @@ export function WritingArea({
       } catch {
         setStorageWarning(true);
       }
-      let value = local?.text ?? initialEntry?.text ?? '';
+      let chosenEntry = local ?? initialEntry;
+      let value = chosenEntry?.text ?? '';
+      context.question = chosenEntry?.promptText || prompt.text;
       let newerAccountEntry: StoredJournalEntry | null = null;
       hasBackup.current = !!local;
       if (userId) {
@@ -125,7 +151,9 @@ export function WritingArea({
             expectedUserId: userId,
           });
           if (!result?.data?.success) throw new Error('load_failed');
-          value = local?.text ?? result.data.data?.text ?? '';
+          chosenEntry = local ?? result.data.data ?? undefined;
+          value = chosenEntry?.text ?? '';
+          context.question = chosenEntry?.promptText || prompt.text;
           if (hasNewerJournalVersion(result.data.data ?? null, local)) {
             newerAccountEntry = result.data.data ?? null;
           }
@@ -133,6 +161,7 @@ export function WritingArea({
           if (!active) return;
           setLoadError(true);
           setText(value);
+          setDisplayPromptText(context.question);
           currentText.current = value;
           // A local draft cannot establish whether the account has a newer edit.
           // Reconcile first, then enable editing and any account writes.
@@ -142,9 +171,11 @@ export function WritingArea({
       }
       if (!active) return;
       setText(value);
+      setDisplayPromptText(context.question);
       currentText.current = value;
       setLoading(false);
       setConflict(newerAccountEntry);
+      if (value.trim() && (!userId ? !!local : !local)) setStatus('saved');
       if (userId && local && !newerAccountEntry) autosave.schedule(value);
     }
     void load();
@@ -152,6 +183,7 @@ export function WritingArea({
       active = false;
       autosave.dispose();
       if (queue.current === autosave) queue.current = null;
+      if (writeContext.current === context) writeContext.current = null;
     };
   }, [
     prompt.id,
@@ -175,13 +207,37 @@ export function WritingArea({
   }, [userId, status]);
 
   function updateText(value: string) {
-    if (loading || isPending || conflict || sessionError) return;
+    const context = writeContext.current;
+    if (
+      loading ||
+      isPending ||
+      conflict ||
+      sessionError ||
+      !context ||
+      context.promptId !== prompt.id ||
+      context.userId !== userId
+    )
+      return;
     setText(value);
     currentText.current = value;
+    if (value.trim() && !startedTracking.current) {
+      startedTracking.current = true;
+      trackFunnelEvent('writing_started', {
+        source: getFunnelSource(),
+        prompt_kind: prompt.id.startsWith('ai-') ? 'ai' : 'curated',
+      });
+    }
     try {
-      saveJournalEntryLocal(prompt.id, value, prompt.text, userId);
+      saveJournalEntryLocal(prompt.id, value, context.question, userId);
       hasBackup.current = true;
       setStorageWarning(false);
+      if (!userId && value.trim() && !savedTracking.current) {
+        savedTracking.current = true;
+        trackFunnelEvent('journal_saved', {
+          source: getFunnelSource(),
+          storage: 'device',
+        });
+      }
     } catch {
       hasBackup.current = false;
       setStorageWarning(true);
@@ -213,13 +269,21 @@ export function WritingArea({
   }
 
   function keepBothVersions() {
-    if (!conflict || !userId) return;
+    const context = writeContext.current;
+    if (
+      !conflict ||
+      !userId ||
+      !context ||
+      context.userId !== userId ||
+      context.promptId !== prompt.id
+    )
+      return;
     try {
       // Keep the unsynced version as a separate recoverable journal draft.
       saveJournalEntryLocal(
         `${prompt.id}-recovered-${crypto.randomUUID()}`,
         text,
-        prompt.text,
+        context.question,
         userId
       );
       deleteJournalEntryLocal(prompt.id, userId);
@@ -227,6 +291,8 @@ export function WritingArea({
       setStorageWarning(true);
       return;
     }
+    context.question = conflict.promptText || prompt.text;
+    setDisplayPromptText(context.question);
     setText(conflict.text);
     currentText.current = conflict.text;
     hasBackup.current = false;
@@ -235,7 +301,7 @@ export function WritingArea({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-clarity-mask="true">
       <div className="flex items-center gap-4">
         <button
           type="button"
@@ -262,7 +328,7 @@ export function WritingArea({
           fontFamily: 'var(--font-hand-title)',
         }}
       >
-        <p className="text-lg">{prompt.text}</p>
+        <p className="text-lg">{displayPromptText}</p>
       </div>
 
       {/* Limit warning */}
@@ -279,6 +345,14 @@ export function WritingArea({
         >
           You&apos;ve reached the free limit of 10 journal entries. Upgrade to
           save more, or delete an older entry to make room.
+          <div className="mt-3 flex flex-wrap gap-4">
+            <LocaleLink href={Routes.Pricing} className="font-bold underline">
+              See plans for unlimited entries
+            </LocaleLink>
+            <LocaleLink href={Routes.Dashboard} className="underline">
+              Manage my entries
+            </LocaleLink>
+          </div>
         </div>
       )}
 
@@ -372,6 +446,7 @@ export function WritingArea({
           style={{ backgroundColor: '#ff4d4d', opacity: 0.3 }}
         />
         <textarea
+          aria-label="Your journal entry"
           value={text}
           onChange={(event) => updateText(event.target.value)}
           disabled={loading || isPending || !!conflict}
@@ -395,7 +470,7 @@ export function WritingArea({
 
       {/* Bottom bar */}
       <div
-        className="flex items-center justify-between text-sm"
+        className="flex flex-wrap items-center justify-between gap-3 text-sm"
         style={{ fontFamily: 'var(--font-hand-body)', color: '#2d2d2d' }}
       >
         <div className="flex items-center gap-3">
@@ -414,13 +489,51 @@ export function WritingArea({
           type="button"
           onClick={handleClear}
           disabled={loading || isPending || !!conflict}
-          className="flex items-center gap-1 opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
+          className="flex min-h-11 items-center gap-1 opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
           style={{ color: '#ff4d4d' }}
         >
           <Trash2Icon size={14} strokeWidth={2.5} />
           Clear
         </button>
       </div>
+      {!isPending && !sessionError && (
+        <div className="rounded-xl border-2 border-[#e5e0d8] bg-white p-4 text-sm space-y-3">
+          {userId ? (
+            <LocaleLink
+              href={Routes.Dashboard}
+              className="font-semibold underline text-[#2d5da1]"
+            >
+              View all my journal entries →
+            </LocaleLink>
+          ) : (
+            <>
+              <p>
+                Your writing stays in this browser. Find it again in My Journal.
+                Clearing browser data removes device-only entries.
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <LocaleLink
+                  href={`${Routes.Register}?callbackUrl=%2Fmy-journal`}
+                  className="inline-flex min-h-11 items-center rounded-lg border-2 border-[#2d2d2d] bg-[#2d5da1] px-4 py-2 font-semibold text-white no-underline"
+                >
+                  Create a free account to save across devices
+                </LocaleLink>
+                <LocaleLink
+                  href={Routes.Dashboard}
+                  className="underline text-[#2d5da1]"
+                >
+                  View My Journal
+                </LocaleLink>
+              </div>
+              <p className="text-xs text-[#58534d]">
+                10 cloud-saved entries and 3 AI prompts per day. No card needed.
+                After signing up, choose which device entries to save to your
+                account.
+              </p>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

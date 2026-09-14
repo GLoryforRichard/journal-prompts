@@ -1,3 +1,4 @@
+import { getSafeReturnPath } from '@/lib/checkout-flow';
 import { getSessionCookie } from 'better-auth/cookies';
 import { isMarkdownPreferred } from 'fumadocs-core/negotiation';
 import createMiddleware from 'next-intl/middleware';
@@ -101,7 +102,11 @@ export default async function proxy(req: NextRequest) {
       console.log(
         '<< proxy end, not allowed route, already logged in, redirecting to dashboard'
       );
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+      const destination = getSafeReturnPath(
+        nextUrl.searchParams.get('callbackUrl'),
+        DEFAULT_LOGIN_REDIRECT
+      );
+      return NextResponse.redirect(new URL(destination, nextUrl));
     }
   }
 

@@ -1,11 +1,10 @@
 'use client';
 
+import { createJournalEntryPrompt } from '@/lib/journal-storage';
+import { trackFunnelEvent } from '@/lib/analytics';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
 import { WritingArea } from '@/components/prompt-finder/writing-area';
 import type { Prompt } from '@/lib/prompt-matcher';
-import { useSession } from '@/hooks/use-session';
-import { Routes } from '@/routes';
-import { LocaleLink } from '@/i18n/navigation';
 import { CopyIcon, CheckIcon, PenLineIcon } from 'lucide-react';
 import { useState, useCallback, type ReactNode } from 'react';
 
@@ -13,12 +12,13 @@ interface FeaturedPromptsProps {
   prompts: Prompt[];
   sceneTitle: string;
   afterPreview?: ReactNode;
+  numberOffset?: number;
 }
 
 function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
-  const session = useSession();
+  const [entryPrompt, setEntryPrompt] = useState<Prompt | null>(null);
 
   const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(prompt.text);
@@ -29,7 +29,7 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
   return (
     <li className="border-b-2 border-dashed border-[#e5e0d8] last:border-0">
       <div
-        className="flex items-start gap-3 py-4"
+        className="flex flex-wrap items-start gap-3 py-4"
         style={{ fontFamily: 'var(--font-hand-body)' }}
       >
         <span
@@ -41,12 +41,14 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
         >
           {index + 1}.
         </span>
-        <span className="flex-1 text-lg select-text">{prompt.text}</span>
-        <div className="flex-shrink-0 flex items-center gap-1.5 mt-0.5">
+        <span className="min-w-0 flex-1 text-lg select-text">
+          {prompt.text}
+        </span>
+        <div className="ml-6 flex w-full flex-shrink-0 items-center gap-2 sm:ml-0 sm:w-auto">
           <button
             type="button"
             onClick={handleCopy}
-            className="p-1.5 cursor-pointer transition-all duration-200"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 cursor-pointer transition-all duration-200"
             style={{
               color: copied ? '#43a047' : '#2d2d2d',
               backgroundColor: 'transparent',
@@ -67,8 +69,17 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
           </button>
           <button
             type="button"
-            onClick={() => setExpanded(!expanded)}
-            className="p-1.5 cursor-pointer transition-all duration-200"
+            onClick={() => {
+              if (!expanded) {
+                setEntryPrompt(createJournalEntryPrompt(prompt));
+                trackFunnelEvent('prompt_selected', {
+                  source: 'scene',
+                  prompt_kind: 'curated',
+                });
+              }
+              setExpanded(!expanded);
+            }}
+            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 cursor-pointer transition-all duration-200"
             style={{
               color: expanded ? '#ffffff' : '#2d2d2d',
               backgroundColor: expanded ? '#ff4d4d' : 'transparent',
@@ -79,44 +90,18 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
             title="Start writing"
             aria-label={expanded ? 'Close writing area' : 'Start writing'}
           >
-            <PenLineIcon size={14} strokeWidth={2.2} />
+            <PenLineIcon size={16} strokeWidth={2.2} />
+            <span>{expanded ? 'Close' : 'Write'}</span>
           </button>
         </div>
       </div>
       {expanded && (
         <div className="pb-4 pl-8 space-y-3">
           <WritingArea
-            prompt={prompt}
+            prompt={entryPrompt ?? prompt}
             onBack={() => setExpanded(false)}
             backLabel="Close writing area"
           />
-          {!session?.user && (
-            <p className="text-sm">
-              Your writing is saved on this device.{' '}
-              <LocaleLink
-                href={`${Routes.Register}?callbackUrl=/my-journal`}
-                className="underline"
-              >
-                Create an account
-              </LocaleLink>{' '}
-              or{' '}
-              <LocaleLink
-                href={`${Routes.Login}?callbackUrl=/my-journal`}
-                className="underline"
-              >
-                sign in
-              </LocaleLink>{' '}
-              to save it to your account.
-            </p>
-          )}
-          {prompt.source && (
-            <p
-              className="text-xs italic opacity-50"
-              style={{ fontFamily: 'var(--font-hand-body)' }}
-            >
-              {prompt.source}
-            </p>
-          )}
         </div>
       )}
     </li>
@@ -127,6 +112,7 @@ export function FeaturedPrompts({
   prompts,
   sceneTitle,
   afterPreview,
+  numberOffset = 0,
 }: FeaturedPromptsProps) {
   const previewCount = afterPreview
     ? Math.min(5, prompts.length)
@@ -147,7 +133,8 @@ export function FeaturedPrompts({
           className="text-lg mb-8 opacity-70"
           style={{ fontFamily: 'var(--font-hand-body)' }}
         >
-          Copy any prompt, or tap the pen to start writing here.
+          Choose Write to answer a prompt here, or copy it into your own
+          notebook.
         </p>
         <div
           className="p-6"
@@ -158,19 +145,23 @@ export function FeaturedPrompts({
             boxShadow: '4px 4px 0px 0px #2d2d2d',
           }}
         >
-          <ol className="list-none">
+          <ol className="list-none" start={numberOffset + 1}>
             {prompts.slice(0, previewCount).map((prompt, i) => (
-              <PromptItem key={prompt.id} prompt={prompt} index={i} />
+              <PromptItem
+                key={prompt.id}
+                prompt={prompt}
+                index={numberOffset + i}
+              />
             ))}
           </ol>
           {afterPreview}
           {previewCount < prompts.length && (
-            <ol className="list-none" start={previewCount + 1}>
+            <ol className="list-none" start={numberOffset + previewCount + 1}>
               {prompts.slice(previewCount).map((prompt, i) => (
                 <PromptItem
                   key={prompt.id}
                   prompt={prompt}
-                  index={previewCount + i}
+                  index={numberOffset + previewCount + i}
                 />
               ))}
             </ol>

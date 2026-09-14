@@ -1,184 +1,130 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
 import { usePaymentCompletion } from '@/hooks/use-payment-completion';
-import { useLocaleRouter } from '@/i18n/navigation';
-import { PAYMENT_MAX_POLL_TIME, PAYMENT_POLL_INTERVAL } from '@/lib/constants';
+import { LocaleLink, useLocaleRouter } from '@/i18n/navigation';
+import {
+  getPaymentDestination,
+  isCheckoutSessionId,
+} from '@/lib/checkout-flow';
+import { trackFunnelEvent } from '@/lib/analytics';
+import { PAYMENT_MAX_POLL_TIME } from '@/lib/constants';
 import { Routes } from '@/routes';
 import { useQueryClient } from '@tanstack/react-query';
-import {
-  AlertCircleIcon,
-  CheckCircleIcon,
-  RefreshCwIcon,
-  XCircleIcon,
-} from 'lucide-react';
+import { AlertCircleIcon, CheckCircleIcon, RefreshCwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-type PaymentStatus = 'processing' | 'success' | 'failed' | 'timeout';
-
-/**
- * Payment card component to display the payment status and redirect to the callback url
- */
 export function PaymentCard() {
   const t = useTranslations('Dashboard.settings.payment');
   const localeRouter = useLocaleRouter();
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
-  const [status, setStatus] = useState<PaymentStatus>('processing');
-  const pollStartTime = useRef<number | undefined>(undefined);
-  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
-
-  // Get URL parameters
-  const callback = searchParams.get('callback');
-  const sessionId = searchParams.get('session_id');
-
-  // Check payment completion using the existing hook
-  const { data: paymentCheck } = usePaymentCompletion(
+  const rawSessionId = searchParams.get('session_id');
+  const sessionId = isCheckoutSessionId(rawSessionId) ? rawSessionId : null;
+  const destination = getPaymentDestination(searchParams.get('callback'));
+  const [timedOut, setTimedOut] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const { data, isError, isFetching, refetch } = usePaymentCompletion(
     sessionId,
-    status === 'processing' && !!sessionId
+    !!sessionId && !timedOut
   );
+  const status = !sessionId
+    ? 'missing'
+    : data?.isPaid
+      ? 'success'
+      : data?.isFailed
+        ? 'failed'
+        : isError
+          ? 'error'
+          : timedOut
+            ? 'timeout'
+            : 'processing';
 
-  // Handle payment completion polling and timeout
   useEffect(() => {
-    if (sessionId && status === 'processing') {
-      pollStartTime.current = Date.now();
+    setTimedOut(false);
+    if (!sessionId) return;
+    const timeout = setTimeout(() => setTimedOut(true), PAYMENT_MAX_POLL_TIME);
+    return () => clearTimeout(timeout);
+  }, [sessionId, attempt]);
 
-      const checkTimeout = () => {
-        if (pollStartTime.current) {
-          const elapsed = Date.now() - pollStartTime.current;
-          if (elapsed > PAYMENT_MAX_POLL_TIME) {
-            setStatus('timeout');
-            return;
-          }
-        }
-        // Continue checking if still processing
-        if (status === 'processing') {
-          timeoutRef.current = setTimeout(checkTimeout, PAYMENT_POLL_INTERVAL);
-        }
-      };
-
-      checkTimeout();
-    }
-
-    // Cleanup function, clear timeout
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
+  useEffect(() => {
+    if (status === 'processing') return;
+    trackFunnelEvent(
+      'checkout_return',
+      {
+        status:
+          status === 'success'
+            ? 'confirmed'
+            : status === 'timeout'
+              ? 'timeout'
+              : 'error',
+      },
+      { dedupeKey: `${sessionId ?? 'missing'}:${status}` }
+    );
   }, [sessionId, status]);
 
-  // Handle payment completion, if payment is paid, change status to success
   useEffect(() => {
-    if (paymentCheck?.isPaid && status === 'processing') {
-      setStatus('success');
-    }
-  }, [paymentCheck, status]);
+    if (status !== 'success') return;
+    // Refresh benefits without making navigation depend on a slow fetch.
+    void queryClient.invalidateQueries({ queryKey: ['payment'] });
+    void queryClient.invalidateQueries({ queryKey: ['credits'] });
+    const redirect = setTimeout(() => localeRouter.replace(destination), 1500);
+    return () => clearTimeout(redirect);
+  }, [status, queryClient, localeRouter, destination]);
 
-  // Handle auto-redirect for success, if status is success, redirect to callback url
-  useEffect(() => {
-    if (status === 'success' && callback) {
-      // Async function to handle cache invalidation and redirect
-      const handleRedirect = async () => {
-        // Invalidate relevant cache based on callback destination
-        if (callback === Routes.SettingsCredits) {
-          // Invalidate and refetch credits related queries
-          await queryClient.invalidateQueries({
-            queryKey: ['credits'],
-          });
-          // Wait for the refetch to complete
-          await queryClient.refetchQueries({
-            queryKey: ['credits'],
-          });
-        } else if (callback === Routes.SettingsBilling) {
-          // Invalidate and refetch payment/subscription related queries
-          await queryClient.invalidateQueries({
-            queryKey: ['payment'],
-          });
-          // Wait for the refetch to complete
-          await queryClient.refetchQueries({
-            queryKey: ['payment'],
-          });
-        }
-
-        // Redirect to callback url after cache is updated
-        localeRouter.push(callback);
-      };
-
-      handleRedirect();
-    }
-  }, [status, localeRouter, callback, queryClient]);
-
-  // Cleanup on unmount, clear timeout
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  const getStatusIcon = () => {
-    switch (status) {
-      case 'processing':
-        return (
-          <RefreshCwIcon className="h-12 w-12 text-cyan-600 animate-spin" />
-        );
-      case 'success':
-        return <CheckCircleIcon className="h-12 w-12 text-green-600" />;
-      case 'failed':
-        return <XCircleIcon className="h-12 w-12 text-red-600" />;
-      case 'timeout':
-        return <AlertCircleIcon className="h-12 w-12 text-yellow-600" />;
-      default:
-        return <RefreshCwIcon className="h-12 w-12 text-gray-600" />;
-    }
+  const retry = () => {
+    setTimedOut(false);
+    setAttempt((value) => value + 1);
+    void refetch();
   };
-
-  const getStatusMessage = () => {
-    switch (status) {
-      case 'processing':
-        return {
-          title: t('processing.title'),
-          description: t('processing.description'),
-        };
-      case 'success':
-        return {
-          title: t('success.title'),
-          description: t('success.description'),
-        };
-      case 'failed':
-        return {
-          title: t('failed.title'),
-          description: t('failed.description'),
-        };
-      case 'timeout':
-        return {
-          title: t('timeout.title'),
-          description: t('timeout.description'),
-        };
-      default:
-        return { title: '', description: '' };
-    }
-  };
-
-  const { title, description } = getStatusMessage();
 
   return (
     <div className="min-h-[60vh] flex items-center justify-center">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center py-4">
-          <div className="flex justify-center mb-8">{getStatusIcon()}</div>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+        <CardHeader className="text-center py-4" aria-live="polite">
+          <div className="flex justify-center mb-6">
+            {status === 'processing' ? (
+              <RefreshCwIcon className="h-12 w-12 text-cyan-600 animate-spin" />
+            ) : status === 'success' ? (
+              <CheckCircleIcon className="h-12 w-12 text-green-600" />
+            ) : (
+              <AlertCircleIcon className="h-12 w-12 text-amber-600" />
+            )}
+          </div>
+          <CardTitle>{t(`${status}.title`)}</CardTitle>
+          <CardDescription>{t(`${status}.description`)}</CardDescription>
         </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          {sessionId && ['timeout', 'error', 'failed'].includes(status) && (
+            <Button onClick={retry} disabled={isFetching} className="min-h-11">
+              <RefreshCwIcon className="mr-2 size-4" />
+              {t('retry')}
+            </Button>
+          )}
+          <Button
+            asChild
+            variant={status === 'success' ? 'default' : 'outline'}
+            className="min-h-11"
+          >
+            <LocaleLink href={Routes.Dashboard}>{t('openJournal')}</LocaleLink>
+          </Button>
+          {status !== 'success' && (
+            <Button asChild variant="link">
+              <LocaleLink href={Routes.SettingsBilling}>
+                {t('viewBilling')}
+              </LocaleLink>
+            </Button>
+          )}
+        </CardContent>
       </Card>
     </div>
   );

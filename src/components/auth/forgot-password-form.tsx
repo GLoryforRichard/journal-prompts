@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { authClient } from '@/lib/auth-client';
+import { getSafeReturnPath } from '@/lib/checkout-flow';
 import { cn } from '@/lib/utils';
 import { Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,6 +31,7 @@ export const ForgotPasswordForm = ({ className }: { className?: string }) => {
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, setIsPending] = useState(false);
   const searchParams = useSearchParams();
+  const callbackUrl = getSafeReturnPath(searchParams.get('callbackUrl'));
 
   const ForgotPasswordSchema = z.object({
     email: z.email({
@@ -56,7 +58,7 @@ export const ForgotPasswordForm = ({ className }: { className?: string }) => {
     await authClient.requestPasswordReset(
       {
         email: values.email,
-        redirectTo: `${Routes.ResetPassword}`,
+        redirectTo: `${Routes.ResetPassword}?callbackUrl=${encodeURIComponent(callbackUrl)}`,
       },
       {
         onRequest: (ctx) => {
@@ -85,7 +87,7 @@ export const ForgotPasswordForm = ({ className }: { className?: string }) => {
     <AuthCard
       headerLabel={t('title')}
       bottomButtonLabel={t('backToLogin')}
-      bottomButtonHref={`${Routes.Login}`}
+      bottomButtonHref={`${Routes.Login}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
       className={cn('', className)}
     >
       <Form {...form}>

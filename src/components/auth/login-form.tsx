@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { websiteConfig } from '@/config/website';
 import { LocaleLink } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
+import { getSafeReturnPath } from '@/lib/checkout-flow';
 import { getPathWithLocale } from '@/lib/urls';
 import { cn } from '@/lib/utils';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
@@ -49,7 +50,10 @@ export const LoginForm = ({
   // console.log('login form, propCallbackUrl', propCallbackUrl);
   // console.log('login form, paramCallbackUrl', paramCallbackUrl);
   // console.log('login form, defaultCallbackUrl', defaultCallbackUrl);
-  const callbackUrl = propCallbackUrl || paramCallbackUrl || defaultCallbackUrl;
+  const callbackUrl = getSafeReturnPath(
+    propCallbackUrl || paramCallbackUrl,
+    defaultCallbackUrl
+  );
 
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
@@ -113,7 +117,7 @@ export const LoginForm = ({
       });
 
       if (!captchaResult?.data?.success || !captchaResult?.data?.valid) {
-        console.error('login, captcha invalid:', values.captchaToken);
+        console.error('login, captcha invalid');
         const errorMessage = captchaResult?.data?.error || t('captchaInvalid');
         setError(errorMessage);
         setIsPending(false);
@@ -206,7 +210,7 @@ export const LoginForm = ({
                         className="px-0 font-normal text-muted-foreground"
                       >
                         <LocaleLink
-                          href={`${Routes.ForgotPassword}`}
+                          href={`${Routes.ForgotPassword}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                           className="text-xs hover:underline hover:underline-offset-4 hover:text-primary"
                         >
                           {t('forgotPassword')}

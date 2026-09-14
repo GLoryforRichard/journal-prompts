@@ -13,13 +13,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useLocaleRouter } from '@/i18n/navigation';
+import { LocaleLink, useLocaleRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
+import { getSafeReturnPath } from '@/lib/checkout-flow';
 import { Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon, Loader2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { notFound, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -30,17 +31,10 @@ import * as z from 'zod';
 export const ResetPasswordForm = () => {
   const t = useTranslations('AuthPage.resetPassword');
   const searchParams = useSearchParams();
+  const callbackUrl = getSafeReturnPath(searchParams.get('callbackUrl'));
+  const loginUrl = `${Routes.Login}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
   const token = searchParams.get('token');
-  if (!token) {
-    notFound();
-  }
-
-  // If the token is valid, the user will be redirected to this URL with the token in the query string.
-  // If the token is invalid, the user will be redirected to this URL with an error message in the query string ?error=invalid_token.
-  // OPTIMIZE: check if the token is valid, show error message instead of redirecting to the 404 page
-  if (searchParams.get('error') === 'invalid_token') {
-    notFound();
-  }
+  const invalidLink = !token || searchParams.get('error') === 'invalid_token';
 
   const router = useLocaleRouter();
   const [error, setError] = useState<string | undefined>('');
@@ -66,6 +60,7 @@ export const ResetPasswordForm = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof ResetPasswordSchema>) => {
+    if (!token) return;
     await authClient.resetPassword(
       {
         newPassword: values.password,
@@ -85,7 +80,7 @@ export const ResetPasswordForm = () => {
         onSuccess: (ctx) => {
           // console.log("resetPassword, success:", ctx.data);
           // setSuccess("Password reset successfully");
-          router.push(`${Routes.Login}`);
+          router.push(loginUrl);
         },
         onError: (ctx) => {
           console.error('resetPassword, error:', ctx.error);
@@ -95,11 +90,30 @@ export const ResetPasswordForm = () => {
     );
   };
 
+  if (invalidLink) {
+    return (
+      <AuthCard
+        headerLabel={t('title')}
+        bottomButtonLabel={t('backToLogin')}
+        bottomButtonHref={loginUrl}
+      >
+        <p className="mb-4 text-sm text-muted-foreground">{t('invalidLink')}</p>
+        <Button asChild className="min-h-11 w-full">
+          <LocaleLink
+            href={`${Routes.ForgotPassword}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+          >
+            {t('requestNewLink')}
+          </LocaleLink>
+        </Button>
+      </AuthCard>
+    );
+  }
+
   return (
     <AuthCard
       headerLabel={t('title')}
       bottomButtonLabel={t('backToLogin')}
-      bottomButtonHref={`${Routes.Login}`}
+      bottomButtonHref={loginUrl}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

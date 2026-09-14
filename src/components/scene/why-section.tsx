@@ -6,7 +6,11 @@ interface WhySectionProps {
   psychologySource: string;
 }
 
-export function WhySection({ title, paragraphs, psychologySource }: WhySectionProps) {
+export function WhySection({
+  title,
+  paragraphs,
+  psychologySource,
+}: WhySectionProps) {
   return (
     <section className="py-12 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
@@ -31,21 +35,23 @@ export function WhySection({ title, paragraphs, psychologySource }: WhySectionPr
             {p}
           </p>
         ))}
-        {/* Psychology source citation (E-E-A-T) */}
-        <blockquote
+        <aside
+          aria-label="Writing tip"
           className="p-4 mt-4"
           style={{
             backgroundColor: '#fff9c4',
             border: '2px dashed #2d2d2d',
             borderRadius: wobblyBorderRadius.sm,
             fontFamily: 'var(--font-hand-body)',
-            fontStyle: 'italic',
             color: '#2d2d2d',
             transform: 'rotate(0.5deg)',
           }}
         >
-          <p className="text-sm">{psychologySource}</p>
-        </blockquote>
+          <p className="text-sm">
+            <strong>Writing tip: </strong>
+            {psychologySource}
+          </p>
+        </aside>
       </div>
     </section>
   );

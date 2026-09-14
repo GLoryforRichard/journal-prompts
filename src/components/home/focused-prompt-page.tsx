@@ -1,3 +1,4 @@
+import { YearPromptProgram } from './year-prompt-program';
 import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
 import { FeaturedPrompts } from '@/components/scene/featured-prompts';
 import { HowToUse } from '@/components/scene/how-to-use';
@@ -74,7 +75,11 @@ export function FocusedPromptPage({ page }: { page: FocusedPromptPageConfig }) {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="#prompt-finder"
+              href={
+                page.slug === '365-daily-journal-prompts'
+                  ? '#scene-prompts'
+                  : '#prompt-finder'
+              }
               className="inline-block px-8 py-3 text-lg text-white no-underline transition-all duration-200"
               style={{
                 fontFamily: 'var(--font-hand-title)',
@@ -103,36 +108,50 @@ export function FocusedPromptPage({ page }: { page: FocusedPromptPageConfig }) {
           </div>
         </div>
       </section>
-      <section className="pt-2 pb-4 px-4 text-center">
-        <div className="max-w-3xl mx-auto space-y-4">
-          <h2
-            className="text-3xl md:text-4xl font-bold"
-            style={{ fontFamily: 'var(--font-hand-title)', color: '#2d2d2d' }}
-          >
-            {page.finderTitle}
-          </h2>
-          <p
-            className="text-lg leading-relaxed"
-            style={{ fontFamily: 'var(--font-hand-body)', color: '#2d2d2d' }}
-          >
-            {page.finderDescription}
-          </p>
-        </div>
-      </section>
-      <PromptFinder
-        scene={page.promptScene}
-        defaultMood={page.defaultMood}
-        defaultDirection={page.defaultDirection}
-      />
+      {page.slug !== '365-daily-journal-prompts' && (
+        <>
+          <section className="pt-2 pb-4 px-4 text-center">
+            <div className="max-w-3xl mx-auto space-y-4">
+              <h2
+                className="text-3xl md:text-4xl font-bold"
+                style={{
+                  fontFamily: 'var(--font-hand-title)',
+                  color: '#2d2d2d',
+                }}
+              >
+                {page.finderTitle}
+              </h2>
+              <p
+                className="text-lg leading-relaxed"
+                style={{
+                  fontFamily: 'var(--font-hand-body)',
+                  color: '#2d2d2d',
+                }}
+              >
+                {page.finderDescription}
+              </p>
+            </div>
+          </section>
+          <PromptFinder
+            scene={page.promptScene}
+            defaultMood={page.defaultMood}
+            defaultDirection={page.defaultDirection}
+          />
+        </>
+      )}
       <PromptArticleSection {...page.intro} />
       {page.steps.length > 0 && <HowToUse steps={page.steps} />}
-      <div id="scene-prompts">
-        <FeaturedPrompts
-          prompts={page.prompts}
-          sceneTitle={page.promptTitle}
-          afterPreview={<SceneCTA sceneSlug={page.slug} />}
-        />
-      </div>
+      {page.slug === '365-daily-journal-prompts' ? (
+        <YearPromptProgram />
+      ) : (
+        <div id="scene-prompts">
+          <FeaturedPrompts
+            prompts={page.prompts}
+            sceneTitle={page.promptTitle}
+            afterPreview={<SceneCTA sceneSlug={page.slug} />}
+          />
+        </div>
+      )}
       <PromptArticleSection {...page.afterPrompts} />
       <SceneFAQ faqs={page.faqs} />
       <FocusedPromptLinks currentSlug={page.slug} />

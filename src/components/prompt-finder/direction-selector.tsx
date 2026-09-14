@@ -55,11 +55,16 @@ interface DirectionSelectorProps {
   onBack: () => void;
 }
 
-export function DirectionSelector({ onSelect, selected, onBack }: DirectionSelectorProps) {
+export function DirectionSelector({
+  onSelect,
+  selected,
+  onBack,
+}: DirectionSelectorProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <button
+          type="button"
           onClick={onBack}
           className="text-sm underline decoration-wavy decoration-[#2d5da1] underline-offset-4 cursor-pointer"
           style={{ fontFamily: 'var(--font-hand-body)', color: '#2d5da1' }}
@@ -80,6 +85,7 @@ export function DirectionSelector({ onSelect, selected, onBack }: DirectionSelec
           const isSelected = selected === dir.id;
           return (
             <button
+              type="button"
               key={dir.id}
               onClick={() => onSelect(dir.id)}
               className="group relative p-5 transition-all duration-200 cursor-pointer text-left"

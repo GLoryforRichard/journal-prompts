@@ -47,8 +47,8 @@
   "PricingPage": {
     "title": "Pricing",
     "description": "Compare free, monthly, yearly, and lifetime journal plans. Find personalized AI prompts and cloud journal storage, with clear pricing and daily usage limits.",
-    "subtitle": "Start free. Upgrade for more personal prompts and room to keep writing.",
-    "planGuide": "Paid plans: 100 AI prompts/day and unlimited cloud-saved entries.",
+    "subtitle": "Start a journal you can come back to.",
+    "planGuide": "Write for free. Choose Pro when you want more room for your daily reflections.",
     "existingSubscriberNote": "Existing subscriptions continue at their current price.",
     "guestNote": "Curated prompts and writing on this device are free. Sign in to use AI prompts and save your journal to your account.",
     "monthly": "Monthly",
@@ -77,7 +77,49 @@
     },
     "CheckoutButton": {
       "loading": "Loading...",
-      "checkoutFailed": "Failed to open checkout page"
+      "checkoutFailed": "Could not open checkout. Please try again. You have not been charged by this step."
+    },
+    "CheckoutResume": {
+      "title": "Your selected plan: {plan}",
+      "monthly": "{amount} billed monthly. Cancel future renewals anytime.",
+      "yearly": "{amount} billed yearly. Cancel future renewals anytime.",
+      "oneTime": "{amount} once. No recurring payment.",
+      "review": "Your selection is saved. Review the plan, then continue to Stripe to enter payment details.",
+      "canceled": "You left checkout without finishing. Your plan is still selected; continue when you are ready.",
+      "continue": "Continue to secure checkout",
+      "signIn": "Sign in to continue",
+      "alreadyPaid": "You already have paid access. Manage your current plan and billing below."
+    },
+    "faqs": {
+      "title": "Before you choose a plan",
+      "free": {
+        "question": "What can I do for free?",
+        "answer": "Browse curated prompts and write on this device without an account. A free account includes 3 AI prompts per day and up to 10 cloud-saved entries. No credit card is required."
+      },
+      "value": {
+        "question": "When is Pro useful?",
+        "answer": "Choose Pro when you want to keep more than 10 entries in your account and revisit them across devices. It also includes up to 100 AI prompts per day for times when you want a new writing angle."
+      },
+      "cancel": {
+        "question": "Can I cancel a subscription?",
+        "answer": "Yes. Open Billing in your account to manage your subscription through Stripe. Canceling stops future renewals; you keep access until the end of your paid billing period."
+      },
+      "yearly": {
+        "question": "How does yearly billing work?",
+        "answer": "The yearly plan is charged as one payment for the full year. The monthly equivalent shown on the card is for comparison, not a monthly bill. The full amount is shown before checkout."
+      },
+      "lifetime": {
+        "question": "What does Lifetime include?",
+        "answer": "Lifetime is a single $49.99 USD payment with no recurring subscription. It includes the currently listed paid features: unlimited cloud-saved entries and up to 100 AI prompts per day."
+      },
+      "privacy": {
+        "question": "Does AI read my journal?",
+        "answer": "No. AI prompt generation uses the mood, writing direction, and optional topic you choose. Your journal text is not sent to the AI provider. Guest entries stay in your browser; entries saved with an account use cloud storage."
+      },
+      "export": {
+        "question": "Can I keep a copy of my writing?",
+        "answer": "Yes. You can export entries from My Journal, including writing saved on this device. Exporting does not require a paid plan. Keep a copy of important writing, especially before clearing browser storage."
+      }
     }
   },
   "PricePlans": {
@@ -96,19 +138,19 @@
       "description": "Make room for a regular journaling practice.",
       "features": {
         "feature-1": "Everything in Free",
-        "feature-2": "100 personalized AI prompts per day",
-        "feature-3": "Unlimited cloud-saved journal entries",
-        "feature-4": "Open your saved journal across devices"
+        "feature-2": "Unlimited cloud-saved journal entries",
+        "feature-3": "Revisit your writing across devices",
+        "feature-4": "Up to 100 personalized AI prompts per day"
       }
     },
     "lifetime": {
       "name": "Lifetime",
-      "description": "Keep the paid benefits without a recurring bill.",
+      "description": "The same writing tools, with a single payment.",
       "features": {
         "feature-1": "Everything in Free",
-        "feature-2": "100 personalized AI prompts per day",
-        "feature-3": "Unlimited cloud-saved journal entries",
-        "feature-4": "Lifetime access, no recurring fees"
+        "feature-2": "Unlimited cloud-saved journal entries",
+        "feature-3": "Revisit your writing across devices",
+        "feature-4": "Up to 100 personalized AI prompts per day"
       }
     }
   },
@@ -225,7 +267,8 @@
       "emailRequired": "Please enter your email",
       "passwordRequired": "Please enter your password",
       "captchaInvalid": "Captcha verification failed",
-      "captchaError": "Captcha verification error"
+      "captchaError": "Captcha verification error",
+      "socialLoginFailed": "Could not connect. Please try again or sign in with email."
     },
     "register": {
       "title": "Register",
@@ -242,7 +285,8 @@
       "emailRequired": "Please enter your email",
       "passwordRequired": "Please enter your password",
       "captchaInvalid": "Captcha verification failed",
-      "captchaError": "Captcha verification error"
+      "captchaError": "Captcha verification error",
+      "minLength": "Use at least 8 characters for your password."
     },
     "forgotPassword": {
       "title": "Forgot Password",
@@ -259,7 +303,9 @@
       "backToLogin": "Back to login",
       "showPassword": "Show password",
       "hidePassword": "Hide password",
-      "minLength": "Password must be at least 8 characters"
+      "minLength": "Password must be at least 8 characters",
+      "invalidLink": "This password reset link is missing or has expired. Request a new link to continue.",
+      "requestNewLink": "Request a new reset link"
     },
     "error": {
       "title": "Oops! Something went wrong!",
@@ -538,7 +584,7 @@
         },
         "success": {
           "title": "Payment Success",
-          "description": "Redirecting automatically..."
+          "description": "Your payment is confirmed. Opening your journal…"
         },
         "failed": {
           "title": "Payment Failed",
@@ -546,9 +592,19 @@
         },
         "timeout": {
           "title": "Processing Timeout",
-          "description": "Payment processing is taking longer than expected."
+          "description": "Confirmation is taking longer than expected. Check again or view billing before trying another payment."
         },
-        "retry": "Retry"
+        "retry": "Check payment again",
+        "missing": {
+          "title": "No payment to confirm",
+          "description": "This link does not include a valid checkout session. Open your journal or check your billing details."
+        },
+        "error": {
+          "title": "We could not check your payment",
+          "description": "Please try checking again. If you already paid, do not pay again while confirmation is pending."
+        },
+        "openJournal": "Open My Journal",
+        "viewBilling": "Check billing details"
       },
       "credits": {
         "title": "Credits",

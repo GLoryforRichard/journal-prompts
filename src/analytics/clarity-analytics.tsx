@@ -1,6 +1,8 @@
 'use client';
 
 import Script from 'next/script';
+import { useEffect, useState } from 'react';
+import { isProductionAnalyticsHost } from '@/lib/analytics';
 
 /**
  * Clarity Analytics
@@ -9,14 +11,12 @@ import Script from 'next/script';
  * https://mksaas.com/docs/analytics#clarity
  */
 export default function ClarityAnalytics() {
-  if (process.env.NODE_ENV !== 'production') {
-    return null;
-  }
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => setEnabled(isProductionAnalyticsHost()), []);
 
-  const projectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
-  if (!projectId) {
-    return null;
-  }
+  // Preserve the site's existing project when no build-time override is set.
+  const projectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || 'w0uzbho8i6';
+  if (!enabled) return null;
 
   return (
     <Script

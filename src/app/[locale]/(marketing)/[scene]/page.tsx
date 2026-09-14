@@ -1,7 +1,8 @@
+import { DailyPromptCard } from '@/components/home/daily-prompt-card';
 import { constructMetadata } from '@/lib/metadata';
 import { scenes } from '@/data/scenes';
 import { getTechniquesForScene } from '@/data/techniques';
-import { getPromptsByScene } from '@/lib/prompt-matcher';
+import { getReviewedPromptsByScene } from '@/lib/prompt-matcher';
 import { SceneHero } from '@/components/scene/scene-hero';
 import { WhySection } from '@/components/scene/why-section';
 import { FeaturedPrompts } from '@/components/scene/featured-prompts';
@@ -16,6 +17,7 @@ import type { Locale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { focusedPromptPages } from '@/data/focused-prompt-pages';
 import { FocusedPromptPage } from '@/components/home/focused-prompt-page';
+import { LocaleLink } from '@/i18n/navigation';
 
 const validSlugs = [...scenes, ...focusedPromptPages].map((page) => page.slug);
 
@@ -55,7 +57,7 @@ export default async function ScenePage({
   const sceneConfig = scenes.find((s) => s.slug === sceneSlug);
   if (!sceneConfig) notFound();
 
-  const prompts = getPromptsByScene(sceneConfig.promptScene);
+  const prompts = getReviewedPromptsByScene(sceneConfig.promptScene);
   const relatedTechniques = getTechniquesForScene(sceneSlug, [
     'free-writing',
     'gratitude-journaling',
@@ -74,6 +76,22 @@ export default async function ScenePage({
         subtitle={sceneConfig.heroSubtitle}
         slug={sceneConfig.slug}
       />
+
+      {sceneSlug === 'daily-journal-prompts' && (
+        <>
+          <DailyPromptCard source="scene" />
+          <p className="px-4 pb-6 text-center text-muted-foreground">
+            Want a different prompt for every day?{' '}
+            <LocaleLink
+              href="/365-daily-journal-prompts"
+              className="font-semibold underline underline-offset-4"
+            >
+              Explore the free 365-day collection
+            </LocaleLink>
+            .
+          </p>
+        </>
+      )}
 
       <div id="scene-prompts" className="scroll-mt-24">
         <FeaturedPrompts
