@@ -88,6 +88,7 @@
       "canceled": "You left checkout without finishing. Your plan is still selected; continue when you are ready.",
       "continue": "Continue to secure checkout",
       "signIn": "Sign in to continue",
+      "createAccount": "Create an account to continue",
       "alreadyPaid": "You already have paid access. Manage your current plan and billing below."
     },
     "faqs": {
@@ -251,6 +252,18 @@
     }
   },
   "AuthPage": {
+    "journalSave": {
+      "title": "Keep your writing across devices",
+      "freeAccount": "A free account includes 10 cloud-saved entries and 3 AI prompts per day. No card needed.",
+      "chooseEntries": "You’ll return to My Journal. Choose “Save to my account” for device entries that belong to you; they are not uploaded automatically."
+    },
+    "checkout": {
+      "registerTitle": "Create an account to continue with your plan",
+      "signInTitle": "Sign in to continue with your plan",
+      "reviewAfterAuth": "Next, review your plan and continue to payment. Creating an account is free; you pay only after confirming at checkout.",
+      "signInInstead": "Already have an account? Sign in",
+      "createAccountInstead": "New here? Create an account"
+    },
     "login": {
       "title": "Login",
       "welcomeBack": "Welcome back",

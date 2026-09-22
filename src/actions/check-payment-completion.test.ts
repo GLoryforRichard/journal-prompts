@@ -26,9 +26,23 @@ describe('payment confirmation', () => {
   });
 
   it('queries the session only for the authenticated owner', async () => {
-    await checkPaymentCompletionAction({ sessionId: 'cs_test_owned123' });
+    await checkPaymentCompletionAction({
+      sessionId: 'cs_test_owned123',
+      expectedUserId: 'signed_in',
+    });
     const query = new PgDialect().sqlToQuery(state.where.mock.calls[0][0]);
     expect(query.params).toEqual(['cs_test_owned123', 'signed_in']);
+  });
+
+  it('rejects a request from an account that changed before it reached the server', async () => {
+    state.rows.mockResolvedValue([{ paid: true, status: 'active' }]);
+    expect(
+      await checkPaymentCompletionAction({
+        sessionId: 'cs_test_owned123',
+        expectedUserId: 'previous_user',
+      })
+    ).toMatchObject({ success: false });
+    expect(state.where).not.toHaveBeenCalled();
   });
 
   it('does not claim an unknown or unpaid session is successful', async () => {

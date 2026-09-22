@@ -32,6 +32,29 @@ export function findCheckoutSelection(
   return plan && price ? { plan, price } : null;
 }
 
+/** Resolve auth's plan summary from configured prices, never amounts in a URL. */
+export function findCheckoutSelectionFromReturnPath(
+  plans: PricePlan[],
+  returnPath: string,
+  locale: string
+): { plan: PricePlan; price: Price } | null {
+  const url = new URL(
+    getSafeReturnPath(returnPath),
+    'https://callback.invalid'
+  );
+  if (
+    url.pathname !== Routes.Pricing &&
+    url.pathname !== `/${locale}${Routes.Pricing}`
+  ) {
+    return null;
+  }
+  return findCheckoutSelection(
+    plans,
+    url.searchParams.get('plan'),
+    url.searchParams.get('interval') === 'month' ? 'month' : 'year'
+  );
+}
+
 /** Payment completion only navigates to one of our known account destinations. */
 export function getPaymentDestination(callback: string | null): string {
   return callback === Routes.SettingsCredits ||

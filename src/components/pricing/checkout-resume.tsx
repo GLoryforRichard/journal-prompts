@@ -83,9 +83,9 @@ export function CheckoutResume({
         ) : (
           <Button asChild className="min-h-11 shrink-0">
             <LocaleLink
-              href={`${Routes.Login}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+              href={`${Routes.Register}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
             >
-              {t('signIn')}
+              {t('createAccount')}
             </LocaleLink>
           </Button>
         )}

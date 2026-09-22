@@ -26,6 +26,14 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
     setTimeout(() => setCopied(false), 2000);
   }, [prompt.text]);
 
+  function startEntry() {
+    setEntryPrompt(createJournalEntryPrompt(prompt));
+    trackFunnelEvent('prompt_selected', {
+      source: 'scene',
+      prompt_kind: 'curated',
+    });
+  }
+
   return (
     <li className="border-b-2 border-dashed border-[#e5e0d8] last:border-0">
       <div
@@ -70,13 +78,7 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
           <button
             type="button"
             onClick={() => {
-              if (!expanded) {
-                setEntryPrompt(createJournalEntryPrompt(prompt));
-                trackFunnelEvent('prompt_selected', {
-                  source: 'scene',
-                  prompt_kind: 'curated',
-                });
-              }
+              if (!expanded && !entryPrompt) startEntry();
               setExpanded(!expanded);
             }}
             className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 cursor-pointer transition-all duration-200"
@@ -87,20 +89,29 @@ function PromptItem({ prompt, index }: { prompt: Prompt; index: number }) {
               borderColor: expanded ? '#ff4d4d' : '#e5e0d8',
               borderRadius: wobblyBorderRadius.sm,
             }}
-            title="Start writing"
-            aria-label={expanded ? 'Close writing area' : 'Start writing'}
+            title={entryPrompt ? 'Continue writing' : 'Start writing'}
+            aria-label={
+              expanded
+                ? 'Close writing area'
+                : entryPrompt
+                  ? 'Continue writing'
+                  : 'Start writing'
+            }
           >
             <PenLineIcon size={16} strokeWidth={2.2} />
-            <span>{expanded ? 'Close' : 'Write'}</span>
+            <span>
+              {expanded ? 'Close' : entryPrompt ? 'Continue' : 'Write'}
+            </span>
           </button>
         </div>
       </div>
-      {expanded && (
-        <div className="pb-4 pl-8 space-y-3">
+      {entryPrompt && (
+        <div hidden={!expanded} className="pb-4 pl-8 space-y-3">
           <WritingArea
-            prompt={entryPrompt ?? prompt}
+            prompt={entryPrompt}
             onBack={() => setExpanded(false)}
             backLabel="Close writing area"
+            onStartAnother={startEntry}
           />
         </div>
       )}

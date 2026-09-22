@@ -5,29 +5,42 @@ import { useQuery } from '@tanstack/react-query';
 // Query keys for payment completion
 export const paymentCompletionKeys = {
   all: ['paymentCompletion'] as const,
-  session: (sessionId: string) =>
-    [...paymentCompletionKeys.all, 'session', sessionId] as const,
+  session: (userId: string, sessionId: string) =>
+    [
+      ...paymentCompletionKeys.all,
+      'user',
+      userId,
+      'session',
+      sessionId,
+    ] as const,
 };
 
 // Hook to check if payment is completed by session ID
 export function usePaymentCompletion(
   sessionId: string | null,
+  userId: string | undefined,
   enablePolling = false
 ) {
   return useQuery({
-    queryKey: paymentCompletionKeys.session(sessionId || ''),
+    queryKey: paymentCompletionKeys.session(userId || '', sessionId || ''),
     queryFn: async () => {
-      if (!sessionId) {
+      if (!sessionId || !userId) {
         return {
           isPaid: false,
           isFailed: false,
         };
       }
-      const result = await checkPaymentCompletionAction({ sessionId });
+      const result = await checkPaymentCompletionAction({
+        sessionId,
+        expectedUserId: userId,
+      });
       if (!result?.data?.success) {
         throw new Error(
           result?.data?.error || 'Failed to check payment completion'
         );
+      }
+      if (result.data.checkedUserId !== userId) {
+        throw new Error('Your account changed. Reload to check payment.');
       }
 
       const { isPaid, isFailed } = result.data;
@@ -36,7 +49,7 @@ export function usePaymentCompletion(
         isFailed,
       };
     },
-    enabled: !!sessionId,
+    enabled: !!sessionId && !!userId,
     refetchInterval: (query) =>
       enablePolling && !query.state.data?.isPaid && !query.state.data?.isFailed
         ? PAYMENT_POLL_INTERVAL

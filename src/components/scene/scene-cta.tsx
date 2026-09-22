@@ -1,3 +1,4 @@
+import { StartDailyWritingLink } from '@/components/home/daily-writing';
 import { websiteConfig } from '@/config/website';
 import { LocaleLink } from '@/i18n/navigation';
 import { handShadow, wobblyBorderRadius } from '@/lib/design-tokens';
@@ -23,10 +24,12 @@ function finderHref(sceneSlug?: string) {
 }
 
 export function SceneActions({ sceneSlug }: { sceneSlug: string }) {
+  const StartLink =
+    sceneSlug === 'daily-journal-prompts' ? StartDailyWritingLink : 'a';
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap justify-center gap-3">
-        <a
+        <StartLink
           href="#scene-prompts"
           className="inline-flex min-h-12 items-center justify-center border-2 border-foreground bg-secondary px-6 py-3 text-lg text-secondary-foreground no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
           style={{
@@ -35,7 +38,7 @@ export function SceneActions({ sceneSlug }: { sceneSlug: string }) {
           }}
         >
           Start writing for free
-        </a>
+        </StartLink>
         {!youthScenes.has(sceneSlug) && (
           <LocaleLink
             href={finderHref(sceneSlug)}
@@ -51,7 +54,7 @@ export function SceneActions({ sceneSlug }: { sceneSlug: string }) {
           <>
             {' '}
             <LocaleLink
-              href={`${Routes.Pricing}?plan=pro&interval=month`}
+              href={`${Routes.Pricing}?interval=month`}
               className="font-semibold text-secondary underline underline-offset-4"
             >
               {monthlyPrice
@@ -113,7 +116,7 @@ export function SceneCTA({ sceneSlug }: { sceneSlug?: string }) {
           Create a free journal
         </LocaleLink>
         <LocaleLink
-          href={`${Routes.Pricing}?plan=pro&interval=month`}
+          href={`${Routes.Pricing}?interval=month`}
           className="inline-flex min-h-11 items-center font-semibold text-secondary underline underline-offset-4"
         >
           Compare free and Pro plans →

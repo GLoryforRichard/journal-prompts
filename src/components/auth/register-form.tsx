@@ -2,6 +2,11 @@
 
 import { validateCaptchaAction } from '@/actions/validate-captcha';
 import { AuthCard } from '@/components/auth/auth-card';
+import {
+  CheckoutAuthContext,
+  useCheckoutAuthSelection,
+} from '@/components/auth/checkout-auth-context';
+import { JournalSaveAuthContext } from '@/components/auth/journal-save-auth-context';
 import { FormError } from '@/components/shared/form-error';
 import { FormSuccess } from '@/components/shared/form-success';
 import { Button } from '@/components/ui/button';
@@ -38,6 +43,7 @@ export const RegisterForm = ({
   callbackUrl: propCallbackUrl,
 }: RegisterFormProps) => {
   const t = useTranslations('AuthPage.register');
+  const checkoutText = useTranslations('AuthPage.checkout');
   const searchParams = useSearchParams();
   const paramCallbackUrl = searchParams.get('callbackUrl');
   // Use prop callback URL or param callback URL if provided, otherwise use the default login redirect
@@ -50,6 +56,7 @@ export const RegisterForm = ({
     propCallbackUrl || paramCallbackUrl,
     defaultCallbackUrl
   );
+  const checkoutSelection = useCheckoutAuthSelection(callbackUrl);
 
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
@@ -190,10 +197,21 @@ export const RegisterForm = ({
 
   return (
     <AuthCard
-      headerLabel={t('createAccount')}
+      headerLabel={
+        checkoutSelection ? checkoutText('registerTitle') : t('createAccount')
+      }
       bottomButtonLabel={t('signInHint')}
       bottomButtonHref={`${Routes.Login}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
     >
+      {checkoutSelection ? (
+        <CheckoutAuthContext
+          selection={checkoutSelection}
+          callbackUrl={callbackUrl}
+          mode="register"
+        />
+      ) : (
+        <JournalSaveAuthContext callbackUrl={callbackUrl} />
+      )}
       {credentialLoginEnabled && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

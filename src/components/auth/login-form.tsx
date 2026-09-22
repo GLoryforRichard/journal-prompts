@@ -2,6 +2,11 @@
 
 import { validateCaptchaAction } from '@/actions/validate-captcha';
 import { AuthCard } from '@/components/auth/auth-card';
+import {
+  CheckoutAuthContext,
+  useCheckoutAuthSelection,
+} from '@/components/auth/checkout-auth-context';
+import { JournalSaveAuthContext } from '@/components/auth/journal-save-auth-context';
 import { FormError } from '@/components/shared/form-error';
 import { FormSuccess } from '@/components/shared/form-success';
 import { Button } from '@/components/ui/button';
@@ -41,6 +46,7 @@ export const LoginForm = ({
   callbackUrl: propCallbackUrl,
 }: LoginFormProps) => {
   const t = useTranslations('AuthPage.login');
+  const checkoutText = useTranslations('AuthPage.checkout');
   const searchParams = useSearchParams();
   const urlError = searchParams.get('error');
   const paramCallbackUrl = searchParams.get('callbackUrl');
@@ -54,6 +60,7 @@ export const LoginForm = ({
     propCallbackUrl || paramCallbackUrl,
     defaultCallbackUrl
   );
+  const checkoutSelection = useCheckoutAuthSelection(callbackUrl);
 
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
@@ -169,11 +176,22 @@ export const LoginForm = ({
 
   return (
     <AuthCard
-      headerLabel={t('welcomeBack')}
+      headerLabel={
+        checkoutSelection ? checkoutText('signInTitle') : t('welcomeBack')
+      }
       bottomButtonLabel={t('signUpHint')}
       bottomButtonHref={`${Routes.Register}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
       className={cn('', className)}
     >
+      {checkoutSelection ? (
+        <CheckoutAuthContext
+          selection={checkoutSelection}
+          callbackUrl={callbackUrl}
+          mode="login"
+        />
+      ) : (
+        <JournalSaveAuthContext callbackUrl={callbackUrl} />
+      )}
       {credentialLoginEnabled && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

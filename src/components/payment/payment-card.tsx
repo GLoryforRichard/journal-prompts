@@ -15,6 +15,7 @@ import {
   isCheckoutSessionId,
 } from '@/lib/checkout-flow';
 import { trackFunnelEvent } from '@/lib/analytics';
+import { authClient } from '@/lib/auth-client';
 import { PAYMENT_MAX_POLL_TIME } from '@/lib/constants';
 import { Routes } from '@/routes';
 import { useQueryClient } from '@tanstack/react-query';
@@ -31,30 +32,52 @@ export function PaymentCard() {
   const rawSessionId = searchParams.get('session_id');
   const sessionId = isCheckoutSessionId(rawSessionId) ? rawSessionId : null;
   const destination = getPaymentDestination(searchParams.get('callback'));
-  const [timedOut, setTimedOut] = useState(false);
+  const {
+    data: session,
+    isPending: isSessionPending,
+    error: sessionError,
+  } = authClient.useSession();
+  const userId =
+    !isSessionPending && !sessionError ? session?.user.id : undefined;
+  const [timedOutFor, setTimedOutFor] = useState<{
+    userId: string;
+    sessionId: string;
+  } | null>(null);
+  const timedOut =
+    !!timedOutFor &&
+    timedOutFor.userId === userId &&
+    timedOutFor.sessionId === sessionId;
   const [attempt, setAttempt] = useState(0);
   const { data, isError, isFetching, refetch } = usePaymentCompletion(
     sessionId,
+    userId,
     !!sessionId && !timedOut
   );
   const status = !sessionId
     ? 'missing'
-    : data?.isPaid
-      ? 'success'
-      : data?.isFailed
-        ? 'failed'
-        : isError
-          ? 'error'
-          : timedOut
-            ? 'timeout'
-            : 'processing';
+    : isSessionPending
+      ? 'processing'
+      : sessionError || !userId
+        ? 'error'
+        : data?.isPaid
+          ? 'success'
+          : data?.isFailed
+            ? 'failed'
+            : isError
+              ? 'error'
+              : timedOut
+                ? 'timeout'
+                : 'processing';
 
   useEffect(() => {
-    setTimedOut(false);
-    if (!sessionId) return;
-    const timeout = setTimeout(() => setTimedOut(true), PAYMENT_MAX_POLL_TIME);
+    setTimedOutFor(null);
+    if (!sessionId || !userId) return;
+    const timeout = setTimeout(
+      () => setTimedOutFor({ sessionId, userId }),
+      PAYMENT_MAX_POLL_TIME
+    );
     return () => clearTimeout(timeout);
-  }, [sessionId, attempt]);
+  }, [sessionId, userId, attempt]);
 
   useEffect(() => {
     if (status === 'processing') return;
@@ -82,7 +105,7 @@ export function PaymentCard() {
   }, [status, queryClient, localeRouter, destination]);
 
   const retry = () => {
-    setTimedOut(false);
+    setTimedOutFor(null);
     setAttempt((value) => value + 1);
     void refetch();
   };

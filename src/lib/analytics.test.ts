@@ -56,7 +56,7 @@ describe('funnel analytics privacy', () => {
         email: 'person@example.org',
         page_location: 'https://example.org/private',
       })
-    ).toEqual({ source: 'finder', prompt_kind: 'ai' });
+    ).toEqual({ entry_point: 'finder', prompt_kind: 'ai' });
     expect(
       analytics.sanitizeFunnelParams('checkout_error', {
         source: 'user@example.org',
@@ -77,6 +77,111 @@ describe('funnel analytics privacy', () => {
         status: 'confirmed',
       })
     ).toEqual({ method: 'email' });
+  });
+
+  it('accepts completion and account-save labels without journal contents', () => {
+    expect(
+      analytics.sanitizeFunnelParams('journal_completed', {
+        source: 'scene',
+        storage: 'device',
+        text: 'A private journal entry',
+        prompt_text: 'A private question',
+        entry_id: 'entry-private',
+        word_count: 400,
+      })
+    ).toEqual({ entry_point: 'scene', storage: 'device' });
+    expect(
+      analytics.sanitizeFunnelParams('account_save_clicked', {
+        source: 'finder',
+        storage: 'cloud',
+        email: 'person@example.org',
+      })
+    ).toEqual({ entry_point: 'finder' });
+    expect(
+      analytics.sanitizeFunnelParams('journal_completed', {
+        source: 'person@example.org',
+        storage: 'private-device-name',
+      })
+    ).toEqual({});
+  });
+
+  it.each([
+    'device_import_viewed',
+    'device_import_completed',
+  ] as const)('restricts %s to the journal source without importing private metadata', (event) => {
+    expect(
+      analytics.sanitizeFunnelParams(event, {
+        source: 'journal',
+        device_id: 'private-device',
+        entries: [{ text: 'Private entry' }],
+        count: 12,
+        storage: 'cloud',
+      })
+    ).toEqual({ entry_point: 'journal' });
+    expect(analytics.sanitizeFunnelParams(event, { source: 'home' })).toEqual(
+      {}
+    );
+    expect(analytics.trackFunnelEvent(event, { source: 'journal' })).toBe(true);
+    expect(calls().find((call) => call[1] === event)?.[2]).toMatchObject({
+      entry_point: 'journal',
+    });
+  });
+
+  it('keeps funnel entry points separate from acquisition through navigation', () => {
+    browser.location.search = '?utm_source=medium&utm_medium=referral';
+    analytics.trackPageView();
+    analytics.trackFunnelEvent('prompt_selected', {
+      source: 'finder',
+      prompt_kind: 'curated',
+    });
+    browser.location.pathname = '/pricing';
+    browser.location.search = '';
+    analytics.trackPageView();
+    analytics.trackFunnelEvent('select_plan', {
+      source: 'pricing',
+      plan: 'pro',
+      interval: 'month',
+    });
+
+    expect(calls().find((call) => call[1] === 'prompt_selected')?.[2]).toEqual({
+      entry_point: 'finder',
+      prompt_kind: 'curated',
+      page_location:
+        'https://journalprompts.org/find-your-prompt?utm_source=medium&utm_medium=referral',
+      page_title: 'Journal Prompts',
+      page_referrer: 'https://www.bing.com/',
+    });
+    expect(
+      calls().find((call) => call[1] === 'select_plan')?.[2]
+    ).toMatchObject({
+      entry_point: 'pricing',
+      plan: 'pro',
+      interval: 'month',
+      page_location: 'https://journalprompts.org/pricing',
+    });
+    for (const call of calls().filter(([command]) => command !== 'js')) {
+      expect(call[2]).not.toHaveProperty('source');
+      expect(call[2]).not.toHaveProperty('medium');
+      expect(call[2]).not.toHaveProperty('campaign_source');
+      expect(call[2]).not.toHaveProperty('campaign_medium');
+    }
+  });
+
+  it('does not accept direct attribution or free-text entry-point overrides', () => {
+    expect(
+      analytics.sanitizeFunnelParams('writing_started', {
+        source: 'scene',
+        entry_point: 'person@example.org',
+        campaign_source: 'home',
+        campaign_medium: 'private',
+        medium: 'private',
+      })
+    ).toEqual({ entry_point: 'scene' });
+    expect(
+      analytics.sanitizeFunnelParams('writing_started', {
+        entry_point: 'person@example.org',
+      })
+    ).toEqual({});
   });
 
   it('rejects unknown events, including purchase and prototype keys', () => {
@@ -151,6 +256,88 @@ describe('funnel analytics privacy', () => {
     });
     expect(JSON.stringify(calls())).not.toMatch(/private-id|secret/);
   });
+
+  it.each(
+    [
+      'medium.com',
+      'pinterest.com',
+      'dev.to',
+      'journalprompts-field-notes.blogspot.com',
+      'indiehackers.com',
+      'peerlist.io',
+      'producthunt.com',
+      'ecosia.org',
+      'copilot.com',
+    ].flatMap((host) => [host, `www.${host}`])
+  )('retains the public referral origin for %s', (host) => {
+    vi.stubGlobal('document', {
+      referrer: `https://${host}/private-person/private-draft?email=person@example.org#secret`,
+    });
+    analytics.trackPageView();
+    expect(calls().find((call) => call[1] === 'page_view')?.[2]).toMatchObject({
+      page_referrer: `https://${host.replace(/^www\./, '')}/`,
+    });
+    expect(JSON.stringify(calls())).not.toMatch(/private|person@|secret/);
+  });
+
+  it.each([
+    'https://private-person.medium.com/draft',
+    'https://private-person.blogspot.com/draft',
+    'https://pinterest.com.private-person.example/draft',
+    'https://medium.com@private-person.example/draft',
+    'https://private-person:secret@medium.com/draft',
+    'https://medium.com:8443/draft',
+    'ftp://medium.com/draft',
+    'not a URL with private words',
+  ])('drops unapproved origins or malformed referrers: %s', (referrer) => {
+    vi.stubGlobal('document', { referrer });
+    analytics.trackPageView();
+    expect(calls().find((call) => call[1] === 'page_view')?.[2]).toMatchObject({
+      page_referrer: '',
+    });
+  });
+
+  it('retains only controlled source and medium labels from campaign links', () => {
+    browser.location.pathname = '/en/daily-journal-prompts';
+    browser.location.search =
+      '?utm_source=pinterest&utm_medium=social&utm_campaign=private-person&utm_content=private-journal&utm_term=secret&email=person@example.org&entry_id=private-id';
+    analytics.trackPageView();
+    analytics.trackFunnelEvent('journal_completed', {
+      source: 'scene',
+      storage: 'device',
+    });
+    const expectedLocation =
+      'https://journalprompts.org/daily-journal-prompts?utm_source=pinterest&utm_medium=social';
+    for (const call of calls().filter(([command]) => command !== 'js')) {
+      expect(call[2]).toMatchObject({ page_location: expectedLocation });
+    }
+    expect(JSON.stringify(calls())).not.toMatch(
+      /private|secret|person@|utm_campaign|utm_content|utm_term|entry_id/
+    );
+  });
+
+  it.each([
+    '?utm_source=private-person&utm_medium=referral',
+    '?utm_medium=social',
+    '?utm_source=medium&utm_source=private-person&utm_medium=referral',
+    '?utm_source=medium&utm_medium=referral&utm_medium=private-person',
+    '?utm_source=medium%00private-person&utm_medium=referral',
+    '?utm_source=https%3A%2F%2Fmedium.com%2Fprivate-person',
+    '?utm_campaign=sanitized&utm_content=safe&utm_term=approved',
+  ])('rejects unknown, duplicate, or free-text attribution: %s', (search) => {
+    expect(analytics.getSafeAnalyticsLocation('/pricing', search)).toBe(
+      'https://journalprompts.org/pricing'
+    );
+  });
+
+  it('supports a known source alone and drops an unapproved medium', () => {
+    expect(
+      analytics.getSafeAnalyticsLocation(
+        '/payment?session_id=private',
+        '?utm_source=bing&utm_medium=private-person&session_id=private'
+      )
+    ).toBe('https://journalprompts.org/payment?utm_source=bing');
+  });
 });
 
 describe('analytics delivery guards and deduplication', () => {
@@ -180,6 +367,20 @@ describe('analytics delivery guards and deduplication', () => {
     expect(calls().filter((call) => call[0] === 'js')).toHaveLength(1);
     expect(calls().filter((call) => call[0] === 'config')).toHaveLength(4);
     expect(calls().filter((call) => call[1] === 'page_view')).toHaveLength(3);
+  });
+
+  it('does not count campaign query changes as another page view', () => {
+    browser.location.search = '?utm_source=medium&utm_medium=referral';
+    expect(analytics.trackPageView()).toBe(true);
+    browser.location.search = '?utm_source=pinterest&utm_medium=social';
+    expect(analytics.trackPageView()).toBe(false);
+    browser.location.pathname = '/pricing';
+    browser.location.search = '';
+    expect(analytics.trackPageView()).toBe(true);
+    expect(calls().filter((call) => call[1] === 'page_view')).toHaveLength(2);
+    expect(calls().at(-1)?.[2]).toMatchObject({
+      page_location: 'https://journalprompts.org/pricing',
+    });
   });
 
   it('deduplicates only the matching local event key and never transmits it', () => {

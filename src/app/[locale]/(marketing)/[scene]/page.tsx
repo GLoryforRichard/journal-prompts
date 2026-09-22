@@ -1,4 +1,5 @@
 import { DailyPromptCard } from '@/components/home/daily-prompt-card';
+import { DailyWritingProvider } from '@/components/home/daily-writing';
 import { constructMetadata } from '@/lib/metadata';
 import { scenes } from '@/data/scenes';
 import { getTechniquesForScene } from '@/data/techniques';
@@ -71,27 +72,29 @@ export default async function ScenePage({
     <>
       <FAQSchema faqs={sceneConfig.faqs} />
 
-      <SceneHero
-        h1={sceneConfig.h1}
-        subtitle={sceneConfig.heroSubtitle}
-        slug={sceneConfig.slug}
-      />
+      <DailyWritingProvider>
+        <SceneHero
+          h1={sceneConfig.h1}
+          subtitle={sceneConfig.heroSubtitle}
+          slug={sceneConfig.slug}
+        />
 
-      {sceneSlug === 'daily-journal-prompts' && (
-        <>
-          <DailyPromptCard source="scene" />
-          <p className="px-4 pb-6 text-center text-muted-foreground">
-            Want a different prompt for every day?{' '}
-            <LocaleLink
-              href="/365-daily-journal-prompts"
-              className="font-semibold underline underline-offset-4"
-            >
-              Explore the free 365-day collection
-            </LocaleLink>
-            .
-          </p>
-        </>
-      )}
+        {sceneSlug === 'daily-journal-prompts' && (
+          <>
+            <DailyPromptCard source="scene" />
+            <p className="px-4 pb-6 text-center text-muted-foreground">
+              Want a different prompt for every day?{' '}
+              <LocaleLink
+                href="/365-daily-journal-prompts"
+                className="font-semibold underline underline-offset-4"
+              >
+                Explore the free 365-day collection
+              </LocaleLink>
+              .
+            </p>
+          </>
+        )}
+      </DailyWritingProvider>
 
       <div id="scene-prompts" className="scroll-mt-24">
         <FeaturedPrompts

@@ -3,6 +3,7 @@ import { Routes } from '@/routes';
 import { describe, expect, it } from 'vitest';
 import {
   findCheckoutSelection,
+  findCheckoutSelectionFromReturnPath,
   getCheckoutReturnPath,
   getPaymentDestination,
   getSafeReturnPath,
@@ -76,6 +77,39 @@ describe('checkout intent and safe return paths', () => {
     expect(
       findCheckoutSelection(plans, 'lifetime', 'year')?.price.priceId
     ).toBe('lifetime');
+  });
+
+  it.each([
+    ['/pricing?plan=pro&interval=month', 'monthly', 999],
+    ['/en/pricing?plan=pro&interval=year', 'yearly', 3999],
+    ['/pricing?plan=lifetime', 'lifetime', 4999],
+    ['/pricing?plan=pro', 'yearly', 3999],
+  ])('shows the configured auth summary for %s', (path, priceId, amount) => {
+    const selection = findCheckoutSelectionFromReturnPath(plans, path, 'en');
+    expect(selection?.price.priceId).toBe(priceId);
+    expect(selection?.price.amount).toBe(amount);
+  });
+
+  it('ignores untrusted amounts in a checkout callback', () => {
+    const selection = findCheckoutSelectionFromReturnPath(
+      plans,
+      '/pricing?plan=pro&interval=year&amount=1&currency=CAD',
+      'en'
+    );
+    expect(selection?.price.amount).toBe(3999);
+    expect(selection?.price.currency).toBe('USD');
+  });
+
+  it.each([
+    '/pricing',
+    '/pricing?plan=free',
+    '/pricing?plan=unknown',
+    '/my-journal?plan=pro&interval=month',
+    '/settings/pricing?plan=pro&interval=year',
+    'https://example.com/pricing?plan=pro&interval=year',
+    '//example.com/pricing?plan=pro&interval=year',
+  ])('does not invent a selected plan for %s', (path) => {
+    expect(findCheckoutSelectionFromReturnPath(plans, path, 'en')).toBeNull();
   });
 
   it('does not offer unknown, retired, disabled or unconfigured checkout selections', () => {

@@ -8,6 +8,7 @@ import { handShadow, wobblyBorderRadius } from '@/lib/design-tokens';
 import type { Prompt } from '@/lib/prompt-matcher';
 import { Routes } from '@/routes';
 import { useEffect, useState } from 'react';
+import { useDailyWriting } from './daily-writing';
 
 export function DailyPromptCard({
   source = 'home',
@@ -15,10 +16,16 @@ export function DailyPromptCard({
   source?: 'home' | 'scene';
 }) {
   const [prompt, setPrompt] = useState<Prompt | null>(null);
-  const [writing, setWriting] = useState(false);
+  const [localWriting, setLocalWriting] = useState(false);
+  const dailyWriting = useDailyWriting();
+  const writing = dailyWriting?.writing ?? localWriting;
+  const setWriting = dailyWriting?.setWriting ?? setLocalWriting;
 
   useEffect(() => {
-    if (writing) return;
+    if (writing) {
+      setPrompt((current) => current ?? getDailyJournalPrompt());
+      return;
+    }
     const refresh = () => setPrompt(getDailyJournalPrompt());
     refresh();
     window.addEventListener('focus', refresh);

@@ -16,6 +16,7 @@ import {
   deleteJournalEntryLocal,
   mergeJournalEntries,
   getJournalImportId,
+  loadJournalEntryLocal,
   type StoredJournalEntry,
 } from '@/lib/journal-storage';
 import {
@@ -59,6 +60,7 @@ export function MyJournal() {
   const [importing, setImporting] = useState<string | null>(null);
   const [accountLoaded, setAccountLoaded] = useState(false);
   const [importLimitReached, setImportLimitReached] = useState(false);
+  const [importNotice, setImportNotice] = useState('');
   const refreshVersion = useRef(0);
   const currentAccountId = useRef(user?.id);
   currentAccountId.current = user?.id;
@@ -118,6 +120,8 @@ export function MyJournal() {
     setCloudCount(0);
     setJournalLimit(null);
     setImporting(null);
+    setImportLimitReached(false);
+    setImportNotice('');
     setEditingEntry(null);
     setShowFinder(false);
     void refreshEntries();
@@ -126,11 +130,29 @@ export function MyJournal() {
     };
   }, [refreshEntries]);
 
+  const showDeviceImport =
+    mounted &&
+    !isPending &&
+    !!user &&
+    entriesOwner === user.id &&
+    guestEntries.length > 0;
+
+  useEffect(() => {
+    if (showDeviceImport && accountLoaded && !editingEntry && !showFinder) {
+      trackFunnelEvent(
+        'device_import_viewed',
+        { source: 'journal' },
+        { dedupeKey: `device-import:${user?.id}` }
+      );
+    }
+  }, [showDeviceImport, accountLoaded, editingEntry, showFinder, user?.id]);
+
   async function importGuestEntry(entry: StoredJournalEntry) {
     if (!user || importing || !accountLoaded) return;
     const importingUserId = user.id;
     setImporting(entry.promptId);
     setImportLimitReached(false);
+    setImportNotice('');
     setError('');
     try {
       const promptId = await getJournalImportId(entry);
@@ -154,7 +176,26 @@ export function MyJournal() {
         source: getFunnelSource(),
         storage: 'cloud',
       });
-      deleteJournalEntryLocal(entry.promptId);
+      trackFunnelEvent('device_import_completed', { source: 'journal' });
+      let deviceCleanupFailed = false;
+      try {
+        const currentDraft = loadJournalEntryLocal(entry.promptId);
+        // Another tab may have edited the device copy while the upload was pending.
+        if (
+          currentDraft?.text === entry.text &&
+          currentDraft.savedAt === entry.savedAt &&
+          currentDraft.promptText === entry.promptText
+        ) {
+          deleteJournalEntryLocal(entry.promptId);
+        }
+      } catch {
+        deviceCleanupFailed = true;
+      }
+      setImportNotice(
+        deviceCleanupFailed
+          ? 'Saved to your account. This browser could not remove its device copy, so it may still appear here.'
+          : 'Saved to your account. You can open this entry below.'
+      );
       await refreshEntries();
     } catch (cause) {
       if (currentAccountId.current !== importingUserId) return;
@@ -212,13 +253,23 @@ export function MyJournal() {
   const greeting = mounted ? getGreeting() : 'Welcome';
   const firstName = mounted ? user?.name?.split(' ')[0] || '' : '';
   const streak = entries.length;
+  const canStartEntry =
+    mounted &&
+    !isPending &&
+    entriesOwner === (user?.id ?? 'guest') &&
+    (!user || accountLoaded);
   function startDailyPrompt() {
+    if (!canStartEntry) return;
     const prompt = getDailyJournalPrompt();
     const existing = entries.find((entry) => entry.promptId === prompt.id);
     if (existing) {
       setEditingEntry(existing);
       return;
     }
+    trackFunnelEvent('prompt_selected', {
+      source: 'journal',
+      prompt_kind: 'curated',
+    });
     setEditingEntry({
       promptId: prompt.id,
       promptText: prompt.text,
@@ -228,6 +279,7 @@ export function MyJournal() {
   }
 
   function startRandomPrompt() {
+    if (!canStartEntry) return;
     const moods = getAllMoods();
     const directions = getAllDirections();
     const candidates = matchPrompts(
@@ -240,13 +292,18 @@ export function MyJournal() {
       candidates.find(
         (candidate) => !entries.some((entry) => entry.promptId === candidate.id)
       ) ?? candidates[0];
-    if (prompt)
+    if (prompt) {
+      trackFunnelEvent('prompt_selected', {
+        source: 'journal',
+        prompt_kind: 'curated',
+      });
       setEditingEntry({
         promptId: createJournalEntryPrompt(prompt).id,
         promptText: prompt.text,
         text: '',
         savedAt: '',
       });
+    }
   }
 
   // Editing mode
@@ -296,6 +353,27 @@ export function MyJournal() {
           ← Back to My Journal
         </button>
         <PromptFinder />
+      </div>
+    );
+  }
+
+  function renderDeviceEntry(entry: StoredJournalEntry) {
+    return (
+      <div key={entry.promptId} className="space-y-3">
+        <p className="text-sm font-semibold">
+          {entry.promptText || 'Earlier entry'}
+        </p>
+        <p className="max-h-40 overflow-auto whitespace-pre-wrap text-sm">
+          {entry.text}
+        </p>
+        <button
+          type="button"
+          disabled={!!importing || !accountLoaded}
+          className="inline-flex min-h-11 items-center rounded-lg bg-[#2d5da1] px-4 py-2 font-semibold text-white disabled:opacity-50"
+          onClick={() => void importGuestEntry(entry)}
+        >
+          {importing === entry.promptId ? 'Saving…' : 'Save to my account'}
+        </button>
       </div>
     );
   }
@@ -365,6 +443,54 @@ export function MyJournal() {
         )}
       </div>
 
+      {importNotice && entriesOwner === user?.id && (
+        <output className="block rounded-lg bg-green-50 p-4 text-green-900">
+          {importNotice}
+        </output>
+      )}
+      {showDeviceImport && (
+        <section className="space-y-4 rounded-xl border-2 border-[#2d5da1] bg-white p-5">
+          <div className="space-y-2">
+            <h2 className="text-xl font-bold">Keep the entry you just wrote</h2>
+            <p className="text-sm">
+              This writing is saved in this browser. Save it to your account to
+              return to it on any device. Choose only entries that belong to
+              you.
+            </p>
+          </div>
+          {renderDeviceEntry(guestEntries[0])}
+          {guestEntries.length > 1 && (
+            <details className="space-y-3 border-t pt-3">
+              <summary className="min-h-11 cursor-pointer py-2 font-semibold">
+                {guestEntries.length - 1} more device{' '}
+                {guestEntries.length === 2 ? 'entry' : 'entries'}
+              </summary>
+              {guestEntries.slice(1).map(renderDeviceEntry)}
+            </details>
+          )}
+        </section>
+      )}
+      {error && (
+        <p role="alert" className="text-sm text-red-700">
+          {error}{' '}
+          <button
+            type="button"
+            className="underline"
+            onClick={() => void refreshEntries()}
+          >
+            Retry
+          </button>
+        </p>
+      )}
+      {importLimitReached && (
+        <LocaleLink
+          href={Routes.Pricing}
+          className="block font-semibold underline"
+        >
+          See plans to save more entries →
+        </LocaleLink>
+      )}
+
       {entries.length > 0 && entriesSection}
 
       {mounted && !isPending && !user && (
@@ -377,6 +503,9 @@ export function MyJournal() {
           <div className="flex flex-wrap items-center gap-3">
             <LocaleLink
               href={`${Routes.Register}?callbackUrl=%2Fmy-journal`}
+              onClick={() =>
+                trackFunnelEvent('account_save_clicked', { source: 'journal' })
+              }
               className="inline-flex min-h-11 items-center rounded-lg bg-[#2d5da1] px-4 py-2 text-white no-underline font-semibold"
             >
               Create a free account to save across devices
@@ -447,7 +576,8 @@ export function MyJournal() {
         <button
           type="button"
           onClick={startDailyPrompt}
-          className="inline-flex items-center gap-2 px-6 py-2.5 text-white cursor-pointer transition-all duration-200"
+          disabled={!canStartEntry}
+          className="inline-flex items-center gap-2 px-6 py-2.5 text-white cursor-pointer transition-all duration-200 disabled:opacity-50"
           style={{
             fontFamily: 'var(--font-hand-title)',
             backgroundColor: '#ff4d4d',
@@ -504,7 +634,8 @@ export function MyJournal() {
         <button
           type="button"
           onClick={startRandomPrompt}
-          className="p-5 text-left cursor-pointer transition-all duration-200 group"
+          disabled={!canStartEntry}
+          className="p-5 text-left cursor-pointer transition-all duration-200 group disabled:opacity-50"
           style={{
             backgroundColor: '#ffffff',
             border: '2px solid #2d2d2d',
@@ -538,55 +669,6 @@ export function MyJournal() {
         </button>
       </div>
 
-      {error && (
-        <p role="alert" className="text-sm text-red-700">
-          {error}{' '}
-          <button
-            type="button"
-            className="underline"
-            onClick={() => void refreshEntries()}
-          >
-            Retry
-          </button>
-        </p>
-      )}
-      {importLimitReached && (
-        <LocaleLink
-          href={Routes.Pricing}
-          className="block font-semibold underline"
-        >
-          See plans to save more entries →
-        </LocaleLink>
-      )}
-      {guestEntries.length > 0 && (
-        <section className="space-y-3 rounded-lg border-2 border-amber-300 p-4">
-          <h2 className="text-lg font-bold">Writing saved on this device</h2>
-          <p className="text-sm">
-            These entries were written without an account. Choose which ones to
-            save to your account.
-          </p>
-          {guestEntries.map((entry) => (
-            <div key={entry.promptId} className="space-y-2 border-t pt-3">
-              <p className="text-sm italic">
-                {entry.promptText || 'Earlier entry'}
-              </p>
-              <p className="text-sm whitespace-pre-wrap max-h-40 overflow-auto">
-                {entry.text}
-              </p>
-              <button
-                type="button"
-                disabled={!!importing || !accountLoaded}
-                className="text-sm underline disabled:opacity-50"
-                onClick={() => void importGuestEntry(entry)}
-              >
-                {importing === entry.promptId
-                  ? 'Saving...'
-                  : 'Save to my account'}
-              </button>
-            </div>
-          ))}
-        </section>
-      )}
       {entries.length === 0 && entriesSection}
     </div>
   );

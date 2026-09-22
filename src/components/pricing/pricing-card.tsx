@@ -27,7 +27,6 @@ import {
 import { Routes } from '@/routes';
 import { CheckCircleIcon, XCircleIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { LoginWrapper } from '../auth/login-wrapper';
 import { Badge } from '../ui/badge';
 import { CheckoutButton } from './create-checkout-button';
 
@@ -223,10 +222,9 @@ export function PricingCard({
                 : t('choosePlan', { plan: plan.name ?? plan.id })}
             </CheckoutButton>
           ) : (
-            <LoginWrapper mode="modal" asChild callbackUrl={callbackUrl}>
-              <Button
-                variant="default"
-                className="mt-4 min-h-11 w-full"
+            <Button asChild className="mt-4 min-h-11 w-full">
+              <LocaleLink
+                href={`${Routes.Register}?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                 onClick={() =>
                   trackFunnelEvent('select_plan', {
                     source: getFunnelSource(),
@@ -235,9 +233,9 @@ export function PricingCard({
                   })
                 }
               >
-                {t('signInToChoose', { plan: plan.name ?? plan.id })}
-              </Button>
-            </LoginWrapper>
+                {t('choosePlan', { plan: plan.name ?? plan.id })}
+              </LocaleLink>
+            </Button>
           )
         ) : (
           <Button disabled className="mt-4 w-full">

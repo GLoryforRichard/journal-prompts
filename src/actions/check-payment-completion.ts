@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 const checkPaymentCompletionSchema = z.object({
   sessionId: z.string().refine(isCheckoutSessionId, 'Invalid checkout session'),
+  expectedUserId: z.string().min(1).optional(),
 });
 
 /**
@@ -16,7 +17,13 @@ const checkPaymentCompletionSchema = z.object({
  */
 export const checkPaymentCompletionAction = userActionClient
   .inputSchema(checkPaymentCompletionSchema)
-  .action(async ({ parsedInput: { sessionId }, ctx }) => {
+  .action(async ({ parsedInput: { sessionId, expectedUserId }, ctx }) => {
+    if (expectedUserId && expectedUserId !== ctx.user.id) {
+      return {
+        success: false,
+        error: 'Your account changed. Reload to check payment.',
+      };
+    }
     try {
       const db = await getDb();
       const paymentRecord = await db
@@ -36,6 +43,7 @@ export const checkPaymentCompletionAction = userActionClient
 
       return {
         success: true,
+        checkedUserId: ctx.user.id,
         isPaid,
         isFailed,
       };
