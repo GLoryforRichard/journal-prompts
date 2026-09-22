@@ -23,12 +23,19 @@ export async function generateMetadata({
   });
 }
 
-export default async function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl?: string | string[] }>;
+}) {
+  const { callbackUrl } = await searchParams;
   const t = await getTranslations('AuthPage.common');
 
   return (
     <div className="flex flex-col gap-4">
-      <LoginForm />
+      <LoginForm
+        callbackUrl={Array.isArray(callbackUrl) ? callbackUrl[0] : callbackUrl}
+      />
       <div className="text-balance text-center text-xs text-muted-foreground">
         {t('byClickingContinue')}
         <LocaleLink
