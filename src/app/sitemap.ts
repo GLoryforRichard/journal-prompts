@@ -7,6 +7,8 @@ import type { MetadataRoute } from 'next';
 import type { Locale } from 'next-intl';
 import { getBaseUrl } from '@/lib/urls';
 import { focusedPromptPages } from '@/data/focused-prompt-pages';
+import { pageUpdated } from '@/data/page-dates';
+import { sceneUpdated } from '@/data/scenes';
 
 type Href = Parameters<typeof getLocalePathname>[0]['href'];
 
@@ -65,8 +67,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // add static routes
   sitemapList.push(
     ...staticRoutes.flatMap((route) => {
+      const lastModified = getLastModified(route);
       return routing.locales.map((locale) => ({
         url: getUrl(route, locale),
+        ...(lastModified && { lastModified }),
         alternates: {
           languages: generateHreflangUrls(route),
         },
@@ -162,6 +166,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   return sitemapList;
+}
+
+/** Only dates we can stand behind; a wrong lastmod teaches crawlers to ignore it. */
+function getLastModified(route: string): string | undefined {
+  if (route === '/') return pageUpdated.home;
+  if (sceneRoutes.includes(route)) return sceneUpdated;
+  if (focusedPromptPages.some((page) => `/${page.slug}` === route)) {
+    return pageUpdated.focused;
+  }
+  if (techniqueRoutes.includes(route)) return pageUpdated.techniques;
+  return undefined;
 }
 
 function getUrl(href: Href, locale: Locale) {

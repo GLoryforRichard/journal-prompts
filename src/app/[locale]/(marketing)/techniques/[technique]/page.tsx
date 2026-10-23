@@ -1,5 +1,6 @@
 import { constructMetadata } from '@/lib/metadata';
 import {
+  activeTechniqueSlugs,
   techniques,
   audienceTechniques,
   getTechniqueBySlug,
@@ -19,18 +20,7 @@ import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { notFound } from 'next/navigation';
 
-/**
- * Phase 1: Only these slugs are active. Add more as Google indexes them.
- */
-const ACTIVE_SLUGS = [
-  'free-writing',
-  'gratitude-journaling',
-  '5-minute-journal',
-  'morning-pages',
-  'bullet-journaling',
-  'cbt-journaling',
-  'for-beginners',
-];
+const ACTIVE_SLUGS = activeTechniqueSlugs;
 
 export function generateStaticParams() {
   return ACTIVE_SLUGS.map((technique) => ({ technique }));

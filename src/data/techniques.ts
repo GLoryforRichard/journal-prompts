@@ -720,3 +720,16 @@ export function getTechniquesForScene(
       t.relatedScenes.includes(sceneSlug)
   );
 }
+
+/**
+ * Phase 1: Only these slugs are active. Add more as Google indexes them.
+ */
+export const activeTechniqueSlugs = [
+  'free-writing',
+  'gratitude-journaling',
+  '5-minute-journal',
+  'morning-pages',
+  'bullet-journaling',
+  'cbt-journaling',
+  'for-beginners',
+];
