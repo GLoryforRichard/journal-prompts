@@ -5,6 +5,7 @@ import { PromptFinder } from '@/components/prompt-finder/prompt-finder';
 import { FocusedPromptLinks } from '@/components/home/focused-prompt-links';
 import { PromptArticleSection } from '@/components/home/focused-prompt-page';
 import { FAQSchema } from '@/components/seo/faq-schema';
+import { SiteSchema } from '@/components/seo/site-schema';
 import { SceneIcon } from '@/components/ui/scene-icon';
 import { scenes } from '@/data/scenes';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
@@ -19,6 +20,9 @@ import {
   CheckCircleIcon,
 } from 'lucide-react';
 
+const homeDescription =
+  'Find free journal prompts for mental health, self-discovery, gratitude, daily reflection, and more with our fast journal prompt finder and built-in writing space.';
+
 export async function generateMetadata({
   params,
 }: {
@@ -28,8 +32,7 @@ export async function generateMetadata({
 
   return constructMetadata({
     title: 'Daily Journal Prompts to Start a Writing Habit',
-    description:
-      'Find free journal prompts for mental health, self-discovery, gratitude, daily reflection, and more with our fast journal prompt finder and built-in writing space.',
+    description: homeDescription,
     locale,
     pathname: '',
   });
@@ -117,6 +120,7 @@ export default async function HomePage(_props: HomePageProps) {
   return (
     <>
       <FAQSchema faqs={homeFaqs} />
+      <SiteSchema description={homeDescription} />
 
       {/* Hero Section */}
       <section className="py-16 md:py-24 text-center px-4">
@@ -140,7 +144,7 @@ export default async function HomePage(_props: HomePageProps) {
               color: '#2d2d2d',
             }}
           >
-            Find your words. Keep your story.
+            Free journal prompts to find your words
           </h1>
           <p
             className="text-xl md:text-2xl max-w-2xl mx-auto"

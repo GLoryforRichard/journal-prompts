@@ -32,8 +32,24 @@ export function useFooterLinks(): NestedMenuItem[] {
       title: 'Techniques',
       items: [
         { title: 'All Techniques', href: '/techniques', external: false },
-        { title: 'Free Writing', href: '/techniques/free-writing', external: false },
         { title: 'For Beginners', href: '/techniques/for-beginners', external: false },
+        { title: 'Free Writing', href: '/techniques/free-writing', external: false },
+        { title: 'Gratitude Journaling', href: '/techniques/gratitude-journaling', external: false },
+        { title: '5-Minute Journal', href: '/techniques/5-minute-journal', external: false },
+        { title: 'Morning Pages', href: '/techniques/morning-pages', external: false },
+        { title: 'Bullet Journaling', href: '/techniques/bullet-journaling', external: false },
+        { title: 'CBT Journaling', href: '/techniques/cbt-journaling', external: false },
+      ],
+    },
+    {
+      title: 'Collections',
+      items: [
+        { title: '365 Daily Prompts', href: '/365-daily-journal-prompts', external: false },
+        { title: 'Prompt Generator', href: '/journal-prompt-generator', external: false },
+        { title: 'Find by Mood', href: Routes.FindYourPrompt, external: false },
+        { title: 'Healing', href: '/healing-journal-prompts', external: false },
+        { title: 'Couples', href: '/couples-journal-prompts', external: false },
+        { title: 'Blog', href: Routes.Blog, external: false },
       ],
     },
     {
