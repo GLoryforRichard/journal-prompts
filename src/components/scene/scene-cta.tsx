@@ -1,17 +1,11 @@
 import { StartDailyWritingLink } from '@/components/home/daily-writing';
 import { websiteConfig } from '@/config/website';
+import { youthSceneSlugs as youthScenes } from '@/data/scenes';
 import { LocaleLink } from '@/i18n/navigation';
 import { handShadow, wobblyBorderRadius } from '@/lib/design-tokens';
 import { formatPrice } from '@/lib/formatter';
 import { PlanIntervals } from '@/payment/types';
 import { Routes } from '@/routes';
-
-const youthScenes = new Set([
-  'journal-prompts-for-kids',
-  'journal-prompts-for-teens',
-  'journal-prompts-for-middle-school',
-  'journal-prompts-for-high-school',
-]);
 
 const monthlyPrice = websiteConfig.price.plans.pro.prices.find(
   (price) => price.interval === PlanIntervals.MONTH && !price.disabled
@@ -23,22 +17,31 @@ function finderHref(sceneSlug?: string) {
     : Routes.FindYourPrompt;
 }
 
-export function SceneActions({ sceneSlug }: { sceneSlug: string }) {
+export function SceneActions({
+  sceneSlug,
+  showStart = true,
+}: {
+  sceneSlug: string;
+  /** Off when the page already shows a prompt to write about in the hero. */
+  showStart?: boolean;
+}) {
   const StartLink =
     sceneSlug === 'daily-journal-prompts' ? StartDailyWritingLink : 'a';
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap justify-center gap-3">
-        <StartLink
-          href="#scene-prompts"
-          className="inline-flex min-h-12 items-center justify-center border-2 border-foreground bg-secondary px-6 py-3 text-lg text-secondary-foreground no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
-          style={{
-            borderRadius: wobblyBorderRadius.sm,
-            boxShadow: handShadow.default,
-          }}
-        >
-          Start writing for free
-        </StartLink>
+        {showStart && (
+          <StartLink
+            href="#scene-prompts"
+            className="inline-flex min-h-12 items-center justify-center border-2 border-foreground bg-secondary px-6 py-3 text-lg text-secondary-foreground no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
+            style={{
+              borderRadius: wobblyBorderRadius.sm,
+              boxShadow: handShadow.default,
+            }}
+          >
+            Start writing for free
+          </StartLink>
+        )}
         {!youthScenes.has(sceneSlug) && (
           <LocaleLink
             href={finderHref(sceneSlug)}

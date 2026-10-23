@@ -25,7 +25,7 @@
 
 值也受白名单限制：
 
-- `entry_point`：`home`, `scene`, `finder`, `journal`, `pricing`, `billing`, `auth`, `payment`, `other`。它表示动作发生的位置；首次进入页面使用 GA 的 Landing page 维度。
+- `entry_point`：`home`, `scene`, `scene_starter`, `finder`, `journal`, `pricing`, `billing`, `auth`, `payment`, `other`。它表示动作发生的位置；首次进入页面使用 GA 的 Landing page 维度。`scene_starter` 只用于主题页首屏起步题的 `prompt_selected`（2026-10-23 起），用来和下方题目列表的 `scene` 分开比较；之后的写作、保存事件仍按页面记为 `scene`。
 - `prompt_kind`：`curated` 或 `ai`；`storage`：`device` 或 `cloud`。
 - `plan`：`free`, `pro`, `lifetime`；`interval`：`month`, `year`, `lifetime`。
 - `method`：`email` 或 `google`。只有能可靠区分新注册与登录时才能发送；目前 email 注册成功可确认，Google 登录不能凭登录成功推断新注册。

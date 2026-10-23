@@ -2,13 +2,12 @@
 
 import { getDb } from '@/db';
 import { journalEntry } from '@/db/app.schema';
+import { FREE_JOURNAL_LIMIT } from '@/config/site-facts';
 import { checkPremiumAccess } from '@/lib/premium-access';
 import { userActionClient } from '@/lib/safe-action';
 import type { SessionUser } from '@/lib/auth-types';
 import { and, desc, eq } from 'drizzle-orm';
 import { z } from 'zod';
-
-const FREE_JOURNAL_LIMIT = 10;
 
 async function getUserEntryCount(userId: string): Promise<number> {
   const db = await getDb();

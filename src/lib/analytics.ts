@@ -3,6 +3,7 @@ import { Routes } from '@/routes';
 const sources = [
   'home',
   'scene',
+  'scene_starter',
   'finder',
   'journal',
   'pricing',

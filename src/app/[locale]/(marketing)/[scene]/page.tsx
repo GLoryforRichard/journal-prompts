@@ -1,7 +1,13 @@
 import { DailyPromptCard } from '@/components/home/daily-prompt-card';
 import { DailyWritingProvider } from '@/components/home/daily-writing';
 import { constructMetadata } from '@/lib/metadata';
-import { scenes } from '@/data/scenes';
+import {
+  getSceneShortAnswer,
+  sceneChanges,
+  scenePublished,
+  sceneUpdated,
+  scenes,
+} from '@/data/scenes';
 import { getTechniquesForScene } from '@/data/techniques';
 import { getReviewedPromptsByScene } from '@/lib/prompt-matcher';
 import { SceneHero } from '@/components/scene/scene-hero';
@@ -12,7 +18,12 @@ import { HowToUse } from '@/components/scene/how-to-use';
 import { SceneFAQ } from '@/components/scene/scene-faq';
 import { RelatedScenes } from '@/components/scene/related-scenes';
 import { RelatedTechniques } from '@/components/scene/related-techniques';
+import { SceneStarterPrompt } from '@/components/scene/scene-starter-prompt';
+import { ShortAnswer } from '@/components/scene/short-answer';
+import { BreadcrumbSchema } from '@/components/seo/breadcrumb-schema';
 import { FAQSchema } from '@/components/seo/faq-schema';
+import { WebPageSchema } from '@/components/seo/web-page-schema';
+import { getBaseUrl } from '@/lib/urls';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -68,18 +79,39 @@ export default async function ScenePage({
     'cbt-journaling',
   ]);
 
+  const isDaily = sceneSlug === 'daily-journal-prompts';
+  const shortAnswer = getSceneShortAnswer(sceneConfig);
+
   return (
     <>
       <FAQSchema faqs={sceneConfig.faqs} />
+      <WebPageSchema
+        type="CollectionPage"
+        name={sceneConfig.h1}
+        description={shortAnswer}
+        path={`/${sceneSlug}`}
+        datePublished={scenePublished}
+        dateModified={sceneUpdated}
+        items={prompts.map((prompt) => prompt.text)}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', href: `${getBaseUrl()}/` },
+          { name: sceneConfig.h1, href: `${getBaseUrl()}/${sceneSlug}` },
+        ]}
+      />
 
       <DailyWritingProvider>
         <SceneHero
           h1={sceneConfig.h1}
           subtitle={sceneConfig.heroSubtitle}
           slug={sceneConfig.slug}
+          starter={
+            isDaily ? undefined : <SceneStarterPrompt prompts={prompts} />
+          }
         />
 
-        {sceneSlug === 'daily-journal-prompts' && (
+        {isDaily && (
           <>
             <DailyPromptCard source="scene" />
             <p className="px-4 pb-6 text-center text-muted-foreground">
@@ -95,6 +127,8 @@ export default async function ScenePage({
           </>
         )}
       </DailyWritingProvider>
+
+      <ShortAnswer answer={shortAnswer} changes={sceneChanges} />
 
       <div id="scene-prompts" className="scroll-mt-24">
         <FeaturedPrompts

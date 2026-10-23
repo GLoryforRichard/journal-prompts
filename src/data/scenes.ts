@@ -1,3 +1,6 @@
+import { siteFactSentences } from '@/config/site-facts';
+import { getReviewedPromptsByScene } from '@/lib/prompt-matcher';
+
 export interface SceneConfig {
   slug: string;
   promptScene: string;
@@ -6,6 +9,8 @@ export interface SceneConfig {
   metaTitle: string;
   metaDescription: string;
   heroSubtitle: string;
+  /** The answer-first paragraph; `{count}` becomes the number of prompts. */
+  shortAnswer: string;
   whyTitle: string;
   whyContent: string[];
   howToUse: string[];
@@ -16,7 +21,7 @@ export interface SceneConfig {
   defaultMood?: string;
 }
 
-export const scenes: SceneConfig[] = [
+const sceneEntries: SceneConfig[] = [
   {
     slug: 'gratitude-journal-prompts',
     promptScene: 'gratitude',
@@ -27,6 +32,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 gratitude journal prompts for everyday appreciation. Notice small moments, try a specific writing example, and start your own reflection for free.',
     heroSubtitle:
       'Notice a small kindness, a useful lesson, or an ordinary moment you appreciate. Choose a gratitude prompt and put the details into words.',
+    shortAnswer:
+      'Gratitude journal prompts are questions that help you write down something specific you appreciate and why it mattered, such as a kind message or a quiet minute. This page has {count} of them. Pick one, write a few sentences about a real moment from today or this week, and skip any prompt that asks for more positivity than you feel.',
     whyTitle: 'Make Gratitude Journal Prompts Specific',
     whyContent: [
       'Gratitude journal prompts give you a place to record what you appreciate without needing an extraordinary day. A shared meal, a helpful message, or a few quiet minutes can each become a short entry. You can acknowledge a good moment while also writing honestly about a difficult day.',
@@ -96,6 +103,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 journal prompts for mental health reflection. Name feelings, describe daily challenges, and consider support or next steps at a pace that suits you.',
     heroSubtitle:
       'Find a starting point for naming feelings, describing a difficult day, or thinking about the support you need. These prompts are for reflection, not treatment.',
+    shortAnswer:
+      'Journal prompts for mental health are questions for checking in with yourself: naming a feeling, describing a hard day, or noticing what kind of support you need. This page has {count} of them. Choose one that fits your energy and write for about five minutes; you can stop at any point.',
     whyTitle: 'Use Mental Health Journal Prompts for a Check-In',
     whyContent: [
       'A check-in can begin with three concrete details: what happened, what you noticed, and what you need next. The prompts on this page give you questions to work from when a blank page feels difficult. You do not have to explain every feeling or find a solution in one entry.',
@@ -170,6 +179,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 shadow work journal prompts about reactions, assumptions, and patterns. Choose a manageable question and reflect without forcing a breakthrough.',
     heroSubtitle:
       'Reflect on reactions, assumptions, and parts of your experience you tend to avoid. Start with a manageable question and keep the depth up to you.',
+    shortAnswer:
+      'Shadow work journal prompts ask about the reactions, assumptions and habits you usually avoid looking at, such as what irritates you in other people or what you hide to be liked. This page has {count} of them, from gentle to deeper. Start with a question you can answer in a few sentences and skip anything that feels too intense.',
     whyTitle: 'Explore Reactions with Shadow Work Journal Prompts',
     whyContent: [
       'You might notice a reaction that you want to understand: feeling left out, becoming defensive, or judging someone quickly. A shadow work journal prompt gives you a question to explore that moment. Describe the situation first, then consider what you felt and what you assumed.',
@@ -237,6 +248,8 @@ export const scenes: SceneConfig[] = [
       'Browse 30 journal prompts for kids with drawing and short writing ideas. Find simple ways for parents and teachers to invite creativity without pressure.',
     heroSubtitle:
       'Give kids a fun question to answer in a drawing, a story, or a few sentences. Parents and teachers can help choose prompts that fit the child.',
+    shortAnswer:
+      'Journal prompts for kids are short, playful questions a child can answer with a drawing, a story or a few sentences. This page has {count} of them. A parent or teacher should pick the prompt, read it aloud if needed, and agree beforehand on who will read the answer.',
     whyTitle: 'Give Kids More Than One Way to Answer',
     whyContent: [
       'A child can answer a journal prompt by drawing a made-up animal, listing favorite things, or telling a short story. A specific question gives the activity a starting point. Let the child choose between a few prompts rather than requiring a personal disclosure.',
@@ -304,6 +317,8 @@ export const scenes: SceneConfig[] = [
       'Use 30 daily journal prompts to record your day, reflect on a choice, or plan a next step. Pick a free question and start a short entry right on the page.',
     heroSubtitle:
       "Pick a free prompt, write for five minutes, and make room for today's thoughts. Copy a question into your notebook or start writing right here.",
+    shortAnswer:
+      'Daily journal prompts are one short question for each day that helps you write a few lines about what happened, how you feel and what matters next. This page has {count} of them, plus a different prompt every day at the top of the page. Five minutes and a few honest sentences are enough for one entry.',
     whyTitle: 'Make Daily Journal Prompts Easy to Return To',
     whyContent: [
       'A daily prompt gives you one question to answer when you sit down to write. You might record a moment from the day, a lesson you want to remember, or something to try tomorrow. A few sentences are enough to leave a record that you can revisit.',
@@ -371,6 +386,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 journal prompts for teens about school, friendships, interests, and everyday choices. Try a response, choose what to share, and skip any question.',
     heroSubtitle:
       'Navigate the complexity of teenage life with journal prompts that meet you where you are — no judgment, just honest self-exploration.',
+    shortAnswer:
+      'Journal prompts for teens are questions about friendships, school pressure, identity and the future that a teenager can answer privately or share only if they choose. This page has {count} of them. Pick one, write freely for five minutes, and skip anything that feels too personal.',
     whyTitle: "Journal Prompts for the Things on a Teen's Mind",
     whyContent: [
       'Friends, school, family expectations, and plans for the future can all give you something to write about. These journal prompts offer starting points for describing a situation in your own words. You can explore a question without having to settle on a final answer about who you are.',
@@ -439,6 +456,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 self discovery journal prompts about values, interests, and choices. Record a specific experience, ask a question, and reflect at your own pace.',
     heroSubtitle:
       'Explore your values, interests, and choices through a specific experience. You can leave questions open and revisit your answers another day.',
+    shortAnswer:
+      'Self discovery journal prompts are questions about your values, interests and choices, answered through specific experiences rather than personality labels. This page has {count} of them. Pick one, describe a real moment, and leave the question open if you do not have an answer yet; you can come back to it another day.',
     whyTitle: 'Explore Values with Self Discovery Journal Prompts',
     whyContent: [
       'Self discovery journal prompts give you questions about the choices, interests, and relationships that matter to you. Start with a concrete example: a decision you felt good about, an activity you wanted more time for, or a situation in which you changed your mind.',
@@ -508,6 +527,8 @@ export const scenes: SceneConfig[] = [
       'Try 30 self love journal prompts about self-kindness, boundaries, and everyday care. Write a thoughtful response to yourself without forcing positive feelings.',
     heroSubtitle:
       'Practice writing to yourself with care. Explore everyday needs, boundaries, and small moments of self-kindness without forcing positive affirmations.',
+    shortAnswer:
+      'Self love journal prompts help you write to yourself with the care you would offer a friend: noticing your needs, setting a boundary or recognizing a small effort. This page has {count} of them. They do not ask for forced affirmations; write what feels honest today and skip any question that feels like pressure.',
     whyTitle: 'Write a Kinder Response with Self Love Journal Prompts',
     whyContent: [
       'Self love journal prompts can begin with an ordinary moment: a mistake, a hard conversation, or a day when you needed rest. Describe what happened, then consider what a fair and caring response to yourself could sound like. You do not have to pretend that everything went well.',
@@ -576,6 +597,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 mindfulness journal prompts for noticing sounds, sensations, and everyday moments. Try a short observation exercise and write at your own pace.',
     heroSubtitle:
       'Describe what you notice right now: a sound, a sensation, or a passing thought. Start with one observation and let a short entry be enough.',
+    shortAnswer:
+      'Mindfulness journal prompts ask you to describe what you notice right now, such as a sound, a sensation or a passing thought, without judging it. This page has {count} of them. One neutral observation in two or three sentences is a complete entry, and you do not need to feel calm to start.',
     whyTitle: 'Start with an Observation in Mindfulness Journaling',
     whyContent: [
       'Mindfulness journal prompts on this page ask you to describe your present experience. You might note the sound outside your window, the temperature of a drink, or where your attention wandered. There is no need to empty your mind or produce an insightful answer.',
@@ -645,6 +668,8 @@ export const scenes: SceneConfig[] = [
       'Try 30 morning journal prompts to note a priority, check in with yourself, or plan your day. Write a few sentences and adapt the routine to your schedule.',
     heroSubtitle:
       'Start your morning with a few lines about what is on your mind and what matters today. Choose a question and make a small, practical plan.',
+    shortAnswer:
+      'Morning journal prompts are short questions to answer when your day begins: what is on your mind, what matters today, and one small, practical plan. This page has {count} of them. Most entries take about five minutes, and there is no special hour you need to wake up for.',
     whyTitle: 'Make a Small Plan with Morning Journal Prompts',
     whyContent: [
       'A morning journal prompt can give you a moment to decide what you want to pay attention to today. You might name one priority, note how much time you have, or record something left on your mind from yesterday. The entry can be a few lines alongside your usual morning routine.',
@@ -713,6 +738,8 @@ export const scenes: SceneConfig[] = [
       'Browse 30 fun journal prompts for playful stories, imaginary situations, and creative lists. Pick a free idea to write about without needing a serious topic.',
     heroSubtitle:
       'Because journaling should sometimes just be fun. Playful, creative, no-pressure prompts for when you want to write and actually enjoy it.',
+    shortAnswer:
+      'Fun journal prompts are playful, low-pressure questions, such as imaginary scenarios, favorite things or silly what-ifs, for when you want to write and enjoy it. This page has {count} of them. A short or silly answer is enough; nothing has to be deep or improve a skill.',
     whyTitle: 'Use Fun Journal Prompts to Play with an Idea',
     whyContent: [
       'A journal entry does not have to explain your feelings or solve a problem. Fun prompts invite you to invent a character, imagine an unlikely situation, or make an amusing list. You can write for enjoyment without finding a lesson in the result.',
@@ -780,6 +807,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 deep journal prompts about values, identity, relationships, and meaning. Choose a question, write at your own pace, and leave room for uncertainty.',
     heroSubtitle:
       "Go beyond the surface with prompts that challenge you to explore life's biggest questions — identity, purpose, mortality, and meaning.",
+    shortAnswer:
+      'Deep journal prompts are open questions about identity, purpose, relationships and meaning that do not have quick answers. This page has {count} of them. Pick one, write what you think today, and stop or switch to a lighter prompt whenever you need to; an unfinished answer is still a useful entry.',
     whyTitle: 'Leave Room for Open Questions with Deep Journal Prompts',
     whyContent: [
       'Deep journal prompts focus on questions about values, identity, relationships, and meaning. You might consider a belief you have changed, a choice you still think about, or what matters to you now. A question can stay open; an entry does not need a final answer.',
@@ -847,6 +876,8 @@ export const scenes: SceneConfig[] = [
       'Browse 30 journal prompts for middle school about school, friendships, and everyday choices. Find short writing ideas with guidance for teachers and parents.',
     heroSubtitle:
       "Navigate the ups and downs of middle school with journal prompts that get what you're going through — no lectures, just real questions.",
+    shortAnswer:
+      'Journal prompts for middle school are questions about friendships, school, family and growing up, written for students in grades 6 to 8. This page has {count} of them. Teachers and parents should preview the prompts, explain who will read the answers, and let students choose a less personal question.',
     whyTitle: 'Make Middle School Journal Prompts Flexible',
     whyContent: [
       'A middle school journal can hold a short account of the day, a question about friendship, or an idea for a story. These prompts offer specific starting points around school and everyday experiences. Students can choose a question that fits instead of being asked to share their most personal thoughts.',
@@ -915,6 +946,8 @@ export const scenes: SceneConfig[] = [
       'Explore 30 journal prompts for high school about interests, friendships, school, and future plans. Choose a reflection with optional sharing and no grades.',
     heroSubtitle:
       'Process the pressure, explore your identity, and figure out what actually matters to you — with prompts designed for the high school experience.',
+    shortAnswer:
+      'Journal prompts for high school are questions about pressure, identity, relationships and decisions about the future, written for students in grades 9 to 12. This page has {count} of them. A personal entry is not a graded performance; students should know who can read it and be free to pick a less personal prompt.',
     whyTitle: 'Use High School Journal Prompts for Choices and Reflection',
     whyContent: [
       'High school journal prompts can start a reflection about a class, friendship, decision, or future plan. You might list the options you are considering, describe an experience you want to remember, or note a question to discuss with someone you trust.',
@@ -979,3 +1012,62 @@ export const scenes: SceneConfig[] = [
     defaultMood: 'reflective',
   },
 ];
+
+export const youthSceneSlugs = new Set([
+  'journal-prompts-for-kids',
+  'journal-prompts-for-teens',
+  'journal-prompts-for-middle-school',
+  'journal-prompts-for-high-school',
+]);
+
+/**
+ * Dated log shown on every scene page, newest first. All 14 pages were
+ * published and rewritten together; give a page its own entry when only that
+ * page changes. The first date is the page's `dateModified`.
+ */
+export const sceneChanges = [
+  {
+    date: '2026-10-23',
+    text: 'Added this short answer and an answer about asking ChatGPT for prompts.',
+  },
+  {
+    date: '2026-09-14',
+    text: 'Rewrote the writing guidance and the FAQ answers.',
+  },
+  { date: '2026-03-17', text: 'Page published.' },
+];
+
+export const scenePublished = sceneChanges[sceneChanges.length - 1].date;
+export const sceneUpdated = sceneChanges[0].date;
+
+function promptCount(scene: SceneConfig) {
+  return getReviewedPromptsByScene(scene.promptScene).length;
+}
+
+/** The short answer with the real prompt count and the shared fact sentences. */
+export function getSceneShortAnswer(scene: SceneConfig): string {
+  const specific = scene.shortAnswer.replace(
+    '{count}',
+    String(promptCount(scene))
+  );
+  return youthSceneSlugs.has(scene.slug)
+    ? `${specific} The prompts are free to read and copy, and no account is needed.`
+    : `${specific} ${siteFactSentences.free} ${siteFactSentences.guestStorage}`;
+}
+
+// People increasingly ask a chatbot for prompts first; answer that directly.
+function chatbotFaq(scene: SceneConfig) {
+  const topic = scene.h1.toLowerCase();
+  const lastSentence = youthSceneSlugs.has(scene.slug)
+    ? 'Because the set stays the same, a parent or teacher can preview every prompt before a student sees it.'
+    : siteFactSentences.guestStorage;
+  return {
+    question: `Can I just ask ChatGPT for ${topic}?`,
+    answer: `You can, and you will usually get a long list in a few seconds. This page is a fixed set of ${promptCount(scene)} ${topic}, and you can write under any of them right here instead of copying it into a notebook or another app. ${lastSentence}`,
+  };
+}
+
+export const scenes: SceneConfig[] = sceneEntries.map((scene) => ({
+  ...scene,
+  faqs: [...scene.faqs, chatbotFaq(scene)],
+}));

@@ -1,14 +1,17 @@
 import { SceneIcon } from '@/components/ui/scene-icon';
 import { wobblyBorderRadius } from '@/lib/design-tokens';
+import type { ReactNode } from 'react';
 import { SceneActions } from './scene-cta';
 
 interface SceneHeroProps {
   h1: string;
   subtitle: string;
   slug: string;
+  /** A prompt to write about right away; replaces the "start writing" link. */
+  starter?: ReactNode;
 }
 
-export function SceneHero({ h1, subtitle, slug }: SceneHeroProps) {
+export function SceneHero({ h1, subtitle, slug, starter }: SceneHeroProps) {
   return (
     <section className="py-12 md:py-16 text-center px-4">
       <div className="max-w-3xl mx-auto space-y-6">
@@ -43,7 +46,8 @@ export function SceneHero({ h1, subtitle, slug }: SceneHeroProps) {
         >
           {subtitle}
         </p>
-        <SceneActions sceneSlug={slug} />
+        {starter}
+        <SceneActions sceneSlug={slug} showStart={!starter} />
       </div>
     </section>
   );

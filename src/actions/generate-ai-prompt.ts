@@ -1,5 +1,9 @@
 'use server';
 
+import {
+  FREE_DAILY_AI_PROMPTS as DAILY_LIMIT_FREE,
+  PAID_DAILY_AI_PROMPTS as DAILY_LIMIT_PAID,
+} from '@/config/site-facts';
 import { creditTransaction } from '@/db/app.schema';
 import { getDb } from '@/db/index';
 import type { SessionUser } from '@/lib/auth-types';
@@ -10,8 +14,6 @@ import { and, eq, gte, sql } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
-const DAILY_LIMIT_FREE = 3;
-const DAILY_LIMIT_PAID = 100;
 const AI_GENERATION_TYPE = 'AI_GENERATION';
 
 const generateSchema = z.object({
